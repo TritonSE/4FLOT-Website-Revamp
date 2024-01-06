@@ -7,8 +7,7 @@
     "start": "nodemon src/server.ts",
     "format": "prettier --write .",
     "lint-fix": "(eslint --fix --cache --report-unused-disable-directives . || true) && prettier --write .",
-    "lint-check": "eslint --cache --report-unused-disable-directives --max-warnings 0 . && prettier --check .",
-    "prepare": "cd .. && husky install .husky"
+    "lint-check": "eslint --cache --report-unused-disable-directives --max-warnings 0 . && prettier --check ."
   },
   "keywords": [],
   "author": "",
@@ -27,7 +26,11 @@
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
+    "nodemon": "^3.0.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.3.3"
+  },
+  "_moduleAliases": {
+    "src": "src"
   }
 }
