@@ -17,7 +17,7 @@ Other Tools: Git, Postman
 ### Frontend
 - ```cd frontend``` to change to the frontend directory
 - ```npm install``` to install dependencies
-- ```npm start``` to run frontend
+- ```npm run dev``` to run frontend
 
 ### Linting
 Frontend and backend directories have access to the following commands to check and fix linting issues.
