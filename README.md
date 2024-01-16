@@ -22,5 +22,5 @@ Other Tools: Git, Postman
 ### Linting
 Frontend and backend directories have access to the following commands to check and fix linting issues.
 - ```npm run lint-check``` runs lint checks on your code.
-- ```npm run lint-fix fixes``` any automatically fixable lint errors.
-- ```npm run format runs code``` formatting checks and fixes any formatting errors.
+- ```npm run lint-fix``` fixes any automatically fixable lint errors.
+- ```npm run format``` runs code formatting checks and fixes any formatting errors.
