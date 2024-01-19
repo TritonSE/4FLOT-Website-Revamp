@@ -1,0 +1,17 @@
+name: Backend - lint and style checks
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  name: Backend check
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+    - working-directory: backend
+      run: |
+        npm ci
+        npm run lint-check
