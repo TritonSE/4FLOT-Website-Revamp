@@ -1,8 +1,41 @@
 .footer {
-    background-color: #743EB6;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    height: 525px;
-  }
-  
+  box-sizing: border-box;
+  background-color: #743eb6;
+  color: white;
+  bottom: 0px;
+  padding: 0;
+  margin: 0;
+  height: 525px;
+}
+
+.container {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns with equal width */
+  grid-template-rows: repeat(2, 1fr); /* 2 rows with equal height */
+}
+
+.newsletterDiv {
+  margin: 0;
+  padding: 0;
+  background-color: red;
+}
+.logoDiv {
+  margin: 0;
+  padding: 0;
+  background-color: blue;
+}
+.linkDiv {
+  margin: 0;
+  padding: 0;
+  background-color: green;
+}
+.copyrightDiv {
+  margin: 0;
+  padding: 0;
+  background-color: purple;
+}
