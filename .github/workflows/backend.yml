@@ -6,12 +6,13 @@ on:
       - main
 
 jobs:
-  name: Backend check
-  runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-    - working-directory: backend
-      run: |
-        npm ci
-        npm run lint-check
+  backend:
+    name: Backend check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - working-directory: backend
+        run: |
+          npm ci
+          npm run lint-check
