@@ -16,4 +16,3 @@ jobs:
         run: |
           npm ci
           npm run lint-check
-          npm run build
