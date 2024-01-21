@@ -1,0 +1,291 @@
+/* Desktop */
+
+/* Auto layout */
+.headerBar {
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 96px;
+  gap: 10px;
+
+  position: absolute;
+  width: 1440px;
+  height: 107px;
+  left: calc(50% - 1440px / 2);
+  top: 0px;
+
+  background: #ffffff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Logo */
+
+.logo {
+  margin: 0 auto;
+  width: 196px;
+  height: 69.54px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+/* 4 FUTURE LEADERS OF TOMORROW */
+
+.subtitle {
+  position: absolute;
+  width: 194px;
+  height: 14px;
+  left: 0px;
+  top: 55.45px;
+
+  font-family: "Roboto Slab";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 10.6806px;
+  line-height: 14px;
+  /* identical to box height */
+  letter-spacing: 0.03em;
+
+  color: #000000;
+}
+
+/* Vector 15 */
+
+.vector15 {
+  position: absolute;
+  width: 22.44px;
+  height: 36.12px;
+  left: 23.73px;
+  top: 11.96px;
+
+  background: #a0c7ef;
+  border: 1.26126px solid #0370bb;
+}
+
+/* Vector 16 */
+
+.vector16 {
+  position: absolute;
+  width: 27.59px;
+  height: 35.99px;
+  left: 15.48px;
+  top: 11.98px;
+
+  background: #dfc5ff;
+  border: 1.26126px solid #743eb6;
+}
+
+/* 4FLOT */
+.title {
+  position: absolute;
+  width: 143px;
+  height: 59px;
+  left: 53.74px;
+  top: 0px;
+
+  font-family: "Roboto Slab";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 44.8812px;
+  line-height: 59px;
+  text-align: center;
+  letter-spacing: 0.01em;
+
+  color: #743eb6;
+}
+
+/* Frame 85 */
+
+.frame85 {
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0px;
+  gap: 48px;
+
+  margin: 0 auto;
+  width: 541px;
+  height: 48px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+/* About Us */
+.aboutUs {
+  width: 75px;
+  height: 24px;
+
+  /* Body/Normal (Bold) */
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 150%;
+  /* identical to box height, or 24px */
+  letter-spacing: 0.02em;
+
+  color: #000000;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+/* Get Involved */
+
+.getInvolved {
+  width: 105px;
+  height: 24px;
+
+  /* Body/Normal (Bold) */
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 150%;
+  /* identical to box height, or 24px */
+  letter-spacing: 0.02em;
+
+  color: #000000;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+/* Our Impact */
+
+.ourImpact {
+  width: 94px;
+  height: 24px;
+
+  /* Body/Normal (Bold) */
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 150%;
+  /* identical to box height, or 24px */
+  letter-spacing: 0.02em;
+
+  color: #000000;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+}
+
+/* Button */
+
+.button {
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  gap: 10px;
+
+  width: 123px;
+  height: 48px;
+
+  /* Primary */
+  background: #743eb6;
+  border-radius: 4px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 3;
+  flex-grow: 0;
+}
+
+/* Opacity*/
+
+/* Auto layout */
+
+.opacity {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 24px;
+  gap: 6px;
+
+  width: 123px;
+  height: 48px;
+
+  border-radius: 4px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 1;
+}
+
+/* Icon Placeholder */
+
+/* .iconPlaceholder{
+display: none;
+width: 24px;
+height: 24px; */
+
+/* Inside auto layout */
+/* flex: none;
+order: 0;
+flex-grow: 0;
+} */
+
+/* Button */
+
+.innerButton {
+  width: 75px;
+  height: 30px;
+}
+
+/* Body/Medium (Bold) */
+.buttonBody {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 150%;
+
+  /* identical to box height, or 30px */
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.02em;
+
+  /* Neutral/White */
+  color: #ffffff;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+/* Icon Placeholder */
+
+/* display: none;
+width: 24px;
+height: 24px; */
+
+/* Inside auto layout */
+/* flex: none;
+order: 2;
+flex-grow: 0; 
+*/
