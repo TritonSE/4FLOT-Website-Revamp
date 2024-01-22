@@ -1,8 +1,12 @@
+/* Imports Open Sans from Google fonts*/
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400&display=swap");
+
 .footer {
   box-sizing: border-box;
   background-color: #743eb6;
   color: white;
-  bottom: 0px;
+  position: relative;
+  bottom: 0;
   padding: 0;
   margin: 0;
   height: 525px;
@@ -24,18 +28,41 @@
   padding: 0;
   background-color: red;
 }
+
 .logoDiv {
   margin: 0;
-  padding: 0;
-  background-color: blue;
+  padding: 96px;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
 }
+
+.logoImage {
+  margin-right: 46px;
+}
+
+.facebookLogo {
+  margin-right: 32px;
+}
+
 .linkDiv {
   margin: 0;
   padding: 0;
   background-color: green;
 }
+
 .copyrightDiv {
   margin: 0;
-  padding: 0;
-  background-color: purple;
+  padding: 96px;
+}
+
+.copyrightText {
+  white-space: pre-line;
+  /* Body/Medium (Reg) */
+  font-family: "Open Sans";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 120% */
 }
