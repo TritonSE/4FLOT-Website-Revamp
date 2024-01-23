@@ -1,12 +1,11 @@
-/* Imports Open Sans from Google fonts*/
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400&display=swap");
+/* Imports Open Sans from Google fonts with relevant weights*/
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap");
 
+/* ------ CONTAINERS ------ */
 .footer {
   box-sizing: border-box;
   background-color: #743eb6;
   color: white;
-  position: relative;
-  bottom: 0;
   padding: 0;
   margin: 0;
   height: 525px;
@@ -14,7 +13,7 @@
 
 .container {
   margin: 0;
-  padding: 0;
+  padding: 77px 96px 140px;
   width: 100%;
   max-width: 100%;
   height: 100%;
@@ -23,20 +22,103 @@
   grid-template-rows: repeat(2, 1fr); /* 2 rows with equal height */
 }
 
+/* ------ QUADS ------ */
 .newsletterDiv {
+  /* DEBUG COLOR */
+  /* background-color: red; */
   margin: 0;
   padding: 0;
+  padding-right: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
 }
 
 .logoDiv {
+  /* DEBUG COLOR */
+  /* background-color: green; */
   margin: 0;
-  padding: 96px;
+  padding: 0;
+  padding-right: 60px;
   display: flex;
   flex-direction: row;
   justify-content: left;
   align-items: center;
 }
 
+.linkDiv {
+  /* DEBUG COLOR */
+  /* background-color: blue; */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 23px;
+}
+
+.copyrightDiv {
+  /* DEBUG COLOR */
+  /* background-color: purple; */
+  margin: 0;
+  /* Changed padding from 96px to 0 to debug formatting */
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+}
+
+/* ------ CONTENT ------ */
+/* NEWSLETTER CONTENT */
+.newsletter-text {
+  margin: 0;
+  padding: 0;
+  /* Title/Medium */
+  font-family: "Open Sans";
+  font-style: normal;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 42px;
+  letter-spacing: 0.02em;
+  text-align: left;
+}
+
+.subscriptionForm {
+  margin: 28px 0 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  width: 580px;
+  height: 48px;
+  column-gap: 2%;
+}
+
+.input-box {
+  width: 73%;
+  height: inherit;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.input-button {
+  width: 25%;
+  height: inherit;
+  border-radius: 4px;
+  background: #f67659;
+
+  /* Body/Medium (Bold) */
+  font-family: "Open Sans";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 30px */
+  letter-spacing: 0.4px;
+}
+
+/* LOGO CONTENT */
 .logoImage {
   margin-right: 46px;
 }
@@ -45,18 +127,36 @@
   margin-right: 32px;
 }
 
-.linkDiv {
+.input-button:hover {
+  color: orange;
+  background-color: white;
+}
+
+/* LINK CONTENT */
+.linkRow {
   margin: 0;
   padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 
-.copyrightDiv {
+.link {
   margin: 0;
-  padding: 96px;
+  padding: 0;
+  text-align: left; /* Left-align text within each link */
 }
 
-.copyrightText {
-  white-space: pre-line;
+.boldLink {
+  /* Body/Medium (Bold) */
+  font-family: "Open Sans";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 30px */
+  letter-spacing: 0.4px;
+}
+
+.normalLink {
   /* Body/Medium (Reg) */
   font-family: "Open Sans";
   font-size: 20px;
@@ -65,64 +165,13 @@
   line-height: 24px; /* 120% */
 }
 
-.linkDiv {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: center;
-  height: 50%; /* 50% of the viewport height */
-  width: 60%; /* 60% of the parent container width */
-  margin: auto; /* Center horizontally within its parent */
-}
-
-
-.linkDiv div {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  padding: 10px;
-}
-
-.linkDiv a {
-  padding: 4px;
-  font-family: Open Sans;
-  font-size: 16px; 
-  text-align: left; /* Left-align text within each link */
-}
-
-.newsletterDiv{
-  justify-content: center;
-  height: 50%; /* 50% of the viewport height */
-  width: 70%; /* 60% of the parent container width */
-  margin: auto; /* Center horizontally within its parent */
-}
-
-.newsletter-text{
-  font-size: 28px;
-  font-weight: 700;
-  line-height: 42px;
-  letter-spacing: 0.02em;
-  text-align: left;
-  margin-bottom: 10px;
-}
-
-.input-box {
-  width: 424px;
-  height: 48px;
-  border-radius: 4px;
-  padding: 10px; /* Adjust padding as needed */
-  border: 1px solid #ccc;
-}
-
-.input-button {
-  width: 148px;
-  height: 48px;
-  border-radius: 4px;
-  background-color: orange;
-  margin-left: 20px;
-}
-
-.input-button:hover {
-  color: orange;
-  background-color: white;
+/* COPYRIGHT CONTENT */
+.copyrightText {
+  white-space: pre-line;
+  /* Body/Medium (Reg) */
+  font-family: "Open Sans";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 120% */
 }

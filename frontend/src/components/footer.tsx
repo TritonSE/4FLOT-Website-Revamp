@@ -11,32 +11,57 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="container">
+        {/* NEWSLETTER QUAD */}
         <div className="newsletterDiv">
           <p className="newsletter-text">Join our newsletter to stay updated!</p>
-          <div className="subscription-form">
-            <input type="email" id="email" placeholder="Enter your email" className="input-box"/>
-            <button type="button" id="subscribe-btn" className="input-button">Subscribe</button>
+          <div className="subscriptionForm">
+            <input type="email" id="email" placeholder="Enter your email" className="input-box" />
+            <button type="button" id="subscribe-btn" className="input-button">
+              Subscribe
+            </button>
           </div>
         </div>
+
+        {/* LINK QUAD */}
         <div className="linkDiv">
-          <div>
-            <a href="#1">About Us</a>
-            <a href="#2">Get Involved</a>
-            <a href="#3">Our Impact</a>
+          <div className="linkRow">
+            <a className="link boldLink" href="#1">
+              About Us
+            </a>
+            <a className="link boldLink" href="#2">
+              Get Involved
+            </a>
+            <a className="link boldLink" href="#3">
+              Our Impact
+            </a>
           </div>
-          
-          <div>
-            <a href="#4">Our Mission</a>
-            <a href="#5">Upcoming Events</a>
-            <a href="#6">Testimonials</a>
+
+          <div className="linkRow">
+            <a className="link normalLink" href="#4">
+              Our Mission
+            </a>
+            <a className="link normalLink" href="#5">
+              Upcoming Events
+            </a>
+            <a className="link normalLink" href="#6">
+              Testimonials
+            </a>
           </div>
-          
-          <div>
-            <a href="#7">Contact Us</a>
-            <a href="#8">Donate</a>
-            <a href="#9">Newsletter</a>
+
+          <div className="linkRow">
+            <a className="link normalLink" href="#7">
+              Contact Us
+            </a>
+            <a className="link normalLink" href="#8">
+              Donate
+            </a>
+            <a className="link normalLink" href="#9">
+              Newsletter
+            </a>
           </div>
         </div>
+
+        {/* LOGO QUAD */}
         <div className="logoDiv">
           <Image
             width={262}
@@ -64,6 +89,8 @@ const Footer = () => {
             />
           </a>
         </div>
+
+        {/* COPYRIGHT QUAD */}
         <div className="copyrightDiv">
           <p className="copyrightText">{copyrightMessage}</p>
         </div>
