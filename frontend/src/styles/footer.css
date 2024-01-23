@@ -26,7 +26,6 @@
 .newsletterDiv {
   margin: 0;
   padding: 0;
-  background-color: red;
 }
 
 .logoDiv {
@@ -49,7 +48,6 @@
 .linkDiv {
   margin: 0;
   padding: 0;
-  background-color: green;
 }
 
 .copyrightDiv {
@@ -65,4 +63,66 @@
   font-style: normal;
   font-weight: 400;
   line-height: 24px; /* 120% */
+}
+
+.linkDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  height: 50%; /* 50% of the viewport height */
+  width: 60%; /* 60% of the parent container width */
+  margin: auto; /* Center horizontally within its parent */
+}
+
+
+.linkDiv div {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 10px;
+}
+
+.linkDiv a {
+  padding: 4px;
+  font-family: Open Sans;
+  font-size: 16px; 
+  text-align: left; /* Left-align text within each link */
+}
+
+.newsletterDiv{
+  justify-content: center;
+  height: 50%; /* 50% of the viewport height */
+  width: 70%; /* 60% of the parent container width */
+  margin: auto; /* Center horizontally within its parent */
+}
+
+.newsletter-text{
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 42px;
+  letter-spacing: 0.02em;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.input-box {
+  width: 424px;
+  height: 48px;
+  border-radius: 4px;
+  padding: 10px; /* Adjust padding as needed */
+  border: 1px solid #ccc;
+}
+
+.input-button {
+  width: 148px;
+  height: 48px;
+  border-radius: 4px;
+  background-color: orange;
+  margin-left: 20px;
+}
+
+.input-button:hover {
+  color: orange;
+  background-color: white;
 }
