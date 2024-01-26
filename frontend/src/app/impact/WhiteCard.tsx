@@ -1,15 +1,14 @@
 // WhiteCard.tsx
-
+import Image from "next/image";
 import React from "react";
 import "./white-card.css"; // Import the CSS file for the white cards
-import Image from "next/image";
 
-interface WhiteCardProps {
+type WhiteCardProps = {
   title: string;
   description: string;
   verticalPosition: string; // Accepts a percentage value for vertical position
   imageUrl: string;
-}
+};
 
 const WhiteCard: React.FC<WhiteCardProps> = ({
   title,
