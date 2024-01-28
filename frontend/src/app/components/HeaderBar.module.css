@@ -53,32 +53,6 @@
   color: #000000;
 }
 
-/* Vector 15 */
-
-.vector15 {
-  position: absolute;
-  width: 22.44px;
-  height: 36.12px;
-  left: 23.73px;
-  top: 11.96px;
-
-  background: #a0c7ef;
-  border: 1.26126px solid #0370bb;
-}
-
-/* Vector 16 */
-
-.vector16 {
-  position: absolute;
-  width: 27.59px;
-  height: 35.99px;
-  left: 15.48px;
-  top: 11.98px;
-
-  background: #dfc5ff;
-  border: 1.26126px solid #743eb6;
-}
-
 /* 4FLOT */
 .title {
   position: absolute;

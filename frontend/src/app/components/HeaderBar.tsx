@@ -6,10 +6,7 @@ export const HeaderBar = () => {
   return (
     <div className={styles.headerBar}>
       <div className={styles.logo}>
-        <img className={styles.vector15} src="/Vector 15.svg" alt="Left Hand"></img>
-        <img className={styles.vector16} src="/Vector 16.svg" alt="Right Hand"></img>
-        <span className={styles.title}>4FLOT</span>
-        <span className={styles.subtitle}>4 FUTURE LEADERS OF TOMORROW</span>
+        <img className={styles.logo} src="/Color=Default.svg" alt="Default Logo"></img>
       </div>
       <div className={styles.frame85}>
         <span className={styles.aboutUs}>About Us</span>
