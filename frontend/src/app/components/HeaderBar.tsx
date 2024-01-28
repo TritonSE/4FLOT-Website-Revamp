@@ -1,5 +1,4 @@
 import React from "react";
-
 import styles from "./HeaderBar.module.css";
 
 export const HeaderBar = () => {
@@ -9,9 +8,34 @@ export const HeaderBar = () => {
         <img className={styles.logo} src="/Color=Default.svg" alt="Default Logo"></img>
       </div>
       <div className={styles.frame85}>
-        <span className={styles.aboutUs}>About Us</span>
-        <span className={styles.getInvolved}>Get Involved</span>
-        <span className={styles.ourImpact}>Our Impact</span>
+        {/* Use the dropdown styles for "About Us" */}
+        <div className={`${styles.aboutUs} ${styles.dropdown}`}>
+          About Us
+          <div className={styles.aboutUsDropdown}>
+            <a href="#">Our Mission</a>
+            <a href="#">Our Team</a>
+            <a href="#">Contact</a>
+          </div>
+        </div>
+
+        {/* Use the dropdown styles for "get Involved" */}
+        <div className={`${styles.getInvolved} ${styles.dropdown}`}>
+          Get Involved
+          <div className={styles.getInvolvedDropdown}>
+            <a href="#">Upcoming Events</a>
+            <a href="#">Donate</a>
+          </div>
+        </div>
+
+        {/* Use the dropdown styles for "Our Impact" */}
+        <div className={`${styles.ourImpact} ${styles.dropdown}`}>
+          Our Impact
+          <div className={styles.ourImpactDropdown}>
+            <a href="#">Testimonials</a>
+            <a href="#">Newsletter</a>
+          </div>
+        </div>
+
         <div className={styles.button}>
           <div className={styles.opacity}>
             <button className={styles.innerButton}>

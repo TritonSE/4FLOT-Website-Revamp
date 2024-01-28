@@ -44,15 +44,11 @@
   justify-content: flex-end;
   align-items: center;
   padding: 0px;
-  gap: 48px;
+  gap: 50px;
 
-  margin: 0 auto;
+  margin-left: 705px;
   width: 541px;
   height: 48px;
-
-  /* flex: none;
-  order: 1;
-  flex-grow: 0; */
 }
 
 /* About Us */
@@ -61,20 +57,20 @@
   height: 24px;
 
   /* Body/Normal (Bold) */
-  font-family: "Open Sans";
+  font-family: "Open Sans", sans-serif;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 700; /* Adjusted to 700 as per the provided specifications */
   font-size: 16px;
-  line-height: 150%;
-  /* identical to box height, or 24px */
-  letter-spacing: 0.02em;
+  line-height: 24px; /* Adjusted to match the provided line height */
+  letter-spacing: 0.03em;
+  text-decoration: none;
 
   color: #000000;
 
   /* Inside auto layout */
-  /* flex: none;
+  flex: none;
   order: 0;
-  flex-grow: 0; */
+  flex-grow: 0;
 }
 
 /* Get Involved */
@@ -84,20 +80,19 @@
   height: 24px;
 
   /* Body/Normal (Bold) */
-  font-family: "Open Sans";
+  font-family: "Open Sans", sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 16px;
-  line-height: 150%;
-  /* identical to box height, or 24px */
-  letter-spacing: 0.02em;
+  line-height: 24px; /* Adjusted to match the provided line height */
+  letter-spacing: 0.03em;
 
   color: #000000;
 
   /* Inside auto layout */
-  /* flex: none;
+  flex: none;
   order: 1;
-  flex-grow: 0; */
+  flex-grow: 0;
 }
 
 /* Our Impact */
@@ -107,50 +102,24 @@
   height: 24px;
 
   /* Body/Normal (Bold) */
-  font-family: "Open Sans";
+  font-family: "Open Sans", sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 16px;
-  line-height: 150%;
-  /* identical to box height, or 24px */
-  letter-spacing: 0.02em;
+  line-height: 24px; /* Adjusted to match the provided line height */
+  letter-spacing: 0.03em;
 
   color: #000000;
 
   /* Inside auto layout */
-  /* flex: none;
+  flex: none;
   order: 2;
-  flex-grow: 0; */
+  flex-grow: 0;
 }
 
 /* Button */
 
-.button {
-  /* Auto layout */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 0px;
-  gap: 10px;
-
-  /* width: Hug (123px);
-  height: Fixed (48px);
-  border-radius: 4px;
-  gap: 10px; */
-
-  /* width: 123px;
-  height: 48px; */
-
-  /* Primary */
-  background: #694c97;
-  border-radius: 4px;
-
-  /* Inside auto layout */
-  /* flex: none;
-  order: 3;
-  flex-grow: 0; */
-}
+/* Button */
 
 /* Opacity*/
 
@@ -168,32 +137,19 @@
   height: 48px;
 
   border-radius: 4px;
-
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  align-self: stretch;
-  flex-grow: 1;
 }
-
-/* Icon Placeholder */
-
-/* .iconPlaceholder{
-display: none;
-width: 24px;
-height: 24px; */
-
-/* Inside auto layout */
-/* flex: none;
-order: 0;
-flex-grow: 0;
-} */
 
 /* Button */
 
-.innerButton {
-  width: 75px;
-  height: 30px;
+.button {
+  /* Auto layout */
+  padding: 0px;
+  gap: 10px;
+
+  /* Primary */
+  background: #694c97;
+  border-radius: 4px;
+  order: 3; /* Adjust the order as needed */
 }
 
 /* Body/Medium (Bold) */
@@ -205,28 +161,110 @@ flex-grow: 0;
   line-height: 150%;
 
   /* identical to box height, or 30px */
-  display: flex;
-  align-items: center;
-  text-align: center;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
 
   /* Neutral/White */
   color: #ffffff;
-
-  /* Inside auto layout */
-  flex: none;
-  order: 1;
-  flex-grow: 0;
 }
 
-/* Icon Placeholder */
+/* Dropdown styles about us */
+.aboutUsDropdown {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  width: 156px; /* Set your preferred width */
+  max-height: 163px; /* Set your preferred max height */
+  overflow-y: auto; /* Enable vertical scroll if content exceeds max height */
+}
 
-/* display: none;
-width: 24px;
-height: 24px; */
+.aboutUs:hover {
+  color: #743eb6; /* Set your preferred hover color */
+}
 
-/* Inside auto layout */
-/* flex: none;
-order: 2;
-flex-grow: 0; 
-*/
+.aboutUs:hover .aboutUsDropdown {
+  display: block;
+}
+
+.aboutUsDropdown a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.aboutUsDropdown a:hover {
+  background-color: #f1f1f1;
+}
+
+/* Dropdown styles getinvolved */
+.getInvolvedDropdown {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  width: 202px; /* Set your preferred width */
+  max-height: 104px; /* Set your preferred max height */
+  overflow-y: auto; /* Enable vertical scroll if content exceeds max height */
+}
+
+.getInvolved:hover {
+  color: #743eb6; /* Set your preferred hover color */
+}
+
+.getInvolved:hover .getInvolvedDropdown {
+  display: block;
+}
+
+.getInvolvedDropdown a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.getInvolvedDropdown a:hover {
+  background-color: #f1f1f1;
+}
+
+/* Dropdown styles our impact */
+.ourImpactDropdown {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  width: 167px; /* Set your preferred width */
+  max-height: 104px; /* Set your preferred max height */
+  overflow-y: auto; /* Enable vertical scroll if content exceeds max height */
+}
+
+.ourImpact:hover {
+  color: #743eb6; /* Set your preferred hover color */
+}
+
+.ourImpact:hover .ourImpactDropdown {
+  display: block;
+}
+
+.ourImpactDropdown a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.ourImpactDropdown a:hover {
+  background-color: #f1f1f1;
+}
