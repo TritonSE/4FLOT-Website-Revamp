@@ -9,7 +9,7 @@ export const HeaderBar = () => {
       </div>
       <div className={styles.frame85}>
         {/* Use the dropdown styles for "About Us" */}
-        <div className={`${styles.aboutUs} ${styles.dropdown}`}>
+        <div className={styles.aboutUs}>
           About Us
           <div className={styles.aboutUsDropdown}>
             <a href="#">Our Mission</a>
@@ -19,7 +19,7 @@ export const HeaderBar = () => {
         </div>
 
         {/* Use the dropdown styles for "get Involved" */}
-        <div className={`${styles.getInvolved} ${styles.dropdown}`}>
+        <div className={styles.getInvolved}>
           Get Involved
           <div className={styles.getInvolvedDropdown}>
             <a href="#">Upcoming Events</a>
@@ -28,7 +28,7 @@ export const HeaderBar = () => {
         </div>
 
         {/* Use the dropdown styles for "Our Impact" */}
-        <div className={`${styles.ourImpact} ${styles.dropdown}`}>
+        <div className={styles.ourImpact}>
           Our Impact
           <div className={styles.ourImpactDropdown}>
             <a href="#">Testimonials</a>
@@ -38,7 +38,7 @@ export const HeaderBar = () => {
 
         <div className={styles.button}>
           <div className={styles.opacity}>
-            <button className={styles.innerButton}>
+            <button>
               <span className={styles.buttonBody}>Donate</span>
             </button>
           </div>
