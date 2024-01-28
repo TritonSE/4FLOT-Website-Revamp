@@ -13,7 +13,7 @@
   position: absolute;
   width: 1440px;
   height: 107px;
-  left: calc(50% - 1440px / 2);
+  /* left: calc(50% - 1440px / 2); */
   top: 0px;
 
   background: #ffffff;
@@ -23,59 +23,22 @@
 /* Logo */
 
 .logo {
-  margin: 0 auto;
+  /* margin: 0 auto; */
   width: 196px;
   height: 69.54px;
 
+  position: absolute;
+  left: 47px;
+
   /* Inside auto layout */
-  flex: none;
+  /* flex: none;
   order: 0;
-  flex-grow: 0;
-}
-
-/* 4 FUTURE LEADERS OF TOMORROW */
-
-.subtitle {
-  position: absolute;
-  width: 194px;
-  height: 14px;
-  left: 0px;
-  top: 55.45px;
-
-  font-family: "Roboto Slab";
-  font-style: normal;
-  font-weight: 300;
-  font-size: 10.6806px;
-  line-height: 14px;
-  /* identical to box height */
-  letter-spacing: 0.03em;
-
-  color: #000000;
-}
-
-/* 4FLOT */
-.title {
-  position: absolute;
-  width: 143px;
-  height: 59px;
-  left: 53.74px;
-  top: 0px;
-
-  font-family: "Roboto Slab";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 44.8812px;
-  line-height: 59px;
-  text-align: center;
-  letter-spacing: 0.01em;
-
-  color: #743eb6;
+  flex-grow: 0; */
 }
 
 /* Frame 85 */
 
 .frame85 {
-  /* Auto layout */
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -87,10 +50,9 @@
   width: 541px;
   height: 48px;
 
-  /* Inside auto layout */
-  flex: none;
+  /* flex: none;
   order: 1;
-  flex-grow: 0;
+  flex-grow: 0; */
 }
 
 /* About Us */
@@ -110,9 +72,9 @@
   color: #000000;
 
   /* Inside auto layout */
-  flex: none;
+  /* flex: none;
   order: 0;
-  flex-grow: 0;
+  flex-grow: 0; */
 }
 
 /* Get Involved */
@@ -133,9 +95,9 @@
   color: #000000;
 
   /* Inside auto layout */
-  flex: none;
+  /* flex: none;
   order: 1;
-  flex-grow: 0;
+  flex-grow: 0; */
 }
 
 /* Our Impact */
@@ -156,9 +118,9 @@
   color: #000000;
 
   /* Inside auto layout */
-  flex: none;
+  /* flex: none;
   order: 2;
-  flex-grow: 0;
+  flex-grow: 0; */
 }
 
 /* Button */
@@ -172,17 +134,22 @@
   padding: 0px;
   gap: 10px;
 
-  width: 123px;
-  height: 48px;
+  /* width: Hug (123px);
+  height: Fixed (48px);
+  border-radius: 4px;
+  gap: 10px; */
+
+  /* width: 123px;
+  height: 48px; */
 
   /* Primary */
-  background: #743eb6;
+  background: #694c97;
   border-radius: 4px;
 
   /* Inside auto layout */
-  flex: none;
+  /* flex: none;
   order: 3;
-  flex-grow: 0;
+  flex-grow: 0; */
 }
 
 /* Opacity*/
