@@ -11,7 +11,7 @@ const Footer = () => {
     "Copyright © 2022 4 future leaders of tomorrow -\nAll Rights Reserved.\n\n501c nonprofit tax-deductible ID 88-3463177";
 
   const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false); 
+  const [submitted, setSubmitted] = useState(false);
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -20,14 +20,14 @@ const Footer = () => {
     console.log(submitted);
   };
 
-  const handleNewsletterSubmit = (event : React.FormEvent<HTMLFormElement>) => {
+  const handleNewsletterSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     // {TODO}
     // LATER: implement sending of nwesletter from backend
 
     event.preventDefault(); // Prevent form submission
 
     setSubmitted(true);
-  }
+  };
 
   return (
     <footer className="footer">
@@ -35,9 +35,9 @@ const Footer = () => {
         {/* NEWSLETTER QUAD */}
         <div className="newsletterDiv">
           <p className="newsletter-text">Join our newsletter to stay updated!</p>
-          
+
           <form onSubmit={handleNewsletterSubmit}>
-            <div className="subscriptionForm">
+            <div className="subscriptionDiv">
               <input
                 type="email"
                 id="email"
@@ -48,24 +48,25 @@ const Footer = () => {
                 onChange={handleEmailChange}
                 required
               />
-              
-              {submitted ? 
-              <button
-                type="submit"
-                id="subscribe-btn"
-                className="input-button-submitted">
-                Subscribed!
-              </button> : 
-              <button
-                type="submit"
-                id="subscribe-btn"
-                className="input-button">
-                Subscribe
-              </button>
-              }
-              </div>
+
+              {submitted ? (
+                <button type="submit" id="subscribe-btn" className="input-button-submitted">
+                  Subscribed!
+                  <Image
+                    width={24}
+                    height={24}
+                    className="checkMark"
+                    src="ic_simplesuccess.svg"
+                    alt=""
+                  />
+                </button>
+              ) : (
+                <button type="submit" id="subscribe-btn" className="input-button">
+                  Subscribe
+                </button>
+              )}
+            </div>
           </form>
-          
         </div>
 
         {/* LINK QUAD */}
