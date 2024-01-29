@@ -16,15 +16,40 @@ const Footer = () => {
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
     setSubmitted(false);
-    console.log(email);
-    console.log(submitted);
   };
 
-  const handleNewsletterSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleNewsletterSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault(); // We do not want the page to refresh
+
     // {TODO}
     // LATER: implement sending of nwesletter from backend
+    try{
+      const body = JSON.stringify({ email });
+      console.log("body sent to backend: ", body)
+      const response = await fetch('http://localhost:3001/api/subscribers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: body
+      });
 
-    event.preventDefault(); // Prevent form submission
+      // checking the status code
+      // Puts 201 on successful add and if it's a duplicate or invalid address throws 400
+      if (response.status == 201){
+        console.log("Subscriber added")
+      }
+      else if (response.status == 400){
+        const errorMessage = await response.json();
+        console.log("Error occured: ", errorMessage.error)
+      }
+      else{
+        console.log(`Status code ${response.status} unexpected.`)
+      }
+    }
+    catch(error){
+      console.log("Fetch operation failed.")
+    }
 
     setSubmitted(true);
   };
