@@ -18,7 +18,7 @@ const WhiteCard: React.FC<WhiteCardProps> = ({
 }) => {
   const cardStyle = {
     width: "71.875%", // 1035px / 1440px
-    height: "19.1608%", // 418px / 2184px
+    height: "28.19vw", // 418px / 2184px
     top: verticalPosition,
     left: "14%", // 203px / 1440px
     // padding: "3.3333%", // 53px / 1440px
@@ -28,18 +28,20 @@ const WhiteCard: React.FC<WhiteCardProps> = ({
 
   return (
     <div className="white-card-container" style={cardStyle}>
-      <div className="card-image-container">
-        <Image
-          src={imageUrl}
-          alt="Card image"
-          layout="fill"
-          objectFit="cover"
-          className="card-image"
-          priority
-        />
+      <div className="data-container">
+        <div className="card-image-container">
+          <Image
+            src={imageUrl}
+            alt="Card image"
+            layout="fill"
+            objectFit="cover"
+            className="card-image"
+            priority
+          />
+        </div>
+        <h2 className="card-title">{title}</h2>
+        <p className="card-description">{description}</p>
       </div>
-      <h2 className="card-title">{title}</h2>
-      <p className="card-description">{description}</p>
       <div className="button-container">
         <button className="button-text">Learn more</button>
       </div>

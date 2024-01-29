@@ -12,13 +12,13 @@ export default function Impact() {
         imageUrl="/testimonials.png"
         title="Testimonals"
         description="Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi."
-        verticalPosition="30.4823%"
+        verticalPosition="38.68vw"
       />
       <WhiteCard
         imageUrl="/Newsletter.png"
         title="Newsletter"
         description="Your support and contributions will enable us to meet our goals and improve conditions. Your generous donation will fund our mission."
-        verticalPosition="51.6484%"
+        verticalPosition="71.04vw"
       />
     </main>
   );

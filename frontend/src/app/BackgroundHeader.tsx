@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 import "./backgroundheader.css";
 
-const styleObj = { color: "white" };
+/*const styleObj = { color: "white" };*/
 
 const BackgroundHeader = () => {
   return (
@@ -15,12 +15,12 @@ const BackgroundHeader = () => {
         className="background-image"
         priority
       />
-      {/* <div className="absolute top-0 left-0 w-full h-full bg-black opacity-30"></div>
-      <div className="absolute bottom-20 left-20 w-1/2 h-full flex flex-col items-start justify-center ml-20">
-        <h1 className="text-white text-4xl py-10 font-bold">Our Impact</h1> */}
-      <div className="absolute bottom-20 left-20 w-1/2 h-full flex flex-col items-start justify-center ml-20">
-        <h1 className="text-white text-4xl py-10 font-bold">Our Impact</h1>
-        <p style={styleObj}>
+
+      <div
+        className="bg-text-container" /*className="absolute bottom-20 left-20 w-1/2 h-full flex flex-col items-start justify-center ml-20"*/
+      >
+        <h1 className="bg-title" /*className="text-white text-4xl py-10 font-bold"*/>Our Impact</h1>
+        <p className="bg-para" /*style={styleObj}*/>
           4FLOT is committed in preventing and ending homelessness, hunger and disparity in
           underprivileged communities.
         </p>

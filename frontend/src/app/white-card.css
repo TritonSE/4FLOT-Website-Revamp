@@ -3,14 +3,18 @@
 /* white-card.css */
 
 .white-card-container {
-  width: 70%; /* 1035px / 1440px */
-  height: 20%; /* 418px / 2184px */
+  width: 71.875%; /* 1035px / 1440px */
+  height: 30vw; /*18.6%; /* (418, 394)px / 2184px */
   background-color: white;
   position: absolute;
   /*top: 15.4116%; /* Adjust as needed */
   left: 6.6667%; /* Adjust as needed */
   border-radius: 10px; /* Adjust as needed */
-  padding: 5px; /* Adjust as needed */
+  padding-top: 3.68vw; /* Adjust as needed */
+  padding-bottom: 3.68vw;
+  padding-left: 17.43vw;
+  padding-right: 17.43vw;
+  gap: 2.22vw;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   box-sizing: border-box; /* Include padding in the total width and height */
   display: flex;
@@ -19,39 +23,55 @@
   align-items: center;
 }
 
+.data-container {
+  position: relative;
+  width: 37.014vw;
+  height: 16.111vw;
+  gap: 0.833vw;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
 .card-title {
   position: relative;
-  width: 13.6111%; /* 196px / 1440px */
-  height: 2.1991%; /* 48px / 2184px */
+  width: 13.6111vw; /* 196px / 1440px */
+  height: 3.333vw; /* 48px / 2184px */
   font-family: "Roboto Slab", sans-serif;
-  font-size: 166.2222%; /* 32px / 1440px */
+  font-size: 2.22222vw; /* 32px / 1440px */
   font-weight: 700;
-  line-height: 2.1991%; /* 48px / 2184px */
+  /*line-height: 2.1991%; /* 48px / 2184px */
   letter-spacing: 0.02em;
-  margin-top: 1rem;
+  /*margin-top: 1rem;*/
   text-align: center;
-  margin-bottom: 10px; /* Adjust as needed */
-  max-height: 18.75vh;
+  /*margin-bottom: 10px; /* Adjust as needed */
+  /*max-height: 18.75vh;*/
+  color: #000000;
+  justify-content: center;
+  overflow: hidden;
 }
 .card-image-container {
   position: relative;
-  width: 9%;
-  height: 9%;
+  width: 6.11vw;
+  height: 6.11vw;
   overflow: hidden;
 }
 
 .card-description {
-  font-size: 1.2rem; /* Adjust as needed */
+  font-size: 1.1111111vw; /* Adjust as needed */
   color: #000000;
-  max-width: 35%; /* Width limit for the text */
-  max-height: 11%; /* Height limit for the text */
+  max-width: 37.01vw; /* Width limit for the text */
+  max-height: 5vw; /* Height limit for the text */
   display: flex; /* Enable flexbox for vertical centering */
   flex-direction: column; /* Arrange the text content in a column */
   justify-content: center; /* Center the text vertically */
   align-items: center; /* Center the text horizontally */
   text-align: center;
-  margin-top: 3vh; /* 3% of the viewport height */
-  max-height: 7.8vh;
+  /*margin-top: 3vh; /* 3% of the viewport height */
+  /*max-height: 7.8vh;*/
+  overflow: hidden;
 }
 
 .card-image {
@@ -61,12 +81,13 @@
 }
 
 .button-container {
-  width: 167px;
-  height: 48px;
-  background-color: #743eb6;
+  width: 11.59vw;
+  height: 3.333vw;
+  background-color: #694c97;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 4px;
 }
 
 .button-text {
