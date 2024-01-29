@@ -38,6 +38,7 @@ const Footer = () => {
       // Puts 201 on successful add and if it's a duplicate or invalid address throws 400
       if (response.status == 201){
         console.log("Subscriber added")
+        setSubmitted(true);
       }
       else if (response.status == 400){
         const errorMessage = await response.json();
@@ -50,8 +51,6 @@ const Footer = () => {
     catch(error){
       console.log("Fetch operation failed.")
     }
-
-    setSubmitted(true);
   };
 
   return (
