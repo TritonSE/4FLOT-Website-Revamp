@@ -101,15 +101,33 @@
   height: inherit;
   border-radius: 4px;
   border: 1px solid #ccc;
+  color: black;
 }
 
 .input-button {
   width: 25%;
   height: inherit;
   border-radius: 4px;
-  background: #f67659;
+  background: #F67659;
 
   /* Body/Medium (Bold) */
+  color: white;
+  font-family: "Open Sans";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 30px */
+  letter-spacing: 0.4px;
+}
+
+.input-button-submitted {
+  width: 25%;
+  height: inherit;
+  border-radius: 4px;
+  background: #3BB966;
+
+  /* Body/Medium (Bold) */
+  color: white;
   font-family: "Open Sans";
   font-size: 20px;
   font-style: normal;
@@ -125,11 +143,6 @@
 
 .facebookLogo {
   margin-right: 32px;
-}
-
-.input-button:hover {
-  color: orange;
-  background-color: white;
 }
 
 /* LINK CONTENT */
