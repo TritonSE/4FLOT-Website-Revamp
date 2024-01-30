@@ -30,8 +30,6 @@
 
 /* ------ QUADS ------ */
 .newsletterDiv {
-  /* DEBUG COLOR */
-  /* background-color: red; */
   margin: 0;
   padding: 0;
   padding-right: 60px;
@@ -42,8 +40,6 @@
 }
 
 .logoDiv {
-  /* DEBUG COLOR */
-  /* background-color: green; */
   margin: 0;
   padding: 0;
   padding-right: 60px;
@@ -54,8 +50,6 @@
 }
 
 .linkDiv {
-  /* DEBUG COLOR */
-  /* background-color: blue; */
   margin: 0;
   padding: 0;
   display: flex;
@@ -66,10 +60,7 @@
 }
 
 .copyrightDiv {
-  /* DEBUG COLOR */
-  /* background-color: purple; */
   margin: 0;
-  /* Changed padding from 96px to 0 to debug formatting */
   padding: 0;
   display: flex;
   flex-direction: row;
@@ -79,7 +70,7 @@
 
 /* ------ CONTENT ------ */
 /* NEWSLETTER CONTENT */
-.newsletter-text {
+.newsletterText {
   margin: 0;
   padding: 0;
   /* Title/Medium */
@@ -103,7 +94,7 @@
   column-gap: 8px;
 }
 
-.input-box {
+.inputBox {
   padding: 23px 14px;
   width: 424px;
   height: inherit;
@@ -112,7 +103,7 @@
   color: black;
 }
 
-.input-button {
+.inputButton {
   width: 148px;
   height: inherit;
   border-radius: 4px;
@@ -128,7 +119,7 @@
   letter-spacing: 0.4px;
 }
 
-.input-button-submitted {
+.inputButtonSubmitted {
   width: 191px;
   height: inherit;
   border-radius: 4px;

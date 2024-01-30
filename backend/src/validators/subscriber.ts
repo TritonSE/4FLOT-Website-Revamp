@@ -27,7 +27,7 @@ const makeEmailValidator = () =>
       // check if email already exists in db
       const subscriber = await Subscriber.findOne({ email: value }).exec();
       if (subscriber !== null) {
-        return Promise.reject(`email ${value} is already subscribed`);
+        return Promise.reject(`email is already subscribed`);
       }
     });
 
