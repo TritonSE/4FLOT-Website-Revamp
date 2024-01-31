@@ -103,6 +103,26 @@
   color: black;
 }
 
+.inputBoxError {
+  padding: 23px 14px;
+  width: 424px;
+  height: inherit;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  color: black;
+}
+
+.inputBoxError::placeholder {
+  color: #b93b3b;
+
+  /* Body/Small (Reg) */
+  font-family: "Open Sans";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
+}
+
 .inputButton {
   width: 148px;
   height: inherit;

@@ -13,6 +13,7 @@ export function Footer() {
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
   const [errors, setErrors] = useState<string | null>(null); // handleAPIError in /api/requests.ts will return a string
+  const [placeholder, setPlaceholder] = useState<string>("Enter your email address");
 
   // TODO: Add the correct links here.
   // Note: facebookLink and instagramLink are <a> tags, and the rest are Next <Link> tags
@@ -32,6 +33,7 @@ export function Footer() {
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
+    setSubmitted(false);
   };
 
   const handleNewsletterSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -42,16 +44,20 @@ export function Footer() {
       (result) => {
         if (result.success) {
           setSubmitted(true); // show the success message
+          setPlaceholder("Thanks for subscribing!");
           setEmail(""); // clear the email input
         } else {
           // This is certainly not the best solution to this issue, but it works okay for now.
           setEmail(""); // clear email input to show error message
           if (result.error === `400 Bad Request: {"error":"email must be a valid email address"}`) {
-            setErrors("Invalid email address");
+            setErrors(result.error);
+            setPlaceholder("Please enter a valid email address (xxx@domain.com)");
           } else if (result.error === `400 Bad Request: {"error":"email is already subscribed"}`) {
             setErrors("Already subscribed!");
+            setPlaceholder("This email is already subscribed!");
           } else {
             setErrors(result.error); // show unfilterd error message
+            setPlaceholder("Error with your request, please try again later");
           }
         }
       },
@@ -73,14 +79,13 @@ export function Footer() {
           <form onSubmit={handleNewsletterSubmit}>
             <div className={styles.subscriptionDiv}>
               <input
-                type="email"
+                type="text"
                 id="email"
                 name="email"
-                placeholder={errors ?? "Enter your email address"}
-                className={styles.inputBox}
+                placeholder={placeholder}
+                className={errors ? styles.inputBoxError : styles.inputBox}
                 value={email}
                 onChange={handleEmailChange}
-                required
               />
 
               {submitted ? (
