@@ -1,11 +1,3 @@
-/**
- * Based on the TSE Fulcrum API client implementation by justinyaodu:
- * https://github.com/TritonSE/TSE-Fulcrum/blob/main/frontend/src/api.ts
- */
-
-/**
- * A custom type defining which HTTP methods we will handle in this file
- */
 type Method = "GET" | "POST" | "PUT";
 
 /**
@@ -40,6 +32,7 @@ async function fetchRequest(
     newHeaders["Content-Type"] = "application/json";
   }
 
+  console.log("body: " + JSON.stringify(body));
   const response = await fetch(url, {
     method,
     headers: newHeaders,
@@ -70,7 +63,7 @@ async function assertOk(response: Response): Promise<void> {
       message += ": " + text;
     }
   } catch (e) {
-    console.error(e);
+    // skip errors
   }
 
   throw new Error(message);
@@ -149,19 +142,11 @@ export type APIError = { success: false; error: string };
  *     console.error(result.error); // do something to inform the user of the error
  *   }
  * })
- * ```
- *
- * See `createTask` in `src/api/tasks` and its use in `src/components/TaskForm`
- * for a more concrete example, and see
- * https://www.typescriptlang.org/docs/handbook/2/narrowing.html for more info
- * about type narrowing.
  */
 export type APIResult<T> = APIData<T> | APIError;
 
 /**
  * Helper function for API client functions to handle errors consistently.
- * Recommended usage is in a `catch` block--see `createTask` in `src/api/tasks`
- * for an example.
  *
  * @param error An error thrown by a lower-level API function
  * @returns An `APIError` object with a message from the given error
