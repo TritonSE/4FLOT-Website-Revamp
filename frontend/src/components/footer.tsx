@@ -171,7 +171,7 @@ export function Footer() {
               width={42}
               height={42}
               className={styles.facebookLogo}
-              src="/facebookIcon.png"
+              src="/facebookIcon.svg"
               alt="Link to Facebook"
             />
           </a>
@@ -180,7 +180,7 @@ export function Footer() {
               width={42}
               height={42}
               className={styles.instagramLogo}
-              src="/instagramIcon.png"
+              src="/instagramIcon.svg"
               alt="Link to Instagram"
             />
           </a>
