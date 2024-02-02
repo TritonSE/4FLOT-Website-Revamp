@@ -8,7 +8,7 @@ import { createSubscriber } from "../api/subscriber";
 
 import styles from "./Footer.module.css";
 
-export function Footer() {
+const Footer = () => {
   const [email, setEmail] = useState<string>("");
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -197,6 +197,6 @@ export function Footer() {
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;
