@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+
 import "./card.css";
 import type { Testimonial } from "../../api/testimonial";
 
