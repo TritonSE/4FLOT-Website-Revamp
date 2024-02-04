@@ -4,11 +4,15 @@ import "./backgroundheader.css";
 
 /*const styleObj = { color: "white" };*/
 
-const BackgroundHeader = () => {
+type bgProps = {
+  imageUrl: string;
+};
+
+const BackgroundHeader: React.FC<bgProps> = ({ imageUrl }) => {
   return (
     <div className="background-container">
       <Image
-        src="/impact_bg.png"
+        src={imageUrl}
         alt="Background image"
         layout="fill"
         objectFit="cover"

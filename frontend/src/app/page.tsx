@@ -6,7 +6,7 @@ import WhiteCard from "./WhiteCard";
 export default function Impact() {
   return (
     <main style={{ backgroundColor: "#F9F9F9" }}>
-      <BackgroundHeader />
+      <BackgroundHeader imageUrl="/impact_bg.png" />
       {/* White Cards */}
       <WhiteCard
         imageUrl="/testimonials.png"
