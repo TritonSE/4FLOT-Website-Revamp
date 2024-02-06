@@ -124,36 +124,36 @@ const Footer = () => {
             <Link className={`${styles.link} ${styles.boldLink}`} href={links.aboutUs}>
               About Us
             </Link>
-            <a className={`${styles.link} ${styles.boldLink}`} href={links.getInvolved}>
+            <Link className={`${styles.link} ${styles.boldLink}`} href={links.getInvolved}>
               Get Involved
-            </a>
-            <a className={`${styles.link} ${styles.boldLink}`} href={links.ourImpact}>
+            </Link>
+            <Link className={`${styles.link} ${styles.boldLink}`} href={links.ourImpact}>
               Our Impact
-            </a>
+            </Link>
           </div>
 
           <div className={styles.linkRow}>
-            <a className={`${styles.link} ${styles.normalLink}`} href={links.ourMission}>
+            <Link className={`${styles.link} ${styles.normalLink}`} href={links.ourMission}>
               Our Mission
-            </a>
-            <a className={`${styles.link} ${styles.normalLink}`} href={links.upcomingEvents}>
+            </Link>
+            <Link className={`${styles.link} ${styles.normalLink}`} href={links.upcomingEvents}>
               Upcoming Events
-            </a>
-            <a className={`${styles.link} ${styles.normalLink}`} href={links.testimonials}>
+            </Link>
+            <Link className={`${styles.link} ${styles.normalLink}`} href={links.testimonials}>
               Testimonials
-            </a>
+            </Link>
           </div>
 
           <div className={styles.linkRow}>
-            <a className={`${styles.link} ${styles.normalLink}`} href={links.contactUs}>
+            <Link className={`${styles.link} ${styles.normalLink}`} href={links.contactUs}>
               Contact Us
-            </a>
-            <a className={`${styles.link} ${styles.normalLink}`} href={links.donate}>
+            </Link>
+            <Link className={`${styles.link} ${styles.normalLink}`} href={links.donate}>
               Donate
-            </a>
-            <a className={`${styles.link} ${styles.normalLink}`} href={links.newsletter}>
+            </Link>
+            <Link className={`${styles.link} ${styles.normalLink}`} href={links.newsletter}>
               Newsletter
-            </a>
+            </Link>
           </div>
         </div>
 
