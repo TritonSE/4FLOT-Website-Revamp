@@ -6,6 +6,12 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --font-small-subtitle: normal 700 28px/150% "Roboto Slab";
+  --font-body: normal 400 20px/120% "Open Sans";
+  --font-body-normal-reg: normal 400 16px/150% "Open Sans";
+  --font-xl-title: normal 700 48px/150% "Roboto Slab";
+  --font-l-title: normal 700 32px/150% "Roboto Slab";
+  --font-m-title: normal 700 28px/150% "Roboto Slab";
 }
 
 @media (prefers-color-scheme: dark) {
