@@ -1,8 +1,4 @@
-/* Desktop */
-
-/* Auto layout */
 .headerBar {
-  /* Auto layout */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -10,24 +6,22 @@
   padding: 0px 96px;
   gap: 10px;
 
-  position: absolute;
-  width: 100%;
+  position: relative;
+  top: -100px;
+  width: 120%;
   height: 107px;
-  top: 0px;
 
   background: #ffffff;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 /* Logo */
-
 .logo {
-  /* margin: 0 auto; */
   width: 196px;
   height: 69.54px;
 
   position: absolute;
-  left: 47px;
+  left: 64px;
 
   /* Inside auto layout */
   flex: none;
@@ -35,9 +29,8 @@
   flex-grow: 0;
 }
 
-/* Frame 85 */
-
-.frame85 {
+/* Container for About Us, Get Involved, Our Impact, and Donate*/
+.txtContainer {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -46,7 +39,7 @@
   gap: 48px;
 
   position: absolute;
-  right: 96px;
+  right: 128px;
 
   width: 541px;
   height: 48px;
@@ -60,22 +53,21 @@
   /* Body/Normal (Bold) */
   font-family: "Open Sans", sans-serif;
   font-style: normal;
-  font-weight: 700; /* Adjusted to 700 as per the provided specifications */
+  font-weight: 700;
   font-size: 16px;
-  line-height: 24px; /* Adjusted to match the provided line height */
+  line-height: 24px;
   letter-spacing: 0.03em;
   text-decoration: none;
-
   color: #000000;
 
-  /* Inside auto layout */
   flex: none;
   order: 0;
   flex-grow: 0;
+  padding-bottom: 100px;
+  margin-bottom: -75px;
 }
 
 /* Get Involved */
-
 .getInvolved {
   width: 105px;
   height: 24px;
@@ -85,19 +77,18 @@
   font-style: normal;
   font-weight: 700;
   font-size: 16px;
-  line-height: 24px; /* Adjusted to match the provided line height */
+  line-height: 24px;
   letter-spacing: 0.03em;
-
   color: #000000;
 
-  /* Inside auto layout */
   flex: none;
   order: 1;
   flex-grow: 0;
+  padding-bottom: 100px;
+  margin-bottom: -75px;
 }
 
 /* Our Impact */
-
 .ourImpact {
   width: 94px;
   height: 24px;
@@ -107,46 +98,32 @@
   font-style: normal;
   font-weight: 700;
   font-size: 16px;
-  line-height: 24px; /* Adjusted to match the provided line height */
+  line-height: 24px;
   letter-spacing: 0.03em;
-
   color: #000000;
 
-  /* Inside auto layout */
   flex: none;
   order: 2;
   flex-grow: 0;
+  padding-bottom: 100px;
+  margin-bottom: -75px;
 }
 
-/* Opacity*/
-
-/* Auto layout */
-
-.opacity {
+/* Button */
+.button {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 12px 24px 8px;
-  gap: 6px;
-
-  width: 123px;
-  height: 48px;
-
-  border-radius: 4px;
-}
-
-/* Button */
-
-.button {
-  /* Auto layout */
-  padding: 0px;
-  gap: 10px;
 
   /* Primary */
   background: #694c97;
   border-radius: 4px;
-  order: 3; /* Adjust the order as needed */
+  padding: 12px 24px 8px;
+  gap: 6px;
+  width: 123px;
+  height: 48px;
+  order: 3;
 }
 
 /* Body/Medium (Bold) */
@@ -155,8 +132,8 @@
   font-style: normal;
   font-weight: 550;
   font-size: 20px;
-  line-height: 30px; /* Adjusted to match the provided line height */
-  letter-spacing: 1px; /* Adjusted to 2% of 20px */
+  line-height: 30px;
+  letter-spacing: 1px;
 
   /* Center align text */
   text-align: center;
@@ -165,7 +142,7 @@
   color: #ffffff;
 }
 
-/* Dropdown styles about us */
+/* Dropdown styles for About Us */
 .aboutUsDropdown {
   display: none;
   position: absolute;
@@ -238,7 +215,7 @@
   background-color: #f1f1f1;
 }
 
-/* Dropdown styles our impact */
+/* Dropdown styles Our Impact */
 .ourImpactDropdown {
   display: none;
   position: absolute;

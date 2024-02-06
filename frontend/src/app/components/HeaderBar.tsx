@@ -1,4 +1,5 @@
 import React from "react";
+
 import styles from "./HeaderBar.module.css";
 
 export const HeaderBar = () => {
@@ -7,7 +8,7 @@ export const HeaderBar = () => {
       <div className={styles.logo}>
         <img className={styles.logo} src="/Color=Default.svg" alt="Default Logo"></img>
       </div>
-      <div className={styles.frame85}>
+      <div className={styles.txtContainer}>
         {/* Use the dropdown styles for "About Us" */}
         <div className={styles.aboutUs}>
           About Us
@@ -37,11 +38,9 @@ export const HeaderBar = () => {
         </div>
 
         <div className={styles.button}>
-          <div className={styles.opacity}>
-            <button>
-              <span className={styles.buttonBody}>Donate</span>
-            </button>
-          </div>
+          <button>
+            <span className={styles.buttonBody}>Donate</span>
+          </button>
         </div>
       </div>
     </div>
