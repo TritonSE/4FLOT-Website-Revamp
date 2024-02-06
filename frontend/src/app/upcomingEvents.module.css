@@ -6,16 +6,16 @@
 .imageWrap {
   margin: 0;
   padding: 0;
-  /* height: 100%; */
+  max-height: 687px;
   height: 100%;
   width: auto;
   background-color: #484848;
   opacity: 0.4;
+  overflow: hidden;
 }
 .image {
   margin: 0;
   padding: 0;
-  overflow: hidden;
 }
 .titleText {
   position: absolute;
