@@ -1,7 +1,9 @@
 import Image from "next/image";
 import React from "react";
 
-import type { Member } from "../../api/member";
+import styles from "./MemberInfo.module.css";
+
+import type { Member } from "../api/member";
 
 //Make an iterface for my props, take in a name - string, role - string, and profilePictureURL - string
 type MemberInfoProps = {
@@ -11,22 +13,22 @@ type MemberInfoProps = {
 const MemberInfo = ({ member }: MemberInfoProps) => {
   if (member) {
     return (
-      <div className="flex flex-col items-center py-6">
-        <div className="rounded-full w-48 h-48 overflow-hidden">
+      <div className={styles.container}>
+        <div className={styles.profile}>
           {member.profilePictureURL ? (
             <Image
               src={member.profilePictureURL}
               alt="Profile Picture"
-              width={200}
-              height={200}
+              width={248}
+              height={248}
               priority
             />
           ) : (
-            <Image src="/volunteer.png" alt="Volunteer" width={200} height={200} priority />
+            <Image src="/volunteer.png" alt="Volunteer" width={248} height={248} priority />
           )}
         </div>
-        <h1 className="text-xl font-bold pt-6">{member.name}</h1>
-        <p>{member.role}</p>
+        <h1 className={styles.name}>{member.name}</h1>
+        <p className={styles.role}>{member.role}</p>
       </div>
     );
   }
