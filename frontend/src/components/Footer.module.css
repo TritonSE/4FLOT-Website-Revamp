@@ -116,7 +116,7 @@
   width: 148px;
   height: inherit;
   border-radius: 4px;
-  background: #f67659;
+  background: #f67659 !important;
 
   /* Body/Medium (Bold) */
   color: white;
@@ -132,7 +132,7 @@
   width: 191px;
   height: inherit;
   border-radius: 4px;
-  background: #3bb966;
+  background: #3bb966 !important;
   padding: 12px 24px;
   display: flex;
   justify-content: center;
@@ -178,7 +178,7 @@
   /* Body/Medium (Bold) */
   font-family: var(--font-body);
   font-weight: 700;
-  font-size: 28px;
+  font-size: 18px;
   line-height: 150%;
   letter-spacing: 0.4px;
 }
@@ -193,7 +193,7 @@
   white-space: pre-line;
   /* Body/Medium (Reg) */
   font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 20px;
+  font-weight: 400;
+  font-size: 18px;
   line-height: 150%;
 }
