@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 import styles from "./HeaderBar.module.css";
@@ -13,9 +14,9 @@ export const HeaderBar = () => {
         <div className={styles.aboutUs}>
           About Us
           <div className={styles.aboutUsDropdown}>
-            <a href="#">Our Mission</a>
-            <a href="#">Our Team</a>
-            <a href="#">Contact</a>
+            <Link href="/">Our Mission</Link>
+            <Link href="/">Our Team</Link>
+            <Link href="/">Contact</Link>
           </div>
         </div>
 
@@ -23,8 +24,8 @@ export const HeaderBar = () => {
         <div className={styles.getInvolved}>
           Get Involved
           <div className={styles.getInvolvedDropdown}>
-            <a href="#">Upcoming Events</a>
-            <a href="#">Donate</a>
+            <Link href="/">Upcoming Events</Link>
+            <Link href="/">Donate</Link>
           </div>
         </div>
 
@@ -32,8 +33,8 @@ export const HeaderBar = () => {
         <div className={styles.ourImpact}>
           Our Impact
           <div className={styles.ourImpactDropdown}>
-            <a href="#">Testimonials</a>
-            <a href="#">Newsletter</a>
+            <Link href="/">Testimonials</Link>
+            <Link href="/">Newsletter</Link>
           </div>
         </div>
 
