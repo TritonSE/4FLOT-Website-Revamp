@@ -25,8 +25,6 @@ app.use(
   }),
 );
 
-
-
 // Routes ( e.g. app.use("/api/task", taskRoutes); )
 app.use("/api/subscribers", subscriberRoutes);
 app.use("/api/member", memberRoutes);
