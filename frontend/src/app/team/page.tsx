@@ -26,7 +26,7 @@ export default function Team() {
       });
   }, []);
   return (
-    <main>
+    <div>
       <BackgroundHeader
         backgroundImage="/image 18.png"
         header="About Us"
@@ -36,6 +36,7 @@ export default function Team() {
       />
       <div className={styles.text}>
         <div className={styles.subtitle}>Our Team</div>
+        {/* <div>Hello.</div> */}
         <p className={styles.description}>
           Our dedicated team @ 4 Future Leaders of Tomorrow is a non-profit charitable organization
           committed in preventing and ending homelessness, hunger and disparity in underprivileged
@@ -49,6 +50,6 @@ export default function Team() {
           <MemberInfo key={member._id} member={member} />
         ))}
       </div>
-    </main>
+    </div>
   );
 }

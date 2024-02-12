@@ -178,7 +178,7 @@
   /* Body/Medium (Bold) */
   font-family: var(--font-body);
   font-weight: 700;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 150%;
   letter-spacing: 0.4px;
 }
@@ -186,6 +186,7 @@
 .normalLink {
   /* Body/Medium (Reg) */
   font-family: var(--font-body);
+  font-size: 20px;
 }
 
 /* COPYRIGHT CONTENT */
