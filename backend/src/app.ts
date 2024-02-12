@@ -8,6 +8,8 @@ import express, { NextFunction, Request, Response } from "express";
 import { isHttpError } from "http-errors";
 import testimonialRoutes from "src/routes/testimonial";
 
+import eventRoutes from "src/routes/events";
+
 const app = express();
 
 // initializes Express to accept JSON in the request/response body
@@ -26,6 +28,7 @@ app.use(
 
 // Routes ( e.g. app.use("/api/task", taskRoutes); )
 app.use("/api/testimonial", testimonialRoutes);
+app.use("/api/events", eventRoutes);
 /**
  * Error handler; all errors thrown by server are handled here.
  * Explicit typings required here because TypeScript cannot infer the argument types.

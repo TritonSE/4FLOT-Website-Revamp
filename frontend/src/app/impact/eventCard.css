@@ -1,0 +1,26 @@
+.event-card-container {
+  width: 600px;
+  height: 440px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.event-card-container img {
+  width: 600px;
+  height: 270px;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.event-card-container h1 {
+  font-size: 28px;
+}
+
+.event-card-container p {
+  font-size: 14px;
+}
+
+.event-text-container {
+  width: 600px;
+  padding: 20px;
+}

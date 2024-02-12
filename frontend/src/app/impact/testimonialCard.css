@@ -1,0 +1,26 @@
+.testimonial-card-container {
+  width: 400px;
+  height: 436px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.testimonial-card-container img {
+  width: 400px;
+  height: 200px;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.testimonial-card-container h1 {
+  font-size: 28px;
+}
+
+.testimonial-card-container p {
+  font-size: 14px;
+}
+
+.testimonial-text-container {
+  width: 400px;
+  padding: 20px;
+}
