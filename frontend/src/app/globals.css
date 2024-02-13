@@ -7,8 +7,9 @@
   --background-start-rgb: 255, 255, 255;
   --background-end-rgb: 255, 255, 255;
   --color-primary-purple: #694c97;
-  --font-small-subtitle: normal 700 28px/150% "Roboto Slab";
-  --font-body: normal 400 20px/120% "Open Sans";
+
+  /* --font-small-subtitle: normal 700 28px/150% "Roboto Slab";
+  --font-body: normal 400 20px/120% "Open Sans"; */
 }
 
 @media (prefers-color-scheme: dark) {
