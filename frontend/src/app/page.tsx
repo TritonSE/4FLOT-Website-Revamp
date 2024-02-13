@@ -1,3 +1,4 @@
+import "./globals.css";
 "use client";
 
 import React from "react";
