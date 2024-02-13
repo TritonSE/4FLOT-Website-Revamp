@@ -6,8 +6,8 @@ import "dotenv/config";
 import cors from "cors";
 import express, { NextFunction, Request, Response } from "express";
 import { isHttpError } from "http-errors";
+import memberRoutes from "src/routes/members";
 import testimonialRoutes from "src/routes/testimonial";
-
 import eventRoutes from "src/routes/events";
 
 const app = express();
@@ -27,6 +27,7 @@ app.use(
 );
 
 // Routes ( e.g. app.use("/api/task", taskRoutes); )
+app.use("/api/member", memberRoutes);
 app.use("/api/testimonial", testimonialRoutes);
 app.use("/api/events", eventRoutes);
 /**
