@@ -1,13 +1,21 @@
+"use client";
+
 import React from "react";
 
 import BackgroundHeader from "./BackgroundHeader";
-import WhiteCard from "./WhiteCard";
+/*import WhiteCard from "./WhiteCard";*/
 
 export default function Impact() {
+  const images = [
+    "/carousel-images/impact_bg.png",
+    "/carousel-images/home.png",
+    "/carousel-images/home2.jpeg",
+    // Add more image paths as needed
+  ];
   return (
     <main style={{ backgroundColor: "#F9F9F9" }}>
-      <BackgroundHeader imageUrl="/impact_bg.png" />
-      {/* White Cards */}
+      <BackgroundHeader images={images} />
+      {/* White Cards 
       <WhiteCard
         imageUrl="/testimonials.png"
         title="Testimonals"
@@ -19,7 +27,7 @@ export default function Impact() {
         title="Newsletter"
         description="Your support and contributions will enable us to meet our goals and improve conditions. Your generous donation will fund our mission."
         verticalPosition="71.04vw"
-      />
+  />*/}
     </main>
   );
 }
