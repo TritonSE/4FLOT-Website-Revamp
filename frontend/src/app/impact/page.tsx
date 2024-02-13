@@ -53,7 +53,7 @@ export default function Impact() {
           we can do alone. Let&apos;s bring our abilities and passions together to make real change.
           Your donations will help feed and clothes our underprivileged and underserved communities.
         </p>
-        <div className="grid grid-cols-3 gap-y-10">
+        <div className="flex flex-wrap gap-5">
           {testimonials.map((testimonial) => (
             <TestimonialCard key={testimonial._id} testimonial={testimonial} />
           ))}
@@ -66,7 +66,7 @@ export default function Impact() {
           Your donations will help feed and clothes our underprivileged and underserved communities.
         </p>
 
-        <div className="grid grid-cols-2 gap-y-10">
+        <div className="flex flex-wrap gap-5">
           {events.map((event) => (
             <EventCard key={event._id} event={event} />
           ))}
