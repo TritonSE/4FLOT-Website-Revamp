@@ -1,8 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto+Slab:wght@100..900&display=swap");
-
 .description {
   text-align: left;
-  font-family: "Open Sans";
+  font-family: var(--font-body);
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
@@ -10,8 +8,9 @@
 }
 
 .subtitle {
-  font: var(--font-small-subtitle);
+  font-family: var(--font-small-subtitle);
   font-size: 32px;
+  font-weight: 700;
   line-height: 150%; /* 48px */
   letter-spacing: 0.64px;
 }

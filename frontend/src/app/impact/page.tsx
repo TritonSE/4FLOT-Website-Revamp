@@ -8,6 +8,8 @@ import { Testimonial, getAllTestimonials } from "../../api/testimonial";
 import EventCard from "./eventCard";
 import TestimonialCard from "./testimonialCard";
 
+import "./page.css";
+
 export default function Impact() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [events, setEvents] = useState<Event[]>([]);
