@@ -8,6 +8,7 @@
   font-weight: 400;
   line-height: 32px; /* 133.333% */
   width: 52%;
+  
 }
 
 .titlelarge {
@@ -37,71 +38,22 @@
   width: 37%;
   position: relative;
   bottom: 500px;
-  left: 800px;
+  left: 900px;
   margin-bottom: -300px;
 
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: flex-end;
   row-gap: 32px;
 }
 
 /*For the Value Cards*/
-.customRectangle {
-  width: 401px;
-  height: 434px;
-  border-radius: 10px;
-  background-color: #694c97;
-  position: relative;
-}
-
 .rectangleContainer {
   width: 100%; /*make the size of the container respective to the page*/
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-wrap: wrap;
   row-gap: 22px;
-}
-
-.circleWhite {
-  width: 146.35px;
-  height: 147px;
-  background-color: white;
-  border-radius: 50%;
-  position: relative;
-  transform: translate(25%, 25%);
-  overflow: hidden;
-}
-
-.centeredImage {
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  max-width: 100%;
-  max-height: 100%;
-}
-
-.RectangleTitle {
-  font-family: "Roboto Slab", sans-serif;
-  font-size: 32px;
-  font-weight: 480;
-  line-height: 48px;
-  letter-spacing: 3%;
-  transform: translate(10%, 150%);
-  color: white;
-}
-
-.BodytextInsideRectangle {
-  text-align: left;
-  font-family: "Open Sans";
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 24px; /* 133.333% */
-  width: 85%;
-  transform: translate(12%, 78%);
-  color: white;
 }

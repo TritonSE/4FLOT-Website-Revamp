@@ -3,6 +3,7 @@ import React from "react";
 
 import BackgroundHeader from "../../components/BackgroundHeader";
 import Button from "../../components/Button";
+import ValueCard from "../../components/valueCard";
 
 import styles from "./page.module.css";
 
@@ -20,36 +21,14 @@ export default function Mission() {
       <div className={styles.text}>
         <div className={styles.titlelarge}>We Pay It Forward With...</div>
         <div className={styles.rectangleContainer}>
-          <div className={styles.customRectangle}>
-            <div className={styles.circleWhite}>
-              <img src="/threepeople.png" alt="Image 1" className={styles.centeredImage} />
-            </div>
-            <div className={styles.RectangleTitle}>Service</div>
-            <div className={styles.BodytextInsideRectangle}>
-              Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec
-              blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi.
-            </div>
-          </div>
-          <div className={styles.customRectangle}>
-            <div className={styles.circleWhite}>
-              <img src="/handheart.png" alt="Image 2" className={styles.centeredImage} />
-            </div>
-            <div className={styles.RectangleTitle}>Compassion</div>
-            <div className={styles.BodytextInsideRectangle}>
-              Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec
-              blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi.
-            </div>
-          </div>
-          <div className={styles.customRectangle}>
-            <div className={styles.circleWhite}>
-              <img src="/puzzle.png" alt="Image 3" className={styles.centeredImage} />
-            </div>
-            <div className={styles.RectangleTitle}>Community</div>
-            <div className={styles.BodytextInsideRectangle}>
-              Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec
-              blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi.
-            </div>
-          </div>
+          <ValueCard title="Service" iconSrc="/threepeople.png" description="Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec
+              blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi."></ValueCard>
+          <ValueCard title="Compassion" iconSrc="/handheart.png" description="Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec
+              blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi."></ValueCard>
+          <ValueCard title="Community" iconSrc="/puzzle.png" description="Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec
+              blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi."></ValueCard>
+      
+
         </div>
       </div>
 
