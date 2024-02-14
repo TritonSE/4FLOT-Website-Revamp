@@ -9,8 +9,14 @@ export default function Impact() {
   return (
     <main className={styles.page}>
       <div className={styles.backgroundImageContainer}>
-        <BackgroundHeader imageUrl="/impact_bg.png" />
+        <BackgroundHeader
+          backgroundImage="/ourimpact.svg"
+          header=""
+          title="Our Impact"
+          description="4FLOT is committed in preventing and ending homelessness, hunger and disparity in underprivileged communities."
+        />
       </div>
+      <div className={styles.cardsBackground}></div>
       <div className={styles.whiteCardsContainer}>
         <div className={styles.cards}>
           <WhiteCard

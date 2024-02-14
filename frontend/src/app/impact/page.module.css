@@ -9,12 +9,18 @@
 
 .backgroundImageContainer {
   position: relative;
-  z-index: 1;
+  z-index: 0;
+  background-color: blue;
 }
 
 .whiteCardsContainer {
   position: absolute;
   top: 557px;
-  left: 0;
-  z-index: 2;
+  /* left: 0; */
+  z-index: 1;
+  /* background-color: pink; */
+}
+
+.cardsBackground {
+  height: 866px;
 }
