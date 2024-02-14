@@ -10,15 +10,8 @@
   width: 52%;
 }
 
-.subtitle {
-  font: var(--font-small-subtitle);
-  font-size: 32px;
-  line-height: 150%; /* 48px */
-  letter-spacing: 0.64px;
-}
-
 .titlelarge {
-  font-family: 'Roboto Slab';
+  font-family: "Roboto Slab";
   font-size: 32px;
   font-weight: 700;
   line-height: 48px;
@@ -30,7 +23,7 @@
   width: 401px;
   height: 434px;
   border-radius: 10px;
-  background-color: #694C97;
+  background-color: #694c97;
   position: relative;
 }
 
@@ -39,9 +32,7 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  
 }
-
 
 .text {
   font-weight: 16px;
@@ -52,7 +43,7 @@
   gap: 47px;
   margin-left: 99px;
   margin-right: 99px;
-  margin-top: 53px;
+  margin-top: 150px;
   margin-bottom: 64px;
 }
 
@@ -76,15 +67,13 @@
 }
 
 .RectangleTitle {
-  font-family: 'Roboto Slab', sans-serif;
+  font-family: "Roboto Slab", sans-serif;
   font-size: 32px;
   font-weight: 480;
   line-height: 48px;
   letter-spacing: 3%;
   transform: translate(10%, 150%);
   color: white;
-
-
 }
 
 .BodytextInsideRectangle {
@@ -97,5 +86,20 @@
   width: 85%;
   transform: translate(12%, 78%);
   color: white;
+}
 
+.topLeftImage {
+  position: relative;
+  left: 700px;
+  bottom: 400px;
+}
+.topRightImage {
+  position: relative;
+  left: 966px;
+  bottom: 732px;
+}
+.bottomImage {
+  position: relative;
+  left: 700px;
+  bottom: 750px;
 }

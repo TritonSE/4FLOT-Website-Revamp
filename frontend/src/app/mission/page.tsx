@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 import BackgroundHeader from "../components/BackgroundHeader";
@@ -23,28 +24,37 @@ export default function Mission() {
               <img src="/threepeople.png" alt="Image 1" className={styles.centeredImage} />
             </div>
             <div className={styles.RectangleTitle}>Service</div>
-            <div className={styles.BodytextInsideRectangle}>Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi.</div>
+            <div className={styles.BodytextInsideRectangle}>
+              Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec
+              blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi.
+            </div>
           </div>
           <div className={styles.customRectangle}>
             <div className={styles.circleWhite}>
               <img src="/handheart.png" alt="Image 2" className={styles.centeredImage} />
             </div>
             <div className={styles.RectangleTitle}>Compassion</div>
-            <div className={styles.BodytextInsideRectangle}>Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi.</div>
+            <div className={styles.BodytextInsideRectangle}>
+              Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec
+              blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi.
+            </div>
           </div>
           <div className={styles.customRectangle}>
             <div className={styles.circleWhite}>
               <img src="/puzzle.png" alt="Image 3" className={styles.centeredImage} />
             </div>
             <div className={styles.RectangleTitle}>Community</div>
-            <div className={styles.BodytextInsideRectangle}>Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi.</div>
+            <div className={styles.BodytextInsideRectangle}>
+              Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec
+              blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi.
+            </div>
           </div>
         </div>
       </div>
 
       {/* OUR STORY - KATELYN */}
       <div className={styles.text}>
-        <div className={styles.subtitle}>Here&apos;s Our Story</div>
+        <div className={styles.titlelarge}>Here&apos;s Our Story</div>
         <p className={styles.description}>
           At one point or another, each of the founding members have gone through personal
           struggles, some have experienced homelessness, hunger, medical illnesses and others
@@ -52,9 +62,22 @@ export default function Mission() {
           denominator was that each of us needed Help. So now we are &quot;The Helpers&quot; 4
           Future Leaders of Tomorrow -because the people we help are our future.
         </p>
+        <div className={styles.topLeftImage}>
+          <div>
+            <Image src={"/mission_top_left.png"} alt="Story image 1" width="234" height="195" />
+          </div>
+        </div>
+        <div className={styles.topRightImage}>
+          <div>
+            <Image src={"/mission_top_right.png"} alt="Story image 2" width="266" height="285" />
+          </div>
+        </div>
+        <div className={styles.bottomImage}>
+          <div>
+            <Image src={"/mission_bottom.png"} alt="Story image 3" width="532" height="298" />
+          </div>
+        </div>
       </div>
-
-
     </main>
   );
 }
