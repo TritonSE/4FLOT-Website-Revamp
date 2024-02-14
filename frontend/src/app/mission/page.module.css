@@ -19,6 +19,36 @@
   text-align: left;
 }
 
+.text {
+  font-weight: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 47px;
+  margin-left: 99px;
+  margin-right: 99px;
+  margin-top: 108px;
+  margin-bottom: 89px;
+}
+
+/*For the images*/
+.imageContainer {
+  width: 37%;
+  position: relative;
+  bottom: 500px;
+  left: 800px;
+  margin-bottom: -300px;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  row-gap: 32px;
+}
+
+/*For the Value Cards*/
 .customRectangle {
   width: 401px;
   height: 434px;
@@ -30,21 +60,9 @@
 .rectangleContainer {
   width: 100%; /*make the size of the container respective to the page*/
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-wrap: wrap;
-}
-
-.text {
-  font-weight: 16px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 47px;
-  margin-left: 99px;
-  margin-right: 99px;
-  margin-top: 150px;
-  margin-bottom: 64px;
+  row-gap: 22px;
 }
 
 .circleWhite {
@@ -86,20 +104,4 @@
   width: 85%;
   transform: translate(12%, 78%);
   color: white;
-}
-
-.topLeftImage {
-  position: relative;
-  left: 700px;
-  bottom: 400px;
-}
-.topRightImage {
-  position: relative;
-  left: 966px;
-  bottom: 732px;
-}
-.bottomImage {
-  position: relative;
-  left: 700px;
-  bottom: 750px;
 }

@@ -1,7 +1,8 @@
 import Image from "next/image";
 import React from "react";
 
-import BackgroundHeader from "../components/BackgroundHeader";
+import BackgroundHeader from "../../components/BackgroundHeader";
+import Button from "../../components/Button";
 
 import styles from "./page.module.css";
 
@@ -15,7 +16,7 @@ export default function Mission() {
         description="Leading the way for generations to come! Together we can .... make a difference by paying it forward with Love, Compassion, and Community Outreach for all humanity."
       />
 
-      {/* We pay it forward - KEVIN */}
+      {/* We pay it forward*/}
       <div className={styles.text}>
         <div className={styles.titlelarge}>We Pay It Forward With...</div>
         <div className={styles.rectangleContainer}>
@@ -52,7 +53,7 @@ export default function Mission() {
         </div>
       </div>
 
-      {/* OUR STORY - KATELYN */}
+      {/* OUR STORY*/}
       <div className={styles.text}>
         <div className={styles.titlelarge}>Here&apos;s Our Story</div>
         <p className={styles.description}>
@@ -62,21 +63,12 @@ export default function Mission() {
           denominator was that each of us needed Help. So now we are &quot;The Helpers&quot; 4
           Future Leaders of Tomorrow -because the people we help are our future.
         </p>
-        <div className={styles.topLeftImage}>
-          <div>
-            <Image src={"/mission_top_left.png"} alt="Story image 1" width="234" height="195" />
-          </div>
-        </div>
-        <div className={styles.topRightImage}>
-          <div>
-            <Image src={"/mission_top_right.png"} alt="Story image 2" width="266" height="285" />
-          </div>
-        </div>
-        <div className={styles.bottomImage}>
-          <div>
-            <Image src={"/mission_bottom.png"} alt="Story image 3" width="532" height="298" />
-          </div>
-        </div>
+        <Button text="Meet Our Team" link="/team"></Button>
+      </div>
+      <div className={styles.imageContainer}>
+        <Image src={"/mission_top_left.png"} alt="Story image 1" width="234" height="195" />
+        <Image src={"/mission_top_right.png"} alt="Story image 2" width="266" height="285" />
+        <Image src={"/mission_bottom.png"} alt="Story image 3" width="532" height="298" />
       </div>
     </main>
   );
