@@ -1,0 +1,8 @@
+p {
+  font-family: var(--font-body);
+}
+
+h1 {
+  font-family: var(--font-small-subtitle);
+  margin-bottom: 10px;
+}
