@@ -1,33 +1,24 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto+Slab:wght@100..900&display=swap");
 
-.title {
-  height: 25%;
-}
 .imageWrap {
   margin: 0;
   padding: 0;
-  max-height: 687px;
-  height: 100%;
-  width: auto;
+  height: 47vw;
+  position: relative;
+  width: 100%;
   background-color: #484848;
   opacity: 0.4;
   overflow: hidden;
 }
-.image {
-  margin: 0;
-  padding: 0;
-}
+
 .titleText {
   position: absolute;
   margin: 0;
-  padding: 196px 96px 305px;
+  padding: 13vw 7vw 21vw;
   top: 0;
   left: 0;
   width: 100%;
   height: auto;
-}
-.titleDescription {
-  max-width: 668px;
 }
 .titleXLarge {
   font: var(--font-xl-title);
@@ -36,7 +27,9 @@
   font: var(--font-body);
 }
 .body {
-  height: 70%;
+  max-width: 1440px;
+  margin: 0 auto;
+  height: auto;
   padding: 0px 98px 136px;
   background-color: #f9f9f9;
   color: black;
@@ -60,20 +53,6 @@
   margin: 0;
   padding: 0;
   display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 91px;
-}
-@media (min-width: 1400px) {
-  .eventsContainer {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media (min-width: 2300px) {
-  .eventsContainer {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-@media (min-width: 3100px) {
-  .eventsContainer {
-    grid-template-columns: repeat(4, 1fr);
-  }
 }

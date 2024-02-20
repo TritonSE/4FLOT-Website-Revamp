@@ -6,22 +6,23 @@ import styles from "./upcomingEvents.module.css";
 
 export default function UpcomingEvents() {
   return (
-    <>
+    <div className={styles.container}>
       <div className={styles.title}>
         {/* TODO: Replace with carousel component */}
         <div className={styles.imageWrap}>
           <Image
             src="https://cdn.discordapp.com/attachments/974154256061988917/1204523432398688346/placeholderTitleImage.png?ex=65d50add&is=65c295dd&hm=10791e92e54e22ff53a966307bc33ae045306594d2aeb2eff029e052800f6e65&"
-            className={styles.image}
-            alt="placeholder image"
-            width={1802}
-            height={1110}
+            alt="placeholder"
+            sizes="(max-height: 25vw)"
+            objectFit="cover"
+            objectPosition="center"
+            fill
           />
         </div>
         <div className={styles.titleText}>
           <p className={styles.bodyMedReg}>GET INVOLVED</p>
           <h1 className={styles.titleXLarge}>Upcoming Events</h1>
-          <p className={`${styles.bodyMedReg} ${styles.titleDescription}`}>
+          <p className={`${styles.bodyMedReg} max-w-2xl`}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil voluptas nemo, ea facilis
             cum repellat libero tempore nulla temporibus officiis quas eaque, asperiores aliquid
             minus soluta nobis excepturi perspiciatis nesciunt.
@@ -61,6 +62,6 @@ export default function UpcomingEvents() {
           />
         </div>
       </div>
-    </>
+    </div>
   );
 }
