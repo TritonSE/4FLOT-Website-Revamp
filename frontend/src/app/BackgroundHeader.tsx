@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./backgroundheader.css";
 
 /*const styleObj = { color: "white" };*/
@@ -24,12 +24,25 @@ const generateEllipses = (numImgs: number, activeIndex: number) => {
   return ellipses;
 };
 
+const generateLearnMore = (learnFlag: boolean) => {
+  const learnbutton: JSX.Element[] = [];
+  if (learnFlag) {
+    learnbutton.push(
+      <div className="learn-more-container">
+        <button className="learn-more-button">Learn More</button>
+      </div>,
+    );
+  }
+  return learnbutton;
+};
+
 type bgProps = {
   images: string[];
   interval: number;
+  learnMoreFlag: boolean;
 };
 
-const BackgroundHeader: React.FC<bgProps> = ({ images, interval = 3000 }) => {
+const BackgroundHeader: React.FC<bgProps> = ({ images, interval = 3000, learnMoreFlag }) => {
   const numImgs = images.length;
 
   const [activeIndex, setActiveIndex] = useState(0);
@@ -47,14 +60,6 @@ const BackgroundHeader: React.FC<bgProps> = ({ images, interval = 3000 }) => {
   }, [interval]);
   return (
     <div className="background-container">
-      {/*<Image
-        src={images[0]}
-        alt="Background image"
-        layout="fill"
-        objectFit="cover"
-        className="background-image"
-        priority
-  />*/}
       <Image
         src={images[activeIndex]}
         alt={`Slide ${activeIndex}`}
@@ -69,7 +74,7 @@ const BackgroundHeader: React.FC<bgProps> = ({ images, interval = 3000 }) => {
             xmlns="http://www.w3.org/2000/svg"
             width="1.6667vw"
             height="1.6667vw"
-            viewBox="0 0 24 24"
+            viewBox="0 0 1.6667vw 1.6667vw"
             fill="none"
           >
             <path
@@ -94,15 +99,14 @@ const BackgroundHeader: React.FC<bgProps> = ({ images, interval = 3000 }) => {
           </svg>
         </button>
       </div>
-      <div
-        className="bg-text-container" /*className="absolute bottom-20 left-20 w-1/2 h-full flex flex-col items-start justify-center ml-20"*/
-      >
-        <h1 className="bg-title" /*className="text-white text-4xl py-10 font-bold"*/>Our Impact</h1>
-        <p className="bg-para" /*style={styleObj}*/>
+      <div className="bg-text-container">
+        <h1 className="bg-title">Our Impact</h1>
+        <p className="bg-para">
           4FLOT is committed in preventing and ending homelessness, hunger and disparity in
           underprivileged communities.
         </p>
       </div>
+      {generateLearnMore(learnMoreFlag)}
     </div>
   );
 };
