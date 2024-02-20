@@ -14,7 +14,7 @@ export default function Impact() {
   ];
   return (
     <main style={{ backgroundColor: "#F9F9F9" }}>
-      <BackgroundHeader images={images} />
+      <BackgroundHeader images={images} interval={1000} />
       {/* White Cards 
       <WhiteCard
         imageUrl="/testimonials.png"
