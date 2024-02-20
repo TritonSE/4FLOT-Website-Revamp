@@ -28,7 +28,7 @@ const BackgroundHeader = ({
       <div className="absolute bottom-20 left-20 w-1/2 h-full flex flex-col items-start justify-center ml-20">
         <h2>{header}</h2>
         <h1 className="text-white text-4xl py-10 font-bold">{title}</h1>
-        <p>{description}</p>
+        <p className="text-white">{description}</p>
       </div>
     </div>
   );
