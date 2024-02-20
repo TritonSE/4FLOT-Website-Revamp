@@ -1,0 +1,15 @@
+.button {
+  background-color: #694c97;
+  color: white;
+  padding: 22px 37px;
+  width: 268px;
+  height: 80px;
+  border-radius: 4px;
+}
+
+.button p {
+  font-size: 24px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

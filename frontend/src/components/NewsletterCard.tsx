@@ -3,23 +3,22 @@ import React from "react";
 
 import styles from "./NewsletterCard.module.css";
 
+import type { Newsletter } from "../api/newsletter";
+
 type NewsletterCardProps = {
-  image: string;
-  title: string;
-  description: string;
-  date: string;
+  newsletter: Newsletter;
 };
 
-const NewsletterCard = ({ image, title, description, date }: NewsletterCardProps) => {
+const NewsletterCard = ({ newsletter }: NewsletterCardProps) => {
   return (
     <main className={styles.newsletterCardContainer}>
-      <Image src={image} alt="image" width={400} height={200} />
+      <Image src={newsletter.image} alt="image" width={400} height={200} />
       <div className={styles.newsletterTextContainer}>
-        <div className="flex flex-row justify-between">
-          <h1>{title}</h1>
-          <p className={styles.newsletterDate}>{date}</p>
+        <div className="flex flex-row justify-between items-center">
+          <h1>{newsletter.title}</h1>
+          <p className={styles.newsletterDate}>{newsletter.date}</p>
         </div>
-        <p>{description}</p>
+        <p>{newsletter.description}</p>
       </div>
     </main>
   );
