@@ -1,0 +1,251 @@
+.headerBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 96px;
+  gap: 10px;
+
+  position: relative;
+  width: 100%;
+  height: 107px;
+
+  background: #ffffff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Logo */
+.logo {
+  width: 196px;
+  height: 69.54px;
+
+  position: absolute;
+  left: 64px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+/* Container for About Us, Get Involved, Our Impact, and Donate*/
+.txtContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0px;
+  gap: 48px;
+
+  position: absolute;
+  right: 128px;
+
+  width: 541px;
+  height: 48px;
+}
+
+/* About Us */
+.aboutUs {
+  width: 75px;
+  height: 24px;
+
+  /* Body/Normal (Bold) */
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  color: #000000;
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  padding-bottom: 100px;
+  margin-bottom: -75px;
+}
+
+/* Get Involved */
+.getInvolved {
+  width: 105px;
+  height: 24px;
+
+  /* Body/Normal (Bold) */
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.03em;
+  color: #000000;
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  padding-bottom: 100px;
+  margin-bottom: -75px;
+}
+
+/* Our Impact */
+.ourImpact {
+  width: 94px;
+  height: 24px;
+
+  /* Body/Normal (Bold) */
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.03em;
+  color: #000000;
+
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+  padding-bottom: 100px;
+  margin-bottom: -75px;
+}
+
+/* Button */
+.button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  /* Primary */
+  background: #694c97;
+  border-radius: 4px;
+  padding: 12px 24px 8px;
+  gap: 6px;
+  width: 123px;
+  height: 48px;
+  order: 3;
+}
+
+/* Body/Medium (Bold) */
+.buttonBody {
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 550;
+  font-size: 20px;
+  line-height: 30px;
+  letter-spacing: 1px;
+
+  /* Center align text */
+  text-align: center;
+
+  /* Neutral/White */
+  color: #ffffff;
+}
+
+/* Dropdown styles for About Us */
+.aboutUsDropdown {
+  display: none;
+  position: absolute;
+  top: 77px;
+  right: 402px;
+  background-color: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  width: 163px;
+  max-height: 156px; /* Set your preferred max height */
+  overflow-y: auto; /* Enable vertical scroll if content exceeds max height */
+}
+
+.aboutUs:hover {
+  color: #743eb6; /* Set your preferred hover color */
+}
+
+.aboutUs:hover .aboutUsDropdown {
+  display: block;
+}
+
+.aboutUsDropdown a {
+  color: black;
+  padding: 14px 48px 14px 24px;
+  text-decoration: none;
+  display: block;
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.aboutUsDropdown a:hover {
+  background-color: #f1f1f1;
+}
+
+/* Dropdown styles getinvolved */
+.getInvolvedDropdown {
+  display: none;
+  position: absolute;
+  top: 77px;
+  right: 221px;
+  background-color: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  width: 202px; /* Set your preferred width */
+  max-height: 104px; /* Set your preferred max height */
+  overflow-y: auto; /* Enable vertical scroll if content exceeds max height */
+}
+
+.getInvolved:hover {
+  color: #743eb6; /* Set your preferred hover color */
+}
+
+.getInvolved:hover .getInvolvedDropdown {
+  display: block;
+}
+
+.getInvolvedDropdown a {
+  color: black;
+  padding: 14px 48px 14px 24px;
+  text-decoration: none;
+  display: block;
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  white-space: nowrap;
+}
+
+.getInvolvedDropdown a:hover {
+  background-color: #f1f1f1;
+}
+
+/* Dropdown styles Our Impact */
+.ourImpactDropdown {
+  display: none;
+  position: absolute;
+  top: 77px;
+  right: 115px;
+  background-color: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  width: 167px; /* Set your preferred width */
+  max-height: 104px; /* Set your preferred max height */
+  overflow-y: auto; /* Enable vertical scroll if content exceeds max height */
+}
+
+.ourImpact:hover {
+  color: #743eb6; /* Set your preferred hover color */
+}
+
+.ourImpact:hover .ourImpactDropdown {
+  display: block;
+}
+
+.ourImpactDropdown a {
+  color: black;
+  padding: 14px 48px 14px 24px;
+  text-decoration: none;
+  display: block;
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.ourImpactDropdown a:hover {
+  background-color: #f1f1f1;
+}
