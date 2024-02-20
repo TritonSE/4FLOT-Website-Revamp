@@ -2,36 +2,25 @@
 
 import React, { useEffect, useState } from "react";
 
-import { Event, getAllEvents } from "../../api/events";
 import { Testimonial, getAllTestimonials } from "../../api/testimonial";
 
-import EventCard from "./eventCard";
-import TestimonialCard from "./testimonialCard";
+import EventCard from "../../components/eventCard";
+import TestimonialCard from "../../components/testimonialCard";
 
 import "./page.css";
 
 export default function Impact() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
-  const [events, setEvents] = useState<Event[]>([]);
+  const [events, setEvents] = useState<Testimonial[]>([]);
 
   useEffect(() => {
     getAllTestimonials()
       .then((result) => {
         if (result.success) {
-          //console.log(result.data);
-          setTestimonials(result.data);
-        } else {
-          alert(result.error);
-        }
-      })
-      .catch((error) => {
-        alert(error);
-      });
-
-    getAllEvents()
-      .then((result) => {
-        if (result.success) {
-          setEvents(result.data);
+          const filteredEvents = result.data.filter((item) => item.type === "event");
+          setEvents(filteredEvents);
+          const filteredQuotes = result.data.filter((item) => item.type === "quote");
+          setTestimonials(filteredQuotes);
         } else {
           alert(result.error);
         }
@@ -55,7 +44,7 @@ export default function Impact() {
           we can do alone. Let&apos;s bring our abilities and passions together to make real change.
           Your donations will help feed and clothes our underprivileged and underserved communities.
         </p>
-        <div className="flex flex-wrap gap-5">
+        <div className="flex flex-wrap gap-5 gap-y-10">
           {testimonials.map((testimonial) => (
             <TestimonialCard key={testimonial._id} testimonial={testimonial} />
           ))}
@@ -68,9 +57,9 @@ export default function Impact() {
           Your donations will help feed and clothes our underprivileged and underserved communities.
         </p>
 
-        <div className="flex flex-wrap gap-5">
+        <div className="flex flex-wrap gap-5 justify-between mb-20">
           {events.map((event) => (
-            <EventCard key={event._id} event={event} />
+            <EventCard key={event._id} testimonial={event} />
           ))}
         </div>
       </div>

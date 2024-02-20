@@ -8,19 +8,19 @@ const makeIDValidator = () =>
     .isMongoId()
     .withMessage("_id must be a MongoDB object ID");
 
-const makeQuoteValidator = () =>
-  body("quote")
+const makeTitleValidator = () =>
+  body("title")
     // title must exist, if not this message will be displayed
     .exists()
-    .withMessage("quote is required")
+    .withMessage("title is required")
     // bail prevents the remainder of the validation chain for this field from being executed if
     // there was an error
     .bail()
     .isString()
-    .withMessage("quote must be a string")
+    .withMessage("title must be a string")
     .bail()
     .notEmpty()
-    .withMessage("quote cannot be empty");
+    .withMessage("title cannot be empty");
 const makeDescriptionValidator = () =>
   body("description")
     // title must exist, if not this message will be displayed
@@ -50,14 +50,14 @@ const makeImageValidator = () =>
     .withMessage("image cannot be empty");
 
 export const createTestimonial = [
-  makeQuoteValidator(),
+  makeTitleValidator(),
   makeDescriptionValidator(),
   makeImageValidator(),
 ];
 
 export const updateTestimonial = [
   makeIDValidator(),
-  makeQuoteValidator(),
+  makeTitleValidator(),
   makeDescriptionValidator(),
   makeImageValidator(),
 ];

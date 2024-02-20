@@ -3,9 +3,10 @@ import { get, handleAPIError } from "./requests";
 import type { APIResult } from "./requests";
 export type Testimonial = {
   _id: string;
-  quote: string;
+  title: string;
   description: string;
   image: string;
+  type: string;
 };
 
 export async function getAllTestimonials(): Promise<APIResult<Testimonial[]>> {
