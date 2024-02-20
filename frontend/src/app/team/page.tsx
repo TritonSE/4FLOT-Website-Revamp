@@ -4,12 +4,24 @@ import React, { useEffect, useState } from "react";
 
 import styles from "./page.module.css";
 
+import { BackgroundImage, BackgroundImagePages, getBackgroundImages } from "@/api/images";
 import { Member, getAllMembers } from "@/api/member";
 import BackgroundHeader from "@/components/BackgroundHeader";
 import MemberInfo from "@/components/MemberInfo";
 
 export default function Team() {
   const [members, setMembers] = useState<Member[]>([]);
+  const [images, setImages] = useState<BackgroundImage[]>([]);
+
+  useEffect(() => {
+    getBackgroundImages(BackgroundImagePages.TEAM).then((result) => {
+      if (result.success) {
+        setImages(result.data);
+      }
+    }).catch((error) => {
+      alert(error);
+    });
+  }, []);
 
   useEffect(() => {
     getAllMembers()
@@ -28,7 +40,7 @@ export default function Team() {
   return (
     <div>
       <BackgroundHeader
-        backgroundImage="/image 18.png"
+        backgroundImageURIs= {images.map((image) => image.imageURI)}
         header="About Us"
         title="Meet Our Team"
         description="Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit

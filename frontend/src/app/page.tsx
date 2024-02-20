@@ -1,21 +1,38 @@
-import "./globals.css";
 "use client";
+import "./globals.css";
 
-import React from "react";
 
-import BackgroundHeader from "./BackgroundHeader";
+import { useEffect, useState } from "react";
+
+import BackgroundHeader from "../components/BackgroundHeader";
+
+import { BackgroundImage, BackgroundImagePages, getBackgroundImages } from "@/api/images";
 /*import WhiteCard from "./WhiteCard";*/
 
 export default function Impact() {
-  const images = [
-    "/carousel-images/impact_bg.png",
-    "/carousel-images/home.png",
-    "/carousel-images/home2.jpeg",
-    // Add more image paths as needed
-  ];
+  const [images, setImages] = useState<BackgroundImage[]>([])
+  useEffect(() => {
+    getBackgroundImages(BackgroundImagePages.HOME).then((result) => {
+      if (result.success) {
+        console.log(result.data, "images");
+        setImages(result.data);
+      }
+    }).catch((error) => {
+      alert(error);
+    });
+  }, []);
+
+  
   return (
     <main style={{ backgroundColor: "#F9F9F9" }}>
-      <BackgroundHeader images={images} />
+      {images.length > 0 && (
+      <BackgroundHeader 
+      backgroundImageURIs={images.map((image) => image.imageURI)}
+      header={"Our Impact"}
+      title={"4 Future Leaders of Tomorrow"}
+      description={"4FLOT is committed in preventing and ending homelessness, hunger and disparity inunderprivileged communities."}
+       /> )}
+
       {/* White Cards 
       <WhiteCard
         imageUrl="/testimonials.png"

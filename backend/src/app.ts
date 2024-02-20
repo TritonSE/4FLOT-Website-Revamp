@@ -8,6 +8,7 @@ import express, { NextFunction, Request, Response } from "express";
 import { isHttpError } from "http-errors";
 import subscriberRoutes from "src/routes/subscriber";
 import memberRoutes from "src/routes/members";
+import backgroundImageRoutes from "src/routes/background_images";
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use(
 // Routes ( e.g. app.use("/api/task", taskRoutes); )
 app.use("/api/subscribers", subscriberRoutes);
 app.use("/api/member", memberRoutes);
+app.use("/api/BackgroundImage", backgroundImageRoutes);
 
 /**
  * Error handler; all errors thrown by server are handled here.

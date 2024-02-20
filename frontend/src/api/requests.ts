@@ -26,7 +26,6 @@ async function fetchRequest(
   headers: Record<string, string>,
 ): Promise<Response> {
   const hasBody = body !== undefined;
-
   const newHeaders = { ...headers };
   if (hasBody) {
     newHeaders["Content-Type"] = "application/json";
