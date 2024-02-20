@@ -21,14 +21,24 @@ export default function Mission() {
       <div className={styles.text}>
         <div className={styles.titlelarge}>We Pay It Forward With...</div>
         <div className={styles.rectangleContainer}>
-          <ValueCard title="Service" iconSrc="/threepeople.png" description="Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec
-              blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi."></ValueCard>
-          <ValueCard title="Compassion" iconSrc="/handheart.png" description="Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec
-              blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi."></ValueCard>
-          <ValueCard title="Community" iconSrc="/puzzle.png" description="Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec
-              blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi."></ValueCard>
-      
-
+          <ValueCard
+            title="Service"
+            iconSrc="/threepeople.svg"
+            description="Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec
+              blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi."
+          ></ValueCard>
+          <ValueCard
+            title="Compassion"
+            iconSrc="/handheart.svg"
+            description="Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec
+              blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi."
+          ></ValueCard>
+          <ValueCard
+            title="Community"
+            iconSrc="/puzzle.svg"
+            description="Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec
+              blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi."
+          ></ValueCard>
         </div>
       </div>
 
