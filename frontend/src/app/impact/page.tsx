@@ -38,7 +38,7 @@ export default function Impact() {
       }}
     >
       <div className="flex flex-col px-24 pt-24 pb-20">
-        <h1 className="text-5xl font-bold mb-5">Read Our Stories</h1>
+        <h1 className="text-5xl font-bold mb-8">Read Our Stories</h1>
         <p className="text-2xl mb-16">
           A nonprofit is as strong as the community that holds it up. Together, we can do more than
           we can do alone. Let&apos;s bring our abilities and passions together to make real change.
