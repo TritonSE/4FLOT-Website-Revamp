@@ -14,7 +14,7 @@ const TestimonialCard = ({ testimonial }: CardProps) => {
       <main className="testimonial-card-container">
         <Image src={testimonial.image} alt="image" width={400} height={200} />
         <div className="testimonial-text-container">
-          <h1>{testimonial.title}</h1>
+          <h1>&#8220;{testimonial.title}&#8221;</h1>
           <p>{testimonial.description}</p>
         </div>
       </main>

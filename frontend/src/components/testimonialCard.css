@@ -3,7 +3,7 @@
   height: 436px;
   background-color: white;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
 }
 
 .testimonial-card-container img {
@@ -14,6 +14,8 @@
 
 .testimonial-card-container h1 {
   font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.56px;
 }
 
 .testimonial-card-container p {
