@@ -6,11 +6,9 @@ const eventDetailsSchema = new Schema({
   guidlines: { type: String, required: true },
   date: { type: Date, required: true },
   location: { type: String, required: true },
-  image: String, // TODO: Change this if necessary
-  // also not sure how to handle images
-  //
-  // volunteers: [volunteerSchema],
-  // not sure if this is something we need to do
+  imageURI: { type: String, required: true }, // TODO: Change this if necessary
+  // empty by default, stores _id of volunteers
+  volunteers: { type: [String], required: false, default: [] },
 });
 
 type EventDetails = InferSchemaType<typeof eventDetailsSchema>;

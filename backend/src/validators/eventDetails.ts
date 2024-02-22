@@ -33,8 +33,8 @@ const makeDateValidator = () =>
     .exists()
     .withMessage("date is required")
     .bail()
-    .isDate()
-    .withMessage("date must be a date");
+    .isString()
+    .withMessage("date must be a string");
 const makeLocationValidator = () =>
   body("location")
     .exists()
@@ -42,6 +42,16 @@ const makeLocationValidator = () =>
     .bail()
     .isString()
     .withMessage("location must be a string");
+const makeImageURIValidator = () =>
+  body("imageURI")
+    .exists()
+    .withMessage("imageURI is required")
+    .bail()
+    .isString()
+    .withMessage("imageURI must be a string")
+    .bail()
+    .isURL()
+    .withMessage("imageURI must be a URL");
 
 export const createEventDetails = [
   makeNameValidator(),
@@ -49,6 +59,7 @@ export const createEventDetails = [
   makeGuidlinesValidator(),
   makeDateValidator(),
   makeLocationValidator(),
+  makeImageURIValidator(),
 ];
 
-export const getTask = [makeIDValidator()];
+export const getEventDetails = [makeIDValidator()];
