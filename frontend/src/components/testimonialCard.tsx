@@ -1,21 +1,35 @@
 import Image from "next/image";
 import React from "react";
 
-import "./testimonialCard.css";
+import styles from "./TestimonialCard.module.css";
+
 import type { Testimonial } from "../api/testimonial";
 
 type CardProps = {
   testimonial: Testimonial | null | undefined;
+  cardWidth: number;
+  cardHeight: number;
+  imgWidth: number;
+  imgHeight: number;
 };
 
-const TestimonialCard = ({ testimonial }: CardProps) => {
+const TestimonialCard = ({
+  testimonial,
+  cardWidth,
+  cardHeight,
+  imgWidth,
+  imgHeight,
+}: CardProps) => {
   if (testimonial) {
     return (
-      <main className="testimonial-card-container">
-        <Image src={testimonial.image} alt="image" width={400} height={200} />
-        <div className="testimonial-text-container">
-          <h1>&#8220;{testimonial.title}&#8221;</h1>
-          <p>{testimonial.description}</p>
+      <main
+        className={styles.testimonialCardContainer}
+        style={{ width: `${cardWidth}px`, height: `${cardHeight}px` }}
+      >
+        <Image src={testimonial.image} alt="image" width={imgWidth} height={imgHeight} />
+        <div className={styles.textContainer}>
+          <div className={styles.title}>&#8220;{testimonial.title}&#8221;</div>
+          <div className={styles.description}>{testimonial.description}</div>
         </div>
       </main>
     );
