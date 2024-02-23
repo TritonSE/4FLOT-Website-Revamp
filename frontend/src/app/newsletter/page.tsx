@@ -1,10 +1,11 @@
 "use client";
+import React, { useEffect, useState } from "react";
+import styles from "./page.module.css";
 
-import React from "react";
-
-import "./page.css";
 import NewsletterArchive from "../../components/NewsletterArchive";
 import NewsletterCard from "../../components/NewsletterCard";
+import BackgroundHeader from "@/components/BackgroundHeader";
+
 
 const newsletter1 = {
   _id: "1",
@@ -46,30 +47,34 @@ const newsletter5 = {
   date: "Month XX, 20XX",
 };
 
-export default function Team() {
+export default function Newsletter() {
   return (
-    <main
-      style={{
-        backgroundColor: "white",
-        color: "black",
-      }}
-    >
-      <div className="flex flex-col px-24 pt-24 pb-36">
-        <h1 className="text-5xl font-bold mb-9">Quarterly Updates</h1>
-        <p className="text-2xl">
-          Description of general newsletter content, what to expect in the newsletters, etc.
+    <main>
+    <BackgroundHeader
+      backgroundImage="/PeopleHugging.png"
+      header="Our Impact"
+      title="Newsletter"
+      description="4FLOT is committed in preventing and ending homelessness,          
+      hunger and disparity in underprivileged communities. "
+    />
+    <div className={styles.text}>
+      <div className={styles.subtitle}>Quaterly Updates</div>
+        {/* <div>Hello.</div> */}
+        <p className={styles.description}>
+        Description of general newsletter content, what to expect in the newsletters, etc.
         </p>
-        <div className="flex flex-col gap-24 mt-14 mb-24">
-          <NewsletterCard newsletter={newsletter1}></NewsletterCard>
-          <NewsletterCard newsletter={newsletter2}></NewsletterCard>
-        </div>
-        <h1 className="text-3xl font-bold mb-8">Archive</h1>
+    </div>
+
+    <div className={styles.page}>
+                <NewsletterCard newsletter={newsletter1}></NewsletterCard>
+        <NewsletterCard newsletter={newsletter2}></NewsletterCard>
+        <div className={styles.titlelarge}>Archive</div>
         <NewsletterArchive year="2024" newsletters={[newsletter5]} />
         <NewsletterArchive
-          year="2023"
-          newsletters={[newsletter1, newsletter2, newsletter3, newsletter4]}
+            year="2023"
+            newsletters={[newsletter1, newsletter2, newsletter3, newsletter4]}
         />
-      </div>
+    </div>
     </main>
   );
 }
