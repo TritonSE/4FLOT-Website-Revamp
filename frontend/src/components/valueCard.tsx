@@ -1,6 +1,6 @@
 import React from "react";
 
-import styles from "./valueCard.module.css";
+import styles from "./ValueCard.module.css";
 
 type ValueCardProps = {
   iconSrc: string;
