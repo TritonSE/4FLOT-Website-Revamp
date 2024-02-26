@@ -6,7 +6,7 @@ export type EventDetails = {
   _id: string;
   name: string;
   description: string;
-  guidlines: string;
+  guidelines: string;
   date: string;
   location: string;
   imageURI: string;
@@ -41,7 +41,7 @@ export async function getAllEventDetails(): Promise<APIResult<EventDetails[]>> {
 type CreateEventDetailsRequest = {
   name: string;
   description: string;
-  guidlines: string;
+  guidelines: string;
   date: string;
   location: string;
   imageURI: string;
@@ -64,7 +64,7 @@ type UpdateEventDetailsRequest = {
   _id: string;
   name: string;
   description: string;
-  guidlines: string;
+  guidelines: string;
   date: string;
   location: string;
   imageURI: string;

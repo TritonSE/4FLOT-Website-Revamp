@@ -35,7 +35,7 @@ export const getEventDetails: RequestHandler = async (req, res, next) => {
 
 export const createEventDetails: RequestHandler = async (req, res, next) => {
   const errors = validationResult(req);
-  const { name, description, guidlines, date, location, imageURI } = req.body;
+  const { name, description, guidelines, date, location, imageURI } = req.body;
 
   try {
     validationErrorParser(errors);
@@ -43,7 +43,7 @@ export const createEventDetails: RequestHandler = async (req, res, next) => {
     const eventDetails = await EventDetails.create({
       name,
       description,
-      guidlines,
+      guidelines,
       date,
       location,
       imageURI,

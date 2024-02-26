@@ -22,12 +22,12 @@ const makeDescriptionValidator = () =>
     .isString()
     .withMessage("description must be a string");
 const makeGuidlinesValidator = () =>
-  body("guidlines")
+  body("guidelines")
     .exists()
-    .withMessage("guidlines is required")
+    .withMessage("guidelines is required")
     .bail()
     .isString()
-    .withMessage("guidlines must be a string");
+    .withMessage("guidelines must be a string");
 const makeDateValidator = () =>
   body("date")
     .exists()
