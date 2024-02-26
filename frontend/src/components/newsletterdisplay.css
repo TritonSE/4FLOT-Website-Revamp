@@ -1,0 +1,111 @@
+
+/* 
+p {
+  font-family: var(--font-body);
+} */
+/* 
+h1 {
+  font-family: var(--font-small-subtitle);
+  margin-bottom: 10px;
+} */
+
+
+/* newsletterDisplay.module.css */
+
+.imageContainer {
+    width: 100%; /* Adjust the width as needed */
+    height: 300px; /* Adjust the height as needed */
+    border: 1px solid #000;
+    background-size: cover;
+    background-position: 50% 50%;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    margin-top: 20px; /* Adjust the margin as needed */
+  }
+
+
+.page {
+    display: flex;
+    flex-direction: column;
+    gap: 103px;
+    margin-top: 108px;
+    margin-bottom: 143px;
+    margin-left: 96px;
+    margin-right: 96px;
+  }
+  
+  
+  .description {
+    text-align: left;
+    font-family: var(--font-body);
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 32px; /* 133.333% */
+  }
+  
+  .titlelarge {
+    font-family: var(--font-small-subtitle);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 48px;
+    letter-spacing: 0.02em;
+    text-align: left;
+  }
+  
+  .text {
+    font-weight: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 47px;
+  }
+  
+  .storyContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 92px;
+  }
+  
+  
+  .description {
+    text-align: left;
+    font-family: var(--font-body);
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 32px; /* 133.333% */
+  }
+  
+  .subtitle {
+    font-family: var(--font-small-subtitle);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 150%; /* 48px */
+    letter-spacing: 0.64px;
+  }
+  
+  .text {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 47px;
+    margin-left: 99px;
+    margin-right: 99px;
+    margin-top: 53px;
+    margin-bottom: 64px;
+  }
+  
+  .membersContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-left: 119px;
+    margin-right: 119px;
+    margin-bottom: 147px;
+    gap: 60px;
+  }
+  
