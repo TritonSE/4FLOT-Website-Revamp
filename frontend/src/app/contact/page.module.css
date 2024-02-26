@@ -1,0 +1,36 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 103px;
+  padding-left: 97px;
+  padding-right: 97px;
+  padding-top: 94px;
+  padding-bottom: 280px;
+}
+
+.title {
+  font-family: var(--font-small-subtitle);
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 72px */
+  letter-spacing: 0.96px;
+}
+
+.description {
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 32px; /* 133.333% */
+}
+
+.text {
+  font-weight: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 18px;
+}

@@ -10,7 +10,7 @@
 
   background: #694c97;
   border-radius: 4px;
-  padding: 12px 24px 8px;
+  padding: 12px 24px 10px;
 }
 
 /* Body/Medium (Bold) */
@@ -20,7 +20,6 @@
   font-weight: 700;
   font-size: 20px;
   letter-spacing: 1px;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   /* Center align text */
   text-align: center;
 
