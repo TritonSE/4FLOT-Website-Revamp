@@ -4,38 +4,43 @@ import styles from "./ContactForm.module.css";
 
 const ContactForm: React.FC = () => {
   return (
-    <form>
-      <div>
-        <div className={styles.lineWrapper}>
-          <label htmlFor="firstName">
-            First Name
-            <br></br>
-            <input className={styles.input} type="text" id="firstName" name="firstName" required />
-          </label>
+    <form className={styles.form}>
+      <div className={styles.lineWrapper}>
+        <label htmlFor="firstName">
+          First Name
+          <br></br>
+          <input
+            className={styles.inputShort}
+            type="text"
+            id="firstName"
+            name="firstName"
+            required
+          />
+        </label>
 
-          <label htmlFor="lastName">
-            Last Name
-            <br></br>
-            <input className={styles.input} type="text" id="lastName" name="lastName" required />
-          </label>
-        </div>
+        <label htmlFor="lastName">
+          Last Name
+          <br></br>
+          <input className={styles.inputShort} type="text" id="lastName" name="lastName" required />
+        </label>
       </div>
       <div>
         <label htmlFor="email">Email</label>
         <br></br>
-        <input className={styles.input} type="email" id="email" name="email" required />
+        <input className={styles.inputLong} type="email" id="email" name="email" required />
       </div>
       <div>
         <label htmlFor="phone">Phone</label>
         <br></br>
-        <input className={styles.input} type="tel" id="phone" name="phone" />
+        <input className={styles.inputLong} type="tel" id="phone" name="phone" />
       </div>
       <div>
         <label htmlFor="helpOption">How can we help you?</label>
         <br></br>
-        <select className={styles.input} id="helpOption" name="helpOption" required>
-          <option value="">-- Please Select --</option>
-          <option value="Option 1">I have a donation question</option>
+        <select className={styles.select} id="helpOption" name="helpOption" required>
+          <option value="Option 1" selected>
+            I have a donation question
+          </option>
           <option value="Option 2">I have a volunteer question</option>
           <option value="Option 3">I have a sponsor question</option>
           <option value="Option 3">I have a general question</option>
@@ -44,12 +49,12 @@ const ContactForm: React.FC = () => {
       <div>
         <label htmlFor="subject">Subject</label>
         <br></br>
-        <input className={styles.input} type="text" id="subject" name="subject" required />
+        <input className={styles.inputLong} type="text" id="subject" name="subject" required />
       </div>
       <div>
         <label htmlFor="message">Message</label>
         <br></br>
-        <textarea className={styles.input} id="message" name="message" required />
+        <textarea className={styles.inputLong} id="message" name="message" required />
       </div>
       <button type="submit">Contact Us</button>
     </form>

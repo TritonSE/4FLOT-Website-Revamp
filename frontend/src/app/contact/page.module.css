@@ -46,7 +46,7 @@
   margin-top: 32px;
 }
 
-/*To hold the form*/
+/*For elements in Stay Connected*/
 .container {
   display: flex;
   justify-content: space-between;
@@ -54,7 +54,11 @@
 }
 .imageContainer {
   flex: 0 0 auto; /* Don't allow the image container to grow */
+  margin-top: 150px;
+  margin-right: 20px;
 }
 .formContainer {
   flex: 1; /* Allow the form container to grow to fill remaining space */
+  margin-top: 115px;
+  padding-top: 41px;
 }

@@ -39,9 +39,16 @@ export default function Contact() {
 
         {/* Stay Connected*/}
         <div className={styles.container}>
-          <div className={styles.imageContainer}>
+          <div>
             <div className={styles.title}>Stay Connected</div>
-            <Image src={"/stayConnected.svg"} alt="Stay Connected Image" width="456" height="467" />
+            <div className={styles.imageContainer}>
+              <Image
+                src={"/stayConnected.svg"}
+                alt="Stay Connected Image"
+                width="456"
+                height="467"
+              />
+            </div>
           </div>
           <div className={styles.formContainer}>
             <ContactForm />

@@ -1,11 +1,32 @@
-/* Style for text input */
-.input {
-  border: 1px solid #ccc; /* Gray border */
-  padding: 8px; /* Padding for text input */
-  margin: 5px 0; /* Margin between text inputs */
-  width: 288px;
+.form {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
 }
 
+/* Style for short text box */
+.inputShort {
+  border: 1px solid #ccc; /* Gray border */
+  border-radius: 4px;
+  padding: 8px; /* Padding for text input */
+  margin: 5px 0 16px; /* Margin between text inputs */
+  width: 288px;
+  height: 36px;
+}
+
+/* Style for long text box */
+.inputLong {
+  border: 1px solid #ccc; /* Gray border */
+  border-radius: 4px;
+  padding: 8px; /* Padding for text input */
+  margin: 5px 0 16px; /* Margin between text inputs */
+  width: 594px;
+  height: 36px;
+}
+
+/*Container for First name and Last name*/
 .lineWrapper {
   display: flex;
   flex-direction: row;
@@ -13,23 +34,18 @@
   gap: 18px;
 }
 
-/**
-input[type="text"] {
-  border: 1px solid #ccc; 
-  padding: 8px; 
-  margin: 5px 0; 
+.select {
+  background-color: white;
+  width: 594px;
+  height: 40px;
+  margin: 5px 0 16px;
+
+  border: 1px solid transparent;
+  border-color: #d8d8d8;
+  padding: 8px, 48px, 8px, 16px;
 }
 
-textarea {
-  border: 1px solid #ccc;
-  outline: none;
-  padding: 8px; 
-  margin: 5px 0; 
+.dropdown {
+  /* position: relative; */
+  /* bottom: 20px; */
 }
-
-
-input[type="text"]:focus,
-textarea:focus {
-  border: 1px solid #ccc; 
-} 
-**/
