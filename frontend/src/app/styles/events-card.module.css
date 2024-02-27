@@ -20,13 +20,13 @@
 }
 
 .cardTitle {
-  font: var(--font-m-title);
+  font: var(--font-title-m);
   text-align: left;
   padding-bottom: 10px;
 }
 
 .cardDescription {
-  font: var(--font-body-normal-reg);
+  font: var(--font-body-reg);
   text-align: left;
   padding-bottom: 20px;
 }
@@ -43,11 +43,6 @@
     linear-gradient(0deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0));
   border: 1px solid #0370bb;
 
-  font-family: Open Sans; /*fix this font*/
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 30px;
-  letter-spacing: 0.02em;
-  text-align: center;
+  font: var(--font-body);
   color: white;
 }

@@ -1,40 +1,61 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import { EventDetails } from "../../api/eventDetails";
+import { EventDetails, getEventDetails } from "../../../api/eventDetails";
+import SectionCard from "../../components/SectionCard";
+import VolunteerPopup from "../../components/VolunteerPopup";
 
-import SectionCard from "../components/SectionCard";
-import VolunteerPopup from "../components/VolunteerPopup";
-import styles from "./eventSignup.module.css";
+import styles from "./page.module.css";
 
-type EventSignupProps = {
-  event: EventDetails | null;
+type Props = {
+  params: { eventId: string };
 };
 
-export default function EventSignup({ event }: EventSignupProps) {
+export default function EventSignup({ params }: Props) {
+  const [event, setEvent] = useState<EventDetails | null>(null);
   const [popupOpen, setPopup] = useState(false);
+
+  useEffect(() => {
+    // Fetch event details
+    getEventDetails(params.eventId)
+      .then((response) => {
+        if (response.success) {
+          setEvent(response.data);
+        } else {
+          alert(response.error);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }, []);
 
   return (
     <div className="flex flex-col justify-center items-center">
       <VolunteerPopup open={popupOpen} setOpen={setPopup} />
-      <Image
-        className="Image1"
-        src="https://i.imgur.com/QIFAqLQ.png"
-        alt="Placeholder Header Image"
-        width={1440}
-        height={558}
-        priority
-      />
+      <div className="bg-[#484848] p-0 m-0 justify-center items-center">
+        <Image
+          className="opacity-60"
+          src="https://i.imgur.com/QIFAqLQ.png"
+          alt="Placeholder Header Image"
+          width={1440}
+          height={558}
+          priority
+        />
+      </div>
       <SectionCard
-        className="top-[341px]"
+        className="-m-40 z-50"
         topText="VOLUNTEER"
         title={event?.name ?? "Loading..."}
         description={event?.description ?? "Loading..."}
         showTopText
       />
-      <div className="flex flex-col gap-16 px-24 py-40 max-w-[1440px]" style={{ width: "98vw" }}>
+      <div
+        className="flex flex-col gap-16 m-10 px-24 py-40 max-w-[1440px]"
+        style={{ width: "98vw" }}
+      >
         <div className={`${styles.details} flex flex-row gap-9`}>
           <div className="w-1/2">
             <Image src="/eventSignupGraphic.svg" alt="People with Boxes" width={578} height={500} />

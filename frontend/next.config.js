@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['localhost', 'cdn.discordapp.com'],
+        domains: ['localhost', 'i.imgur.com', 'images.unsplash.com', 'plus.unsplash.com'], //i.imgur.com is for temporary image hosting
     }
 };
 

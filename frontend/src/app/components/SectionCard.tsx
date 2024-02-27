@@ -28,7 +28,7 @@ export default function SectionCard({
 }: SectionCardProps) {
   return (
     <div
-      className={`absolute ${className} w-[1035px] h[418px] px-[251px] py-[53px] bg-white rounded-[10px] shadow`}
+      className={`${className} w-[1035px] h[418px] px-[251px] py-[53px] bg-white rounded-[10px] shadow`}
     >
       <div className="flex flex-col gap-8 justify-center align-middle">
         {showTopText && (
