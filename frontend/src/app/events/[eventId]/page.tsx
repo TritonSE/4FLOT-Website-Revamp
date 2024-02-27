@@ -46,7 +46,7 @@ export default function EventSignup({ params }: Props) {
         />
       </div>
       <SectionCard
-        className="-m-40 z-50"
+        className="-m-40 z-10"
         topText="VOLUNTEER"
         title={event?.name ?? "Loading..."}
         description={event?.description ?? "Loading..."}
