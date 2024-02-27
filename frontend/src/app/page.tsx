@@ -1,12 +1,11 @@
 "use client";
 import "./globals.css";
-
-
 import { useEffect, useState } from "react";
 
 import BackgroundHeader from "../components/BackgroundHeader";
 
 import { BackgroundImage, BackgroundImagePages, getBackgroundImages } from "@/api/images";
+import Button from "@/components/Button";
 /*import WhiteCard from "./WhiteCard";*/
 
 export default function Impact() {
@@ -30,7 +29,8 @@ export default function Impact() {
       backgroundImageURIs={images.map((image) => image.imageURI)}
       header={"Our Impact"}
       title={"4 Future Leaders of Tomorrow"}
-      description={"4FLOT is committed in preventing and ending homelessness, hunger and disparity inunderprivileged communities."}
+      description={"4FLOT is committed in preventing and ending homelessness, hunger and disparity in underprivileged communities."}
+      button={<Button text="Learn More" link="/join-us" />}
        /> )}
     </main>
   );

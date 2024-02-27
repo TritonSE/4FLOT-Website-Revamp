@@ -8,6 +8,7 @@ type BackgroundHeaderProps = {
   title: string;
   description: string;
   interval?: number;
+  button?: React.ReactNode;
 };
 
 
@@ -18,6 +19,7 @@ const BackgroundHeader = ({
   title,
   description,
   interval = 3000,
+  button = null,
 }: BackgroundHeaderProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -66,8 +68,13 @@ const BackgroundHeader = ({
       </div>
       <div className="absolute bottom-20 left-20 w-1/2 h-full flex flex-col items-start justify-center ml-20">
         <h2>{header}</h2>
-        <h1 className="text-white text-4xl py-10 font-bold">{title}</h1>
-        <p>{description}</p>
+        <h1 style={{ fontSize: '48px', lineHeight: '72px', fontWeight: 700, color: 'white' }}>
+  {title}
+</h1>
+<p style={{ fontFamily: 'var(--font-body)', color: 'white', fontSize: '20px', lineHeight: '24px', fontWeight: 300 }}>
+  {description}
+</p>
+        {button && <div className={"mt-6"}>{button}</div>}
       </div>
     </div>
   );
