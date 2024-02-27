@@ -38,12 +38,14 @@ const VolunteerForm: React.FC<VolunteerFormProps> = ({
   };
 
   const validatePhoneNumber = (_phoneNumber: string): boolean => {
-    // I don't understand why, but the regex at the end checking {3} instead of {4} is working
-    const re = /^\d{3}-\d{3}-\d{3}$/;
+    const re = /^\d{3}-\d{3}-\d{4}$/;
     return re.test(_phoneNumber);
   };
 
   const validateForm = () => {
+
+    let allowSubmit = true;
+
     setFirstNameError("");
     setLastNameError("");
     setEmailError("");
@@ -51,38 +53,45 @@ const VolunteerForm: React.FC<VolunteerFormProps> = ({
 
     if (!firstName) {
       setFirstNameError("Please enter your first name");
+      allowSubmit = false;
     } else {
       setFirstNameError("");
     }
 
     if (!lastName) {
       setLastNameError("Please enter your last name");
+      allowSubmit = false;
     } else {
       setLastNameError("");
     }
 
     if (!validateEmail(email)) {
       setEmailError("Please enter a valid email address (xx@domain.com)");
+      allowSubmit = false;
     } else {
       setEmailError("");
     }
 
+    console.log(phoneNumber);
+    validatePhoneNumber(phoneNumber)
+
     if (!validatePhoneNumber(phoneNumber)) {
       setPhoneNumberError("Please enter a valid phone number (XXX-XXX-XXXX)");
+      allowSubmit = false;
     } else {
       setPhoneNumberError("");
     }
+    console.log(allowSubmit);
+
+    return allowSubmit;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (
-      firstNameError === "" &&
-      lastNameError === "" &&
-      emailError === "" &&
-      phoneNumberError === ""
-    ) {
+    const allowSubmit = validateForm();
+
+    if (allowSubmit) {
       submitForm(firstName, lastName, email, phoneNumber, reveiveNews);
       setSuccess(true);
     }
@@ -104,7 +113,6 @@ const VolunteerForm: React.FC<VolunteerFormProps> = ({
             value={firstName}
             onChange={(e) => {
               setFirstName(e.target.value);
-              validateForm();
             }}
           />
           {firstNameError && <div className={styles.errorMessage}>{firstNameError}</div>}
@@ -121,7 +129,6 @@ const VolunteerForm: React.FC<VolunteerFormProps> = ({
             value={lastName}
             onChange={(e) => {
               setLastName(e.target.value);
-              validateForm();
             }}
           />
           {lastNameError && <div className={styles.errorMessage}>{lastNameError}</div>}
@@ -138,7 +145,6 @@ const VolunteerForm: React.FC<VolunteerFormProps> = ({
             value={email}
             onChange={(e) => {
               setEmail(e.target.value);
-              validateForm();
             }}
           />
           {emailError && <div className={styles.errorMessage}>{emailError}</div>}
@@ -155,7 +161,6 @@ const VolunteerForm: React.FC<VolunteerFormProps> = ({
             value={phoneNumber}
             onChange={(e) => {
               setPhoneNumber(e.target.value);
-              validateForm();
             }}
           />
           {phoneNumberError && <div className={styles.errorMessage}>{phoneNumberError}</div>}

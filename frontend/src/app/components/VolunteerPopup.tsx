@@ -22,14 +22,36 @@ export default function VolunteerPopup({ open, setOpen }: VolunteerPopupProps) {
     phoneNumber: string,
     reveiveNews: boolean,
   ) => {
-    setSuccess(true);
-    // DEBUG: Remove later and replace with POST request
-    console.log("Submitting form");
-    console.log(firstName);
-    console.log(lastName);
-    console.log(email);
-    console.log(phoneNumber);
-    console.log(reveiveNews);
+    // body for the POST request
+    const data = {
+      first_name: firstName,
+      last_name: lastName,
+      email: email,
+      phone: phoneNumber,
+      signed_up_for_updates: reveiveNews
+    };
+
+    fetch('http://localhost:3001/api/volunteerDetails/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(res_json => {
+      console.log('Success:', res_json);
+      // Assuming you have some logic to handle success response here
+      setSuccess(true);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
   };
   if (!success) {
     // ----- FORM POPUP -----
