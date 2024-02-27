@@ -4,7 +4,7 @@
 
 :root {
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
+  --background-start-rgb: 255, 255, 255;
   --background-end-rgb: 255, 255, 255;
   --font-small-subtitle: normal 700 28px/150% "Roboto Slab", sans-serif;
   --font-body: normal 400 20px/120% "Open Sans", sans-serif;
@@ -13,6 +13,10 @@
   --font-title-xl: normal 700 48px/150% "Roboto Slab", sans-serif;
   --font-title-l: normal 700 32px/150% "Roboto Slab", sans-serif;
   --font-title-m: normal 700 28px/150% "Roboto Slab", sans-serif;
+  --color-primary-purple: #694c97;
+
+  /* --font-small-subtitle: normal 700 28px/150% "Roboto Slab";
+  --font-body: normal 400 20px/120% "Open Sans"; */
 }
 
 @media (prefers-color-scheme: dark) {
