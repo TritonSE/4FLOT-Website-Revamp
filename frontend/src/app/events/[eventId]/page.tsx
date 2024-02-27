@@ -37,7 +37,7 @@ export default function EventSignup({ params }: Props) {
       <VolunteerPopup open={popupOpen} setOpen={setPopup} />
       <div className="bg-[#484848] p-0 m-0 justify-center items-center">
         <Image
-          className="opacity-60"
+          className="opacity-60 w-screen"
           src="https://i.imgur.com/QIFAqLQ.png"
           alt="Placeholder Header Image"
           width={1440}
