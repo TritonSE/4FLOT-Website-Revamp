@@ -1,29 +1,39 @@
 import React from "react";
 
-// import styles from "./ContactForm.module.css";
+import styles from "./ContactForm.module.css";
 
 const ContactForm: React.FC = () => {
   return (
     <form>
       <div>
-        <label htmlFor="firstName">First Name:</label>
-        <input type="text" id="firstName" name="firstName" required />
+        <div className={styles.lineWrapper}>
+          <label htmlFor="firstName">
+            First Name
+            <br></br>
+            <input className={styles.input} type="text" id="firstName" name="firstName" required />
+          </label>
+
+          <label htmlFor="lastName">
+            Last Name
+            <br></br>
+            <input className={styles.input} type="text" id="lastName" name="lastName" required />
+          </label>
+        </div>
       </div>
       <div>
-        <label htmlFor="lastName">Last Name:</label>
-        <input type="text" id="lastName" name="lastName" required />
+        <label htmlFor="email">Email</label>
+        <br></br>
+        <input className={styles.input} type="email" id="email" name="email" required />
       </div>
       <div>
-        <label htmlFor="email">Email:</label>
-        <input type="email" id="email" name="email" required />
-      </div>
-      <div>
-        <label htmlFor="phone">Phone:</label>
-        <input type="tel" id="phone" name="phone" />
+        <label htmlFor="phone">Phone</label>
+        <br></br>
+        <input className={styles.input} type="tel" id="phone" name="phone" />
       </div>
       <div>
         <label htmlFor="helpOption">How can we help you?</label>
-        <select id="helpOption" name="helpOption" required>
+        <br></br>
+        <select className={styles.input} id="helpOption" name="helpOption" required>
           <option value="">-- Please Select --</option>
           <option value="Option 1">I have a donation question</option>
           <option value="Option 2">I have a volunteer question</option>
@@ -32,12 +42,14 @@ const ContactForm: React.FC = () => {
         </select>
       </div>
       <div>
-        <label htmlFor="subject">Subject:</label>
-        <input type="text" id="subject" name="subject" required />
+        <label htmlFor="subject">Subject</label>
+        <br></br>
+        <input className={styles.input} type="text" id="subject" name="subject" required />
       </div>
       <div>
-        <label htmlFor="message">Message:</label>
-        <textarea id="message" name="message" required />
+        <label htmlFor="message">Message</label>
+        <br></br>
+        <textarea className={styles.input} id="message" name="message" required />
       </div>
       <button type="submit">Contact Us</button>
     </form>
