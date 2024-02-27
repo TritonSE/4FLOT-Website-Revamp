@@ -1,0 +1,28 @@
+/* Button */
+.button {
+    width: max-content;
+    height: 48px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  
+    background: #694c97;
+    border-radius: 4px;
+    padding: 12px 24px 8px;
+  }
+  
+  /* Body/Medium (Bold) */
+  .buttonBody {
+    font-family: var(--font-body);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 1px;
+    /* Center align text */
+    text-align: center;
+    /* Neutral/White */
+    color: #ffffff;
+  }
+

@@ -33,6 +33,7 @@
   gap: 30px;
   margin-bottom: 70px;
   margin-top: 25px;
+  justify-content: space-between;
 }
 
 .caretDown {

@@ -72,3 +72,9 @@
   }
 
   
+.containerCardsAndText {
+    display: flex;
+    flex-direction: row; /* Make the children stack horizontally */
+    justify-content: space-between; /* Space out the children, pushing them to opposite ends */
+    width: 100%; /* Ensure the container takes up the full width */
+  }

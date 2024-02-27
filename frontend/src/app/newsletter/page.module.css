@@ -2,20 +2,35 @@
   display: flex;
   flex-direction: column;
   gap: 103px;
-  margin-top: 108px;
+  margin-top: 75px;
   margin-bottom: 143px;
   margin-left: 96px;
   margin-right: 96px;
+}
+.text {
+  /* Your existing styles for .text */
+
+  /* Add the following styles to position the button to the right */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttonContainer {
+  /* Add any additional styling for the container if needed */
+  margin-left: 30cm;
+
 }
 
 
 .description {
   text-align: left;
   font-family: var(--font-body);
-  font-size: 24px;
+  font-size: 10px;
   font-style: normal;
   font-weight: 400;
   line-height: 32px; /* 133.333% */
+  display: flex
 }
 
 .titlelarge {
@@ -52,6 +67,8 @@
   font-weight: 700;
   line-height: 150%; /* 48px */
   letter-spacing: 0.64px;
+  display: flex;
+  
 }
 
 .text {
@@ -66,3 +83,9 @@
   margin-bottom: 64px;
 }
 
+.containerCardsAndText {
+  display: flex;
+  flex-direction: row; /* Make the children stack horizontally */
+  justify-content: space-between; /* Space out the children, pushing them to opposite ends */
+  width: 100%; /* Ensure the container takes up the full width */
+}

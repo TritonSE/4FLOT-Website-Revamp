@@ -1,5 +1,5 @@
 .newsletterCardContainer {
-  width: 1244px;
+  width: 1700px;
   max-width: 100%;
   min-width: 700px;
   height: auto;
@@ -9,7 +9,7 @@
 }
 
 .newsletterCardContainer img {
-  width: 1244px;
+  width: 1700px;
   height: auto;
   border-radius: 10px 10px 0px 0px;
 }
@@ -24,7 +24,7 @@
 }
 
 .newsletterTextContainer {
-  width: 1244px;
+  width: 1700px;
   max-width: 100%;
   padding: 32px 50px;
 }

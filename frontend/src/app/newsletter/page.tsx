@@ -5,6 +5,11 @@ import styles from "./page.module.css";
 import NewsletterArchive from "../../components/NewsletterArchive";
 import NewsletterCard from "../../components/NewsletterCard";
 import BackgroundHeader from "@/components/BackgroundHeader";
+import NewsletterPopup from "../../components/NewsletterPopup";
+import ButtonNewsletter from "../../components/ButtonNewsletter";
+
+
+
 
 
 const newsletter1 = {
@@ -48,6 +53,12 @@ const newsletter5 = {
 };
 
 export default function Newsletter() {
+
+  const [popupOpen, setPopup] = useState(false);
+  const handleSubscribeClick = () => {
+    setPopup(true);
+  };
+
   return (
     <main>
     <BackgroundHeader
@@ -57,16 +68,20 @@ export default function Newsletter() {
       description="4FLOT is committed in preventing and ending homelessness,          
       hunger and disparity in underprivileged communities. "
     />
-    <div className={styles.text}>
-      <div className={styles.subtitle}>Quaterly Updates</div>
-        {/* <div>Hello.</div> */}
-        <p className={styles.description}>
-        Description of general newsletter content, what to expect in the newsletters, etc.
-        </p>
+  <div className={styles.text}>
+    <div className={styles.subtitle}>
+      Quaterly Updates  
     </div>
-
+    <div className = {styles.containerCardsAndText}>
+    <div className={styles.description}>
+    Description of general newsletter content, what to expect in the newsletters, etc.
+    </div>
+    <ButtonNewsletter text="Subscribe For Updates" onClick={handleSubscribeClick}></ButtonNewsletter>
+    </div>
+    <NewsletterPopup open={popupOpen} setOpen={setPopup} />
+  </div>
     <div className={styles.page}>
-                <NewsletterCard newsletter={newsletter1}></NewsletterCard>
+        <NewsletterCard newsletter={newsletter1}></NewsletterCard>
         <NewsletterCard newsletter={newsletter2}></NewsletterCard>
         <div className={styles.titlelarge}>Archive</div>
         <NewsletterArchive year="2024" newsletters={[newsletter5]} />

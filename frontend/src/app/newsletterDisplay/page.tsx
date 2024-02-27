@@ -5,10 +5,18 @@ import styles from "./page.module.css";
 import NewsletterArchive from "../../components/NewsletterArchive";
 import NewsletterCard from "../../components/NewsletterCard";
 import BackgroundHeader from "@/components/BackgroundHeader";
+import NewsletterPopup from "../../components/NewsletterPopup";
+import ButtonNewsletter from "../../components/ButtonNewsletter";
+
 
 
 export default function newsletterDisplay() {
-  return (
+
+    const [popupOpen, setPopup] = useState(false);
+    const handleSubscribeClick = () => {
+      setPopup(true);
+    };
+    return (
     <main>
     <BackgroundHeader
       backgroundImage="/PeopleHugging.png"
@@ -20,7 +28,12 @@ export default function newsletterDisplay() {
     <div className={styles.text}>
         <div className={styles.subtitle}>Winter 2023: Title</div>
         {/* <div>Hello.</div> */}
-        <p className={styles.description}>December 19, 2023</p>
+        <div className={styles.containerCardsAndText}>
+            <div className={styles.description}>December 19, 2023</div>
+            <ButtonNewsletter text="Subscribe For Updates" onClick={handleSubscribeClick}></ButtonNewsletter>
+            <NewsletterPopup open={popupOpen} setOpen={setPopup} />
+
+    </div>
         <img
         src="/volunteerEvent.png"
         alt="Description of the image"
@@ -28,7 +41,7 @@ export default function newsletterDisplay() {
         border: "1px solid #000",
         background: "url(/your-image-path.jpg), lightgray 50% / cover no-repeat",
         boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
-        width: "1500px",
+        width: "1550px",
         height: "775px",
         flexShrink: 0,
         }}
@@ -72,14 +85,11 @@ export default function newsletterDisplay() {
             <img
             src="/twitter.svg"
             alt="twitter Icon"
-            style={{ marginLeft: "10px", width: "40px", height: "40spx" ,marginRight: "10px"}}
+            style={{ marginLeft: "10px", width: "40px", height: "40px" ,marginRight: "10px"}}
           />
 
         </div>
     </div>
-
-    
-
     </main>
   );
 }
