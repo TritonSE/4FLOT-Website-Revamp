@@ -26,7 +26,7 @@ export default function VolunteerPopup({ open, setOpen }: VolunteerPopupProps) {
     const data = {
       first_name: firstName,
       last_name: lastName,
-      email: email,
+      email,
       phone: phoneNumber,
       signed_up_for_updates: reveiveNews,
     };

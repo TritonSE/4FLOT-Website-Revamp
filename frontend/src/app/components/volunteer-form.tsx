@@ -43,7 +43,6 @@ const VolunteerForm: React.FC<VolunteerFormProps> = ({
   };
 
   const validateForm = () => {
-
     let allowSubmit = true;
 
     setFirstNameError("");
@@ -73,7 +72,7 @@ const VolunteerForm: React.FC<VolunteerFormProps> = ({
     }
 
     console.log(phoneNumber);
-    validatePhoneNumber(phoneNumber)
+    validatePhoneNumber(phoneNumber);
 
     if (!validatePhoneNumber(phoneNumber)) {
       setPhoneNumberError("Please enter a valid phone number (XXX-XXX-XXXX)");

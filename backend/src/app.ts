@@ -27,7 +27,7 @@ app.use(
 
 // Routes ( e.g. app.use("/api/task", taskRoutes); )
 app.use("/api/eventDetails", eventDetailsRoutes);
-app.use("/api/volunteerDetails", volunteerDetailsRoutes)
+app.use("/api/volunteerDetails", volunteerDetailsRoutes);
 /**
  * Error handler; all errors thrown by server are handled here.
  * Explicit typings required here because TypeScript cannot infer the argument types.
