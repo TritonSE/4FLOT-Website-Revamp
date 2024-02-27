@@ -1,10 +1,10 @@
 .page {
   display: flex;
   flex-direction: column;
-  gap: 103px;
+  gap: 42px;
   padding-left: 97px;
   padding-right: 97px;
-  padding-top: 94px;
+  padding-top: 110px;
   padding-bottom: 280px;
 }
 
@@ -33,4 +33,28 @@
   justify-content: flex-start;
   align-items: flex-start;
   gap: 18px;
+}
+
+/* To hold contact cards */
+.contactContainer {
+  position: relative;
+  left: 42px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 73px;
+  margin-top: 32px;
+}
+
+/*To hold the form*/
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Align items at the top */
+}
+.imageContainer {
+  flex: 0 0 auto; /* Don't allow the image container to grow */
+}
+.formContainer {
+  flex: 1; /* Allow the form container to grow to fill remaining space */
 }

@@ -1,0 +1,46 @@
+.customRectangle {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+
+  width: 341px;
+  min-width: 293px;
+  height: 224px;
+  border-radius: 10px;
+  background-color: #694c97;
+  position: relative;
+}
+
+.textWrapper {
+  text-align: left;
+}
+.cardTitle {
+  font-family: var(--font-small-subtitle);
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 36px;
+  color: white;
+  margin-bottom: 7px;
+}
+.cardDescription {
+  font-family: var(--font-body);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 133.333% */
+  color: white;
+  gap: 16px;
+}
+
+.leftImage {
+  /* position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+
+  max-width: 25%;
+  max-height: 25%;
+}

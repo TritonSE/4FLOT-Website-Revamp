@@ -1,0 +1,19 @@
+/* Style for text input */
+input[type="text"] {
+  border: 1px solid #ccc; /* Gray border */
+  padding: 8px; /* Padding for text input */
+  margin: 5px 0; /* Margin between text inputs */
+}
+/* Style for textarea */
+textarea {
+  border: 1px solid #ccc; /* Gray border */
+  outline: none;
+  padding: 8px; /* Padding for textarea */
+  margin: 5px 0; /* Margin between text inputs */
+}
+
+/* Apply gray outline on focus */
+input[type="text"]:focus,
+textarea:focus {
+  border: 1px solid #ccc; /* Gray border */
+}
