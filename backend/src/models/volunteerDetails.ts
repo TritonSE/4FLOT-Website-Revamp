@@ -25,4 +25,4 @@ const volunteerDetailsSchema = new Schema({
   
 type VolunteerDetails = InferSchemaType<typeof volunteerDetailsSchema>;
   
-export default model<VolunteerDetails>("EventDetails", volunteerDetailsSchema);
+export default model<VolunteerDetails>("VolunteerDetails", volunteerDetailsSchema);
