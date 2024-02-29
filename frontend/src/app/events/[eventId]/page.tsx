@@ -34,7 +34,7 @@ export default function EventSignup({ params }: Props) {
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <VolunteerPopup open={popupOpen} setOpen={setPopup} />
+      <VolunteerPopup open={popupOpen} setOpen={setPopup} eventId={event ? event._id : ""} />
       <div className="bg-[#484848] p-0 m-0 justify-center items-center">
         <Image
           className="opacity-60 w-screen"

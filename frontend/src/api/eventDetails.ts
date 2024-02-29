@@ -86,16 +86,11 @@ export async function updateEventDetails(
   }
 }
 
-type AddVolunteerToEventRequest = {
-  eventId: string;
-  volunteerId: string;
-};
-
 // wrap updateEventDetails to push a volunteer ID to an event
-export async function addVolunteerToEvent({
-  eventId,
-  volunteerId,
-}: AddVolunteerToEventRequest): Promise<APIResult<EventDetails>> {
+export async function addVolunteerToEvent(
+  eventId: string,
+  volunteerId: string,
+): Promise<APIResult<EventDetails>> {
   try {
     const result = await getEventDetails(eventId);
     if (!result.success) {

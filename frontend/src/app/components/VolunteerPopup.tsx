@@ -1,14 +1,18 @@
 import Image from "next/image";
 import React, { useState } from "react";
 
+import { addVolunteerToEvent } from "../../api/eventDetails";
+import { VolunteerDetails } from "../../api/volunteerDetails";
+
 import VolunteerForm from "./volunteer-form";
 
 type VolunteerPopupProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
+  eventId: string;
 };
 
-export default function VolunteerPopup({ open, setOpen }: VolunteerPopupProps) {
+export default function VolunteerPopup({ open, setOpen, eventId }: VolunteerPopupProps) {
   const [hover, setHover] = useState(false);
   const [success, setSuccess] = useState(false);
 
@@ -44,10 +48,16 @@ export default function VolunteerPopup({ open, setOpen }: VolunteerPopupProps) {
         }
         return response.json();
       })
-      .then((res_json) => {
+      .then((res_json: VolunteerDetails) => {
         console.log("Success:", res_json);
-        // Assuming you have some logic to handle success response here
-        setSuccess(true);
+        if ("_id" in res_json && res_json._id !== null) {
+          addVolunteerToEvent(eventId, res_json._id).catch((error) => {
+            alert(error);
+          });
+          setSuccess(true);
+        } else {
+          alert("Failed to add volunteer to event");
+        }
       })
       .catch((error) => {
         console.error("Error:", error);
