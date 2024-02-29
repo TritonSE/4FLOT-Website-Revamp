@@ -27,7 +27,9 @@ export default function EventsList() {
       {events.length === 0 ? (
         <p>Loading...</p>
       ) : (
-        events.map((event: EventDetails) => <EventCard key={event._id} event={event} />)
+        events.map((event: EventDetails) => (
+          <EventCard key={event._id} className="w-full" event={event} />
+        ))
       )}
     </div>
   );

@@ -61,7 +61,7 @@ export default function EventSignup({ params }: Props) {
             <Image src="/eventSignupGraphic.svg" alt="People with Boxes" width={578} height={500} />
           </div>
           <div className="w-1/2">
-            <div className="flex flex-col text-left py-20 h-[500px]">
+            <div className="flex flex-col text-left pt-20 h-[500px]">
               <p style={{ font: "var(--font-title-l)" }} className="mb-8">
                 Details
               </p>
@@ -80,9 +80,11 @@ export default function EventSignup({ params }: Props) {
               <p style={{ font: "var(--font-body-bold)" }} className="mb-2">
                 Guidelines:
               </p>
-              <p style={{ font: "var(--font-body)" }} className="mb-6">
-                {event ? event.guidelines : "Loading..."}
-              </p>
+              <div className="flex-grow w-full h-auto overflow-hidden text-ellipsis">
+                <p style={{ font: "var(--font-body)" }} className="min-w-0">
+                  {event ? event.guidelines : "Loading..."}
+                </p>
+              </div>
             </div>
           </div>
         </div>

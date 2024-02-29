@@ -7,14 +7,16 @@ import styles from "../styles/events-card.module.css";
 
 // TODO: Change props to include className and change to an EventDetails type
 type CardProps = {
+  className?: string;
   event: EventDetails;
 };
 // TODO: Add className prop to the div
 
 // TODO: Make class names responsive
-const Card: React.FC<CardProps> = ({ event }: CardProps) => {
+const Card: React.FC<CardProps> = ({ className, event }: CardProps) => {
+  const propClass: string = className ? className : "";
   return (
-    <div className={styles.card}>
+    <div className={`${styles.card} ${propClass}`}>
       <Image
         className={styles.cardImage}
         src={event.imageURI}
