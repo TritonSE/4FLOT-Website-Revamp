@@ -10,6 +10,7 @@ import subscriberRoutes from "src/routes/subscriber";
 import memberRoutes from "src/routes/members";
 import eventDetailsRoutes from "./routes/eventDetails";
 import volunteerDetailsRoutes from "./routes/volunteerDetails";
+import testimonialRoutes from "src/routes/testimonial";
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.use("/api/subscribers", subscriberRoutes);
 app.use("/api/member", memberRoutes);
 app.use("/api/eventDetails", eventDetailsRoutes);
 app.use("/api/volunteerDetails", volunteerDetailsRoutes);
+app.use("/api/testimonial", testimonialRoutes);
 /**
  * Error handler; all errors thrown by server are handled here.
  * Explicit typings required here because TypeScript cannot infer the argument types.

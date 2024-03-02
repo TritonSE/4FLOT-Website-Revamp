@@ -3,6 +3,8 @@ import { Inter, Open_Sans, Roboto_Slab } from "next/font/google";
 import type { Metadata } from "next";
 
 import "./globals.css";
+
+import { HeaderBar } from "@/components/HeaderBar";
 import Footer from "@/components/footer";
 
 // const inter = Inter({ subsets: ["latin"] });
@@ -40,6 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     `}
     >
       <body>
+        <HeaderBar />
         {children}
         <Footer />
       </body>
