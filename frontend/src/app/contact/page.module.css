@@ -1,4 +1,5 @@
 .page {
+  background-color: #f9f9f9;
   display: flex;
   flex-direction: column;
   gap: 42px;
@@ -60,5 +61,7 @@
 .formContainer {
   flex: 1; /* Allow the form container to grow to fill remaining space */
   margin-top: 115px;
-  padding-top: 41px;
+  background-color: white;
+  width: 1036px;
+  height: 703px;
 }

@@ -4,6 +4,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: 24px;
+  padding: 40px 73px;
 }
 
 /* Style for short text box */
@@ -24,6 +25,16 @@
   margin: 5px 0 16px; /* Margin between text inputs */
   width: 594px;
   height: 36px;
+}
+
+/* Style for message text box */
+.inputMessage {
+  border: 1px solid #ccc; /* Gray border */
+  border-radius: 4px;
+  padding: 8px; /* Padding for text input */
+  margin: 5px 0 16px; /* Margin between text inputs */
+  width: 594px;
+  height: 95px;
 }
 
 /*Container for First name and Last name*/

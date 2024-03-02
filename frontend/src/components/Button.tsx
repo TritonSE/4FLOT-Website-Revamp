@@ -12,7 +12,7 @@ const Button = ({ text, link }: ButtonProps) => {
   return (
     <div className={styles.button}>
       <button className={styles.buttonBody}>
-        <Link href={link}>{text}</Link>
+        {link === "" ? text : <Link href={link}>{text}</Link>}
       </button>
     </div>
   );

@@ -1,5 +1,6 @@
 import React from "react";
 
+import Button from "./Button";
 import styles from "./ContactForm.module.css";
 
 const ContactForm: React.FC = () => {
@@ -54,9 +55,11 @@ const ContactForm: React.FC = () => {
       <div>
         <label htmlFor="message">Message</label>
         <br></br>
-        <textarea className={styles.inputLong} id="message" name="message" required />
+        <textarea className={styles.inputMessage} id="message" name="message" required />
       </div>
-      <button type="submit">Contact Us</button>
+      <button type="submit">
+        <Button text="Contact Us" link=""></Button>
+      </button>
     </form>
   );
 };

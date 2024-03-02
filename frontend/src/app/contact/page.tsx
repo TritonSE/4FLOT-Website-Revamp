@@ -1,11 +1,10 @@
 import Image from "next/image";
 import React from "react";
 
-import Button from "../../components/Button";
-
 import styles from "./page.module.css";
-import ContactInfoCard from "@/components/ContactInfoCard";
+
 import ContactForm from "@/components/ContactForm";
+import ContactInfoCard from "@/components/ContactInfoCard";
 
 export default function Contact() {
   return (
@@ -52,7 +51,6 @@ export default function Contact() {
           </div>
           <div className={styles.formContainer}>
             <ContactForm />
-            <Button text="Contact Us" link=""></Button>
           </div>
         </div>
       </div>
