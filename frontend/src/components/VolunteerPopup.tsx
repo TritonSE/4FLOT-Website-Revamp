@@ -1,10 +1,10 @@
 import Image from "next/image";
 import React, { useState } from "react";
 
-import { addVolunteerToEvent } from "../../api/eventDetails";
-import { VolunteerDetails } from "../../api/volunteerDetails";
+import { addVolunteerToEvent } from "../api/eventDetails";
+import { VolunteerDetails } from "../api/volunteerDetails";
 
-import VolunteerForm from "./volunteer-form";
+import VolunteerForm from "./VolunteerForm";
 
 type VolunteerPopupProps = {
   open: boolean;

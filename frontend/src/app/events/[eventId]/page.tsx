@@ -4,8 +4,8 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 import { EventDetails, getEventDetails } from "../../../api/eventDetails";
-import SectionCard from "../../components/SectionCard";
-import VolunteerPopup from "../../components/VolunteerPopup";
+import SectionCard from "../../../components/SectionCard";
+import VolunteerPopup from "../../../components/VolunteerPopup";
 
 import styles from "./page.module.css";
 

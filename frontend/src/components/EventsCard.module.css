@@ -1,35 +1,37 @@
-.card {
-  top: 1018px;
-  left: 97px;
-  padding: 0px, 0px, 24px, 0px;
+.cardContainer {
   border-radius: 10px;
-  gap: 24px;
-  background-color: white;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
 }
 
-.cardImage {
-  width: 100%;
-  height: auto;
-  border-radius: 10px 10px 0 0;
+.cardContainer img {
+  border-radius: 10px 10px 0px 0px;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .cardContent {
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  padding-left: 29px;
+  padding-right: 29px;
 }
 
 .cardTitle {
   font: var(--font-title-m);
   text-align: left;
-  padding-bottom: 10px;
 }
 
 .cardDescription {
   font: var(--font-body-reg);
-  width: fit-content;
-  height: 6rem;
+  height: 72px;
   text-align: left;
-  padding-bottom: 20px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -37,15 +39,17 @@
 .cardButton {
   width: 100%;
   height: 48px;
-  padding: 12px, 24px, 12px, 24px;
   border-radius: 4px;
-  border: 1px;
-  gap: 6px;
 
   background: linear-gradient(0deg, #0370bb, #0370bb),
     linear-gradient(0deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0));
   border: 1px solid #0370bb;
 
   font: var(--font-body);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 30px */
+  letter-spacing: 0.4px;
   color: white;
 }

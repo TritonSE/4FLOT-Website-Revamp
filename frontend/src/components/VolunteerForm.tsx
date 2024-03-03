@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-import styles from "../styles/volunteer-form.module.css";
+import styles from "./VolunteerForm.module.css";
 
 type VolunteerFormProps = {
   setSuccess: (success: boolean) => void;

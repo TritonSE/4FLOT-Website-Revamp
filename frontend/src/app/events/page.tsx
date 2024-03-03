@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
-import EventsList from "../components/EventsList";
+import EventsList from "../../components/EventsList";
 
 import styles from "./page.module.css";
 
