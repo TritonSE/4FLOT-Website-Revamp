@@ -3,10 +3,18 @@ import { APIResult, handleAPIError, post } from "./requests";
 export type Subscriber = {
   _id: string;
   email: string;
+  firstName?: string;
+  lastName?: string;
+  quarterlyUpdates?: boolean;
+  specialUpdates?: boolean;
 };
 
 export type CreateSubscriberRequest = {
   email: string;
+  firstName?: string;
+  lastName?: string;
+  quarterlyUpdates?: boolean;
+  specialUpdates?: boolean;
 };
 
 export async function createSubscriber(

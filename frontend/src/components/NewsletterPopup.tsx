@@ -19,17 +19,16 @@ export default function NewsletterPopup({ open, setOpen }: newsletterPopupProps)
     firstName: string,
     lastName: string,
     email: string,
-    phoneNumber: string,
-    reveiveNews: boolean,
+    quarterlyUpdates: boolean,
+    specialUpdates: boolean,
   ) => {
-    setSuccess(true);
     // DEBUG: Remove later and replace with POST request
     console.log("Submitting form");
     console.log(firstName);
     console.log(lastName);
     console.log(email);
-    console.log(phoneNumber);
-    console.log(reveiveNews);
+    console.log(quarterlyUpdates);
+    console.log(specialUpdates);
   };
   if (!success) {
     // ----- FORM POPUP -----
@@ -98,8 +97,8 @@ export default function NewsletterPopup({ open, setOpen }: newsletterPopupProps)
             Thanks For Signing Up!
           </p>
           <p className="text-center" style={{ font: "var(--font-body-reg)" }}>
-          You’re now subscribed to our newsletter! You’ll hear from us shortly. If you have 
-          any questions, please contact [insert 4FLOT email address here]. 
+            You’re now subscribed to our newsletter! You’ll hear from us shortly. If you have any
+            questions, please contact [insert 4FLOT email address here].
           </p>
           <button
             className="absolute scale-100 top-6 right-6 hover:scale-110 transition-all duration-100 ease-linear"

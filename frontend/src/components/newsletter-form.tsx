@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from "react";
 
+import { createSubscriber } from "../api/subscriber";
+
 import styles from "./newsletter-form.module.css";
 
 type NewsLetterFormProps = {
@@ -9,8 +11,8 @@ type NewsLetterFormProps = {
     firstName: string,
     lastName: string,
     email: string,
-    phoneNumber: string,
-    reveiveNews: boolean,
+    quarterlyUpdates: boolean,
+    specialUpdates: boolean,
   ) => void;
   children?: React.ReactNode;
   className?: string;
@@ -25,73 +27,88 @@ const NewsletterForm: React.FC<NewsLetterFormProps> = ({
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [reveiveNews, setReceiveNews] = useState(false);
+  const [quarterlyUpdates, setQuarterlyUpdates] = useState(false);
+  const [specialUpdates, setSpecialUpdates] = useState(false);
   const [firstNameError, setFirstNameError] = useState("");
   const [lastNameError, setLastNameError] = useState("");
   const [emailError, setEmailError] = useState("");
-  const [phoneNumberError, setPhoneNumberError] = useState("");
+  const [updatesError, setUpdatesError] = useState("");
 
   const validateEmail = (_email: string): boolean => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(_email);
   };
 
-  const validatePhoneNumber = (_phoneNumber: string): boolean => {
-    // I don't understand why, but the regex at the end checking {3} instead of {4} is working
-    const re = /^\d{3}-\d{3}-\d{3}$/;
-    return re.test(_phoneNumber);
-  };
-
   const validateForm = () => {
-    setFirstNameError("");
-    setLastNameError("");
-    setEmailError("");
-    setPhoneNumberError("");
+    let success = true;
 
     if (!firstName) {
       setFirstNameError("Please enter your first name");
+      success = false;
     } else {
       setFirstNameError("");
     }
 
     if (!lastName) {
       setLastNameError("Please enter your last name");
+      success = false;
     } else {
       setLastNameError("");
     }
 
     if (!validateEmail(email)) {
       setEmailError("Please enter a valid email address (xx@domain.com)");
+      success = false;
     } else {
       setEmailError("");
     }
 
-    if (!validatePhoneNumber(phoneNumber)) {
-      setPhoneNumberError("Please enter a valid phone number (XXX-XXX-XXXX)");
+    if (!quarterlyUpdates && !specialUpdates) {
+      setUpdatesError("Please select at least one update type");
+      success = false;
     } else {
-      setPhoneNumberError("");
+      setUpdatesError("");
     }
+
+    return success;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const success = validateForm();
 
-    if (
-      firstNameError === "" &&
-      lastNameError === "" &&
-      emailError === "" &&
-      phoneNumberError === ""
-    ) {
-      submitForm(firstName, lastName, email, phoneNumber, reveiveNews);
-      setSuccess(true);
+    if (success) {
+      submitForm(firstName, lastName, email, quarterlyUpdates, specialUpdates);
+      createSubscriber({ firstName, lastName, email, quarterlyUpdates, specialUpdates }).then(
+        (result) => {
+          if (result.success) {
+            console.log("here1");
+            setSuccess(true);
+          } else {
+            setSuccess(false);
+            console.log("here2");
+            if (result.error.includes("email is already subscribed")) {
+              setEmailError("This email is already subscribed!");
+            } else {
+              setUpdatesError("Error with your request, please try again later");
+            }
+          }
+        },
+        (error) => {
+          // If the .then() request fails, show the error message
+          alert(error);
+        },
+      );
     }
   };
 
   return (
     <div className={`${styles.NewsletterForm} ${className}`}>
       <p className={styles.heading}>Join Our Newsletter!</p>
-      <p className={styles.description}>Subscribe for quarterly updates about what our team is doing, big events, and our future plans!</p>
+      <p className={styles.description}>
+        Subscribe for quarterly updates about what our team is doing, big events, and our future
+        plans!
+      </p>
       <form onSubmit={handleSubmit}>
         <div className={styles.formGroup}>
           <label htmlFor="firstName" className={styles.fieldName}>
@@ -105,7 +122,6 @@ const NewsletterForm: React.FC<NewsLetterFormProps> = ({
             value={firstName}
             onChange={(e) => {
               setFirstName(e.target.value);
-              validateForm();
             }}
           />
           {firstNameError && <div className={styles.errorMessage}>{firstNameError}</div>}
@@ -122,7 +138,6 @@ const NewsletterForm: React.FC<NewsLetterFormProps> = ({
             value={lastName}
             onChange={(e) => {
               setLastName(e.target.value);
-              validateForm();
             }}
           />
           {lastNameError && <div className={styles.errorMessage}>{lastNameError}</div>}
@@ -137,9 +152,12 @@ const NewsletterForm: React.FC<NewsLetterFormProps> = ({
             name="email"
             className={styles.inputField}
             value={email}
+            onInvalid={(e) => {
+              e.preventDefault();
+              validateForm();
+            }}
             onChange={(e) => {
               setEmail(e.target.value);
-              validateForm();
             }}
           />
           {emailError && <div className={styles.errorMessage}>{emailError}</div>}
@@ -147,28 +165,29 @@ const NewsletterForm: React.FC<NewsLetterFormProps> = ({
         <div className={styles.formGroup}>
           <input
             type="checkbox"
-            id="agreeToTerms"
-            name="agreeToTerms"
+            id="quarterlyUpdates"
+            name="quarterlyUpdates"
             onChange={(e) => {
-              setReceiveNews(e.target.checked);
+              setQuarterlyUpdates(e.target.checked);
             }}
           />
-          <label htmlFor="updates" className={styles.updates}>
+          <label htmlFor="quarterlyUpdates" className={styles.updates}>
             Receive updates for our quarterly newsletters
           </label>
         </div>
         <div className={styles.formGroup}>
           <input
             type="checkbox"
-            id="agreeToTerms"
-            name="agreeToTerms"
+            id="specialUpdates"
+            name="specialUpdates"
             onChange={(e) => {
-              setReceiveNews(e.target.checked);
+              setSpecialUpdates(e.target.checked);
             }}
           />
-          <label htmlFor="updates" className={styles.updates}>
-          Receive newsletters about our special events
+          <label htmlFor="specialUpdates" className={styles.updates}>
+            Receive newsletters about our special events
           </label>
+          {updatesError && <div className={styles.errorMessage}>{updatesError}</div>}
         </div>
         <div className={styles.center}>
           <button type="submit" className={styles.signupButton}>

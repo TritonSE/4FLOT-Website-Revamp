@@ -31,4 +31,22 @@ const makeEmailValidator = () =>
       }
     });
 
-export const createSubscriber = [makeEmailValidator()];
+const makeFirstNameValidator = () =>
+  body("firstName").optional().isString().withMessage("firstName must be a string");
+
+const makeLastNameValidator = () =>
+  body("lastName").optional().isString().withMessage("lastName must be a string");
+
+const makeQuarterlyUpdatesValidator = () =>
+  body("quarterlyUpdates").optional().isBoolean().withMessage("quarterlyUpdates must be a boolean");
+
+const makeSpecialUpdatesValidator = () =>
+  body("specialUpdates").optional().isBoolean().withMessage("specialUpdates must be a boolean");
+
+export const createSubscriber = [
+  makeEmailValidator(),
+  makeFirstNameValidator(),
+  makeLastNameValidator(),
+  makeQuarterlyUpdatesValidator(),
+  makeSpecialUpdatesValidator(),
+];
