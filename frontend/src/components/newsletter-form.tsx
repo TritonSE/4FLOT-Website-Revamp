@@ -7,20 +7,12 @@ import styles from "./newsletter-form.module.css";
 
 type NewsLetterFormProps = {
   setSuccess: (success: boolean) => void;
-  submitForm: (
-    firstName: string,
-    lastName: string,
-    email: string,
-    quarterlyUpdates: boolean,
-    specialUpdates: boolean,
-  ) => void;
   children?: React.ReactNode;
   className?: string;
 };
 
 const NewsletterForm: React.FC<NewsLetterFormProps> = ({
   setSuccess,
-  submitForm,
   children,
   className,
 }: NewsLetterFormProps) => {
@@ -78,15 +70,12 @@ const NewsletterForm: React.FC<NewsLetterFormProps> = ({
     const success = validateForm();
 
     if (success) {
-      submitForm(firstName, lastName, email, quarterlyUpdates, specialUpdates);
       createSubscriber({ firstName, lastName, email, quarterlyUpdates, specialUpdates }).then(
         (result) => {
           if (result.success) {
-            console.log("here1");
             setSuccess(true);
           } else {
             setSuccess(false);
-            console.log("here2");
             if (result.error.includes("email is already subscribed")) {
               setEmailError("This email is already subscribed!");
             } else {

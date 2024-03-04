@@ -12,24 +12,6 @@ export default function NewsletterPopup({ open, setOpen }: newsletterPopupProps)
   const [hover, setHover] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  // submitForm only runs when there is a successful submission
-  // ie. all fields are filled out and valid
-  // declared as arrow function to have access to setSuccess
-  const submitForm = (
-    firstName: string,
-    lastName: string,
-    email: string,
-    quarterlyUpdates: boolean,
-    specialUpdates: boolean,
-  ) => {
-    // DEBUG: Remove later and replace with POST request
-    console.log("Submitting form");
-    console.log(firstName);
-    console.log(lastName);
-    console.log(email);
-    console.log(quarterlyUpdates);
-    console.log(specialUpdates);
-  };
   if (!success) {
     // ----- FORM POPUP -----
     return (
@@ -39,7 +21,7 @@ export default function NewsletterPopup({ open, setOpen }: newsletterPopupProps)
           (open ? "" : "invisible hidden")
         }
       >
-        <NewsletterForm setSuccess={setSuccess} submitForm={submitForm}>
+        <NewsletterForm setSuccess={setSuccess}>
           <button
             className="absolute scale-100 top-6 right-6 hover:scale-110 transition-all duration-100 ease-linear"
             onClick={() => {
