@@ -1,3 +1,4 @@
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { Inter, Open_Sans, Roboto_Slab } from "next/font/google";
 
 import type { Metadata } from "next";
@@ -38,14 +39,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       ${robotoSlab.className} ${robotoSlab.variable}
       ${openSans.className} ${openSans.variable}
       ${inter.className} ${inter.variable}
-      
     `}
     >
-      <body>
-        <HeaderBar />
-        {children}
-        <Footer />
-      </body>
+      <PayPalScriptProvider options={{ clientId: "test" }}>
+        <body>
+          <HeaderBar />
+          {children}
+          <Footer />
+        </body>
+      </PayPalScriptProvider>
     </html>
   );
 }
