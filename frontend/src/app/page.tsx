@@ -7,7 +7,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
-  const see_more_text = "See More"
+  const see_more_text = "See More";
+  const sponsor_us_text = "Sponsor Us"
   return (
     <main className={styles.page}>
       <div className={styles.backgroundImageContainer}>
@@ -33,6 +34,11 @@ export default function Home() {
           title="Get Involved at our Upcoming Events"
           description="Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi."
         />
+        <div className={styles.buttonContainer}>
+          <Link href="#" className={styles.buttonText}>
+            {see_more_text}
+          </Link>
+        </div>
         <Description
           title="Our Community Sponsors"
           description="Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi."
@@ -40,7 +46,7 @@ export default function Home() {
         <img className={styles.sponsor_image} src="/Sponsors.png" alt="Sponsors" />
         <div className={styles.buttonContainer}>
           <Link href="#" className={styles.buttonText}>
-            {see_more_text}
+            {sponsor_us_text}
           </Link>
         </div>
       </div>
