@@ -27,7 +27,7 @@ export default function Impact() {
       {images.length > 0 && (
       <BackgroundHeader 
       backgroundImageURIs={images.map((image) => image.imageURI)}
-      header={"Our Impact"}
+      header={""}
       title={"4 Future Leaders of Tomorrow"}
       description={"4FLOT is committed in preventing and ending homelessness, hunger and disparity in underprivileged communities."}
       button={<Button text="Learn More" link="/join-us" />}
