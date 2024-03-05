@@ -1,0 +1,23 @@
+/* Description styles */
+.description {
+    position: relative;
+    padding: 20px;
+    margin: 30px 100px; /* Adjusted margin for top/bottom and left/right */
+}
+  
+  
+.title {
+    font-family: var(--font-small-subtitle);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+}
+  
+.text {
+    font-family: var(--font-body);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+}
+  
