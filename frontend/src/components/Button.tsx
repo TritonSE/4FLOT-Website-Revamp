@@ -1,26 +1,21 @@
-import React from 'react'
+import Link from "next/link";
+import React from "react";
+
+import styles from "./Button.module.css";
 
 type ButtonProps = {
   text: string;
   link: string;
-}
+};
 
-const Button: React.FC<ButtonProps> = ({ text, link }) => {
+const Button = ({ text, link }: ButtonProps) => {
   return (
-    <a href={link} style={{
-      display: 'inline-block',
-      width: '167px',
-      height: '48px',
-      backgroundColor: '#694C97',
-      color: 'white',
-      textAlign: 'center',
-      lineHeight: '48px',
-      textDecoration: 'none',
-      borderRadius: '4px'
-    }}>
-      {text}
-    </a>
-  )
-}
+    <div className={styles.button}>
+      <button className={styles.buttonBody}>
+        <Link href={link}>{text}</Link>
+      </button>
+    </div>
+  );
+};
 
-export default Button
+export default Button;

@@ -1,0 +1,88 @@
+.whiteCardContainer {
+  border-radius: 10px;
+  width: 1035px;
+  height: 418px;
+  background-color: white;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.dataContainer {
+  /* position: relative; */
+  width: 533px;
+  height: 208px;
+  gap: 12px;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.contentContainer {
+  height: 418px;
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+  align-items: center;
+  margin: 100px;
+  gap: 32px;
+}
+
+.cardTitle {
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 48px */
+  letter-spacing: 0.64px;
+  text-align: center;
+  color: #000000;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.cardImageContainer {
+  position: relative;
+  width: 6.11vw;
+  height: 6.11vw;
+  overflow: hidden;
+}
+
+.cardDescription {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+  max-width: 37.01vw; /* Width limit for the text */
+
+  display: flex; /* Enable flexbox for vertical centering */
+  flex-direction: column; /* Arrange the text content in a column */
+  justify-content: center; /* Center the text vertically */
+  align-items: center; /* Center the text horizontally */
+  text-align: center;
+  overflow: hidden;
+}
+
+.buttonContainer {
+  width: 167px;
+  height: 48px;
+  background-color: #694c97;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+}
+
+.buttonText {
+  color: white;
+  font-family: var(--font-body);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 30px */
+  letter-spacing: 0.4px;
+}
