@@ -11,7 +11,7 @@ type ButtonProps = {
 const Button = ({ text, link }: ButtonProps) => {
   return (
     <div className={styles.button}>
-      <button className={styles.buttonBody}>
+      <button type="submit" className={styles.buttonBody}>
         {link === "" ? text : <Link href={link}>{text}</Link>}
       </button>
     </div>
