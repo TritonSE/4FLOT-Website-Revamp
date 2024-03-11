@@ -6,7 +6,6 @@ import BackgroundHeader from "../components/BackgroundHeader";
 
 import { BackgroundImage, BackgroundImagePages, getBackgroundImages } from "@/api/images";
 import Button from "@/components/Button";
-/*import WhiteCard from "./WhiteCard";*/
 
 export default function Impact() {
   const [images, setImages] = useState<BackgroundImage[]>([]);

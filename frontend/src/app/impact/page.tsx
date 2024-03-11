@@ -1,19 +1,35 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 
 import styles from "./page.module.css";
 
+import { BackgroundImage, BackgroundImagePages, getBackgroundImages } from "@/api/images";
 import BackgroundHeader from "@/components/BackgroundHeader";
 import WhiteCard from "@/components/WhiteCard";
 
 export default function Impact() {
+  const [images, setImages] = useState<BackgroundImage[]>([]);
+
+  useEffect(() => {
+    getBackgroundImages(BackgroundImagePages.TEAM)
+      .then((result) => {
+        if (result.success) {
+          setImages(result.data);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }, []);
+
   return (
     <main className={styles.page}>
       <div className={styles.backgroundImageContainer}>
         <BackgroundHeader
-          backgroundImage="/ourimpact.svg"
+          backgroundImageURIs={images.map((image) => image.imageURI)}
           header=""
           title="Our Impact"
-          description="4FLOT is committed in preventing and ending homelessness, hunger and disparity in underprivileged communities."
+          description="4FLOT is committed in preventing and ending homelessness, hunger and disparity in underprivileged communities. "
         />
       </div>
       <div className={styles.cardsBackground}></div>

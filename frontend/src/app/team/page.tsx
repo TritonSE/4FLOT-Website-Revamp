@@ -14,13 +14,15 @@ export default function Team() {
   const [images, setImages] = useState<BackgroundImage[]>([]);
 
   useEffect(() => {
-    getBackgroundImages(BackgroundImagePages.TEAM).then((result) => {
-      if (result.success) {
-        setImages(result.data);
-      }
-    }).catch((error) => {
-      alert(error);
-    });
+    getBackgroundImages(BackgroundImagePages.TEAM)
+      .then((result) => {
+        if (result.success) {
+          setImages(result.data);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
   }, []);
 
   useEffect(() => {
@@ -40,8 +42,8 @@ export default function Team() {
   return (
     <div>
       <BackgroundHeader
-        backgroundImageURIs= {images.map((image) => image.imageURI)}
-        header="About Us"
+        backgroundImageURIs={images.map((image) => image.imageURI)}
+        header="OUR TEAM"
         title="Meet Our Team"
         description="Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit
           sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi."

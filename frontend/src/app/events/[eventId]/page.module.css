@@ -10,7 +10,7 @@
   justify-content: center;
   align-items: center;
 
-  background: #694c97;
+  background: var(--color-primary-purple);
   border-radius: 4px;
   padding: 12px 24px 8px;
 

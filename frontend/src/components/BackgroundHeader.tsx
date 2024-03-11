@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { MaterialSymbol } from "react-material-symbols";
 
@@ -38,7 +37,7 @@ const BackgroundHeader = ({
   }, [backgroundImageURIs.length, interval]);
 
   return (
-    <div className="w-full h-screen relative">
+    <div className="w-full h-[650px] relative">
       {backgroundImageURIs.map((uri, index) => (
         <div
           key={index}
@@ -46,10 +45,9 @@ const BackgroundHeader = ({
           style={{ backgroundImage: `url(${uri})` }}
         ></div>
       ))}
-      <div className="absolute top-0 left-0 w-full h-full bg-black opacity-30"></div>
       <div
-        className="flex justify-center items-center space-x-2 absolute bottom-5 left-1/2 transform -translate-x-1/2"
-        style={{ gap: "16px" }}
+        className="flex justify-center items-center space-x-2 absolute bottom-20 left-1/2 transform -translate-x-1/2"
+        style={{ gap: "10px" }}
       >
         <button
           onClick={() => {
@@ -57,7 +55,7 @@ const BackgroundHeader = ({
               prevIndex === 0 ? backgroundImageURIs.length - 1 : prevIndex - 1,
             );
           }}
-          className={`text-white p-2 ${styles.arrowButton}`}
+          className={`text-white ${styles.arrowButton}`}
         >
           <MaterialSymbol icon="arrow_back_ios" size={24} fill grade={-25} color="white" />
         </button>
@@ -76,28 +74,16 @@ const BackgroundHeader = ({
               prevIndex === backgroundImageURIs.length - 1 ? 0 : prevIndex + 1,
             );
           }}
-          className={`text-white p-2 ${styles.arrowButton}`}
+          className={`text-white ${styles.arrowButton}`}
           aria-label="Next Image" // Descriptive label for the action
         >
           <MaterialSymbol icon="arrow_forward_ios" size={24} fill grade={-25} color="white" />
         </button>
       </div>
-      <div className="absolute bottom-20 left-20 w-1/2 h-full flex flex-col items-start justify-center ml-20">
-        <h2>{header}</h2>
-        <h1 style={{ fontSize: "48px", lineHeight: "72px", fontWeight: 700, color: "white" }}>
-          {title}
-        </h1>
-        <p
-          style={{
-            fontFamily: "var(--font-body)",
-            color: "white",
-            fontSize: "20px",
-            lineHeight: "24px",
-            fontWeight: 300,
-          }}
-        >
-          {description}
-        </p>
+      <div className={styles.textContainer}>
+        <div className={styles.header}>{header}</div>
+        <div className={styles.title}>{title}</div>
+        <div className={styles.description}>{description}</div>
         {button && <div className={"mt-6"}>{button}</div>}
       </div>
     </div>

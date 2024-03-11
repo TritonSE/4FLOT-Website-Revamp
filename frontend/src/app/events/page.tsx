@@ -1,34 +1,36 @@
-import Image from "next/image";
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 
 import EventsList from "../../components/EventsList";
 
 import styles from "./page.module.css";
 
+import { BackgroundImage, BackgroundImagePages, getBackgroundImages } from "@/api/images";
+import BackgroundHeader from "@/components/BackgroundHeader";
+
 export default function UpcomingEvents() {
+  const [images, setImages] = useState<BackgroundImage[]>([]);
+
+  useEffect(() => {
+    getBackgroundImages(BackgroundImagePages.TEAM)
+      .then((result) => {
+        if (result.success) {
+          setImages(result.data);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }, []);
+
   return (
     <div className="items-center justify-center">
-      <div className="items-center justify-center self-center">
-        <div className="bg-[#484848] p-0 m-0 justify-center items-center">
-          <Image
-            className="relative w-screen opacity-60 overflow-hidden"
-            src="https://i.imgur.com/QIFAqLQ.png"
-            alt="Placeholder Header Image"
-            width={1440}
-            height={558}
-            priority
-          />
-        </div>
-        <div className="absolute top-[10vw] left-12 w-full h-auto">
-          <p style={{ color: "white", font: "var(--font-body)" }}>GET INVOLVED</p>
-          <h1 style={{ color: "white", font: "var(--font-title-xl)" }}>Upcoming Events</h1>
-          <p className="max-w-2xl text-white" style={{ font: "var(--font-body)" }}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil voluptas nemo, ea facilis
-            cum repellat libero tempore nulla temporibus officiis quas eaque, asperiores aliquid
-            minus soluta nobis excepturi perspiciatis nesciunt.
-          </p>
-        </div>
-      </div>
+      <BackgroundHeader
+        backgroundImageURIs={images.map((image) => image.imageURI)}
+        header="GET INVOLVED"
+        title="Upcoming Events"
+        description="Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi."
+      />
       <div className={styles.body}>
         <div className={styles.bodyTitle}>
           <h1 style={{ font: "var(--font-title-l)" }}>Volunteer With Us</h1>

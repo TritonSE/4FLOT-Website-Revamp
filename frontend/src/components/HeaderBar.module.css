@@ -4,141 +4,85 @@
   justify-content: space-between;
   align-items: center;
   padding: 0px 96px;
-  gap: 10px;
 
-  position: relative;
+  position: fixed;
   width: 100%;
   height: 107px;
 
-  background: #ffffff;
+  background: white;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
 }
 
 /* Logo */
 .logo {
   width: 196px;
   height: 69.54px;
-
-  position: absolute;
-  left: 64px;
-
-  /* Inside auto layout */
-  flex: none;
-  order: 0;
-  flex-grow: 0;
+  margin-right: auto;
 }
 
 /* Container for About Us, Get Involved, Our Impact, and Donate*/
 .txtContainer {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
-  padding: 0px;
   gap: 48px;
 
   position: absolute;
-  right: 128px;
+  right: 96px;
 
-  width: 541px;
+  width: 570px;
   height: 48px;
 }
 
-/* About Us */
 .aboutUs {
-  width: 75px;
+  width: 90px;
   height: 24px;
 
-  /* Body/Normal (Bold) */
-  font-family: "Open Sans", sans-serif;
+  font: var(--font-body);
   font-style: normal;
   font-weight: 700;
   font-size: 16px;
   line-height: 24px;
-  letter-spacing: 0.03em;
-  text-decoration: none;
-  color: #000000;
+  letter-spacing: 0.03rem;
+  color: black;
 
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  padding-bottom: 100px;
-  margin-bottom: -75px;
+  padding-bottom: 75px;
+  margin-bottom: -50px;
 }
 
-/* Get Involved */
 .getInvolved {
-  width: 105px;
+  width: 109px;
   height: 24px;
 
-  /* Body/Normal (Bold) */
-  font-family: "Open Sans", sans-serif;
+  font: var(--font-body);
   font-style: normal;
   font-weight: 700;
   font-size: 16px;
   line-height: 24px;
   letter-spacing: 0.03em;
-  color: #000000;
+  color: black;
 
-  flex: none;
-  order: 1;
-  flex-grow: 0;
-  padding-bottom: 100px;
-  margin-bottom: -75px;
+  padding-bottom: 75px;
+  margin-bottom: -50px;
 }
 
 /* Our Impact */
 .ourImpact {
-  width: 94px;
+  width: 98px;
   height: 24px;
 
-  /* Body/Normal (Bold) */
-  font-family: "Open Sans", sans-serif;
+  font: var(--font-body);
   font-style: normal;
   font-weight: 700;
   font-size: 16px;
   line-height: 24px;
   letter-spacing: 0.03em;
-  color: #000000;
+  color: black;
 
-  flex: none;
-  order: 2;
-  flex-grow: 0;
-  padding-bottom: 100px;
-  margin-bottom: -75px;
-}
-
-/* Button */
-.button {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-
-  /* Primary */
-  background: #694c97;
-  border-radius: 4px;
-  padding: 12px 24px 8px;
-  gap: 6px;
-  width: 123px;
-  height: 48px;
-  order: 3;
-}
-
-/* Body/Medium (Bold) */
-.buttonBody {
-  font-family: "Open Sans", sans-serif;
-  font-style: normal;
-  font-weight: 550;
-  font-size: 20px;
-  line-height: 30px;
-  letter-spacing: 1px;
-
-  /* Center align text */
-  text-align: center;
-
-  /* Neutral/White */
-  color: #ffffff;
+  padding-bottom: 75px;
+  margin-bottom: -50px;
 }
 
 /* Dropdown styles for About Us */
@@ -146,11 +90,11 @@
   display: none;
   position: absolute;
   top: 77px;
-  right: 402px;
-  background-color: #fff;
+  right: 425px;
+  background-color: white;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   z-index: 1;
-  width: 163px;
+  width: 168px;
   max-height: 156px; /* Set your preferred max height */
   overflow-y: auto; /* Enable vertical scroll if content exceeds max height */
 }
@@ -159,16 +103,16 @@
   color: #743eb6; /* Set your preferred hover color */
 }
 
-.aboutUs:hover .aboutUsDropdown {
+.aboutUs:hover .aboutUsDropdown,
+.aboutUsDropdown:hover {
   display: block;
 }
 
 .aboutUsDropdown a {
   color: black;
   padding: 14px 48px 14px 24px;
-  text-decoration: none;
   display: block;
-  font-family: "Open Sans", sans-serif;
+  font: var(--font-body);
   font-size: 16px;
   font-weight: 300;
 }
@@ -182,17 +126,17 @@
   display: none;
   position: absolute;
   top: 77px;
-  right: 221px;
-  background-color: #fff;
+  right: 250px;
+  background-color: white;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   z-index: 1;
-  width: 202px; /* Set your preferred width */
-  max-height: 104px; /* Set your preferred max height */
-  overflow-y: auto; /* Enable vertical scroll if content exceeds max height */
+  width: 202px;
+  max-height: 104px;
+  overflow-y: auto;
 }
 
 .getInvolved:hover {
-  color: #743eb6; /* Set your preferred hover color */
+  color: #743eb6;
 }
 
 .getInvolved:hover .getInvolvedDropdown {
@@ -202,9 +146,8 @@
 .getInvolvedDropdown a {
   color: black;
   padding: 14px 48px 14px 24px;
-  text-decoration: none;
   display: block;
-  font-family: "Open Sans", sans-serif;
+  font: var(--font-body);
   font-size: 16px;
   font-weight: 300;
   white-space: nowrap;
@@ -219,8 +162,8 @@
   display: none;
   position: absolute;
   top: 77px;
-  right: 115px;
-  background-color: #fff;
+  right: 125px;
+  background-color: white;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   z-index: 1;
   width: 167px; /* Set your preferred width */
@@ -239,9 +182,8 @@
 .ourImpactDropdown a {
   color: black;
   padding: 14px 48px 14px 24px;
-  text-decoration: none;
   display: block;
-  font-family: "Open Sans", sans-serif;
+  font: var(--font-body);
   font-size: 16px;
   font-weight: 300;
 }

@@ -7,9 +7,25 @@ import TestimonialCard from "../../components/TestimonialCard";
 
 import styles from "./page.module.css";
 
+import { BackgroundImage, BackgroundImagePages, getBackgroundImages } from "@/api/images";
+import BackgroundHeader from "@/components/BackgroundHeader";
+
 export default function Impact() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [events, setEvents] = useState<Testimonial[]>([]);
+  const [images, setImages] = useState<BackgroundImage[]>([]);
+
+  useEffect(() => {
+    getBackgroundImages(BackgroundImagePages.HOME)
+      .then((result) => {
+        if (result.success) {
+          setImages(result.data);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }, []);
 
   useEffect(() => {
     getAllTestimonials()
@@ -35,6 +51,12 @@ export default function Impact() {
         color: "black",
       }}
     >
+      <BackgroundHeader
+        backgroundImageURIs={images.map((image) => image.imageURI)}
+        header="Our Impact"
+        title="Testimonials"
+        description="4FLOT is committed in preventing and ending homelessness, hunger and disparity in underprivileged communities. "
+      />
       <div className={styles.page}>
         <div className={styles.textContainer}>
           <div className={styles.subhead}>Read Our Stories</div>
