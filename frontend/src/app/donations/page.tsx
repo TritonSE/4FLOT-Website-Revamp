@@ -1,5 +1,6 @@
-import { PayPalButtons } from "@paypal/react-paypal-js";
 
+import DonateApp from "@/components/payment/DonateApp";
 export default function App() {
-  return <PayPalButtons style={{ layout: "horizontal" }} />;
+  return <DonateApp />
+
 }

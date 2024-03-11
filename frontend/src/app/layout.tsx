@@ -41,13 +41,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       ${inter.className} ${inter.variable}
     `}
     >
-      <PayPalScriptProvider options={{ clientId: "test" }}>
         <body>
           <HeaderBar />
           {children}
           <Footer />
         </body>
-      </PayPalScriptProvider>
     </html>
   );
 }
