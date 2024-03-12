@@ -1,0 +1,87 @@
+.fullContainer {
+  margin-left: 45px;
+  width: 1036px;
+  height: 384px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: var(--Neutral-White, #fff);
+}
+
+.fullImage {
+  position: absolute;
+  width: 563px;
+  height: 639px;
+  margin-left: 643px;
+  margin-top: -115px;
+  z-index: 1;
+}
+
+.cardContainer {
+  position: relative;
+  margin-top: 53px;
+  margin-left: 56px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  width: 611px;
+  height: 222px;
+}
+
+.ourContainer {
+  color: var(--Neutral-Black, #000);
+  /* Body/Normal (Reg) */
+  font-family: "Open Sans";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+}
+
+.titleContainer {
+  color: var(--Neutral-Black, #000);
+  /* Title/Large */
+  font-family: "Roboto Slab";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 48px */
+  letter-spacing: 0.64px;
+}
+
+.textContainer {
+  width: 611px;
+  color: var(--Neutral-Black, #000);
+  /* Body/Normal (Reg) */
+  font-family: "Open Sans";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+}
+
+.buttonContainer {
+  position: relative;
+  display: inline-flex;
+  height: 48px;
+  width: 167px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  background: var(--Primary, #694c97);
+}
+
+.buttonText {
+  color: var(--Neutral-White, #fff);
+  text-align: center;
+  /* Body/Medium (Bold) */
+  font-family: "Open Sans";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 30px */
+  letter-spacing: 0.4px;
+}
