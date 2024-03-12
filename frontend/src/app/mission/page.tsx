@@ -76,10 +76,36 @@ export default function Mission() {
           </div>
           <div className={styles.imageContainer}>
             <div className={styles.imageContainerTopRow}>
-              <Image src={"/mission_top_left.png"} alt="Story image 1" width="234" height="195" />
-              <Image src={"/mission_top_right.png"} alt="Story image 2" width="266" height="285" />
+              <div className={styles.imageWrapper}>
+                <Image
+                  className={styles.image}
+                  src={"/mission_top_left.png"}
+                  alt="Story image 1"
+                  width="234"
+                  height="195"
+                />
+              </div>
+
+              <div className={styles.imageWrapper}>
+                <Image
+                  className={styles.image}
+                  src={"/mission_top_right.png"}
+                  alt="Story image 2"
+                  width="266"
+                  height="285"
+                />
+              </div>
             </div>
-            <Image src={"/mission_bottom.png"} alt="Story image 3" width="532" height="298" />
+
+            <div className={styles.imageWrapper}>
+              <Image
+                className={styles.image}
+                src={"/mission_bottom.png"}
+                alt="Story image 3"
+                width="532"
+                height="298"
+              />
+            </div>
           </div>
         </div>
       </div>
