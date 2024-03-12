@@ -54,7 +54,6 @@ const ContactForm: React.FC = () => {
     message = document.getElementById("message").value;
     phone = document.getElementById("phone").value;
     subject = document.getElementById("subject").value;
-    const question = document.getElementById("helpOption");
     questionType = document.getElementById("selectedOption").innerText;
     document.getElementById("contactForm").reset(); //Reset form
     sendEmail({ name, email, phone, subject, message, question: questionType }).then(
@@ -104,16 +103,10 @@ const ContactForm: React.FC = () => {
         <div>
           <label htmlFor="phone">Phone</label>
           <br></br>
-          <input
-            className={styles.inputLong}
-            type="tel"
-            id="phone"
-            name="phone"
-            // onChange={handleElementChange}
-          />
+          <input className={styles.inputLong} type="tel" id="phone" name="phone" />
         </div>
         <div>
-          <label htmlFor="helpOption">How can we help you?</label>
+          <p>How can we help you?</p>
           <br></br>
           <div className={styles.customSelect}>
             <div className={styles.select} id="helpOption" onClick={showDiv}>

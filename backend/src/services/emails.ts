@@ -6,20 +6,9 @@ import env from "../util/validateEnv";
  * Sends a notification email to 4FLOT staff when a contact email is submitted.
  * Throws an error if the email could not be sent.
  */
-const sendContactEmail = async (
-  name: string,
-  email: string,
-  phone: string,
-  subject: string,
-  message: string,
-  question: string,
-) => {
-  //Extract question type from the selected option
-  let questionType = question.split(" ").slice(3).join(" ");
-  questionType = questionType[0].toUpperCase() + questionType.slice(1);
-
-  const EMAIL_SUBJECT = `${questionType} from ${name}`;
-  const EMAIL_BODY = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nSubject: ${subject}\n\n${message}`;
+const sendContactEmail = async (subject: string, message: string) => {
+  const EMAIL_SUBJECT = `${subject}`;
+  const EMAIL_BODY = `${message}`;
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
