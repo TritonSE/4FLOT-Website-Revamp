@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+
+.volunteerForm {
+  position: relative;
+  width: 872px;
+  height: min-content;
+
+  background: #ffffff;
+  border-radius: 10px;
+
+  padding: 40px;
+}
+
+@media (max-width: 900px) {
+  .volunteerForm {
+    width: min-content;
+  }
+}
+
+.heading {
+  font-family: "Roboto Slab";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 150%;
+  /* identical to box height, or 48px */
+  letter-spacing: 0.02em;
+
+  color: #000000;
+
+  margin-bottom: 2.5rem;
+}
+
+.formGroup {
+  margin-bottom: 2rem;
+}
+
+.fieldName {
+  margin-bottom: 0.5rem;
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #484848;
+}
+
+.inputField {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 6px 12px;
+  gap: 10px;
+  border: 1px solid #d8d8d8;
+  border-radius: 4px;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
+}
+
+.center {
+  text-align: center;
+}
+
+.updates {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  margin-left: 20px;
+}
+
+.signupButton {
+  width: 507px;
+  height: 48px;
+
+  background: var(--color-primary-purple);
+  border-radius: 4px;
+
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+
+  color: white;
+}

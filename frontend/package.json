@@ -14,10 +14,16 @@
     "prepare": "cd .. && husky install .husky"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.12",
+    "@mui/material": "^5.15.12",
+    "material-symbols": "^0.16.0",
     "next": "14.0.4",
     "nodemailer": "^6.9.11",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-material-symbols": "^4.3.1"
   },
   "devDependencies": {
     "@types/node": "^20",

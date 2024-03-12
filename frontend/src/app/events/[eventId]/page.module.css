@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&family=Roboto+Slab:wght@100..900&display=swap");
+
 /* Button */
 .button {
   width: max-content;
@@ -10,11 +12,8 @@
 
   background: var(--color-primary-purple);
   border-radius: 4px;
-  padding: 12px 24px 10px;
-}
+  padding: 12px 24px 8px;
 
-/* Body/Medium (Bold) */
-.buttonBody {
   font: var(--font-body);
   font-style: normal;
   font-weight: 700;
@@ -23,5 +22,6 @@
   /* Center align text */
   text-align: center;
 
-  color: white;
+  /* Neutral/White */
+  color: #ffffff;
 }
