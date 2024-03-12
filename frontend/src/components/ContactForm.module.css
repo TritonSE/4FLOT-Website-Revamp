@@ -51,8 +51,6 @@
 }
 
 .select {
-  appearance: none;
-  -webkit-appearance: none;
   background-color: white;
   width: 594px;
   height: 40px;

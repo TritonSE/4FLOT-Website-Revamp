@@ -107,7 +107,6 @@ const ContactForm: React.FC = () => {
         </div>
         <div>
           <p>How can we help you?</p>
-          <br></br>
           <div className={styles.customSelect}>
             <div className={styles.select} id="helpOption" onClick={showDiv}>
               <p id="selectedOption">I have a donation question</p>
