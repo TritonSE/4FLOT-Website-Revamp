@@ -15,6 +15,6 @@ export async function sendEmail(email: CreateEmailRequest) {
     alert("Email sent successfully!");
   } catch (error) {
     console.error("Error sending email:", error);
-    alert("Failed to send email.");
+    alert("Error sending email. Please try again later.");
   }
 }
