@@ -80,7 +80,7 @@
   width: 507px;
   height: 48px;
 
-  background: #694c97;
+  background: var(--color-primary-purple);
   border-radius: 4px;
 
   font-family: "Open Sans";
