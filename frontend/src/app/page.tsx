@@ -43,7 +43,7 @@ export default function Home() {
           title="Our Community Sponsors"
           description="Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi."
         />
-        <img className={styles.sponsor_image} src="/Sponsors.png" alt="Sponsors" />
+        <img className={styles.sponsor_image} src="/Sponsors.svg" alt="Sponsors" />
         <div className={styles.buttonContainer}>
           <Link href="#" className={styles.buttonText}>
             {sponsor_us_text}

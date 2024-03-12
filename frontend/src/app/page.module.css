@@ -25,6 +25,8 @@
 .sponsor_image {
   position: relative;
   width: 500px;
+  padding-top: 40px;
+  bottom: 40px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -42,7 +44,7 @@
   left: 50%;
   transform: translateX(-50%);
 
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 
 }
 
