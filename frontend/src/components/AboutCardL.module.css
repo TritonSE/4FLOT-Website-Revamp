@@ -1,7 +1,7 @@
 .fullContainer {
-  margin-left: 79px;
-  width: 1036px;
-  height: 427px;
+  margin-left: 5.4861vw;
+  width: 71.944vw;
+  height: 29.653vw;
   flex-shrink: 0;
   border-radius: 10px;
   background: var(--Neutral-White, #fff);
@@ -9,23 +9,30 @@
 
 .fullImage {
   position: absolute;
-  width: 517px;
-  height: 539px;
-  margin-top: -115px;
-  margin-left: -131px;
+  width: 35.903vw;
+  height: 37.431vw;
+  margin-top: -3.6806vw;
+  margin-left: -9.0972vw;
   z-index: 1;
+}
+
+.blueRing {
+  width: 2.4306vw;
+  height: 2.4306vw;
+  margin-top: 31.944vw;
+  margin-left: 31.875vw;
 }
 
 .cardContainer {
   position: relative;
-  margin-left: 386px;
-  margin-top: 98px;
+  margin-left: 26.806vw;
+  margin-top: 6.8056vw;
   display: inline-flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 18px;
-  width: 611px;
-  height: 180px;
+  gap: 1.25vw;
+  width: 42.431vw;
+  height: 12.5vw;
 }
 
 .ourContainer {
@@ -50,7 +57,7 @@
 }
 
 .textContainer {
-  width: 611px;
+  width: 42.431vw;
   color: var(--Neutral-Black, #000);
   /* Body/Normal (Reg) */
   font-family: "Open Sans";
@@ -63,12 +70,12 @@
 .buttonContainer {
   position: relative;
   display: inline-flex;
-  height: 48px;
-  width: 167px;
+  height: 3.3333vw;
+  width: 11.597vw;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 0.69444vw;
   flex-shrink: 0;
   border-radius: 4px;
   background: var(--Primary, #694c97);

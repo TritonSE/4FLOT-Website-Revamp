@@ -1,31 +1,41 @@
 .fullContainer {
-  margin-left: 170px;
-  width: 1036px;
-  height: 384px;
+  margin-left: 11.806vw;
+  width: 71.944vw;
+  height: 26.667vw;
   flex-shrink: 0;
   border-radius: 10px;
   background: var(--Neutral-White, #fff);
+  z-index: -2;
+}
+
+.blueCirc {
+  position: absolute;
+  width: 13.889vw;
+  height: 13.889vw;
+  flex-shrink: 0;
+  z-index: -1;
+  margin-left: 16.667vw;
+  margin-top: 26.111vw;
 }
 
 .fullImage {
   position: absolute;
-  width: 563px;
-  height: 639px;
-  margin-top: -115px;
-  margin-left: -170px;
-  z-index: 1;
+  width: 39.097vw;
+  height: 44.375vw;
+  margin-top: -7.9861vw;
+  margin-left: -11.806vw;
 }
 
 .cardContainer {
   position: relative;
-  margin-left: 369px;
-  margin-top: 53px;
+  margin-left: 25.625vw;
+  margin-top: 3.6806vw;
   display: inline-flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 18px;
-  width: 611px;
-  height: 180px;
+  gap: 1.25vw;
+  width: 42.421vw;
+  height: 12.5vw;
 }
 
 .ourContainer {
@@ -50,7 +60,7 @@
 }
 
 .textContainer {
-  width: 611px;
+  width: 42.431vw;
   color: var(--Neutral-Black, #000);
   /* Body/Normal (Reg) */
   font-family: "Open Sans";
@@ -62,15 +72,15 @@
 
 .buttonContainer {
   position: relative;
-  margin-left: 369px;
-  margin-top: 18px;
+  margin-left: 25.625vw;
+  margin-top: 1.25vw;
   display: inline-flex;
-  height: 48px;
-  width: 167px;
+  height: 3.3333vw;
+  width: 11.597vw;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 0.53191vw;
   flex-shrink: 0;
   border-radius: 4px;
   background: var(--Primary, #694c97);

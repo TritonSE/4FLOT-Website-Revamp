@@ -28,9 +28,13 @@ const AboutCard: React.FC<AboutCardProps> = ({
           fill={true}
           src={imageUrl}
           alt="Card image"
+          z-index="2"
           /*layout="fill"*/
           /*objectFit="cover"*/
         />
+        <svg xmlns="http://www.w3.org/2000/svg" className={styles.blueCirc}>
+          <circle cx="100" cy="100" r="100" fill="#0370BB" />
+        </svg>
       </div>
       <div className={styles.cardContainer}>
         <div className={styles.ourContainer}>{ourText}</div>
