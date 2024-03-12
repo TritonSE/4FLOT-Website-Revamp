@@ -2,7 +2,7 @@ import "./globals.css";
 import styles from "./page.module.css";
 import BackgroundHeader from "@/components/BackgroundHeader";
 import WhiteCard from "@/components/WhiteCard";
-import Description from "@/components/description";
+import Description from "@/components/Description";
 import Image from "next/image";
 import Link from "next/link";
 
