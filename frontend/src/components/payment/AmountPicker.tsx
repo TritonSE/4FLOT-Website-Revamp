@@ -1,19 +1,19 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 
 export default function AmountPicker({ onAmountChange }) {
+  const [customAmount, setCustomAmount] = useState(0);
+
   return (
     <fieldset onChange={onAmountChange}>
-      <legend>Donation Amount</legend>
+      <legend>
+        <p className="py-3 font-bold">Select your donation amount:</p>
+      </legend>
       <div className="form-control">
-        <p>
-          To donate to Kitty's House, choose a donation amount and click one of
-          the Donate buttons. We appreciate your generosity and thank you for
-          your support!
-        </p>
         <label className="label">
           <input
             type="radio"
-            value="donation_5"
+            value={5}
             defaultChecked
             name="productId"
             className="radio checked"
@@ -24,26 +24,38 @@ export default function AmountPicker({ onAmountChange }) {
       </div>
       <div className="form-control">
         <label className="label">
-          <input
-            type="radio"
-            value="donation_20"
-            name="productId"
-            id="amountChoice2"
-            className="radio"
-          />
+          <input type="radio" value={20} name="productId" id="amountChoice2" className="radio" />
           <span className="label-text md:text-lg">$20.00</span>
+        </label>
+      </div>
+      <div className="form-control">
+        <label className="label">
+          <input type="radio" value={100} name="productId" id="amountChoice3" className="radio" />
+          <span className="label-text md:text-lg">$100.00</span>
         </label>
       </div>
       <div className="form-control">
         <label className="label">
           <input
             type="radio"
-            value="donation_100"
+            value={customAmount}
             name="productId"
             id="amountChoice3"
             className="radio"
           />
-          <span className="label-text md:text-lg">$100.00</span>
+          <span className="label-text md:text-lg">Custom Amount:</span>
+          <input
+            type="number"
+            name="customAmount"
+            id="customAmount"
+            className="input"
+            onChange={(e) => {
+              const value = e.target.value;
+              if (value >= 0) {
+                setCustomAmount(Number(e.target.value));
+              }
+            }}
+          />
         </label>
       </div>
     </fieldset>
