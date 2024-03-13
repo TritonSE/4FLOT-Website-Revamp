@@ -4,9 +4,12 @@
  */
 
 import { cleanEnv } from "envalid";
-import { port, str } from "envalid/dist/validators";
+import { email, port, str } from "envalid/dist/validators";
 
 export default cleanEnv(process.env, {
   PORT: port(),
   MONGODB_URI: str(),
+  EMAIL_USER: email(), // Email address to use for sending emails
+  EMAIL_APP_PASSWORD: str(), // App password to use for sending emails
+  EMAIL_NOTIFICATIONS_RECIPIENT: email(), // Recipient of VSR notification emails
 });
