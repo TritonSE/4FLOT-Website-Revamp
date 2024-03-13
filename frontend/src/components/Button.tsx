@@ -10,11 +10,11 @@ type ButtonProps = {
 
 const Button = ({ text, link }: ButtonProps) => {
   return (
-    <div className={styles.button}>
-      <button className={styles.buttonBody}>
-        <Link href={link}>{text}</Link>
-      </button>
-    </div>
+    <Link href={link}>
+      <div className={styles.button}>
+        <button className={styles.buttonBody}>{text}</button>
+      </div>
+    </Link>
   );
 };
 

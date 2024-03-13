@@ -52,7 +52,7 @@
 }
 
 .cardDescription {
-  font-family: var(--font-body);
+  font: var(--font-body);
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -70,7 +70,7 @@
 .buttonContainer {
   width: 167px;
   height: 48px;
-  background-color: #694c97;
+  background-color: var(--color-primary-purple);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -79,7 +79,7 @@
 
 .buttonText {
   color: white;
-  font-family: var(--font-body);
+  font: var(--font-body);
   font-size: 20px;
   font-style: normal;
   font-weight: 700;

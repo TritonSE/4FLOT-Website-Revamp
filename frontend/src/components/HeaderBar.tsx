@@ -1,49 +1,53 @@
 import Link from "next/link";
 import React from "react";
 
+import Button from "./Button";
 import styles from "./HeaderBar.module.css";
 
-export const HeaderBar = () => {
+const HeaderBar = () => {
   return (
     <div className={styles.headerBar}>
+      {/* <div className={styles.contentContainer}> */}
       <div className={styles.logo}>
-        <img className={styles.logo} src="/Color=Default.svg" alt="Default Logo"></img>
+        <Link href="/">
+          <img className={styles.logo} src="/Color=Default.svg" alt="Default Logo"></img>
+        </Link>
       </div>
+
       <div className={styles.txtContainer}>
         {/* Use the dropdown styles for "About Us" */}
         <div className={styles.aboutUs}>
-          About Us
+          <Link href="/about">About Us</Link>
           <div className={styles.aboutUsDropdown}>
-            <Link href="/">Our Mission</Link>
-            <Link href="/">Our Team</Link>
-            <Link href="/">Contact</Link>
+            <Link href="/mission">Our Mission</Link>
+            <Link href="/team">Our Team</Link>
+            <Link href="/contact">Contact</Link>
           </div>
         </div>
 
         {/* Use the dropdown styles for "get Involved" */}
         <div className={styles.getInvolved}>
-          Get Involved
+          <Link href="/involved">Get Involved</Link>
           <div className={styles.getInvolvedDropdown}>
-            <Link href="/">Upcoming Events</Link>
-            <Link href="/">Donate</Link>
+            <Link href="/events">Upcoming Events</Link>
+            <Link href="/donate">Donate</Link>
           </div>
         </div>
 
         {/* Use the dropdown styles for "Our Impact" */}
         <div className={styles.ourImpact}>
-          Our Impact
+          <Link href="/impact">Our Impact</Link>
           <div className={styles.ourImpactDropdown}>
-            <Link href="/">Testimonials</Link>
-            <Link href="/">Newsletter</Link>
+            <Link href="/testimonials">Testimonials</Link>
+            <Link href="/newsletter">Newsletter</Link>
           </div>
         </div>
 
-        <div className={styles.button}>
-          <button>
-            <span className={styles.buttonBody}>Donate</span>
-          </button>
-        </div>
+        <Button text={"Donate"} link={"/"} />
       </div>
+      {/* </div> */}
     </div>
   );
 };
+
+export default HeaderBar;

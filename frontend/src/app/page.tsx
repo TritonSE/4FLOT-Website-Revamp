@@ -1,3 +1,4 @@
+"use client";
 import "./globals.css";
 import styles from "./page.module.css";
 import BackgroundHeader from "@/components/BackgroundHeader";
@@ -8,7 +9,7 @@ import Link from "next/link";
 
 export default function Home() {
   const see_more_text = "See More";
-  const sponsor_us_text = "Sponsor Us"
+  const sponsor_us_text = "Sponsor Us";
   return (
     <main className={styles.page}>
       <div className={styles.backgroundImageContainer}>
@@ -20,14 +21,14 @@ export default function Home() {
         />
       </div>
       <div className={styles.whiteCardsContainer}>
-          <WhiteCard
-            imageUrl="/Donate.svg"
-            buttonUrl="/"
-            buttonText="Donate"
-            title="Help Our Cause"
-            description="Your support and contributions will enable us to meet our goals and improve conditions. 
+        <WhiteCard
+          imageUrl="/Donate.svg"
+          buttonUrl="/"
+          buttonText="Donate"
+          title="Help Our Cause"
+          description="Your support and contributions will enable us to meet our goals and improve conditions. 
             Your generous donation will fund our mission."
-          />
+        />
       </div>
       <div className={styles.container}>
         <Description

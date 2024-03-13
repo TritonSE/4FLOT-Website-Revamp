@@ -1,5 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&family=Roboto+Slab:wght@100..900&display=swap");
+
 .description {
-  font-family: var(--font-body);
+  font: var(--font-body);
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
@@ -7,7 +9,7 @@
 }
 
 .subhead {
-  font-family: var(--font-small-subtitle);
+  font: var(--font-small-subtitle);
   font-size: 48px;
   font-style: normal;
   font-weight: 700;

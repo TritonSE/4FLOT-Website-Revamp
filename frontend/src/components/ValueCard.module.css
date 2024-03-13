@@ -2,7 +2,7 @@
   width: 401px;
   height: 434px;
   border-radius: 10px;
-  background-color: #694c97;
+  background-color: var(--color-primary-purple);
   position: relative;
 }
 
@@ -26,7 +26,7 @@
 }
 
 .RectangleTitle {
-  font-family: var(--font-small-subtitle);
+  font: var(--font-small-subtitle);
   font-size: 32px;
   font-weight: 480;
   line-height: 48px;
@@ -37,7 +37,7 @@
 
 .BodytextInsideRectangle {
   text-align: left;
-  font-family: var(--font-body);
+  font: var(--font-body);
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
