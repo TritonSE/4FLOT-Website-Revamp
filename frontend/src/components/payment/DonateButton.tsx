@@ -16,7 +16,7 @@ export default function DonateButton({ productId }) {
   }, [productId]);
 
   return (
-    <>
+    <div className="py-3">
       <PayPalButtons
         style={{ label: "donate" }}
         createOrder={(data, actions) => {
@@ -24,15 +24,12 @@ export default function DonateButton({ productId }) {
         }}
         onApprove={async (data, actions) => {
           try {
-            const response = await fetch(
-              `/api/orders/${data.orderID}/capture`,
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              }
-            );
+            const response = await fetch(`/api/orders/${data.orderID}/capture`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            });
 
             const orderData = await response.json();
             // Three cases to handle:
@@ -48,32 +45,23 @@ export default function DonateButton({ productId }) {
               actions.restart(); return;
             } else if (errorDetail) {
               // (2) Other non-recoverable errors -> Show a failure message
-              throw new Error(
-                `${errorDetail.description} (${orderData.debug_id})`
-              );
+              throw new Error(`${errorDetail.description} (${orderData.debug_id})`);
             } else {
               // (3) Successful transaction -> Show confirmation or thank you message
               // Or go to another URL:  actions.redirect('thank_you.html');
-              const transaction =
-                orderData.purchase_units[0].payments.captures[0];
+              const transaction = orderData.purchase_units[0].payments.captures[0];
               setMessage(
-                `Transaction ${transaction.status}: ${transaction.id}. See console for all available details`
+                `Transaction ${transaction.status}: ${transaction.id}. See console for all available details`,
               );
-              console.log(
-                "Capture result",
-                orderData,
-                JSON.stringify(orderData, null, 2)
-              );
+              console.log("Capture result", orderData, JSON.stringify(orderData, null, 2));
             }
           } catch (error) {
             console.error(error);
-            setMessage(
-              `Sorry, your transaction could not be processed...${error}`
-            );
+            setMessage(`Sorry, your transaction could not be processed...${error}`);
           }
         }}
       />
       <Message content={message} />
-    </>
+    </div>
   );
 }
