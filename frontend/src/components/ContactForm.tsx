@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 "use client";
 import Image from "next/image";
 import React from "react";
@@ -55,6 +56,7 @@ const ContactForm: React.FC = () => {
     phone = document.getElementById("phone").value;
     subject = document.getElementById("subject").value;
     questionType = document.getElementById("selectedOption").innerText;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     document.getElementById("contactForm").reset(); //Reset form
     sendEmail({ name, email, phone, subject, message, question: questionType }).then(
       () => {
