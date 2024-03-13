@@ -1,25 +1,50 @@
 "use client";
+import React, { useEffect, useState } from "react";
+
 import "./globals.css";
 import styles from "./page.module.css";
-import BackgroundHeader from "@/components/BackgroundHeader";
 import WhiteCard from "@/components/WhiteCard";
 import Description from "@/components/Description";
 import Image from "next/image";
 import Link from "next/link";
 
+import BackgroundHeader from "../components/BackgroundHeader";
+
+import { BackgroundImage, BackgroundImagePages, getBackgroundImages } from "@/api/images";
+import Button from "@/components/Button";
+
 export default function Home() {
+  const [images, setImages] = useState<BackgroundImage[]>([]);
+
   const see_more_text = "See More";
   const sponsor_us_text = "Sponsor Us";
+
+  useEffect(() => {
+    getBackgroundImages(BackgroundImagePages.HOME)
+      .then((result) => {
+        if (result.success) {
+          console.log(result.data, "images");
+          setImages(result.data);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }, []);
+
   return (
     <main className={styles.page}>
-      <div className={styles.backgroundImageContainer}>
+      {images.length > 0 && (
         <BackgroundHeader
-          backgroundImage="/ourimpact.svg"
-          header=""
-          title="4 Future Leaders of Tomorrow"
-          description="4FLOT is committed in preventing and ending homelessness, hunger and disparity in underprivileged communities. "
+          backgroundImageURIs={images.map((image) => image.imageURI)}
+          header={""}
+          title={"4 Future Leaders of Tomorrow"}
+          description={
+            "4FLOT is committed in preventing and ending homelessness, hunger and disparity in underprivileged communities."
+          }
+          button={<Button text="Learn More" link="/join-us" />}
         />
-      </div>
+      )}
       <div className={styles.whiteCardsContainer}>
         <WhiteCard
           imageUrl="/Donate.svg"
@@ -54,3 +79,41 @@ export default function Home() {
     </main>
   );
 }
+
+/*
+import { useEffect, useState } from "react";
+
+import BackgroundHeader from "../components/BackgroundHeader";
+
+import { BackgroundImage, BackgroundImagePages, getBackgroundImages } from "@/api/images";
+import Button from "@/components/Button";
+
+export default function Impact() {
+  const [images, setImages] = useState<BackgroundImage[]>([]);
+  useEffect(() => {
+    getBackgroundImages(BackgroundImagePages.HOME)
+      .then((result) => {
+        if (result.success) {
+          console.log(result.data, "images");
+          setImages(result.data);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }, []);
+
+  return (
+    <main style={{ backgroundColor: "#F9F9F9" }}>
+      {images.length > 0 && (
+        <BackgroundHeader
+          backgroundImageURIs={images.map((image) => image.imageURI)}
+          header={""}
+          title={"4 Future Leaders of Tomorrow"}
+          description={
+            "4FLOT is committed in preventing and ending homelessness, hunger and disparity in underprivileged communities."
+          }
+          button={<Button text="Learn More" link="/join-us" />}
+        />
+      )}
+*/

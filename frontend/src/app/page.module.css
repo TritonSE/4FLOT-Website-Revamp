@@ -16,7 +16,7 @@
 
 .whiteCardsContainer {
   position: absolute;
-  top: 557px;
+  top: 688px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -30,6 +30,7 @@
   flex-direction: column;
   gap: 20px; /* Adjust the gap between items */
   background: #f9f9f9;
+  margin-top: 400px;
 }
 
 .sponsor_image {
@@ -59,7 +60,7 @@
 
 .buttonText {
   color: white;
-  font-family: var(--font-body);
+  font: var(--font-body);
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
