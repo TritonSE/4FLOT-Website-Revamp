@@ -19,14 +19,24 @@ const ContactForm: React.FC = () => {
     const dropdownText = document.getElementById("selectedOption");
     if (dropdown?.style.display === "block") {
       dropdown.style.display = "none";
-      arrowUp.style.display = "none";
-      arrowDown.style.display = "block";
-      dropdownText.style.color = "black"; // Change text color to black
+      if (arrowUp !== null && arrowDown !== null) {
+        arrowUp.style.display = "none";
+        arrowDown.style.display = "block";
+      }
+      if (dropdownText !== null) {
+        dropdownText.style.color = "black"; // Change text color to black
+      }
     } else {
-      dropdown.style.display = "block";
-      arrowUp.style.display = "block";
-      arrowDown.style.display = "none";
-      dropdownText.style.color = "#ccc"; // Change text color to gray
+      if (dropdown !== null) {
+        dropdown.style.display = "block";
+      }
+      if (arrowUp !== null && arrowDown !== null) {
+        arrowUp.style.display = "block";
+        arrowDown.style.display = "none";
+      }
+      if (dropdownText !== null) {
+        dropdownText.style.color = "#ccc"; // Change text color to gray
+      }
     }
   }
 
@@ -35,9 +45,11 @@ const ContactForm: React.FC = () => {
    * @param optionValue Index of option selected
    */
   function updateSelect(optionValue: number) {
-    document.getElementById("selectedOption").innerText = document.getElementById(
-      "Option " + optionValue,
-    )?.innerText;
+    const dropdownText = document.getElementById("selectedOption");
+    const selectedOption = document.getElementById("Option " + optionValue);
+    if (dropdownText !== null && selectedOption !== null) {
+      dropdownText.innerText = selectedOption.innerText;
+    }
   }
 
   let name = "";
@@ -49,15 +61,38 @@ const ContactForm: React.FC = () => {
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // We do not want the page to refresh
-    name =
-      document.getElementById("firstName").value + " " + document.getElementById("lastName").value;
-    email = document.getElementById("email").value;
-    message = document.getElementById("message").value;
-    phone = document.getElementById("phone").value;
-    subject = document.getElementById("subject").value;
-    questionType = document.getElementById("selectedOption").innerText;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    document.getElementById("contactForm").reset(); //Reset form
+    const firstNameElement = document.getElementById("firstName");
+    const lastNameElement = document.getElementById("lastName");
+    const emailElement = document.getElementById("email");
+    const messageElement = document.getElementById("message");
+    const phoneElement = document.getElementById("phone");
+    const subjectElement = document.getElementById("subject");
+    const questionTypeElement = document.getElementById("selectedOption");
+
+    if (firstNameElement && lastNameElement !== null) {
+      name = firstNameElement.value + " " + lastNameElement.value;
+    }
+    if (emailElement !== null) {
+      email = emailElement.value;
+    }
+    if (messageElement !== null) {
+      message = messageElement.value;
+    }
+    if (phoneElement !== null) {
+      phone = phoneElement.value;
+    }
+    if (subjectElement !== null) {
+      subject = subjectElement.value;
+    }
+    if (questionTypeElement !== null) {
+      questionType = questionTypeElement.innerText;
+    }
+
+    const contactForm = document.getElementById("contactForm");
+    if (contactForm !== null) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      contactForm.reset(); //Reset form
+    }
     sendEmail({ name, email, phone, subject, message, question: questionType }).then(
       () => {
         console.log("Email sent!");
