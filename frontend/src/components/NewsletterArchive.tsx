@@ -36,7 +36,7 @@ const NewsletterArchive = ({ year, newsletters }: NewsletterArchiveProps) => {
       <div hidden={collapsed}>
         <div className={styles.archivedButtonContainer}>
           {newsletters.map((newsletter) => (
-            <NewsletterButton key={newsletter._id} text={newsletter.title} link={"/newsletterDisplay"} />
+            <NewsletterButton key={newsletter._id} text={newsletter.title} link={`/newsletter/${newsletter._id}`} newsletter={newsletter}/>          
           ))}
         </div>
       </div>

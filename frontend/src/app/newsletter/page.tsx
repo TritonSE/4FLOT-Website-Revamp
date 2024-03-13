@@ -18,30 +18,34 @@ const newsletter1 = {
   title: "Winter 2023: Title",
   description: "Description of what this newsletter contains.",
   date: "Month XX, 20XX",
+  content: ["Content paragraph 1", "Content paragraph 2"],
 };
 
 const newsletter2 = {
   _id: "2",
   image: "/newsletter2.png",
-  title: "Special Event Newsletter",
+  title: "Special Event Newsletter2",
   description: "Description of what this newsletter contains.",
   date: "Month XX, 20XX",
+  content: ["Content paragraph 1", "Content paragraph 2"],
 };
 
 const newsletter3 = {
   _id: "3",
   image: "/newsletter2.png",
-  title: "Special Event Newsletter",
+  title: "Special Event Newsletter3",
   description: "Description of what this newsletter contains.",
   date: "Month XX, 20XX",
+  content: ["Content paragraph 1", "Content paragraph 2"],
 };
 
 const newsletter4 = {
-  _id: "4",
+  _id: "3",
   image: "/newsletter2.png",
-  title: "Special Event Newsletter",
+  title: "Special Event Newsletter4",
   description: "Description of what this newsletter contains.",
   date: "Month XX, 20XX",
+  content: ["Content paragraph 1", "Content paragraph 2"],
 };
 
 const newsletter5 = {
@@ -50,6 +54,7 @@ const newsletter5 = {
   title: "Special Event Newsletter",
   description: "Description of what this newsletter contains.",
   date: "Month XX, 20XX",
+  content: ["Content paragraph 1", "Content paragraph 2"],
 };
 
 export default function Newsletter() {
