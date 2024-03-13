@@ -50,7 +50,7 @@ export default function Impact() {
             imageUrl="/about/icon2.svg"
             buttonUrl="/team"
             buttonText="Read More"
-            title="Meet our Team"
+            title="Get to Know Us"
             description="Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi."
           />
           <AboutCardL
