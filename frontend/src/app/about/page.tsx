@@ -39,7 +39,7 @@ export default function Impact() {
         <div className={styles.cards}>
           <AboutCard
             ourText="Our Mission"
-            imageUrl="/about/icon1.png"
+            imageUrl="/about/icon1.svg"
             buttonUrl="/mission"
             buttonText="Learn More"
             title="Why We Do It"
@@ -47,7 +47,7 @@ export default function Impact() {
           />
           <AboutCardR
             ourText="Our Team"
-            imageUrl="/about/icon1.png"
+            imageUrl="/about/icon2.svg"
             buttonUrl="/team"
             buttonText="Read More"
             title="Meet our Team"
@@ -55,7 +55,7 @@ export default function Impact() {
           />
           <AboutCardL
             ourText="Contact Us"
-            imageUrl="/about/icon2.png"
+            imageUrl="/about/icon3.svg"
             buttonUrl="/contact"
             buttonText="Contact Us"
             title="Stay Connected"

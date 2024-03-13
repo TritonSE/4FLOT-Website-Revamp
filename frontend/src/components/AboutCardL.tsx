@@ -31,15 +31,8 @@ const AboutCardL: React.FC<AboutCardLProps> = ({
           /*layout="fill"*/
           /*objectFit="cover"*/
         />
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" className={styles.blueRing}>
-          <circle
-            cx="17.9346"
-            cy="17.9318"
-            r="15.536"
-            transform="rotate(79.1774 17.9346 17.9318)"
-            stroke="#428BCD"
-            stroke-width="3"
-          />
+        <svg xmlns="http://www.w3.org/2000/svg" className={styles.blueRing}>
+          <circle cx="100" cy="100" fill="#0370BB" />
         </svg>
       </div>
       <div className={styles.cardContainer}>

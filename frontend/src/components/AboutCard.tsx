@@ -25,7 +25,7 @@ const AboutCard: React.FC<AboutCardProps> = ({
     <div className={styles.fullContainer}>
       <div className={styles.fullImage}>
         <Image
-          fill={true}
+          layout="fill"
           src={imageUrl}
           alt="Card image"
           z-index="2"
@@ -33,18 +33,18 @@ const AboutCard: React.FC<AboutCardProps> = ({
           /*objectFit="cover"*/
         />
         <svg xmlns="http://www.w3.org/2000/svg" className={styles.blueCirc}>
-          <circle cx="100" cy="100" r="100" fill="#0370BB" />
+          <circle cx="100" cy="100" fill="#0370BB" />
         </svg>
       </div>
       <div className={styles.cardContainer}>
         <div className={styles.ourContainer}>{ourText}</div>
         <h2 className={styles.titleContainer}>{title}</h2>
         <p className={styles.textContainer}>{description}</p>
-      </div>
-      <div className={styles.buttonContainer}>
-        <Link href={buttonUrl} className={styles.buttonText}>
-          {buttonText}
-        </Link>
+        <div className={styles.buttonContainer}>
+          <Link href={buttonUrl} className={styles.buttonText}>
+            {buttonText}
+          </Link>
+        </div>
       </div>
     </div>
   );

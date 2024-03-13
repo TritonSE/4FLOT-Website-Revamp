@@ -3,9 +3,8 @@
   width: 71.944vw;
   height: 26.667vw;
   flex-shrink: 0;
-  border-radius: 10px;
+  border-radius: 0.69444vw;
   background: var(--Neutral-White, #fff);
-  z-index: -2;
 }
 
 .blueCirc {
@@ -13,17 +12,24 @@
   width: 13.889vw;
   height: 13.889vw;
   flex-shrink: 0;
+  margin-left: 21.042vw;
+  margin-top: 24.583vw;
   z-index: -1;
-  margin-left: 16.667vw;
-  margin-top: 26.111vw;
+}
+
+.blueCirc circle {
+  cx: 6.9444vw;
+  cy: 6.9444vw;
+  r: 6.9444vw;
 }
 
 .fullImage {
   position: absolute;
-  width: 39.097vw;
-  height: 44.375vw;
-  margin-top: -7.9861vw;
-  margin-left: -11.806vw;
+  width: 42.083vw;
+  height: 41.181vw;
+  margin-top: -6.4583vw;
+  margin-left: -16.181vw;
+  z-index: 1;
 }
 
 .cardContainer {
@@ -42,21 +48,21 @@
   color: var(--Neutral-Black, #000);
   /* Body/Normal (Reg) */
   font-family: "Open Sans";
-  font-size: 16px;
+  font-size: 1.1111vw;
   font-style: normal;
   font-weight: 400;
-  line-height: 24px; /* 150% */
+  line-height: 1.6667vw; /* 150% */
 }
 
 .titleContainer {
   color: var(--Neutral-Black, #000);
   /* Title/Large */
   font-family: "Roboto Slab";
-  font-size: 32px;
+  font-size: 2.2222vw;
   font-style: normal;
   font-weight: 700;
   line-height: 150%; /* 48px */
-  letter-spacing: 0.64px;
+  letter-spacing: 0.044444vw;
 }
 
 .textContainer {
@@ -64,16 +70,14 @@
   color: var(--Neutral-Black, #000);
   /* Body/Normal (Reg) */
   font-family: "Open Sans";
-  font-size: 16px;
+  font-size: 1.1111vw;
   font-style: normal;
   font-weight: 400;
-  line-height: 24px; /* 150% */
+  line-height: 1.6667vw; /* 150% */
 }
 
 .buttonContainer {
   position: relative;
-  margin-left: 25.625vw;
-  margin-top: 1.25vw;
   display: inline-flex;
   height: 3.3333vw;
   width: 11.597vw;
@@ -82,7 +86,7 @@
   align-items: center;
   gap: 0.53191vw;
   flex-shrink: 0;
-  border-radius: 4px;
+  border-radius: 0.27778vw;
   background: var(--Primary, #694c97);
 }
 
@@ -91,9 +95,9 @@
   text-align: center;
   /* Body/Medium (Bold) */
   font-family: "Open Sans";
-  font-size: 20px;
+  font-size: 1.3889vw;
   font-style: normal;
   font-weight: 700;
   line-height: 150%; /* 30px */
-  letter-spacing: 0.4px;
+  letter-spacing: 0.027778vw;
 }
