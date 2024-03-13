@@ -28,9 +28,10 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 20px; /* Adjust the gap between items */
+  gap: 50px; /* Adjust the gap between items */
   background: #f9f9f9;
   margin-top: 400px;
+  margin-bottom: 100px;
 }
 
 .sponsor_image {
@@ -40,6 +41,10 @@
   bottom: 40px;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.eventsListContainer {
+  padding: 0px 96px;
 }
 
 .buttonContainer {

@@ -3,8 +3,10 @@
 /* Description styles */
 .description {
   position: relative;
-  padding: 20px;
-  margin: 30px 80px; /* Adjusted margin for top/bottom and left/right */
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 30px 96px; /* Adjusted margin for top/bottom and left/right */
 }
 
 .title {

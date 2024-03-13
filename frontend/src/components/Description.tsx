@@ -1,10 +1,11 @@
-import React from 'react';
-import styles from './Description.module.css'; // Importing CSS module for styles
+import React from "react";
 
-interface DescriptionProps {
+import styles from "./Description.module.css"; // Importing CSS module for styles
+
+type DescriptionProps = {
   title: string;
   description: string;
-}
+};
 
 const Description: React.FC<DescriptionProps> = ({ title, description }) => {
   return (
