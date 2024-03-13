@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 "use client";
 import Image from "next/image";
 import React from "react";
@@ -61,13 +60,13 @@ const ContactForm: React.FC = () => {
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // We do not want the page to refresh
-    const firstNameElement = document.getElementById("firstName");
-    const lastNameElement = document.getElementById("lastName");
-    const emailElement = document.getElementById("email");
-    const messageElement = document.getElementById("message");
-    const phoneElement = document.getElementById("phone");
-    const subjectElement = document.getElementById("subject");
-    const questionTypeElement = document.getElementById("selectedOption");
+    const firstNameElement = document.getElementById("firstName") as HTMLInputElement;
+    const lastNameElement = document.getElementById("lastName") as HTMLInputElement;
+    const emailElement = document.getElementById("email") as HTMLInputElement;
+    const messageElement = document.getElementById("message") as HTMLInputElement;
+    const phoneElement = document.getElementById("phone") as HTMLInputElement;
+    const subjectElement = document.getElementById("subject") as HTMLInputElement;
+    const questionTypeElement = document.getElementById("selectedOption") as HTMLInputElement;
 
     if (firstNameElement && lastNameElement !== null) {
       name = firstNameElement.value + " " + lastNameElement.value;
@@ -88,9 +87,8 @@ const ContactForm: React.FC = () => {
       questionType = questionTypeElement.innerText;
     }
 
-    const contactForm = document.getElementById("contactForm");
+    const contactForm = document.getElementById("contactForm") as HTMLFormElement;
     if (contactForm !== null) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       contactForm.reset(); //Reset form
     }
     sendEmail({ name, email, phone, subject, message, question: questionType }).then(
