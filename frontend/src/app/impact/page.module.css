@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&family=Roboto+Slab:wght@100..900&display=swap");
+
 .cards {
   display: flex;
   flex-direction: column;
@@ -10,15 +12,12 @@
 .backgroundImageContainer {
   position: relative;
   z-index: 0;
-  background-color: blue;
 }
 
 .whiteCardsContainer {
   position: absolute;
-  top: 557px;
-  /* left: 0; */
+  top: 688px;
   z-index: 1;
-  /* background-color: pink; */
 }
 
 .cardsBackground {

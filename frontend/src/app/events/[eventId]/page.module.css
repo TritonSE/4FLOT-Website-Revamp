@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&family=Roboto+Slab:wght@100..900&display=swap");
+
+/* Button */
+.button {
+  width: max-content;
+  height: 48px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  background: var(--color-primary-purple);
+  border-radius: 4px;
+  padding: 12px 24px 8px;
+
+  font: var(--font-body);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 1px;
+  /* Center align text */
+  text-align: center;
+
+  /* Neutral/White */
+  color: #ffffff;
+}

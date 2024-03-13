@@ -1,20 +1,38 @@
-import Image from "next/image";
-import React from "react";
+"use client";
 
-import BackgroundHeader from "../../components/BackgroundHeader";
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
+
 import Button from "../../components/Button";
 import ValueCard from "../../components/ValueCard";
 
 import styles from "./page.module.css";
 
+import { BackgroundImage, BackgroundImagePages, getBackgroundImages } from "@/api/images";
+import BackgroundHeader from "@/components/BackgroundHeader";
+
 export default function Mission() {
+  const [images, setImages] = useState<BackgroundImage[]>([]);
+
+  useEffect(() => {
+    getBackgroundImages(BackgroundImagePages.TEAM)
+      .then((result) => {
+        if (result.success) {
+          setImages(result.data);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }, []);
+
   return (
     <main>
       <BackgroundHeader
-        backgroundImage="/mission_background.png"
+        backgroundImageURIs={images.map((image) => image.imageURI)}
         header="OUR MISSION"
         title="Why We Do It"
-        description="Leading the way for generations to come! Together we can .... make a difference by paying it forward with Love, Compassion, and Community Outreach for all humanity."
+        description="Leading the way for generations to come! Together we can make a difference by paying it forward with Love, Compassion, and Community Outreach for all humanity."
       />
 
       <div className={styles.page}>

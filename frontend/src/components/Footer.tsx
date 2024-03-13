@@ -20,15 +20,15 @@ const Footer = () => {
   const links = {
     facebookLink: "https://www.facebook.com/4FLOT.team/",
     instagramLink: "https://www.instagram.com/4_futureleadersoftomorrow/",
-    aboutUs: "",
-    getInvolved: "",
-    ourImpact: "",
-    ourMission: "",
-    upcomingEvents: "",
-    testimonials: "",
-    contactUs: "",
-    donate: "",
-    newsletter: "",
+    aboutUs: "/about",
+    getInvolved: "/involved",
+    ourImpact: "/impact",
+    ourMission: "/mission",
+    upcomingEvents: "/events",
+    testimonials: "/testimonials",
+    contactUs: "/contact",
+    donate: "/donate",
+    newsletter: "/newsletter",
   };
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
