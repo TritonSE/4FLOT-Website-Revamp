@@ -23,7 +23,7 @@ const ContactForm: React.FC = () => {
         arrowDown.style.display = "block";
       }
       if (dropdownText !== null) {
-        dropdownText.style.color = "black"; // Change text color to black
+        dropdownText.style.color = "#484848"; // Change text color to black
       }
     } else {
       if (dropdown !== null) {
