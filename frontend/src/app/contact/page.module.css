@@ -58,7 +58,7 @@
 .imageContainer {
   flex: 0 0 auto; /* Don't allow the image container to grow */
   margin-top: 150px;
-  margin-right: 20px;
+  margin-right: 0px;
 }
 .formContainer {
   flex: 1; /* Allow the form container to grow to fill remaining space */

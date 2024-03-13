@@ -44,8 +44,8 @@ export default function Contact() {
               <Image
                 src={"/stayConnected.svg"}
                 alt="Stay Connected Image"
-                width="456"
-                height="467"
+                width="497"
+                height="455"
               />
             </div>
           </div>
