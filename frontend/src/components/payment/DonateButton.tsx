@@ -1,5 +1,6 @@
-import { useRef, useEffect, useState } from "react";
 import { PayPalButtons } from "@paypal/react-paypal-js";
+import { useEffect, useRef, useState } from "react";
+import { createPaypalOrder } from "@/api/paypal";
 
 // Renders errors or successful transactions on the screen.
 function Message({ content }) {
@@ -18,41 +19,8 @@ export default function DonateButton({ productId }) {
     <>
       <PayPalButtons
         style={{ label: "donate" }}
-        createOrder={async () => {
-          try {
-            const response = await fetch("/api/orders", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              // use the "body" param to optionally pass additional order information
-              // like product ids and quantities
-              body: JSON.stringify({
-                cart: [
-                  {
-                    id: productIdRef.current,
-                    quantity: "1",
-                  },
-                ],
-              }),
-            });
-
-            const orderData = await response.json();
-
-            if (orderData.id) {
-              return orderData.id;
-            } else {
-              const errorDetail = orderData?.details?.[0];
-              const errorMessage = errorDetail
-                ? `${errorDetail.issue} ${errorDetail.description} (${orderData.debug_id})`
-                : JSON.stringify(orderData);
-
-              throw new Error(errorMessage);
-            }
-          } catch (error) {
-            console.error(error);
-            setMessage(`Could not initiate PayPal Checkout...${error}`);
-          }
+        createOrder={(data, actions) => {
+          
         }}
         onApprove={async (data, actions) => {
           try {
@@ -77,7 +45,7 @@ export default function DonateButton({ productId }) {
             if (errorDetail?.issue === "INSTRUMENT_DECLINED") {
               // (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
               // recoverable state, per https://developer.paypal.com/docs/checkout/standard/customize/handle-funding-failures/
-              return actions.restart();
+              actions.restart(); return;
             } else if (errorDetail) {
               // (2) Other non-recoverable errors -> Show a failure message
               throw new Error(

@@ -9,6 +9,7 @@ import { isHttpError } from "http-errors";
 import subscriberRoutes from "src/routes/subscriber";
 import memberRoutes from "src/routes/members";
 import testimonialRoutes from "src/routes/testimonial";
+import paymentsRoutes from "src/routes/payments";
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use(
 app.use("/api/subscribers", subscriberRoutes);
 app.use("/api/member", memberRoutes);
 app.use("/api/testimonial", testimonialRoutes);
+app.use("/api/payments", paymentsRoutes);
 /**
  * Error handler; all errors thrown by server are handled here.
  * Explicit typings required here because TypeScript cannot infer the argument types.
