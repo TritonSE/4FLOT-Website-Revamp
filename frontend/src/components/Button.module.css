@@ -10,18 +10,21 @@
 
   background: var(--color-primary-purple);
   border-radius: 4px;
-  padding: 12px 24px 10px;
+  /* padding: 12px 24px 12px 24px; */
 }
 
 /* Body/Medium (Bold) */
 .buttonBody {
   font: var(--font-body);
   font-style: normal;
-  font-weight: 700;
+  font-weight: 700px;
   font-size: 20px;
   letter-spacing: 1px;
   /* Center align text */
   text-align: center;
 
   color: white;
+
+  padding: 12px 24px;
+  white-space: nowrap;
 }
