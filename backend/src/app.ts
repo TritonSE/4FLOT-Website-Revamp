@@ -13,9 +13,7 @@ import eventDetailsRoutes from "./routes/eventDetails";
 import volunteerDetailsRoutes from "./routes/volunteerDetails";
 import testimonialRoutes from "src/routes/testimonial";
 import newsletterRoutes from "src/routes/newsletter"; // Import newsletter routes
-
-
-
+import emailRoutes from "src/routes/emails";
 
 const app = express();
 
@@ -42,7 +40,7 @@ app.use("/api/eventDetails", eventDetailsRoutes);
 app.use("/api/volunteerDetails", volunteerDetailsRoutes);
 app.use("/api/testimonial", testimonialRoutes);
 app.use("/api/newsletter", newsletterRoutes); // Use newsletter routes
-
+app.use("/api/emails", emailRoutes);
 
 /**
  * Error handler; all errors thrown by server are handled here.

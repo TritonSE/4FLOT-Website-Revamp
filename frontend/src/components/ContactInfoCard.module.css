@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&family=Roboto+Slab:wght@100..900&display=swap");
+
+.customRectangle {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+
+  width: 341px;
+  min-width: 293px;
+  height: 224px;
+  border-radius: 10px;
+  background-color: #694c97;
+  position: relative;
+}
+
+.textWrapper {
+  text-align: left;
+}
+.cardTitle {
+  font: var(--font-small-subtitle);
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 36px;
+  color: white;
+  margin-bottom: 7px;
+}
+.cardDescription {
+  font: var(--font-body);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px; /* 133.333% */
+  color: white;
+}
+
+.leftImage {
+  max-width: 25%;
+  max-height: 25%;
+}

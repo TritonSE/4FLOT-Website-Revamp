@@ -10,7 +10,7 @@
 
   background: var(--color-primary-purple);
   border-radius: 4px;
-  padding: 12px 24px 12px 24px;
+  padding: 12px 24px 10px;
 }
 
 /* Body/Medium (Bold) */
@@ -19,7 +19,8 @@
   font-style: normal;
   font-weight: 700;
   font-size: 20px;
-  letter-spacing: 0.08rem;
+  letter-spacing: 1px;
+  /* Center align text */
   text-align: center;
 
   color: white;

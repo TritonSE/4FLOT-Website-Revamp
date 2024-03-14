@@ -1,25 +1,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&family=Roboto+Slab:wght@100..900&display=swap");
-
+.page {
+  background: var(--Functional-Background, #f9f9f9);
+}
 .cards {
   display: flex;
   flex-direction: column;
-  gap: 48px;
-  margin-left: 202px;
-  margin-right: 202px;
+  gap: 232px;
+  margin-left: 52px;
   margin-bottom: 136px;
 }
 
 .backgroundImageContainer {
   position: relative;
-  z-index: 0;
+  z-index: 1;
 }
 
 .whiteCardsContainer {
   position: absolute;
-  top: 688px;
-  z-index: 1;
+  top: 944px;
+  z-index: 2;
 }
 
 .cardsBackground {
-  height: 1000px;
+  height: 2000px;
 }
