@@ -37,10 +37,23 @@
   gap: 47px;
 }
 
+.image {
+  width: auto; /* Allows image to adjust its width */
+  height: auto; /* Allows image to adjust its height */
+  object-fit: contain; /* Maintain aspect ratio */
+}
+
+.imageWrapper {
+  border-radius: 10px;
+  width: 234;
+  height: 195;
+  background-color: blue;
+}
 .imageContainerTopRow {
   display: flex;
   flex-direction: row;
   gap: 32px;
+  background-color: red;
 }
 
 /*For the images*/

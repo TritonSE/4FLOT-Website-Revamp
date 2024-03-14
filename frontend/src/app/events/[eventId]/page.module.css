@@ -25,3 +25,7 @@
   /* Neutral/White */
   color: #ffffff;
 }
+
+.popup {
+  z-index: 1002;
+}

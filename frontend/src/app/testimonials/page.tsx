@@ -53,7 +53,7 @@ export default function Impact() {
     >
       <BackgroundHeader
         backgroundImageURIs={images.map((image) => image.imageURI)}
-        header="Our Impact"
+        header="OUR IMPACT"
         title="Testimonials"
         description="4FLOT is committed in preventing and ending homelessness, hunger and disparity in underprivileged communities. "
       />

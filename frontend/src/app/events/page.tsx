@@ -40,7 +40,7 @@ export default function UpcomingEvents() {
             expedita minima doloribus repellendus est? Quos, officia?
           </p>
         </div>
-        <EventsList />
+        <EventsList page="events" />
       </div>
     </div>
   );

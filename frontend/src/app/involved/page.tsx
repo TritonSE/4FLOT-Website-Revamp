@@ -7,7 +7,7 @@ import { BackgroundImage, BackgroundImagePages, getBackgroundImages } from "@/ap
 import BackgroundHeader from "@/components/BackgroundHeader";
 import WhiteCard from "@/components/WhiteCard";
 
-export default function Impact() {
+export default function Involved() {
   const [images, setImages] = useState<BackgroundImage[]>([]);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function Impact() {
         <BackgroundHeader
           backgroundImageURIs={images.map((image) => image.imageURI)}
           header=""
-          title="Our Impact"
+          title="Get Involved"
           description="4FLOT is committed in preventing and ending homelessness, hunger and disparity in underprivileged communities. "
         />
       </div>
@@ -36,17 +36,17 @@ export default function Impact() {
       <div className={styles.whiteCardsContainer}>
         <div className={styles.cards}>
           <WhiteCard
-            imageUrl="/testimonials.svg"
-            buttonUrl="/testimonials"
+            imageUrl="/cal.svg"
+            buttonUrl="/events"
             buttonText="Learn More"
-            title="Testimonals"
+            title="Upcoming Events"
             description="Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi."
           />
           <WhiteCard
-            imageUrl="/newsletter.svg"
-            buttonUrl="/newsletter"
+            imageUrl="/group.svg"
+            buttonUrl="/donate"
             buttonText="Learn More"
-            title="Newsletter"
+            title="Donate"
             description="Your support and contributions will enable us to meet our goals and improve conditions. Your generous donation will fund our mission."
           />
         </div>
