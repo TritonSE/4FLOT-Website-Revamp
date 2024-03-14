@@ -4,10 +4,8 @@ import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
 
 import { BackgroundImage, BackgroundImagePages, getBackgroundImages } from "@/api/images";
-import BackgroundHeader from "@/components/BackgroundHeader";
 import AboutCard from "@/components/AboutCard";
-import AboutCardR from "@/components/AboutCardR";
-import AboutCardL from "@/components/AboutCardL";
+import BackgroundHeader from "@/components/BackgroundHeader";
 
 export default function Impact() {
   const [images, setImages] = useState<BackgroundImage[]>([]);
@@ -44,22 +42,25 @@ export default function Impact() {
             buttonText="Learn More"
             title="Why We Do It"
             description="Leading the way for generations to come! Together we can .... make a difference by paying it forward with Love, Compassion, and Community Outreach for all humanity."
+            type="mission"
           />
-          <AboutCardR
+          <AboutCard
             ourText="Our Team"
             imageUrl="/about/icon2.svg"
             buttonUrl="/team"
             buttonText="Read More"
             title="Get to Know Us"
             description="Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi."
+            type="team"
           />
-          <AboutCardL
+          <AboutCard
             ourText="Contact Us"
             imageUrl="/about/icon3.svg"
             buttonUrl="/contact"
             buttonText="Contact Us"
             title="Stay Connected"
             description="Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi."
+            type="contact"
           />
         </div>
       </div>
