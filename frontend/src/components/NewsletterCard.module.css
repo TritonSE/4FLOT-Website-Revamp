@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&family=Roboto+Slab:wght@100..900&display=swap");
+
 .newsletterCardContainer {
   width: 1700px;
   max-width: 100%;
@@ -15,20 +17,26 @@
 }
 
 .newsletterCardContainer h1 {
+  font: var(--font-small-subtitle);
   font-size: 32px;
   font-weight: 700;
 }
 
 .newsletterCardContainer p {
+  font: var(--font-body);
   font-size: 20px;
 }
 
 .newsletterTextContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   width: 1700px;
   max-width: 100%;
   padding: 32px 50px;
 }
 
 p.newsletterDate {
+  font: var(--font-body);
   font-size: 24px;
 }

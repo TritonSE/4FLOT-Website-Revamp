@@ -1,9 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&family=Roboto+Slab:wght@100..900&display=swap");
+
+.newsletterArchiveContainer {
+  margin-left: 18px;
+}
+
 .newsletterArchiveContainer h1 {
-  font-family: var(--font-small-subtitle);
+  font: var(--font-small-subtitle);
   font-size: 32px;
-  font-weight: 700;
-  margin-left: 25px;
+  font-weight: 600;
   margin-bottom: 0px;
+  margin-left: 24px;
 }
 
 .panelText {
@@ -13,6 +19,9 @@
 }
 
 .panel {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
   padding: 25px 0px;
 }
 
@@ -30,10 +39,11 @@
   display: flex;
   direction: row;
   flex-wrap: wrap;
-  gap: 30px;
+  margin-left: 15px;
   margin-bottom: 70px;
   margin-top: 25px;
-  justify-content: space-between;
+  gap: 30px;
+  row-gap: 30px;
 }
 
 .caretDown {
