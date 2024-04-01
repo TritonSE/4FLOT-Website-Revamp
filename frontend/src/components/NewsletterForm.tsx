@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 import { createSubscriber } from "../api/subscriber";
 
-import styles from "./newsletter-form.module.css";
+import styles from "./NewsletterForm.module.css";
 
 type NewsLetterFormProps = {
   setSuccess: (success: boolean) => void;

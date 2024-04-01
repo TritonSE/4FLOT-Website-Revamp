@@ -12,8 +12,6 @@ import { BackgroundImage, BackgroundImagePages, getBackgroundImages } from "@/ap
 import BackgroundHeader from "@/components/BackgroundHeader";
 import Button from "@/components/Button";
 
-// import html2pdf from "html2pdf.js";
-
 type Props = {
   params: { newsletterID: string };
 };

@@ -1,8 +1,8 @@
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 
 import styles from "./AboutCard.module.css";
+import Button from "./Button";
 
 type AboutCardProps = {
   ourText: string;
@@ -34,9 +34,7 @@ const AboutCard: React.FC<AboutCardProps> = ({
           <h2 className={styles.titleContainerT}>{title}</h2>
           <p className={styles.textContainerT}>{description}</p>
           <div className={styles.buttonContainerT}>
-            <Link href={buttonUrl} className={styles.buttonText}>
-              {buttonText}
-            </Link>
+            <Button text={buttonText} link={buttonUrl} />
           </div>
         </div>
       </div>
@@ -55,9 +53,7 @@ const AboutCard: React.FC<AboutCardProps> = ({
           <h2 className={styles.titleContainerC}>{title}</h2>
           <p className={styles.textContainerC}>{description}</p>
           <div className={styles.buttonContainerC}>
-            <Link href={buttonUrl} className={styles.buttonText}>
-              {buttonText}
-            </Link>
+            <Button text={buttonText} link={buttonUrl} />
           </div>
         </div>
       </div>
@@ -76,9 +72,7 @@ const AboutCard: React.FC<AboutCardProps> = ({
           <h2 className={styles.titleContainer}>{title}</h2>
           <p className={styles.textContainer}>{description}</p>
           <div className={styles.buttonContainer}>
-            <Link href={buttonUrl} className={styles.buttonText}>
-              {buttonText}
-            </Link>
+            <Button text={buttonText} link={buttonUrl} />
           </div>
         </div>
       </div>

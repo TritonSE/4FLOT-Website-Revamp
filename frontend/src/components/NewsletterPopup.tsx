@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 
-import NewsletterForm from "./newsletter-form";
+import NewsletterForm from "./NewsletterForm";
 
 type newsletterPopupProps = {
   open: boolean;

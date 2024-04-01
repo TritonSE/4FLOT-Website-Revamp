@@ -146,13 +146,19 @@ const Footer = () => {
 
           <div className={styles.linkRow}>
             <Link className={`${styles.link} ${styles.normalLink}`} href={links.contactUs}>
-              Contact Us
+              Our Team
             </Link>
             <Link className={`${styles.link} ${styles.normalLink}`} href={links.donate}>
               Donate
             </Link>
             <Link className={`${styles.link} ${styles.normalLink}`} href={links.newsletter}>
               Newsletter
+            </Link>
+          </div>
+
+          <div className={styles.linkRow}>
+            <Link className={`${styles.link} ${styles.normalLink}`} href={links.contactUs}>
+              Contact Us
             </Link>
           </div>
         </div>

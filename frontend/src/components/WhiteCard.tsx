@@ -1,7 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 
+import Button from "./Button";
 import styles from "./WhiteCard.module.css";
 
 type WhiteCardProps = {
@@ -36,11 +36,8 @@ const WhiteCard: React.FC<WhiteCardProps> = ({
           <h2 className={styles.cardTitle}>{title}</h2>
           <p className={styles.cardDescription}>{description}</p>
         </div>
-        <div className={styles.buttonContainer}>
-          <Link href={buttonUrl} className={styles.buttonText}>
-            {buttonText}
-          </Link>
-        </div>
+
+        <Button text={buttonText} link={buttonUrl} />
       </div>
     </div>
   );
