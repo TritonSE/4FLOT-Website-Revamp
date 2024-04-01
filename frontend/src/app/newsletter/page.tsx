@@ -1,68 +1,61 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import styles from "./page.module.css";
 
 import NewsletterArchive from "../../components/NewsletterArchive";
 import NewsletterCard from "../../components/NewsletterCard";
 import NewsletterPopup from "../../components/NewsletterPopup";
+
+import styles from "./page.module.css";
+
 import { BackgroundImage, BackgroundImagePages, getBackgroundImages } from "@/api/images";
+import { Newsletter, getAllNewsletters } from "@/api/newsletter";
 import BackgroundHeader from "@/components/BackgroundHeader";
 import Button from "@/components/Button";
-
-const newsletter1 = {
-  _id: "1",
-  image: "/newsletter1.png",
-  title: "Winter 2023: Title",
-  description: "Description of what this newsletter contains.",
-  date: "Month XX, 20XX",
-  content: ["Content paragraph 1", "Content paragraph 2"],
-};
-
-const newsletter2 = {
-  _id: "2",
-  image: "/newsletter2.png",
-  title: "Special Event Newsletter2",
-  description: "Description of what this newsletter contains.",
-  date: "Month XX, 20XX",
-  content: ["Content paragraph 1", "Content paragraph 2"],
-};
-
-const newsletter3 = {
-  _id: "3",
-  image: "/newsletter2.png",
-  title: "Special Event Newsletter3",
-  description: "Description of what this newsletter contains.",
-  date: "Month XX, 20XX",
-  content: ["Content paragraph 1", "Content paragraph 2"],
-};
-
-const newsletter4 = {
-  _id: "3",
-  image: "/newsletter2.png",
-  title: "Special Event Newsletter4",
-  description: "Description of what this newsletter contains.",
-  date: "Month XX, 20XX",
-  content: ["Content paragraph 1", "Content paragraph 2"],
-};
-
-const newsletter5 = {
-  _id: "2",
-  image: "/newsletter2.png",
-  title: "Special Event Newsletter",
-  description: "Description of what this newsletter contains.",
-  date: "Month XX, 20XX",
-  content: ["Content paragraph 1", "Content paragraph 2"],
-};
 
 export default function Newsletter() {
   const [popupOpen, setPopup] = useState(false);
   const [images, setImages] = useState<BackgroundImage[]>([]);
+  const [curNewsletters, setCurNewsletters] = useState<Newsletter[]>([]);
+  const [archiveNewsletters, setArchiveNewsletters] = useState<Record<string, Newsletter[]>>({});
+  const [sortedArchives, setSortedArchives] = useState<string[]>([]);
 
   useEffect(() => {
     getBackgroundImages(BackgroundImagePages.TEAM)
       .then((result) => {
         if (result.success) {
           setImages(result.data);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    getAllNewsletters()
+      .then((response) => {
+        if (response.success) {
+          const curLetters = response.data.filter((item) => !item.archive);
+          setCurNewsletters(curLetters);
+
+          const archiveLetters = response.data.filter((item) => item.archive);
+          const newslettersByYear: Record<string, Newsletter[]> = {};
+
+          archiveLetters.forEach((newsletter) => {
+            const year = new Date(newsletter.date).getFullYear().toString();
+            if (!newslettersByYear[year]) {
+              newslettersByYear[year] = [];
+            }
+            newslettersByYear[year].push(newsletter);
+          });
+          setArchiveNewsletters(newslettersByYear);
+
+          const sortedLetters = Object.keys(newslettersByYear).sort(
+            (a, b) => parseInt(b) - parseInt(a),
+          );
+          setSortedArchives(sortedLetters);
+        } else {
+          alert(response.error);
         }
       })
       .catch((error) => {
@@ -90,21 +83,26 @@ export default function Newsletter() {
           </div>
           <Button text="Subscribe for Updates" onClick={handleSubscribeClick} />
         </div>
-        <NewsletterPopup open={popupOpen} setOpen={setPopup} />
+        <div className={styles.popup}>
+          <NewsletterPopup open={popupOpen} setOpen={setPopup} />
+        </div>
       </div>
 
       <div className={styles.page}>
         <div className={styles.newslettersDisplay}>
-          <NewsletterCard newsletter={newsletter1}></NewsletterCard>
-          <NewsletterCard newsletter={newsletter2}></NewsletterCard>
+          {curNewsletters.length === 0 ? (
+            <p>Loading...</p>
+          ) : (
+            curNewsletters.map((newsletter: Newsletter) => (
+              <NewsletterCard key={newsletter._id} newsletter={newsletter} />
+            ))
+          )}
         </div>
         <div className={styles.archiveContainer}>
           <div className={styles.titlelarge}>Archive</div>
-          <NewsletterArchive year="2024" newsletters={[newsletter5]} />
-          <NewsletterArchive
-            year="2023"
-            newsletters={[newsletter1, newsletter2, newsletter3, newsletter4]}
-          />
+          {sortedArchives.map((year) => (
+            <NewsletterArchive key={year} year={year} newsletters={archiveNewsletters[year]} />
+          ))}
         </div>
       </div>
     </main>

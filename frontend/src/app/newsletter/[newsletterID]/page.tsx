@@ -1,22 +1,24 @@
 "use client";
+// import html2canvas from "html2canvas";
+// import { jsPDF } from "jspdf";
 import React, { useEffect, useState } from "react";
-import styles from "./page.module.css";
 
-import NewsletterPopup from "../../../components/NewsletterPopup";
 import { Newsletter, getNewsletter } from "../../../api/newsletter";
+import NewsletterPopup from "../../../components/NewsletterPopup";
+
+import styles from "./page.module.css";
 
 import { BackgroundImage, BackgroundImagePages, getBackgroundImages } from "@/api/images";
 import BackgroundHeader from "@/components/BackgroundHeader";
-
-import { jsPDF } from "jspdf";
-import html2canvas from "html2canvas";
 import Button from "@/components/Button";
 
+// import html2pdf from "html2pdf.js";
+
 type Props = {
-  params: { newsletterID: String };
+  params: { newsletterID: string };
 };
 
-export default function newsletterDisplay({ params }: Props) {
+export default function NewsletterDisplay({ params }: Props) {
   const [popupOpen, setPopup] = useState(false);
   const [newsletter, setNewsletter] = useState<Newsletter | null>(null);
 
@@ -49,8 +51,6 @@ export default function newsletterDisplay({ params }: Props) {
   };
 
   useEffect(() => {
-    // Fetch event details
-    console.log(params.newsletterID);
     getNewsletter(params.newsletterID)
       .then((response) => {
         if (response.success) {
@@ -72,13 +72,17 @@ export default function newsletterDisplay({ params }: Props) {
         title="The 4FLOT Quarterly"
         description="4FLOT is committed in preventing and ending homelessness, hunger and disparity in underprivileged communities. "
       />
-      <div className={styles.text}>
+
+      <div id="newsletter_page" className={styles.text}>
         <div className={styles.subtitle}>{newsletter?.title ?? "Loading..."}</div>
         <div className={styles.containerCardsAndText}>
           <div className={styles.description}>{newsletter?.date ?? "Loading..."}</div>
           <Button text="Subscribe For Updates" onClick={handleSubscribeClick} />
+        </div>
+        <div className={styles.popup}>
           <NewsletterPopup open={popupOpen} setOpen={setPopup} />
         </div>
+
         <img
           src={newsletter?.image ?? "image not found"}
           alt="Description of the image"

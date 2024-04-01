@@ -57,3 +57,13 @@
   margin: 201px 571px 290px 97px;
   gap: 14px;
 }
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(72, 72, 72, 0.3), rgba(72, 72, 72, 0.3));
+  z-index: 0; /* Ensure overlay is behind the text */
+}

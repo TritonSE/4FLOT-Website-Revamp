@@ -9,9 +9,10 @@ export type Newsletter = {
   description: string;
   date: string;
   content: string[];
+  archive: boolean;
 };
 
-export async function getNewsletter(id: String): Promise<APIResult<Newsletter>> {
+export async function getNewsletter(id: string): Promise<APIResult<Newsletter>> {
   try {
     const response = await get(`/api/newsletter/${id}`);
     const json = (await response.json()) as Newsletter;
@@ -35,18 +36,7 @@ export async function getAllNewsletters(): Promise<APIResult<Newsletter[]>> {
   }
 }
 
-type CreateNewsletterRequest = {
-  _id: number;
-  image: string;
-  title: string;
-  description: string;
-  date: string;
-  content: string[];
-};
-
-export async function createNewsletter(
-  newsletter: CreateNewsletterRequest,
-): Promise<APIResult<Newsletter>> {
+export async function createNewsletter(newsletter: Newsletter): Promise<APIResult<Newsletter>> {
   try {
     const response = await post("/api/newsletter", newsletter);
     const json = (await response.json()) as Newsletter;
@@ -56,18 +46,7 @@ export async function createNewsletter(
   }
 }
 
-type UpdateNewsletterRequest = {
-  _id: number;
-  image: string;
-  title: string;
-  description: string;
-  date: string;
-  content: string[];
-};
-
-export async function updateNewsletter(
-  newsletter: UpdateNewsletterRequest,
-): Promise<APIResult<Newsletter>> {
+export async function updateNewsletter(newsletter: Newsletter): Promise<APIResult<Newsletter>> {
   try {
     const id = newsletter._id;
     const response = await put(`/api/newsletter/${id}`, newsletter, {

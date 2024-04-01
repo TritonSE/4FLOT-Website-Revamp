@@ -3,6 +3,7 @@ import React, { useState } from "react";
 
 import styles from "./NewsletterArchive.module.css";
 import NewsletterButton from "./NewsletterButton";
+
 import type { Newsletter } from "../api/newsletter";
 
 type NewsletterArchiveProps = {
@@ -36,7 +37,7 @@ const NewsletterArchive = ({ year, newsletters }: NewsletterArchiveProps) => {
       <div hidden={collapsed}>
         <div className={styles.archivedButtonContainer}>
           {newsletters.map((newsletter) => (
-            <NewsletterButton key={newsletter._id} text={newsletter.title} link={`/newsletter/${newsletter._id}`} newsletter={newsletter}/>          
+            <NewsletterButton key={newsletter._id} newsletter={newsletter} />
           ))}
         </div>
       </div>

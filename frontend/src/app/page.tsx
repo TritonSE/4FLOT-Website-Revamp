@@ -43,7 +43,7 @@ export default function Home() {
           description={
             "4FLOT is committed in preventing and ending homelessness, hunger and disparity in underprivileged communities."
           }
-          button={<Button text="Learn More" link="/join-us" />}
+          button={<Button text="Learn More" link="/about" />}
         />
       )}
       <div className={styles.whiteCardsContainer}>

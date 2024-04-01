@@ -21,6 +21,13 @@ const BackgroundHeader = ({
   interval = 5000,
   button = null,
 }: BackgroundHeaderProps) => {
+  backgroundImageURIs = [
+    "back1.png",
+    "back2.jpeg",
+    "back3.png",
+    // Add more URIs as needed
+  ];
+
   const [activeIndex, setActiveIndex] = useState(0);
 
   const nextSlide = () => {
@@ -45,6 +52,7 @@ const BackgroundHeader = ({
           style={{ backgroundImage: `url(${uri})` }}
         ></div>
       ))}
+      <div className={styles.overlay}></div>
       <div
         className="flex justify-center items-center space-x-2 absolute bottom-20 left-1/2 transform -translate-x-1/2"
         style={{ gap: "10px" }}

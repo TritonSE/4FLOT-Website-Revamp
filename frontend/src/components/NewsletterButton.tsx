@@ -1,20 +1,15 @@
-import React from "react";
 import Link from "next/link";
+import React from "react";
 
-import styles from "./NewsletterButton.module.css";
 import { Newsletter } from "../api/newsletter";
 
-
-
+import styles from "./NewsletterButton.module.css";
 
 type ButtonProps = {
-  text: string;
-  link: string;
   newsletter: Newsletter;
-
 };
 
-const NewsletterArchive = ({ text, link, newsletter}: ButtonProps) => {
+const NewsletterButton = ({ newsletter }: ButtonProps) => {
   return (
     <Link href={`/newsletter/${newsletter._id}`}>
       <button className={styles.button}>
@@ -24,4 +19,4 @@ const NewsletterArchive = ({ text, link, newsletter}: ButtonProps) => {
   );
 };
 
-export default NewsletterArchive;
+export default NewsletterButton;

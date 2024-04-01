@@ -11,10 +11,6 @@ router.put(
   NewsletterValidator.getNewsletter,
   NewsletterController.updateNewsletter,
 );
-router.post(
-  "/",
-  NewsletterValidator.createNewsletter,
-  NewsletterController.createNewsletter,
-);
+router.post("/", NewsletterValidator.createNewsletter, NewsletterController.createNewsletter);
 
 export default router;

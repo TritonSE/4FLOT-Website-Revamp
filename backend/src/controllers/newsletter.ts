@@ -11,6 +11,7 @@ export const getAllNewsletters: RequestHandler = async (req, res, next) => {
     if (!newsletters) {
       res.status(200).json({ message: "No newsletters found." });
     }
+
     res.status(200).json(newsletters);
   } catch (error) {
     next(error);
@@ -18,12 +19,10 @@ export const getAllNewsletters: RequestHandler = async (req, res, next) => {
 };
 
 export const getNewsletter: RequestHandler = async (req, res, next) => {
-  // console.log(req.params);
   const { id } = req.params;
 
   try {
     const newsletter = await Newsletter.findById(id);
-    // console.log(id);
 
     if (!newsletter) {
       throw createHttpError(404, "Newsletter not found.");

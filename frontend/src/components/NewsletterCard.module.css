@@ -1,18 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&family=Roboto+Slab:wght@100..900&display=swap");
 
 .newsletterCardContainer {
-  width: 1700px;
-  max-width: 100%;
-  min-width: 700px;
-  height: auto;
+  display: flex;
+  flex-direction: column;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
 }
 
 .newsletterCardContainer img {
-  width: 1700px;
-  height: auto;
   border-radius: 10px 10px 0px 0px;
 }
 
@@ -31,8 +27,6 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  width: 1700px;
-  max-width: 100%;
   padding: 32px 50px;
 }
 

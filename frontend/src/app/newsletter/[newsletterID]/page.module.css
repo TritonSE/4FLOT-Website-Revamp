@@ -18,6 +18,10 @@
   text-align: left;
 }
 
+.popup {
+  z-index: 1002;
+}
+
 /* .text {
   font-weight: 16px;
   display: flex;

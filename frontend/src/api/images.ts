@@ -21,7 +21,7 @@ export async function getBackgroundImages(
     const urlWithPage = `/api/BackgroundImage/get?page=${encodeURIComponent(page)}`;
     const response = await get(urlWithPage);
     const json = (await response.json()) as BackgroundImage[];
-    console.log(json);
+
     return { success: true, data: json };
   } catch (error) {
     return handleAPIError(error);
