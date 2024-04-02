@@ -63,6 +63,7 @@ export default function VolunteerPopup({ open, setOpen, eventId }: VolunteerPopu
         console.error("Error:", error);
       });
   };
+
   if (!success) {
     // ----- FORM POPUP -----
     return (
@@ -72,7 +73,7 @@ export default function VolunteerPopup({ open, setOpen, eventId }: VolunteerPopu
           (open ? "" : "invisible hidden")
         }
       >
-        <VolunteerForm setSuccess={setSuccess} submitForm={submitForm}>
+        <VolunteerForm eventId={eventId} setSuccess={setSuccess} submitForm={submitForm}>
           <button
             className="absolute scale-100 top-6 right-6 hover:scale-110 transition-all duration-100 ease-linear"
             onClick={() => {

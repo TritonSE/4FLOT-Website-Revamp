@@ -5,7 +5,10 @@ import { sendEmail } from "../api/email";
 
 import styles from "./VolunteerForm.module.css";
 
+import { getEventDetails } from "@/api/eventDetails";
+
 type VolunteerFormProps = {
+  eventId: string;
   setSuccess: (success: boolean) => void;
   submitForm: (
     firstName: string,
@@ -19,6 +22,7 @@ type VolunteerFormProps = {
 };
 
 const VolunteerForm: React.FC<VolunteerFormProps> = ({
+  eventId,
   setSuccess,
   submitForm,
   children,
@@ -94,14 +98,34 @@ const VolunteerForm: React.FC<VolunteerFormProps> = ({
 
     if (allowSubmit) {
       submitForm(firstName, lastName, email, phoneNumber, receiveNews);
-      sendEmail({ type: "volunteer", firstName, lastName, email, phoneNumber, receiveNews }).then(
-        () => {
-          console.log("Email sent!");
-        },
-        (error) => {
+      getEventDetails(eventId)
+        .then((response) => {
+          if (response.success) {
+            const eventName = response.data.name;
+            sendEmail({
+              type: "volunteer",
+              eventName,
+              firstName,
+              lastName,
+              email,
+              phoneNumber,
+              receiveNews,
+            }).then(
+              () => {
+                console.log("Email sent!");
+              },
+              (error) => {
+                alert(error);
+              },
+            );
+          } else {
+            alert(response.error);
+          }
+        })
+        .catch((error) => {
           alert(error);
-        },
-      );
+        });
+
       setSuccess(true);
     }
   };

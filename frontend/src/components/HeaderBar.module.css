@@ -191,3 +191,39 @@
 .ourImpactDropdown a:hover {
   background-color: #f1f1f1;
 }
+
+.menuBtn {
+  display: none; /* Hide menu button by default */
+}
+
+.menuItems {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.menuItems.open {
+  display: block;
+}
+
+.menuBtn {
+  display: none; /* Hide menu button by default */
+}
+
+/* Show tabs by default */
+.tabs {
+  display: flex;
+  align-items: center;
+}
+
+/* Hide tabs on small screens */
+@media (max-width: 1050px) {
+  .menuBtn {
+    display: block; /* Show menu button on smaller screens */
+  }
+
+  /* Hide tabs when menu button is clicked */
+  .tabs {
+    display: none;
+  }
+}

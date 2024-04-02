@@ -12,6 +12,7 @@ export type CreateContactEmailRequest = {
 
 export type CreateVolunteerEmailRequest = {
   type: string;
+  eventName: string;
   firstName: string;
   lastName: string;
   email: string;

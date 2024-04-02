@@ -24,10 +24,10 @@ export const createEmail: RequestHandler = async (req, res, next) => {
     EMAIL_SUBJECT = `Contact Form: ${questionType} from ${name}`;
     EMAIL_BODY = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nSubject: ${subject}\n\n${message}`;
   } else if (req.body.type === "volunteer") {
-    const { type, firstName, lastName, email, phoneNumber, receiveNews } = req.body;
+    const { type, eventName, firstName, lastName, email, phoneNumber, receiveNews } = req.body;
     const newsStr = receiveNews ? "Yes" : "No";
-    EMAIL_SUBJECT = `Volunteer Form: Sign up from ${firstName} ${lastName}`;
-    EMAIL_BODY = `First Name: ${firstName} \nLast Name: ${lastName}\nEmail: ${email}\nPhone Number: ${phoneNumber}\nReceive News: ${newsStr}`;
+    EMAIL_SUBJECT = `Volunteer Form: Sign up for ${eventName} by ${firstName} ${lastName}`;
+    EMAIL_BODY = `Event Name: ${eventName} \nFirst Name: ${firstName} \nLast Name: ${lastName}\nEmail: ${email}\nPhone Number: ${phoneNumber}\nReceive News: ${newsStr}`;
   } else if (req.body.type === "newsletter") {
     const { type, firstName, lastName, email, quarterlyUpdates, specialUpdates } = req.body;
     const quarterlyStr = quarterlyUpdates ? "Yes" : "No";
