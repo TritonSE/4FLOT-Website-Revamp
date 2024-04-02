@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from "react";
 
+import { sendEmail } from "../api/email";
+
 import styles from "./VolunteerForm.module.css";
 
 type VolunteerFormProps = {
@@ -10,7 +12,7 @@ type VolunteerFormProps = {
     lastName: string,
     email: string,
     phoneNumber: string,
-    reveiveNews: boolean,
+    receiveNews: boolean,
   ) => void;
   children?: React.ReactNode;
   className?: string;
@@ -26,7 +28,7 @@ const VolunteerForm: React.FC<VolunteerFormProps> = ({
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [reveiveNews, setReceiveNews] = useState(false);
+  const [receiveNews, setReceiveNews] = useState(false);
   const [firstNameError, setFirstNameError] = useState("");
   const [lastNameError, setLastNameError] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -91,7 +93,15 @@ const VolunteerForm: React.FC<VolunteerFormProps> = ({
     const allowSubmit = validateForm();
 
     if (allowSubmit) {
-      submitForm(firstName, lastName, email, phoneNumber, reveiveNews);
+      submitForm(firstName, lastName, email, phoneNumber, receiveNews);
+      sendEmail({ type: "volunteer", firstName, lastName, email, phoneNumber, receiveNews }).then(
+        () => {
+          console.log("Email sent!");
+        },
+        (error) => {
+          alert(error);
+        },
+      );
       setSuccess(true);
     }
   };

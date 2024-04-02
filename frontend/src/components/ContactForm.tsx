@@ -91,7 +91,15 @@ const ContactForm: React.FC = () => {
     if (contactForm !== null) {
       contactForm.reset(); //Reset form
     }
-    sendEmail({ name, email, phone, subject, message, question: questionType }).then(
+    sendEmail({
+      type: "contact",
+      name,
+      email,
+      phone,
+      subject,
+      message,
+      question: questionType,
+    }).then(
       () => {
         console.log("Email sent!");
       },

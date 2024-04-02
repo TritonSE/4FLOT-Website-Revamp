@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
+import { sendEmail } from "../api/email";
 import { createSubscriber } from "../api/subscriber";
 
 import styles from "./NewsletterForm.module.css";
@@ -73,6 +74,21 @@ const NewsletterForm: React.FC<NewsLetterFormProps> = ({
       createSubscriber({ firstName, lastName, email, quarterlyUpdates, specialUpdates }).then(
         (result) => {
           if (result.success) {
+            sendEmail({
+              type: "newsletter",
+              firstName,
+              lastName,
+              email,
+              quarterlyUpdates,
+              specialUpdates,
+            }).then(
+              () => {
+                console.log("Email sent!");
+              },
+              (error) => {
+                alert(error);
+              },
+            );
             setSuccess(true);
           } else {
             setSuccess(false);
