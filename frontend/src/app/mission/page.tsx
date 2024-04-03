@@ -76,7 +76,7 @@ export default function Mission() {
           </div>
           <div className={styles.imageContainer}>
             <div className={styles.imageContainerTopRow}>
-              <div className={styles.imageWrapper}>
+              <div className={styles.topLeft}>
                 <Image
                   className={styles.image}
                   src={"/mission_top_left.png"}
@@ -86,7 +86,7 @@ export default function Mission() {
                 />
               </div>
 
-              <div className={styles.imageWrapper}>
+              <div className={styles.topRight}>
                 <Image
                   className={styles.image}
                   src={"/mission_top_right.png"}
@@ -96,8 +96,7 @@ export default function Mission() {
                 />
               </div>
             </div>
-
-            <div className={styles.imageWrapper}>
+            <div className={styles.bottom}>
               <Image
                 className={styles.image}
                 src={"/mission_bottom.png"}

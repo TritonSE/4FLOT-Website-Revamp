@@ -26,6 +26,7 @@ const Footer = () => {
     ourMission: "/mission",
     upcomingEvents: "/events",
     testimonials: "/testimonials",
+    ourTeam: "/team",
     contactUs: "/contact",
     donate: "/donate",
     newsletter: "/newsletter",
@@ -145,14 +146,20 @@ const Footer = () => {
           </div>
 
           <div className={styles.linkRow}>
-            <Link className={`${styles.link} ${styles.normalLink}`} href={links.contactUs}>
-              Contact Us
+            <Link className={`${styles.link} ${styles.normalLink}`} href={links.ourTeam}>
+              Our Team
             </Link>
             <Link className={`${styles.link} ${styles.normalLink}`} href={links.donate}>
               Donate
             </Link>
             <Link className={`${styles.link} ${styles.normalLink}`} href={links.newsletter}>
               Newsletter
+            </Link>
+          </div>
+
+          <div className={styles.linkRow}>
+            <Link className={`${styles.link} ${styles.normalLink}`} href={links.contactUs}>
+              Contact Us
             </Link>
           </div>
         </div>

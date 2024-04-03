@@ -48,18 +48,9 @@
 }
 
 .buttonContainer {
-  position: relative; /* or position: fixed; depending on your layout needs */
-  width: 167px;
-  height: 48px;
-  background-color: #694c97;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 4px;
-
-  left: 50%;
-  transform: translateX(-50%);
-
   margin-bottom: 40px;
 }
 

@@ -2,8 +2,6 @@
 import React, { useEffect, useState } from "react";
 
 import "./globals.css";
-import Link from "next/link";
-
 import BackgroundHeader from "../components/BackgroundHeader";
 
 import styles from "./page.module.css";
@@ -43,7 +41,7 @@ export default function Home() {
           description={
             "4FLOT is committed in preventing and ending homelessness, hunger and disparity in underprivileged communities."
           }
-          button={<Button text="Learn More" link="/join-us" />}
+          button={<Button text="Learn More" link="/about" />}
         />
       )}
       <div className={styles.whiteCardsContainer}>
@@ -64,10 +62,9 @@ export default function Home() {
         <div className={styles.eventsListContainer}>
           <EventsList page="home" />
         </div>
+
         <div className={styles.buttonContainer}>
-          <Link href="/events" className={styles.buttonText}>
-            {see_more_text}
-          </Link>
+          <Button text={see_more_text} link={"/events"} />
         </div>
         <Description
           title="Our Community Sponsors"
@@ -75,49 +72,9 @@ export default function Home() {
         />
         <img className={styles.sponsor_image} src="/Sponsors.svg" alt="Sponsors" />
         <div className={styles.buttonContainer}>
-          <Link href="/contact" className={styles.buttonText}>
-            {sponsor_us_text}
-          </Link>
+          <Button text={sponsor_us_text} link={"/contact"} />
         </div>
       </div>
     </main>
   );
 }
-
-/*
-import { useEffect, useState } from "react";
-
-import BackgroundHeader from "../components/BackgroundHeader";
-
-import { BackgroundImage, BackgroundImagePages, getBackgroundImages } from "@/api/images";
-import Button from "@/components/Button";
-
-export default function Impact() {
-  const [images, setImages] = useState<BackgroundImage[]>([]);
-  useEffect(() => {
-    getBackgroundImages(BackgroundImagePages.HOME)
-      .then((result) => {
-        if (result.success) {
-          console.log(result.data, "images");
-          setImages(result.data);
-        }
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  }, []);
-
-  return (
-    <main style={{ backgroundColor: "#F9F9F9" }}>
-      {images.length > 0 && (
-        <BackgroundHeader
-          backgroundImageURIs={images.map((image) => image.imageURI)}
-          header={""}
-          title={"4 Future Leaders of Tomorrow"}
-          description={
-            "4FLOT is committed in preventing and ending homelessness, hunger and disparity in underprivileged communities."
-          }
-          button={<Button text="Learn More" link="/join-us" />}
-        />
-      )}
-*/

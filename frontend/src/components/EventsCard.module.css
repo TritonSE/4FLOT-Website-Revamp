@@ -62,11 +62,8 @@
   width: 100%;
   height: 48px;
   border-radius: 4px;
-  /* margin-bottom: 24px; */
 
-  background: linear-gradient(0deg, #0370bb, #0370bb),
-    linear-gradient(0deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0));
-  border: 1px solid #0370bb;
+  background: var(--color-secondary-blue);
 
   font: var(--font-body);
   font-size: 20px;
@@ -77,14 +74,16 @@
   color: white;
 }
 
+.homeCardButton:hover {
+  background: var(--color-secondary-blue-hover);
+}
+
 .cardButton {
   width: 100%;
   height: 48px;
   border-radius: 4px;
 
-  background: linear-gradient(0deg, #0370bb, #0370bb),
-    linear-gradient(0deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0));
-  border: 1px solid #0370bb;
+  background: var(--color-secondary-blue);
 
   font: var(--font-body);
   font-size: 20px;
@@ -93,4 +92,8 @@
   line-height: 150%; /* 30px */
   letter-spacing: 0.4px;
   color: white;
+}
+
+.cardButton:hover {
+  background: var(--color-secondary-blue-hover);
 }

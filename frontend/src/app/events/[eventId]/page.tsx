@@ -9,6 +9,8 @@ import VolunteerPopup from "../../../components/VolunteerPopup";
 
 import styles from "./page.module.css";
 
+import Button from "@/components/Button";
+
 type Props = {
   params: { eventId: string };
 };
@@ -91,14 +93,12 @@ export default function EventSignup({ params }: Props) {
           </div>
         </div>
         <div className="flex justify-center items-center">
-          <button
-            className={styles.button}
+          <Button
+            text={"Sign-Up to Volunteer!"}
             onClick={() => {
               setPopup(true);
             }}
-          >
-            Sign-Up to Volunteer!
-          </button>
+          />
         </div>
       </div>
     </div>

@@ -1,0 +1,24 @@
+.button {
+  display: inline-block; /* Display as inline block to stay on one line */
+  background-color: #694c97;
+  color: white;
+  padding: 22px 37px;
+  width: 268px;
+  height: 80px;
+  border-radius: 4px;
+}
+
+.button p {
+  font-family: var(--font-body);
+  font-size: 24px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 1px;
+  text-align: center;
+  /* Neutral/White */
+  color: #ffffff;
+}

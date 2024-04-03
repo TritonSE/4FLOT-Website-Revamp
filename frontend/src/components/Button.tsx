@@ -5,17 +5,28 @@ import styles from "./Button.module.css";
 
 type ButtonProps = {
   text: string;
-  link: string;
+  link?: string;
+  onClick?: () => void;
 };
 
-const Button = ({ text, link }: ButtonProps) => {
-  return (
-    <div className={styles.button}>
-      <button type="submit" className={styles.buttonBody}>
-        {link === "" ? text : <Link href={link}>{text}</Link>}
-      </button>
-    </div>
-  );
+const Button = ({ text, link, onClick }: ButtonProps) => {
+  if (link) {
+    return (
+      <Link href={link}>
+        <div className={styles.button}>
+          <button className={styles.buttonBody}>{text}</button>
+        </div>
+      </Link>
+    );
+  } else {
+    return (
+      <div className={styles.button}>
+        <button className={styles.buttonBody} onClick={onClick}>
+          {text}
+        </button>
+      </div>
+    );
+  }
 };
 
 export default Button;
