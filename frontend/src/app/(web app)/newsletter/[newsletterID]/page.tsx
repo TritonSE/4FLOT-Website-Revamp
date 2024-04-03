@@ -3,8 +3,8 @@
 // import { jsPDF } from "jspdf";
 import React, { useEffect, useState } from "react";
 
-import { Newsletter, getNewsletter } from "../../../api/newsletter";
-import NewsletterPopup from "../../../components/NewsletterPopup";
+import { Newsletter, getNewsletter } from "../../../../api/newsletter";
+import NewsletterPopup from "../../../../components/NewsletterPopup";
 
 import styles from "./page.module.css";
 

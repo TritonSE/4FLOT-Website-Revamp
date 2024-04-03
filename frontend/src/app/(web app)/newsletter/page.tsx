@@ -1,9 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
-import NewsletterArchive from "../../components/NewsletterArchive";
-import NewsletterCard from "../../components/NewsletterCard";
-import NewsletterPopup from "../../components/NewsletterPopup";
+import NewsletterArchive from "../../../components/NewsletterArchive";
+import NewsletterCard from "../../../components/NewsletterCard";
+import NewsletterPopup from "../../../components/NewsletterPopup";
 
 import styles from "./page.module.css";
 

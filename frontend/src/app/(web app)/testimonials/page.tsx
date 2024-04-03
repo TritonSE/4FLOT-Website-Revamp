@@ -2,8 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 
-import { Testimonial, getAllTestimonials } from "../../api/testimonial";
-import TestimonialCard from "../../components/TestimonialCard";
+import { Testimonial, getAllTestimonials } from "../../../api/testimonial";
+import TestimonialCard from "../../../components/TestimonialCard";
 
 import styles from "./page.module.css";
 

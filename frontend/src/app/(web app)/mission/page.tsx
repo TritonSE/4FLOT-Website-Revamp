@@ -3,8 +3,8 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
-import Button from "../../components/Button";
-import ValueCard from "../../components/ValueCard";
+import Button from "../../../components/Button";
+import ValueCard from "../../../components/ValueCard";
 
 import styles from "./page.module.css";
 

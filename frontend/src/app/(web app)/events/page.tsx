@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
-import EventsList from "../../components/EventsList";
+import EventsList from "../../../components/EventsList";
 
 import styles from "./page.module.css";
 
