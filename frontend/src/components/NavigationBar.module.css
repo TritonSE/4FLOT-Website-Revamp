@@ -1,0 +1,50 @@
+.navBar {
+  background-color: var(--color-primary-purple);
+  width: 243px;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  align-items: center;
+  padding-top: 40px;
+}
+
+/* Container for Menu*/
+.menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: left;
+  gap: 12px;
+
+  position: absolute;
+  top: 181px;
+
+  width: 204px;
+  height: 306px;
+}
+
+/* The navigation menu links */
+.menu a {
+  font: var(--font-body-bold);
+  padding: 14px 48px 14px 16px;
+
+  text-decoration: none;
+  color: white;
+  display: block;
+}
+
+.menu div {
+  border-radius: 8px;
+  padding-left: 14px;
+  display: flex;
+  flex-direction: row;
+}
+
+.menu div:hover {
+  background-color: #553884;
+}
