@@ -17,13 +17,12 @@
 }
 
 .cancelButton {
-  background-color: #694C97;
+  background-color: #694c97;
   color: white;
-  border: 2px #694C97;
-
+  border: 2px #694c97;
 }
 
 .saveButton {
   background-color: white;
-  color:#694C97;
+  color: #694c97;
 }
