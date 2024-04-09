@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "next": "^14.1.2",
+    "nodemailer": "^6.9.11"
+  },
+  "devDependencies": {
+    "@types/nodemailer": "^6.4.14"
+  },
+  "name": "4flot-website-revamp",
+  "description": "### Nonprofit Organization Background [4 Future Leaders of Tomorrow](https://4flot.com/) focuses on providing resources (ie. food, toys, housing referrals, etc.) to underprivileged communities to end homelessness, hunger, and disparity. Our proposed solution for them is to reorganize the website to have the standard pages of an organization informational website (ie. Home Page, About Us, Contact Us) with the additions of a Donations page, Testimonials page, Upcoming Events page, and Newsletter page to highlight the impact of 4FLOT in the community and ways for people to help support 4FLOT in its efforts.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -6,6 +6,10 @@ import { InferSchemaType, Schema, model } from "mongoose";
 
 const subscriberSchema = new Schema({
   email: { type: String, required: true },
+  firstName: { type: String },
+  lastName: { type: String },
+  quarterlyUpdates: { type: Boolean },
+  specialUpdates: { type: Boolean },
 });
 
 type Subscriber = InferSchemaType<typeof subscriberSchema>;

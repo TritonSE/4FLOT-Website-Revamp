@@ -8,7 +8,12 @@ import express, { NextFunction, Request, Response } from "express";
 import { isHttpError } from "http-errors";
 import subscriberRoutes from "src/routes/subscriber";
 import memberRoutes from "src/routes/members";
+import backgroundImageRoutes from "src/routes/background_images";
+import eventDetailsRoutes from "./routes/eventDetails";
+import volunteerDetailsRoutes from "./routes/volunteerDetails";
 import testimonialRoutes from "src/routes/testimonial";
+import newsletterRoutes from "src/routes/newsletter"; // Import newsletter routes
+import emailRoutes from "src/routes/emails";
 import paymentsRoutes from "src/routes/payments";
 
 const app = express();
@@ -30,7 +35,14 @@ app.use(
 // Routes ( e.g. app.use("/api/task", taskRoutes); )
 app.use("/api/subscribers", subscriberRoutes);
 app.use("/api/member", memberRoutes);
+app.use("/api/BackgroundImage", backgroundImageRoutes);
+
+app.use("/api/eventDetails", eventDetailsRoutes);
+app.use("/api/volunteerDetails", volunteerDetailsRoutes);
 app.use("/api/testimonial", testimonialRoutes);
+app.use("/api/newsletter", newsletterRoutes); // Use newsletter routes
+app.use("/api/emails", emailRoutes);
+
 app.use("/api/payments", paymentsRoutes);
 /**
  * Error handler; all errors thrown by server are handled here.

@@ -17,6 +17,10 @@ export const createSubscriber: RequestHandler = async (req, res, next) => {
     validationErrorParser(errors);
     const subscriber = await Subscriber.create({
       email: email,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      quarterlyUpdates: req.body.quarterlyUpdates,
+      specialUpdates: req.body.specialUpdates,
     });
 
     /*

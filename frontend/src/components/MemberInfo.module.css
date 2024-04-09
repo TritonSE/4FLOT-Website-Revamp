@@ -13,12 +13,12 @@
 }
 
 .name {
-  font-family: var(--font-small-subtitle);
+  font: var(--font-small-subtitle);
   font-size: 28px;
   line-height: 150%; /* 42px */
   letter-spacing: 0.56px;
 }
 
 .role {
-  font-family: var(--font-body);
+  font: var(--font-body);
 }

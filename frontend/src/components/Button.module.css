@@ -1,29 +1,26 @@
-/* Button */
 .button {
   width: max-content;
   height: 48px;
-
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-
-  background: #694c97;
+  background: var(--color-primary-purple);
   border-radius: 4px;
-  padding: 12px 24px 8px;
 }
 
-/* Body/Medium (Bold) */
-.buttonBody {
-  font-family: var(--font-body);
-  font-style: normal;
-  font-weight: 700;
-  font-size: 20px;
-  letter-spacing: 1px;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  /* Center align text */
-  text-align: center;
+.button:hover {
+  background: var(--color-primary-purple-hover);
+}
 
-  /* Neutral/White */
-  color: #ffffff;
+.buttonBody {
+  font: var(--font-body);
+  font-style: normal;
+  font-weight: 650;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+  text-align: center;
+  color: white;
+  padding: 12px 24px;
+  white-space: nowrap;
 }

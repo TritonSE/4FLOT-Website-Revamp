@@ -1,0 +1,80 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&family=Roboto+Slab:wght@100..900&display=swap");
+
+.text {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+  margin-top: 95px;
+  margin-left: 97px;
+  margin-right: 94px;
+}
+
+.subtitle {
+  font: var(--font-small-subtitle);
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 700px;
+  line-height: 150%; /* 48px */
+  letter-spacing: 0.96px;
+}
+
+.description {
+  text-align: left;
+  font: var(--font-body);
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400px;
+  line-height: 32px; /* 133.333% */
+}
+
+.containerCardsAndText {
+  display: flex;
+  flex-direction: row; /* Make the children stack horizontally */
+  justify-content: space-between; /* Space out the children, pushing them to opposite ends */
+  align-items: center;
+  width: 100%; /* Ensure the container takes up the full width */
+  gap: 50px;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 95px;
+  margin-top: 56px;
+  margin-bottom: 107px;
+  margin-left: 96px;
+  margin-right: 96px;
+}
+
+.newslettersDisplay {
+  display: flex;
+  flex-direction: column;
+  gap: 103px;
+}
+
+.archiveContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.titlelarge {
+  font: var(--font-small-subtitle);
+  font-size: 32px;
+  font-weight: 700px;
+  line-height: 48px;
+  letter-spacing: 0.02em;
+  text-align: left;
+}
+
+.popup {
+  z-index: 1002;
+}

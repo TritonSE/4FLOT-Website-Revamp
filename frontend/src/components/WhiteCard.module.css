@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&family=Roboto+Slab:wght@100..900&display=swap");
+
 .whiteCardContainer {
   border-radius: 10px;
   width: 1035px;
@@ -33,6 +35,7 @@
 }
 
 .cardTitle {
+  font: var(--font-small-subtitle);
   font-size: 32px;
   font-style: normal;
   font-weight: 700;
@@ -52,37 +55,22 @@
 }
 
 .cardDescription {
-  font-family: var(--font-body);
+  font: var(--font-body);
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 24px; /* 150% */
-  max-width: 37.01vw; /* Width limit for the text */
+  line-height: 24px;
+  max-width: 37.01vw;
 
-  display: flex; /* Enable flexbox for vertical centering */
-  flex-direction: column; /* Arrange the text content in a column */
-  justify-content: center; /* Center the text vertically */
-  align-items: center; /* Center the text horizontally */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   overflow: hidden;
 }
 
-.buttonContainer {
-  width: 167px;
-  height: 48px;
-  background-color: #694c97;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 4px;
-}
-
-.buttonText {
-  color: white;
-  font-family: var(--font-body);
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 150%; /* 30px */
-  letter-spacing: 0.4px;
+.imageContainer {
+  width: 88px;
+  height: 88px;
 }
