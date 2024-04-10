@@ -1,40 +1,40 @@
 // Admin Page Editor landing page
 // Admin Dashboard landing page
-import DashboardCard from "@/components/DashboardCard";
+import PageEditorCard from "@/components/PageEditorCard";
 
 import styles from "./page.module.css";
 
 export default function Dashboard() {
   return (
     <main className={styles.page}>
-      <div className={styles.cards}>
-        <DashboardCard
+      <div className={styles.gridContainer}>
+        <PageEditorCard
           imageURI="/impact_bg.png"
-          url="/admin/home"
+          url="/dashboard"
           title="Home"
           last_updated="Month XX, XXXX, XX:XX"
         />
-        <DashboardCard
+        <PageEditorCard
           imageURI="/impact_bg.png"
-          url="/admin/about"
+          url="/dashboard"
           title="About Us"
           last_updated="Month XX, XXXX, XX:XX"
         />
-        <DashboardCard
+        <PageEditorCard
           imageURI="/impact_bg.png"
-          url="/admin/involved"
+          url="/dashboard"
           title="Get Involved"
           last_updated="Month XX, XXXX, XX:XX"
         />
-        <DashboardCard
+        <PageEditorCard
           imageURI="/impact_bg.png"
-          url="/admin/impact"
+          url="/dashboard"
           title="Our Impact"
           last_updated="Month XX, XXXX, XX:XX"
         />
-        <DashboardCard
+        <PageEditorCard
           imageURI="/impact_bg.png"
-          url="/admin/donate"
+          url="/dashboard"
           title="Donate"
           last_updated="Month XX, XXXX, XX:XX"
         />

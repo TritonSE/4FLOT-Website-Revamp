@@ -1,8 +1,17 @@
 .page {
+
     display: flex;
-    flex-direction: column;
-    padding-left: 97px;
-    padding-right: 97px;
-    padding-top: 94px;
-    padding-bottom: 280px;
+    justify-content: center;
+    
 }  
+
+.gridContainer {
+    display: grid;
+    flex-wrap: wrap;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-gap: 50px;
+    max-width: 100%;
+    margin-top: 50px;
+    margin-left: 150px;
+    margin-bottom: 50px; 
+}

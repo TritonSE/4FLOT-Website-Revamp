@@ -1,3 +1,20 @@
+/* .page {
+
+    display: flex;
+    justify-content: center;
+    
+}  
+
+.gridContainer {
+    display: grid;
+    flex-wrap: wrap;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-gap: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px; 
+} */
+
 .page {
   display: flex;
   justify-content: center;
