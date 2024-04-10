@@ -1,10 +1,13 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 
 import styles from "./NavigationBar.module.css";
 
 const NavigationBar = () => {
+  // const [activeMenu, setActiveMenu] = useState<boolean>(false);
+
   return (
     <div className={styles.navBar}>
       <Image
@@ -24,7 +27,7 @@ const NavigationBar = () => {
         </div>
         <div>
           <Image width={18} height={18} src="pageIcon.svg" alt="Page Icon" />
-          <Link href="#">Page Editor</Link>
+          <Link href="/admin/pageeditor">Page Editor</Link>
         </div>
         <div>
           <Image width={18} height={18} src="newsletterIcon.svg" alt="Newsletter Icon" />

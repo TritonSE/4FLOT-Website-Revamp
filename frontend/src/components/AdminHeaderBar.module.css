@@ -1,0 +1,40 @@
+.headerBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 96px;
+
+  position: fixed;
+  width: 100%;
+  height: 153px;
+
+  background: white;
+}
+
+.title {
+  /* display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 48px; */
+
+  position: relative;
+  left: 189px;
+  font: var(--font-title-l);
+
+  /* width: 570px;
+    height: 48px; */
+}
+
+.user {
+  /* right: 187px; */
+
+  position: relative;
+  left: 27px;
+  font: var(--font-body-reg);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
