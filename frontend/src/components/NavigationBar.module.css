@@ -48,3 +48,7 @@
 .menu div:hover {
   background-color: #553884;
 }
+
+.menu div:active {
+  background-color: #432672;
+}
