@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import styles from "./NavigationBar.module.css";
 
 const NavigationBar = () => {
-  // const [activeMenu, setActiveMenu] = useState<boolean>(false);
+  const [activeMenu, setActiveMenu] = useState();
 
   return (
     <div className={styles.navBar}>
@@ -19,7 +19,14 @@ const NavigationBar = () => {
       <div className={styles.menu}>
         <div>
           <Image width={18} height={18} src="dashboardIcon.svg" alt="Dashboard Icon" />
-          <Link href="/admin/dashboard">Dashboard</Link>
+          <Link href="/admin/dashboard">
+            Dashboard
+            {/* className={activeMenu === "dashboard" ? "active nav-link" : "nav-link"}
+            onClick=
+            {() => {
+              setActiveMenu("dashboard");
+            }} */}
+          </Link>
         </div>
         <div>
           <Image width={18} height={18} src="calendarIcon.svg" alt="Calendar Icon" />

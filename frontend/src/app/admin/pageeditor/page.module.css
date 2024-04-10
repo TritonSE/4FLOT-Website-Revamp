@@ -22,6 +22,12 @@
   padding-top: 140px;
 }
 
+  display: flex;
+  justify-content: center;
+  padding-left: 30px;
+  padding-top: 140px;
+}
+
 .gridContainer {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -31,15 +37,12 @@
   margin-top: 50px;
   margin-left: 100px;
   gap: 50px;
-}
-
-.cancelButton {
-  background-color: #694c97;
-  color: white;
-  border: 2px #694c97;
-}
-
-.saveButton {
-  background-color: white;
-  color: #694c97;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 100%;
+  margin-top: 50px;
+  margin-left: 100px;
+  gap: 50px;
 }

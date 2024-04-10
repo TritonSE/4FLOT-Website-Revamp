@@ -1,17 +1,17 @@
 .page {
-
-    display: flex;
-    justify-content: center;
-    
-}  
+  display: flex;
+  justify-content: center;
+  padding-left: 30px;
+  padding-top: 140px;
+}
 
 .gridContainer {
-    display: grid;
-    flex-wrap: wrap;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-gap: 50px;
-    max-width: 100%;
-    margin-top: 50px;
-    margin-left: 150px;
-    margin-bottom: 50px; 
+  display: grid;
+  flex-wrap: wrap;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-gap: 50px;
+  max-width: 100%;
+  margin-top: 50px;
+  margin-left: 150px;
+  margin-bottom: 50px;
 }
