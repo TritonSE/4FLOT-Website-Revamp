@@ -3,6 +3,11 @@ import React from "react";
 
 import styles from "./AdminHeaderBar.module.css";
 
+// type AdminHeaderBarProps = {
+//   title: string;
+// };
+
+// const AdminHeaderBar = ({ title }: AdminHeaderBarProps) => {
 const AdminHeaderBar = () => {
   return (
     <div className={styles.headerBar}>

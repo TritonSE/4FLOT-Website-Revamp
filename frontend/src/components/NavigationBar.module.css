@@ -49,6 +49,6 @@
   background-color: #553884;
 }
 
-.menu div:active {
+.menuActive {
   background-color: #432672;
 }
