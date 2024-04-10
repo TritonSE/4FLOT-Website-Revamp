@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-import styles from "./DashboardCards.module.css";
+import styles from "./EventsCard.module.css";
 
 // TODO: Change props to include className and change to an EventDetails type
 type CardProps = {
@@ -14,11 +14,11 @@ type CardProps = {
 };
 
 // TODO: Make class names responsive
-const DashboardCard = ({ title, last_updated, imageURI, url }: CardProps) => {
+const PageEditorCard = ({ title, last_updated, imageURI, url }: CardProps) => {
     return (
-      <main className={styles.cardContainer} style={{ width: `520px`, height: `340px` }}>
-        <div style={{ width: "520px", height: "340px", overflow: "hidden" }}>
-          <Image src={imageURI} alt="image" width={520} height={270} />
+      <main className={styles.cardContainer} style={{ width: `310px`, height: `340px` }}>
+        <div style={{ width: "310px", height: "340px", overflow: "hidden" }}>
+          <Image src={imageURI} alt="image" width={310} height={340} />
         </div>
 
         <div className={styles.homeCardContent}>
@@ -27,11 +27,11 @@ const DashboardCard = ({ title, last_updated, imageURI, url }: CardProps) => {
             <div className={styles.homeCardDescription}>{`Last Updated: ${last_updated}`}</div>
           </div>
           <Link href={`./${url}`}>
-            <button className={styles.cardButton}>Open</button>
+            <button className={styles.cardButton}>Open Editor</button>
           </Link>
         </div>
       </main>
     );
 };
 
-export default DashboardCard;
+export default PageEditorCard;

@@ -1,8 +1,33 @@
+/* .page {
+
+    display: flex;
+    justify-content: center;
+    
+}  
+
+.gridContainer {
+    display: grid;
+    flex-wrap: wrap;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-gap: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px; 
+} */
+
 .page {
     display: flex;
-    flex-direction: column;
-    padding-left: 97px;
-    padding-right: 97px;
-    padding-top: 94px;
-    padding-bottom: 280px;
-}  
+    justify-content: center;
+  }
+  
+.gridContainer {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 100%;
+    margin-top: 50px;
+    margin-left: 100px; 
+    gap: 50px; 
+}
+  
