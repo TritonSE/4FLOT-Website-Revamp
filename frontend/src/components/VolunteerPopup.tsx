@@ -1,9 +1,6 @@
 import Image from "next/image";
 import React, { useState } from "react";
 
-import { addVolunteerToEvent } from "../api/eventDetails";
-import { VolunteerDetails } from "../api/volunteerDetails";
-
 import VolunteerForm from "./VolunteerForm";
 
 type VolunteerPopupProps = {
@@ -16,54 +13,6 @@ export default function VolunteerPopup({ open, setOpen, eventId }: VolunteerPopu
   const [hover, setHover] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  // submitForm only runs when there is a successful submission
-  // ie. all fields are filled out and valid
-  // declared as arrow function to have access to setSuccess
-  const submitForm = (
-    firstName: string,
-    lastName: string,
-    email: string,
-    phoneNumber: string,
-    reveiveNews: boolean,
-  ) => {
-    // body for the POST request
-    const data = {
-      first_name: firstName,
-      last_name: lastName,
-      email,
-      phone: phoneNumber,
-      signed_up_for_updates: reveiveNews,
-    };
-
-    fetch("http://localhost:3001/api/volunteerDetails/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((res_json: VolunteerDetails) => {
-        console.log("Success:", res_json);
-        if ("_id" in res_json && res_json._id !== null) {
-          addVolunteerToEvent(eventId, res_json._id).catch((error) => {
-            alert(error);
-          });
-          setSuccess(true);
-        } else {
-          alert("Failed to add volunteer to event");
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
-
   if (!success) {
     // ----- FORM POPUP -----
     return (
@@ -73,7 +22,7 @@ export default function VolunteerPopup({ open, setOpen, eventId }: VolunteerPopu
           (open ? "" : "invisible hidden")
         }
       >
-        <VolunteerForm eventId={eventId} setSuccess={setSuccess} submitForm={submitForm}>
+        <VolunteerForm eventId={eventId} setSuccess={setSuccess}>
           <button
             className="absolute scale-100 top-6 right-6 hover:scale-110 transition-all duration-100 ease-linear"
             onClick={() => {

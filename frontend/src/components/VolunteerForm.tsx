@@ -10,13 +10,6 @@ import { getEventDetails } from "@/api/eventDetails";
 type VolunteerFormProps = {
   eventId: string;
   setSuccess: (success: boolean) => void;
-  submitForm: (
-    firstName: string,
-    lastName: string,
-    email: string,
-    phoneNumber: string,
-    receiveNews: boolean,
-  ) => void;
   children?: React.ReactNode;
   className?: string;
 };
@@ -24,7 +17,6 @@ type VolunteerFormProps = {
 const VolunteerForm: React.FC<VolunteerFormProps> = ({
   eventId,
   setSuccess,
-  submitForm,
   children,
   className,
 }: VolunteerFormProps) => {
@@ -97,7 +89,6 @@ const VolunteerForm: React.FC<VolunteerFormProps> = ({
     const allowSubmit = validateForm();
 
     if (allowSubmit) {
-      submitForm(firstName, lastName, email, phoneNumber, receiveNews);
       getEventDetails(eventId)
         .then((response) => {
           if (response.success) {
