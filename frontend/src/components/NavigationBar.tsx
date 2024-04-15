@@ -11,20 +11,25 @@ const NavigationBar = () => {
    * depending on website url
    */
   const handleLoad = () => {
-    if (window.location.pathname === "/admin/dashboard") {
-      return "Dashboard";
-    } else if (window.location.pathname === "/admin/eventcreator") {
-      return "Event Creator";
-    } else if (window.location.pathname === "/admin/pageeditor") {
-      return "Page Editor";
-    } else if (window.location.pathname === "/admin/newslettercreator") {
-      return "Newsletter Creator";
-    } else if (window.location.pathname === "/admin/mailinglist") {
-      return "Mailing List";
-    } else if (window.location.pathname === "/admin/settings") {
-      return "Settings";
+    if (typeof window !== "undefined") {
+      // if browser code, window is defined
+      if (window.location.pathname === "/admin/dashboard") {
+        return "Dashboard";
+      } else if (window.location.pathname === "/admin/eventcreator") {
+        return "Event Creator";
+      } else if (window.location.pathname === "/admin/pageeditor") {
+        return "Page Editor";
+      } else if (window.location.pathname === "/admin/newslettercreator") {
+        return "Newsletter Creator";
+      } else if (window.location.pathname === "/admin/mailinglist") {
+        return "Mailing List";
+      } else if (window.location.pathname === "/admin/settings") {
+        return "Settings";
+      } else {
+        return "";
+      }
     } else {
-      return "";
+      return "Dashboard";
     }
   };
 
