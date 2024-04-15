@@ -23,11 +23,6 @@ export const createSubscriber: RequestHandler = async (req, res, next) => {
       specialUpdates: req.body.specialUpdates,
     });
 
-    /*
-     * TODO: Handle adding the newsletter subscriber
-     * to a mailing list or however this will be handled.
-     */
-
     // successfully created subscriber in db
     res.status(201).json(subscriber);
   } catch (error) {

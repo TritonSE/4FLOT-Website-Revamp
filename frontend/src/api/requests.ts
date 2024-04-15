@@ -31,7 +31,6 @@ async function fetchRequest(
     newHeaders["Content-Type"] = "application/json";
   }
 
-  console.log("body: " + JSON.stringify(body));
   const response = await fetch(url, {
     method,
     headers: newHeaders,

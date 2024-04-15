@@ -17,6 +17,7 @@ export const createEmail: RequestHandler = async (req, res, next) => {
     if (question === "Other") {
       questionType = "Other message";
     } else {
+      console.log("question: " + question);
       questionType = question.split(" ").slice(3).join(" ");
       questionType = questionType[0].toUpperCase() + questionType.slice(1);
     }
