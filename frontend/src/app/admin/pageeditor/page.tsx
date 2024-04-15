@@ -1,8 +1,7 @@
 // Admin Page Editor landing page
-// Admin Dashboard landing page
-import PageEditorCard from "@/components/PageEditorCard";
-
 import styles from "./page.module.css";
+
+import PageEditorCard from "@/components/PageEditorCard";
 
 export default function Dashboard() {
   return (

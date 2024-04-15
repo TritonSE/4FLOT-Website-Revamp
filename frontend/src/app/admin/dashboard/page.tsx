@@ -1,7 +1,7 @@
 // Admin Dashboard landing page
-import DashboardCard from "@/components/DashboardCard";
-
 import styles from "./page.module.css";
+
+import DashboardCard from "@/components/DashboardCard";
 
 export default function Dashboard() {
   return (
