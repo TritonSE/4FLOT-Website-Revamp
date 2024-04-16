@@ -26,7 +26,14 @@ const robotoSlab = Roboto_Slab({
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${openSans.variable} ${inter.variable} ${robotoSlab.variable}`}>
+    <html
+      lang="en"
+      className={`
+      ${openSans.className} ${openSans.variable}
+      ${inter.className} ${inter.variable}
+      ${robotoSlab.className} ${robotoSlab.variable}
+    `}
+    >
       <body>{children}</body>
     </html>
   );

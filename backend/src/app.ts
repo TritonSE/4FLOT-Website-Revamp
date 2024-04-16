@@ -14,7 +14,7 @@ import volunteerDetailsRoutes from "./routes/volunteerDetails";
 import testimonialRoutes from "src/routes/testimonial";
 import newsletterRoutes from "src/routes/newsletter"; // Import newsletter routes
 import emailRoutes from "src/routes/emails";
-import paymentsRoutes from "src/routes/payments";
+// import paymentsRoutes from "src/routes/payments";
 
 const app = express();
 
@@ -43,7 +43,7 @@ app.use("/api/testimonial", testimonialRoutes);
 app.use("/api/newsletter", newsletterRoutes); // Use newsletter routes
 app.use("/api/emails", emailRoutes);
 
-app.use("/api/payments", paymentsRoutes);
+// app.use("/api/payments", paymentsRoutes);
 /**
  * Error handler; all errors thrown by server are handled here.
  * Explicit typings required here because TypeScript cannot infer the argument types.

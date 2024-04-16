@@ -10,7 +10,9 @@ const sendContactEmail = async (subject: string, message: string) => {
   const EMAIL_SUBJECT = `${subject}`;
   const EMAIL_BODY = `${message}`;
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+    service: "Gmail",
+    host: "smtp.gmail.com",
+    secure: true,
     auth: {
       user: env.EMAIL_USER,
       pass: env.EMAIL_APP_PASSWORD,
