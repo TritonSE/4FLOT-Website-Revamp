@@ -1,7 +1,5 @@
 import { PayPalButtons } from "@paypal/react-paypal-js";
-import { redirect } from "next/navigation";
-import { useEffect, useRef } from "react";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 
 import { OrderData, captureOrder, createOrder } from "@/api/paypal";
 
