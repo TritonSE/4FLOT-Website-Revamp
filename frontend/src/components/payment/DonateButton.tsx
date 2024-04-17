@@ -1,12 +1,13 @@
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import { redirect } from "next/navigation";
 import { useEffect, useRef } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 import { OrderData, captureOrder, createOrder } from "@/api/paypal";
 
 type DonateButtonProps = {
-  productId: string;
-  quantity: string;
+  setSuccess: Dispatch<SetStateAction<boolean>>;
+  amount: string; // String representation of a donation amount, e.g. "5.00"
 };
 
 /**
@@ -21,22 +22,20 @@ type ErrorDetail = {
   description: string;
 };
 
-export default function DonateButton({ productId, quantity }: DonateButtonProps) {
-  const productIdRef = useRef(productId);
-  const quantityRef = useRef(quantity);
+export default function DonateButton({ setSuccess, amount }: DonateButtonProps) {
+  const amountRef = useRef(amount);
 
   useEffect(() => {
-    productIdRef.current = productId;
-    quantityRef.current = quantity;
-  }, [productId, quantity]);
+    amountRef.current = amount;
+  }, [amount]);
 
   return (
     <div className="py-3">
       <PayPalButtons
         style={{ label: "donate" }}
-        createOrder={() =>
-          createOrder({ productId: productIdRef.current, quantity: quantityRef.current })
-        }
+        createOrder={() => {
+          return createOrder({ productId: "donation", amount: amountRef.current, quantity: "1" });
+        }}
         onApprove={async (data, actions) => {
           const orderData = captureOrder(data.orderID) as OrderData;
 
@@ -55,8 +54,9 @@ export default function DonateButton({ productId, quantity }: DonateButtonProps)
             // (2) Other non-recoverable errors -> Show a failure message
             throw new Error(`${errorDetail.description} (${orderData.debug_id})`);
           } else {
-            // (3) Successful transaction -> Redirect user to success page
-            await Promise.resolve(redirect("/donations/success"));
+            // (3) Successful transaction -> Set the state of the page to success
+            setSuccess(true);
+            await Promise.resolve();
           }
         }}
       />
