@@ -24,7 +24,7 @@ export default function DonateForm({ setSuccess }: DonateFormProps) {
 
   return (
     <form className="DonateForm">
-      <AmountPicker handleAmountChange={handleAmountChange} />
+      <AmountPicker onAmountChange={handleAmountChange} />
       <div className=" w-full pt-[16px]">
         {amountUpdated && <DonateButton setSuccess={setSuccess} amount={amount} />}
       </div>
