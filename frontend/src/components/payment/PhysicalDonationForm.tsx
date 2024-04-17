@@ -16,7 +16,6 @@ const PhysicalDonationForm = ({ setSuccess }: PhysicalDonationFormProps) => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(firstName, lastName, email, phone, comment);
     const donationEmailRequest: CreateDonationEmailRequest = {
       type: "donation",
       firstName,
@@ -27,11 +26,9 @@ const PhysicalDonationForm = ({ setSuccess }: PhysicalDonationFormProps) => {
     };
     sendEmail(donationEmailRequest)
       .then(() => {
-        console.log("success!");
         setSuccess(true);
       })
       .catch(() => {
-        console.log("error!");
         setSuccess(false);
       });
   };
