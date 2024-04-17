@@ -77,6 +77,12 @@ export async function createOrder({ productId, quantity }: Order): Promise<strin
   }
 }
 
+/**
+ * Captures payment after the customer has authorized the payment on the popup
+ * Used in <PayPalButtons> elements onApprove prop
+ * @param orderId
+ * @returns an OrderData object
+ */
 export async function captureOrder(orderId: string): Promise<OrderData> {
   const response = await post(`/api/orders/${orderId}/capture`, {});
   const orderData = (await response.json()) as OrderData;
