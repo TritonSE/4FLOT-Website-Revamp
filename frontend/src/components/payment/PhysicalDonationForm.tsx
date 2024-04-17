@@ -1,9 +1,13 @@
 "use client";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 import { CreateDonationEmailRequest, sendEmail } from "@/api/email";
 
-const PhysicalDonationForm = (setSuccess: (success: boolean) => void) => {
+type PhysicalDonationFormProps = {
+  setSuccess: Dispatch<SetStateAction<boolean>>;
+};
+
+const PhysicalDonationForm = ({ setSuccess }: PhysicalDonationFormProps) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");

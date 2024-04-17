@@ -1,14 +1,14 @@
 "use client";
 
-import { useState } from "react";
-
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import { useEffect, useState } from "react";
 
 import DonateCard from "./DonateCard";
 import DonateCardText from "./DonateCardText";
 import DonateForm from "./DonateForm";
 import DonationTypeSelection from "./DonationTypeSelection";
 import PhysicalDonationForm from "./PhysicalDonationForm";
+import SuccessCard from "./SuccessCard";
 
 type DonateAppProps = {
   className: string;
@@ -16,7 +16,24 @@ type DonateAppProps = {
 
 export default function DonateApp({ className }: DonateAppProps) {
   const [monetary, setMonetary] = useState(true);
-  const [success, setSuccess] = useState(false);
+  // Persisting success state only if window is defined
+  const [success, setSuccess] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      const savedSuccess = localStorage.getItem("success");
+      return savedSuccess ? (JSON.parse(savedSuccess) as boolean) : false;
+    }
+    return false;
+  });
+
+  // Puts the state into the local storage on the clients web browser
+  useEffect(() => {
+    localStorage.setItem("success", JSON.stringify(success));
+  }, [success]);
+
+  // Reset the state on page reload or redirection
+  useEffect(() => {
+    setSuccess(false);
+  }, []);
 
   if (!success) {
     return (
@@ -32,12 +49,20 @@ export default function DonateApp({ className }: DonateAppProps) {
           <DonateCard>
             <DonateCardText />
             <DonationTypeSelection monetary={monetary} setMonetary={setMonetary} />
-            {monetary ? <DonateForm /> : <PhysicalDonationForm setSuccess={setSuccess} />}
+            {monetary ? (
+              <DonateForm setSuccess={setSuccess} />
+            ) : (
+              <PhysicalDonationForm setSuccess={setSuccess} />
+            )}
           </DonateCard>
         </PayPalScriptProvider>
       </div>
     );
   } else {
-    <p>Success!</p>;
+    return (
+      <div className={className}>
+        <SuccessCard />
+      </div>
+    );
   }
 }

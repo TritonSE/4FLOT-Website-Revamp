@@ -1,10 +1,14 @@
 import { post } from "./requests";
 
+// Getting .env variable for necessary fetch call, see line 67
+const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+
 /**
- * Types the body for a createOrder request as Order type
+ * Types Order, used in body for createOrder
  */
 export type Order = {
   productId: string;
+  amount: string;
   quantity: string;
 };
 
@@ -57,14 +61,23 @@ export type OrderData = {
  * @param quantity stores the number of productId that the customer wants to purchase, for the donation page 1 quantity = $0.01, e.g. a 5 dollar donation is represented by quantiy=500
  * @returns the orderId used to approve the order with, a string
  */
-export async function createOrder({ productId, quantity }: Order): Promise<string> {
-  const response = await post("/api/orders", {
-    cart: [
-      {
-        id: productId,
-        quantity,
-      },
-    ],
+export async function createOrder({ amount }: Order): Promise<string> {
+  // Cannot use requests.ts wrapper here, get this error back from PayPal
+  // 500 Internal Server Error: {"error":"Body is unusable"}
+  const response = await fetch(`${API_BASE_URL}/api/orders`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      cart: [
+        {
+          id: "donation",
+          amount,
+          quantity: "1",
+        },
+      ],
+    }),
   });
 
   const orderData = (await response.json()) as OrderData;

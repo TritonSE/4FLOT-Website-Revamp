@@ -1,11 +1,19 @@
 "use client";
 import React, { useState } from "react";
 
-export default function AmountPicker({ onAmountChange }) {
-  const [customAmount, setCustomAmount] = useState(0);
+type AmountPickerProps = {
+  handleAmountChange: (newAmount: string) => void;
+};
+
+export default function AmountPicker({ handleAmountChange }: AmountPickerProps) {
+  const [customAmount, setCustomAmount] = useState("0.00");
+
+  const onAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleAmountChange(e.target.value);
+  };
 
   return (
-    <fieldset onChange={onAmountChange}>
+    <fieldset>
       <legend>
         <p className="py-3 font-bold">Select your donation amount:</p>
       </legend>
@@ -13,24 +21,39 @@ export default function AmountPicker({ onAmountChange }) {
         <label className="label">
           <input
             type="radio"
-            value={5}
+            value={"5.00"}
             defaultChecked
             name="productId"
             className="radio checked"
             id="amountChoice1"
+            onChange={onAmountChange}
           />
           <span className="label-text md:text-lg">$5.00</span>
         </label>
       </div>
       <div className="form-control">
         <label className="label">
-          <input type="radio" value={20} name="productId" id="amountChoice2" className="radio" />
+          <input
+            type="radio"
+            value={"20.00"}
+            name="productId"
+            id="amountChoice2"
+            className="radio"
+            onChange={onAmountChange}
+          />
           <span className="label-text md:text-lg">$20.00</span>
         </label>
       </div>
       <div className="form-control">
         <label className="label">
-          <input type="radio" value={100} name="productId" id="amountChoice3" className="radio" />
+          <input
+            type="radio"
+            value={"100.00"}
+            name="productId"
+            id="amountChoice3"
+            className="radio"
+            onChange={onAmountChange}
+          />
           <span className="label-text md:text-lg">$100.00</span>
         </label>
       </div>
@@ -42,6 +65,7 @@ export default function AmountPicker({ onAmountChange }) {
             name="productId"
             id="amountChoice3"
             className="radio"
+            onChange={onAmountChange}
           />
           <span className="label-text md:text-lg">Custom Amount:</span>
           <input
@@ -50,9 +74,12 @@ export default function AmountPicker({ onAmountChange }) {
             id="customAmount"
             className="input"
             onChange={(e) => {
-              const value = e.target.value;
+              console.log(customAmount);
+              const value = parseFloat(e.target.value);
               if (value >= 0) {
-                setCustomAmount(Number(e.target.value));
+                const formattedValue = value.toFixed(2);
+                handleAmountChange(formattedValue);
+                console.log("formatted ", formattedValue);
               }
             }}
           />
@@ -60,5 +87,4 @@ export default function AmountPicker({ onAmountChange }) {
       </div>
     </fieldset>
   );
-  10;
 }
