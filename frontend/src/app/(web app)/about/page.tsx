@@ -32,35 +32,37 @@ export default function Impact() {
           description="4FLOT is committed in preventing and ending homelessness, hunger and disparity in underprivileged communities. "
         />
       </div>
-      <div className={styles.cardsBackground}></div>
-      <div className={styles.whiteCardsContainer}>
+      <div className={styles.content}>
         <div className={styles.cards}>
           <AboutCard
             ourText="Our Mission"
-            imageUrl="/about/icon1.svg"
+            // imageUrl="/ourmissionimg.png"
+            imageUrl=""
             buttonUrl="/mission"
             buttonText="Learn More"
             title="Why We Do It"
             description="Leading the way for generations to come! Together we can .... make a difference by paying it forward with Love, Compassion, and Community Outreach for all humanity."
-            type="mission"
+            contentSide="right"
           />
           <AboutCard
             ourText="Our Team"
-            imageUrl="/about/icon2.svg"
+            // imageUrl="/ourteamimg.png"
+            imageUrl=""
             buttonUrl="/team"
             buttonText="Read More"
             title="Get to Know Us"
             description="Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi."
-            type="team"
+            contentSide="left"
           />
           <AboutCard
             ourText="Contact Us"
-            imageUrl="/about/icon3.svg"
+            // imageUrl="/contactusimg.png"
+            imageUrl=""
             buttonUrl="/contact"
             buttonText="Contact Us"
             title="Stay Connected"
             description="Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi."
-            type="contact"
+            contentSide="right"
           />
         </div>
       </div>
