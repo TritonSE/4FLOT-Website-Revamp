@@ -1,8 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
-export default function AmountPicker({ onAmountChange }) {
-  const [selectedAmount, setSelectedAmount] = useState(5.00); // Initialize with a float
+type AmountPickerProps = {
+  onAmountChange: (amount: number) => void;
+};
+
+export default function AmountPicker({ onAmountChange }: AmountPickerProps) {
+  const [selectedAmount, setSelectedAmount] = useState(5.0); // Initialize with a float
   const [customAmount, setCustomAmount] = useState("");
 
   useEffect(() => {
@@ -10,12 +14,12 @@ export default function AmountPicker({ onAmountChange }) {
     onAmountChange(selectedAmount);
   }, [selectedAmount, onAmountChange]);
 
-  const handleAmountChange = (e) => {
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     // Check if the value is "custom" to handle custom amount logic
     if (value === "custom") {
       // If custom, use the customAmount if it's a valid number, otherwise default to a float
-      setSelectedAmount(customAmount ? parseFloat(customAmount) : 0.00);
+      setSelectedAmount(customAmount ? parseFloat(customAmount) : 0.0);
     } else {
       // For predefined options, parse the value as float
       setSelectedAmount(parseFloat(value));
@@ -24,11 +28,12 @@ export default function AmountPicker({ onAmountChange }) {
     }
   };
 
-  const handleCustomAmountChange = (e) => {
+  const handleCustomAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setCustomAmount(value);
     // Update selected amount if it's a valid number, parse as float
-    if (!isNaN(value) && value.trim() !== "") {
+    const parsedValue = parseFloat(value);
+    if (!isNaN(parsedValue) && value.trim() !== "") {
       setSelectedAmount(parseFloat(value));
     }
   };
@@ -37,8 +42,11 @@ export default function AmountPicker({ onAmountChange }) {
     <fieldset className="p-4 rounded-lg shadow-md bg-white">
       <legend className="text-lg font-semibold mb-4">Select your donation amount:</legend>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {[5.00, 20.00, 100.00].map((amount, index) => (
-          <label key={index} className={`p-2 flex items-center gap-2 rounded-lg cursor-pointer ${selectedAmount === amount ? "bg-blue-100" : "hover:bg-gray-100"}`}>
+        {[5.0, 20.0, 100.0].map((amount, index) => (
+          <label
+            key={index}
+            className={`p-2 flex items-center gap-2 rounded-lg cursor-pointer ${selectedAmount === amount ? "bg-blue-100" : "hover:bg-gray-100"}`}
+          >
             <input
               type="radio"
               value={amount}
@@ -51,11 +59,13 @@ export default function AmountPicker({ onAmountChange }) {
             <span className="text-lg">${amount.toFixed(2)}</span>
           </label>
         ))}
-        <label className={`p-2 flex items-center gap-2 rounded-lg ${selectedAmount !== 5.00 && selectedAmount !== 20.00 && selectedAmount !== 100.00 ? "bg-blue-100" : "hover:bg-gray-100"}`}>
+        <label
+          className={`p-2 flex items-center gap-2 rounded-lg ${selectedAmount !== 5.0 && selectedAmount !== 20.0 && selectedAmount !== 100.0 ? "bg-blue-100" : "hover:bg-gray-100"}`}
+        >
           <input
             type="radio"
             value="custom"
-            checked={selectedAmount !== 5.00 && selectedAmount !== 20.00 && selectedAmount !== 100.00}
+            checked={selectedAmount !== 5.0 && selectedAmount !== 20.0 && selectedAmount !== 100.0}
             onChange={handleAmountChange}
             className="radio"
             name="amount"

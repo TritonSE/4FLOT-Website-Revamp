@@ -22,7 +22,9 @@ export default function DonationSelector({ monetary, setMonetary }: DonationSele
           name="donation-type"
           className="block w-full focus:ring-[#694C97] focus:border-[#694C97] border-gray-300 rounded-md"
           defaultValue={monetary ? "Monetary" : "Physical"}
-          onChange={(e) => setMonetary(e.target.value === "Monetary")}
+          onChange={(e) => {
+            setMonetary(e.target.value === "Monetary");
+          }}
         >
           <option>Monetary</option>
           <option>Physical</option>
@@ -41,7 +43,9 @@ export default function DonationSelector({ monetary, setMonetary }: DonationSele
                 : "text-gray-500 hover:text-gray-700 bg-white font-medium",
               "group relative min-w-0 flex-1 overflow-hidden rounded-l-lg p-4 text-center text-sm hover:bg-gray-50 focus:z-10 cursor-pointer",
             )}
-            onClick={() => setMonetary(true)}
+            onClick={() => {
+              setMonetary(true);
+            }}
           >
             <span className="relative z-20 cursor-pointer">Monetary</span>
             <span
@@ -61,7 +65,9 @@ export default function DonationSelector({ monetary, setMonetary }: DonationSele
                 : "text-gray-500 hover:text-gray-700 bg-white font-medium",
               "group relative min-w-0 flex-1 overflow-hidden rounded-r-lg p-4 text-center text-sm hover:bg-gray-50 focus:z-10 cursor-pointer",
             )}
-            onClick={() => setMonetary(false)}
+            onClick={() => {
+              setMonetary(false);
+            }}
           >
             <span className="relative z-20 cursor-pointer">Physical</span>
             <span

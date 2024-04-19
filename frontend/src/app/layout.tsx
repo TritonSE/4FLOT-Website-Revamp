@@ -1,4 +1,3 @@
-import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { Inter, Open_Sans, Roboto_Slab } from "next/font/google";
 
 import type { Metadata } from "next";
