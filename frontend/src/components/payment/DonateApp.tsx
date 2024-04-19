@@ -61,7 +61,7 @@ export default function DonateApp({ className }: DonateAppProps) {
   } else {
     return (
       <div className={className}>
-        <SuccessCard />
+        <SuccessCard setSuccess={setSuccess} />
       </div>
     );
   }
