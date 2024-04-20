@@ -14,6 +14,8 @@ import styles from "./page.module.css";
 
 import AlertBanner from "@/components/AlertBanner";
 import EmailCopyBtn from "@/components/EmailCopyBtn";
+import RowCopyBtn from "@/components/RowCopyBtn";
+import RowDeleteBtn from "@/components/RowDeleteBtn";
 
 export default function MailingList() {
   const columns: GridColDef<(typeof rows)[number]>[] = [
@@ -66,7 +68,7 @@ export default function MailingList() {
       renderHeader: () => (
         <div style={{ display: "flex", alignItems: "center" }}>
           <div style={{ marginRight: "180px" }}>Email</div>
-          <EmailCopyBtn onClick={handleCopyText} />
+          <EmailCopyBtn onClick={handleCopyEmails} />
         </div>
       ),
     },
@@ -219,13 +221,12 @@ export default function MailingList() {
   const [totalPages, setTotalPages] = useState(Math.ceil(rows.length / 14)); // Calculate total pages
   const [showAlert, setShowAlert] = useState(false);
 
-  const emailsToCopy = () => {
-    const values = rows.map((row) => row.email);
-    const copiedText = values.join("\n");
-    return copiedText;
-  };
-
-  const handleCopyText = () => {
+  const handleCopyEmails = () => {
+    const emailsToCopy = () => {
+      const values = rows.map((row) => row.email);
+      const copiedText = values.join("\n");
+      return copiedText;
+    };
     navigator.clipboard
       .writeText(emailsToCopy())
       .then(() => {
@@ -235,6 +236,25 @@ export default function MailingList() {
         console.error("Error copying text: ", error);
         // You can optionally show an error message here
       });
+  };
+
+  const handleCopyRow = () => {
+    const rowToCopy = () => {
+      return "TODO: implement copying the current row selection";
+    };
+    navigator.clipboard
+      .writeText(rowToCopy())
+      .then(() => {
+        setShowAlert(true);
+      })
+      .catch((error) => {
+        console.error("Error copying text: ", error);
+        // You can optionally show an error message here
+      });
+  };
+
+  const handleDeleteRow = () => {
+    console.log("TODO: implement delete row");
   };
 
   const handleCloseAlert = () => {
@@ -259,10 +279,21 @@ export default function MailingList() {
   };
 
   return (
-    <Box sx={{ height: 720, width: 1119, position: "relative" }}>
+    <Box sx={{ height: 720, width: 1119 }}>
       {showAlert && (
-        <AlertBanner text="Copied to clipboard" img="/copy_icon.svg" onClose={handleCloseAlert} />
+        <AlertBanner
+          text="Copied to clipboard"
+          img="/copy_icon_dark.svg"
+          onClose={handleCloseAlert}
+        />
       )}
+      <Box sx={{ my: 5, display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
+        {selectedRow !== null && <RowCopyBtn onClick={handleCopyRow} />}
+        {selectedRow !== null && <RowDeleteBtn onClick={handleDeleteRow} />}
+        <div>
+          <h4>Insert search bar</h4>
+        </div>
+      </Box>
       <DataGrid
         columns={columns}
         rows={rows.slice((currentPage - 1) * 14, currentPage * 14)}
