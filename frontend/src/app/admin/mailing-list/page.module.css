@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&family=Roboto+Slab:wght@100..900&display=swap");
+
+.Headings {
+  text-align: left;
+  font: var(--font-small-subtitle);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 24px; /* 133.333% */
+  color: white;
+}
+
+.cellentry {
+  text-align: left;
+  font: var(--font-body);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 133.333% */
+  color: black;
+}
+
+.headingBackground {
+  background-color: #694c97; /* Replace with your desired color */
+}
+
+.cellBorderStyle {
+  border-right: 1px solid #c9c9c9; /* Adjust the border style as needed */
+}
