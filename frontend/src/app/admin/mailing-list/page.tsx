@@ -192,11 +192,15 @@ export default function MailingList() {
   const [totalPages, setTotalPages] = useState(Math.ceil(rows.length / 14)); // Calculate total pages
   const [showAlert, setShowAlert] = useState(false);
 
-  const textToCopy = "This is the text to copy";
+  const emailsToCopy = () => {
+    const values = rows.map((row) => row.email);
+    const copiedText = values.join("\n");
+    return copiedText;
+  };
 
   const handleCopyText = () => {
     navigator.clipboard
-      .writeText(textToCopy)
+      .writeText(emailsToCopy())
       .then(() => {
         setShowAlert(true);
       })
