@@ -1,6 +1,12 @@
 "use client";
 import Box from "@mui/material/Box";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridColDef,
+  GridEventListener,
+  GridRowClassNameParams,
+  GridRowId,
+} from "@mui/x-data-grid";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
@@ -15,7 +21,7 @@ export default function MailingList() {
       field: "lastName",
       headerName: "Last name",
       width: 280,
-      editable: true,
+      editable: false,
       resizable: false,
       headerClassName: `${styles.headingBackground} ${styles.cellBorderStyle} ${styles.Headings}`,
       cellClassName: `${styles.cellEntry} ${styles.cellBorderStyle}`,
@@ -26,7 +32,7 @@ export default function MailingList() {
       field: "firstName",
       headerName: "First Name",
       width: 280,
-      editable: true,
+      editable: false,
       resizable: false,
       headerClassName: `${styles.Headings} ${styles.headingBackground} ${styles.cellBorderStyle}`,
       cellClassName: `${styles.cellEntry} ${styles.cellBorderStyle}`,
@@ -38,7 +44,7 @@ export default function MailingList() {
       field: "memberSince",
       headerName: "Member Since",
       width: 280,
-      editable: true,
+      editable: false,
       resizable: false,
       headerClassName: `${styles.Headings} ${styles.headingBackground} ${styles.cellBorderStyle}`,
       cellClassName: `${styles.cellEntry} ${styles.cellBorderStyle}`,
@@ -51,7 +57,7 @@ export default function MailingList() {
       headerName: "Email",
       width: 280,
       sortable: false,
-      editable: true,
+      editable: false,
       resizable: false,
       flex: 1,
       headerClassName: `${styles.Headings} ${styles.headingBackground}`,
@@ -188,6 +194,27 @@ export default function MailingList() {
     },
   ];
 
+  const [selectedRow, setSelectedRow] = React.useState<GridRowId | null>(null);
+
+  const handleCellClick: GridEventListener<"rowClick"> = (
+    params, // GridRowParams
+  ) => {
+    setSelectedRow(params.id === selectedRow ? null : params.id);
+  };
+
+  const getRowClassName = (params: GridRowClassNameParams) => {
+    let rowClasses = "";
+
+    // Add alternating row colors
+    rowClasses += params.indexRelativeToCurrentPage % 2 === 0 ? "evenRow" : "oddRow";
+
+    // Add border to the selected row
+    if (selectedRow === params.id) {
+      rowClasses += ` ${styles.selectedRow}`;
+    }
+    return rowClasses;
+  };
+
   const [currentPage, setCurrentPage] = useState(1); // Track current page
   const [totalPages, setTotalPages] = useState(Math.ceil(rows.length / 14)); // Calculate total pages
   const [showAlert, setShowAlert] = useState(false);
@@ -242,6 +269,9 @@ export default function MailingList() {
         autoHeight
         rowHeight={48}
         hideFooter
+        rowSelectionModel={selectedRow !== null ? [selectedRow] : []}
+        onCellClick={handleCellClick}
+        getRowClassName={getRowClassName}
         initialState={{
           pagination: {
             paginationModel: {
