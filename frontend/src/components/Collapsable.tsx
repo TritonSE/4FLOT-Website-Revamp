@@ -10,7 +10,6 @@ type CollapsableProps = {
   textbox: string[];
 };
 
-// TODO: Make class names responsive
 const Collapsable = ({ title, subsection, textbox }: CollapsableProps) => {
   const [open, setOpen] = useState<boolean>(false);
 
@@ -41,7 +40,9 @@ const Collapsable = ({ title, subsection, textbox }: CollapsableProps) => {
               // eslint-disable-next-line react/jsx-key
               <div>
                 <p className={styles.subtitle}>{subtitle}</p>
-                <text className={styles.basicInput}>{text}</text>
+                <div className={styles.basicInput} contentEditable>
+                  {text}
+                </div>
               </div>
             );
           })}

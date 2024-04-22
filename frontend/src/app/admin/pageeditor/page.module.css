@@ -1,22 +1,17 @@
 .page {
-  height: 1105px;
-  padding-left: 286px;
-  padding-top: 277px;
-  background-color: grey;
+  display: flex;
+  justify-content: center;
+  padding-left: 30px;
+  padding-top: 140px;
 }
 
-.sectionContainer {
-  background-color: white;
-  width: 75.6%;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  padding: 32px;
-}
-
-.buttonContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  gap: 24px;
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 100%;
+  margin-top: 50px;
+  margin-left: 100px;
+  gap: 50px;
 }

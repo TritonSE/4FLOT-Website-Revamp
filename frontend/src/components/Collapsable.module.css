@@ -31,8 +31,7 @@
 
 .basicInput {
   font-size: 14px;
-  width: 980px;
-  height: 32px;
+  width: 100%;
   border: 1px solid #ccc; /* Gray border */
   border-radius: 4px;
   padding: 6px 12px;
