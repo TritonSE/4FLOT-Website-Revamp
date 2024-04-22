@@ -1,6 +1,7 @@
 .container {
   display: flex;
   flex-direction: row;
+  float: left;
 
   gap: 24px;
   margin-bottom: 12px;
