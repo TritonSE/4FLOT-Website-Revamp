@@ -1,5 +1,6 @@
 // Admin Page Editor landing page
 import styles from "./page.module.css";
+import React, { useState } from 'react';
 
 import Button from "@/components/Button";
 import Collapsable from "@/components/Collapsable";
@@ -7,6 +8,21 @@ import Collapsable from "@/components/Collapsable";
 // import PageEditorCard from "@/components/PageEditorCard";
 
 export default function Dashboard() {
+  const [isEdited, setIsEdited] = useState(false);
+  const handleEdit = () => {
+    if (!isEdited) setIsEdited(true);
+  };
+
+  const handleSave = () => {
+    // Implement save logic
+    console.log('Save changes');
+  };
+
+  const handleCancel = () => {
+    // Implement cancel logic
+    console.log('Cancel changes');
+  };
+
   return (
     <main className={styles.page}>
       <div className={styles.sectionContainer}>

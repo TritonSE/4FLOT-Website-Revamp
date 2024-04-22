@@ -3,7 +3,7 @@ import styles from "./page.module.css";
 
 import Button from "@/components/Button";
 import Collapsable from "@/components/Collapsable";
-
+import CancelButton from "@/components/CancelButton"
 // import PageEditorCard from "@/components/PageEditorCard";
 
 export default function Dashboard() {
@@ -33,8 +33,8 @@ export default function Dashboard() {
           ]}
         />
         <div className={styles.buttonContainer}>
-          <Button text="Cancel" />
-          <Button text="Save" />
+          <CancelButton text="Cancel"></CancelButton> 
+          <Button text="Save"></Button> 
         </div>
       </div>
     </main>
