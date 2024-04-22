@@ -1,4 +1,27 @@
 .page {
+  height: 1105px;
+  padding-left: 286px;
+  padding-top: 277px;
+  background-color: grey;
+}
+
+.sectionContainer {
+  background-color: white;
+  width: 75.6%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 32px;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 24px;
+}
+
+.page {
   display: flex;
   justify-content: center;
   padding-left: 30px;
