@@ -1,0 +1,48 @@
+.collapsible {
+  background-color: #f3edf9;
+  cursor: pointer;
+
+  width: 100%;
+  height: 38px;
+  padding: 7px 12px;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 16px;
+
+  display: flex;
+  direction: row;
+  align-items: center;
+  gap: 8px; /* Between Arrow, Bar title */
+}
+
+.content {
+  padding: 0px 32px;
+  background-color: #ffffff;
+}
+.content div {
+  margin-bottom: 14px;
+}
+
+.subtitle {
+  color: #484848;
+  margin-bottom: 10px;
+}
+
+.basicInput {
+  font-size: 14px;
+  width: 980px;
+  height: 32px;
+  border: 1px solid #ccc; /* Gray border */
+  border-radius: 4px;
+  padding: 6px 12px;
+}
+
+.imageInput {
+  font-size: 14px;
+  width: auto;
+  height: auto;
+  border: 1px solid #ccc; /* Gray border */
+  border-radius: 4px;
+  padding: 6px 12px;
+}
