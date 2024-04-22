@@ -39,39 +39,6 @@ export default function Dashboard() {
           <Button text="Save" />
         </div>
       </div>
-
-      {/* <div className={styles.gridContainer}>
-        <PageEditorCard
-          imageURI="/impact_bg.png"
-          url="/dashboard"
-          title="Home"
-          last_updated="Month XX, XXXX, XX:XX"
-        />
-        <PageEditorCard
-          imageURI="/impact_bg.png"
-          url="/dashboard"
-          title="About Us"
-          last_updated="Month XX, XXXX, XX:XX"
-        />
-        <PageEditorCard
-          imageURI="/impact_bg.png"
-          url="/dashboard"
-          title="Get Involved"
-          last_updated="Month XX, XXXX, XX:XX"
-        />
-        <PageEditorCard
-          imageURI="/impact_bg.png"
-          url="/dashboard"
-          title="Our Impact"
-          last_updated="Month XX, XXXX, XX:XX"
-        />
-        <PageEditorCard
-          imageURI="/impact_bg.png"
-          url="/dashboard"
-          title="Donate"
-          last_updated="Month XX, XXXX, XX:XX"
-        />
-      </div> */}
     </main>
   );
 }

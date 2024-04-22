@@ -12,7 +12,7 @@ export default function Dashboard() {
       <div className={styles.sectionContainer}>
         <Collapsable
           title="Page Header"
-          subsection={["Subtitle", "Header Image Carousel"]}
+          subsection={["Subtitle", "Header Image"]}
           textbox={[
             "4FLOT is committed in preventing and ending homelessness, hunger and disparity in underprivileged communities.",
             "",
@@ -20,17 +20,9 @@ export default function Dashboard() {
         />
         <Collapsable
           title="Section 1"
-          subsection={["Section Title", "Body Text"]}
+          subsection={["Section Title", "Section Subtitle"]}
           textbox={[
-            "Get Involved at our Upcoming Events",
-            "Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi.",
-          ]}
-        />
-        <Collapsable
-          title="Section 2"
-          subsection={["Section Title", "Body Text", "Sponsor Image Gallery"]}
-          textbox={[
-            "Our Community Sponsors",
+            "Volunteer With Us",
             "Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi.",
           ]}
         />
@@ -39,39 +31,6 @@ export default function Dashboard() {
           <Button text="Save" />
         </div>
       </div>
-
-      {/* <div className={styles.gridContainer}>
-        <PageEditorCard
-          imageURI="/impact_bg.png"
-          url="/dashboard"
-          title="Home"
-          last_updated="Month XX, XXXX, XX:XX"
-        />
-        <PageEditorCard
-          imageURI="/impact_bg.png"
-          url="/dashboard"
-          title="About Us"
-          last_updated="Month XX, XXXX, XX:XX"
-        />
-        <PageEditorCard
-          imageURI="/impact_bg.png"
-          url="/dashboard"
-          title="Get Involved"
-          last_updated="Month XX, XXXX, XX:XX"
-        />
-        <PageEditorCard
-          imageURI="/impact_bg.png"
-          url="/dashboard"
-          title="Our Impact"
-          last_updated="Month XX, XXXX, XX:XX"
-        />
-        <PageEditorCard
-          imageURI="/impact_bg.png"
-          url="/dashboard"
-          title="Donate"
-          last_updated="Month XX, XXXX, XX:XX"
-        />
-      </div> */}
     </main>
   );
 }
