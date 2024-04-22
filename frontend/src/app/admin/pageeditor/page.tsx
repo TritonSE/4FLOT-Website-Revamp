@@ -1,12 +1,60 @@
-// Admin Page Editor landing page
-import styles from "./page.module.css";
+// // Admin Page Editor landing page
+// import styles from "./page.module.css";
+import React, { useState } from "react";
 
 import PageEditorCard from "@/components/PageEditorCard";
 
 export default function Dashboard() {
+  const [isEdited, setIsEdited] = useState(false);
+
+  const handleEdit = () => {
+    if (!isEdited) setIsEdited(true);
+  };
+
+  const handleSave = () => {
+    // Implement save logic
+    console.log("Save changes");
+  };
+
+  const handleCancel = () => {
+    // Implement cancel logic
+    console.log("Cancel changes");
+  };
+
   return (
     <main className={styles.page}>
-      <div className={styles.gridContainer}>
+      <div className={styles.sectionContainer}>
+        <Collapsable
+          title="Page Header"
+          subsection={["Subtitle", "Header Image Carousel"]}
+          textbox={[
+            "4FLOT is committed in preventing and ending homelessness, hunger and disparity in underprivileged communities.",
+            "",
+          ]}
+        />
+        <Collapsable
+          title="Section 1"
+          subsection={["Section Title", "Body Text"]}
+          textbox={[
+            "4FLOT is committed in preventing and ending homelessness, hunger and disparity in underprivileged communities.",
+            "Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi.",
+          ]}
+        />
+        <Collapsable
+          title="Section 2"
+          subsection={["Section Title", "Body Text", "Sponsor Image Gallery"]}
+          textbox={[
+            "4FLOT is committed in preventing and ending homelessness, hunger and disparity in underprivileged communities.",
+            "Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi.",
+          ]}
+        />
+        <div className={styles.buttonContainer}>
+          <Button text="Cancel"></Button>
+          <Button text="Save" />
+        </div>
+      </div>
+
+      {/* <div className={styles.gridContainer}>
         <PageEditorCard
           imageURI="/impact_bg.png"
           url="/dashboard"
@@ -37,7 +85,7 @@ export default function Dashboard() {
           title="Donate"
           last_updated="Month XX, XXXX, XX:XX"
         />
-      </div>
+      </div> */}
     </main>
   );
 }
