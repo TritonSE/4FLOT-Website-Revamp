@@ -1,8 +1,10 @@
+"use client";
 // Admin Page Editor landing page
 import styles from "./page.module.css";
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 import Button from "@/components/Button";
+import CancelButton from "@/components/CancelButton";
 import Collapsable from "@/components/Collapsable";
 import PageToggle from "@/components/PageToggle";
 
@@ -16,12 +18,12 @@ export default function Dashboard() {
 
   const handleSave = () => {
     // Implement save logic
-    console.log('Save changes');
+    console.log("Save changes");
   };
 
   const handleCancel = () => {
     // Implement cancel logic
-    console.log('Cancel changes');
+    console.log("Cancel changes");
   };
 
   return (
@@ -49,7 +51,7 @@ export default function Dashboard() {
           ]}
         />
         <div className={styles.buttonContainer}>
-          <Button text="Cancel" />
+          <CancelButton text="Cancel" />
           <Button text="Save" />
         </div>
       </div>
