@@ -8,7 +8,7 @@
   border: none;
   text-align: left;
   outline: none;
-  font-size: 16px;
+  font: var(--font-body-reg);
 
   display: flex;
   direction: row;
@@ -17,16 +17,16 @@
 }
 
 .content {
-  padding: 0px 32px;
+  padding: 16px 32px 0px;
   background-color: #ffffff;
-}
-.content div {
-  margin-bottom: 14px;
+  color: #484848;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
 .subtitle {
-  color: #484848;
-  margin-bottom: 10px;
+  margin-bottom: 2px;
 }
 
 .basicInput {

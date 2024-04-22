@@ -2,17 +2,24 @@
 import styles from "./page.module.css";
 
 import Button from "@/components/Button";
+import CancelButton from "@/components/CancelButton";
 import Collapsable from "@/components/Collapsable";
-import CancelButton from "@/components/CancelButton"
+import PageToggle from "@/components/PageToggle";
+
 // import PageEditorCard from "@/components/PageEditorCard";
 
 export default function Dashboard() {
   return (
     <main className={styles.page}>
+      <PageToggle
+        pages={["Get Involved", "Upcoming Events"]}
+        links={["./involved", "./events"]}
+        currPage={0}
+      />
       <div className={styles.sectionContainer}>
         <Collapsable
           title="Page Header"
-          subsection={["Subtitle", "Header Image Carousel"]}
+          subsection={["Subtitle", "Header Image"]}
           textbox={[
             "4FLOT is committed in preventing and ending homelessness, hunger and disparity in underprivileged communities.",
             "",
@@ -33,8 +40,8 @@ export default function Dashboard() {
           ]}
         />
         <div className={styles.buttonContainer}>
-          <CancelButton text="Cancel"></CancelButton> 
-          <Button text="Save"></Button> 
+          <CancelButton text="Cancel"></CancelButton>
+          <Button text="Save"></Button>
         </div>
       </div>
     </main>

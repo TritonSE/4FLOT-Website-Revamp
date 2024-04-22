@@ -11,7 +11,7 @@ type CollapsableProps = {
 };
 
 const Collapsable = ({ title, subsection, textbox }: CollapsableProps) => {
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(true);
 
   const toggleSection = () => {
     setOpen(!open);
