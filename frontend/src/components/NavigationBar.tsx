@@ -1,39 +1,41 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import styles from "./NavigationBar.module.css";
 
 const NavigationBar = () => {
+  const [activeMenu, setActiveMenu] = useState<string>("Dashboard");
+
   /**
    * Upon page load, display correct text for navigation bar
    * depending on website url
    */
-  const handleLoad = () => {
-    if (typeof window !== "undefined") {
-      // if browser code, window is defined
-      if (window.location.pathname === "/admin/dashboard") {
-        return "Dashboard";
-      } else if (window.location.pathname === "/admin/eventcreator") {
-        return "Event Creator";
-      } else if (window.location.pathname === "/admin/pageeditor") {
-        return "Page Editor";
-      } else if (window.location.pathname === "/admin/newslettercreator") {
-        return "Newsletter Creator";
-      } else if (window.location.pathname === "/admin/mailinglist") {
-        return "Mailing List";
-      } else if (window.location.pathname === "/admin/settings") {
-        return "Settings";
+  useEffect(() => {
+    const handleLoad = () => {
+      if (typeof window !== "undefined") {
+        if (window.location.pathname === "/admin/dashboard") {
+          return "Dashboard";
+        } else if (window.location.pathname === "/admin/eventcreator") {
+          return "Event Creator";
+        } else if (window.location.pathname === "/admin/pageeditor") {
+          return "Page Editor";
+        } else if (window.location.pathname === "/admin/newslettercreator") {
+          return "Newsletter Creator";
+        } else if (window.location.pathname === "/admin/mailinglist") {
+          return "Mailing List";
+        } else if (window.location.pathname === "/admin/settings") {
+          return "Settings";
+        } else {
+          return "";
+        }
       } else {
-        return "";
+        return "Dashboard";
       }
-    } else {
-      return "Dashboard";
-    }
-  };
-
-  const [activeMenu, setActiveMenu] = useState<string>(handleLoad());
+    };
+    setActiveMenu(handleLoad());
+  }, []); // Run only once on initial render
 
   /* Upon clicking purple sidebar to new page, update navigation bar */
   const handleOnClick = (menuDiv: string) => {
