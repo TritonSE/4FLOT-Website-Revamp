@@ -1,20 +1,28 @@
-.rectangleContainer {
+.card {
+  display: flex;
+  flex-direction: row;
+  width: 1238px;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.rectangleContainerLeft {
   width: 1060px;
   height: 427px;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
+  margin-right: auto;
 }
 
-.contentRightImgContainer {
-  display: flex;
-  flex-direction: row;
-}
-
-.imgContainer {
-  width: 1140px;
-  height: 3152px;
+.rectangleContainerRight {
+  width: 1060px;
+  height: 427px;
+  background-color: white;
   border-radius: 10px;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
+  margin-left: auto;
 }
 
 .contentRight {
@@ -60,4 +68,24 @@
   font-style: normal;
   font-weight: 400;
   line-height: 24px; /* 150% */
+}
+
+.imageContainerRight {
+  position: absolute;
+  right: 0;
+  width: 526px;
+  height: 368px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+}
+
+.imageContainerLeft {
+  position: absolute;
+  left: 0;
+  width: 526px;
+  height: 368px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
 }
