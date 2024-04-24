@@ -32,7 +32,7 @@ export default function DonationSelector({ monetary, setMonetary }: DonationSele
       </div>
       <div className="hidden sm:block">
         <div
-          className="isolate flex divide-x divide-gray-200 rounded-lg border border-gray-300 border-2"
+          className="isolate flex divide-x divide-gray-200 rounded-lg border-gray-300 border-2"
           aria-label="Donation type"
           style={{ height: "75px" }}
         >
