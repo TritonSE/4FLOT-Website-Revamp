@@ -39,7 +39,7 @@ export default function AmountPicker({ onAmountChange }: AmountPickerProps) {
   };
 
   return (
-    <fieldset className="p-4 rounded-lg shadow-md bg-white">
+    <fieldset className="p-4 rounded-lg  bg-white">
       <legend className="text-lg font-semibold mb-4">Select your donation amount:</legend>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {[5.0, 20.0, 100.0].map((amount, index) => (

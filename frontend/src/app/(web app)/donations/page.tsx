@@ -17,7 +17,7 @@ export default function App() {
         />
         <div className="absolute top-0 left-0 w-full h-full bg-black opacity-40"></div>
       </div>
-      <DonateApp className="absolute left-1/2 top-48 transform -translate-x-1/2" />
+      <DonateApp className="absolute left-1/3 top-48 transform -translate-x-1/2" />
     </>
   );
 }

@@ -36,7 +36,7 @@ const PhysicalDonationForm = ({ setSuccess }: PhysicalDonationFormProps) => {
   return (
     <form className="PhysicalDonationForm" onSubmit={handleSubmit}>
       <div className="space-y-12">
-        <div className="border-b border-gray-900/10 pb-12">
+        <div className="border-gray-900/10 pb-5">
           <h2 className="text-base text-black font-bold leading-7 tracking-wide pb-2">
             To send us physical donations, please read the following guidelines and fill out your
             information below:
@@ -52,7 +52,17 @@ const PhysicalDonationForm = ({ setSuccess }: PhysicalDonationFormProps) => {
 
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
             <div className="sm:col-span-3">
-              <label className="block text-sm font-medium leading-6 text-gray-900">
+              <label
+                className="block text-sm font-medium leading-6 text-gray-900"
+                style={{
+                  fontFamily: "Open Sans, sans-serif",
+                  fontSize: "16px",
+                  fontStyle: "normal",
+                  fontWeight: 350,
+                  lineHeight: "24px",
+                  color: "#484848",
+                }}
+              >
                 First name
               </label>
               <div className="mt-2">
@@ -70,7 +80,19 @@ const PhysicalDonationForm = ({ setSuccess }: PhysicalDonationFormProps) => {
             </div>
 
             <div className="sm:col-span-3">
-              <label className="block text-sm font-medium leading-6 text-gray-900">Last name</label>
+              <label
+                className="block text-sm font-medium leading-6 text-gray-900"
+                style={{
+                  fontFamily: "Open Sans, sans-serif",
+                  fontSize: "16px",
+                  fontStyle: "normal",
+                  fontWeight: 350,
+                  lineHeight: "24px",
+                  color: "#484848",
+                }}
+              >
+                Last name
+              </label>
               <div className="mt-2">
                 <input
                   type="text"
@@ -86,7 +108,17 @@ const PhysicalDonationForm = ({ setSuccess }: PhysicalDonationFormProps) => {
             </div>
 
             <div className="sm:col-span-6">
-              <label className="block text-sm font-medium leading-6 text-gray-900">
+              <label
+                className="block text-sm font-medium leading-6 text-gray-900"
+                style={{
+                  fontFamily: "Open Sans, sans-serif",
+                  fontSize: "16px",
+                  fontStyle: "normal",
+                  fontWeight: 350,
+                  lineHeight: "24px",
+                  color: "#484848",
+                }}
+              >
                 Email address
               </label>
               <div className="mt-2">
@@ -104,7 +136,17 @@ const PhysicalDonationForm = ({ setSuccess }: PhysicalDonationFormProps) => {
             </div>
 
             <div className="sm:col-span-6">
-              <label className="block text-sm font-medium leading-6 text-gray-900">
+              <label
+                className="block text-sm font-medium leading-6 text-gray-900"
+                style={{
+                  fontFamily: "Open Sans, sans-serif",
+                  fontSize: "16px",
+                  fontStyle: "normal",
+                  fontWeight: 350,
+                  lineHeight: "24px",
+                  color: "#484848",
+                }}
+              >
                 Phone number
               </label>
               <div className="mt-2">
@@ -122,7 +164,17 @@ const PhysicalDonationForm = ({ setSuccess }: PhysicalDonationFormProps) => {
             </div>
 
             <div className="col-span-full">
-              <label className="block text-sm font-medium leading-6 text-gray-900">
+              <label
+                className="block text-sm font-medium leading-6 text-gray-900"
+                style={{
+                  fontFamily: "Open Sans, sans-serif",
+                  fontSize: "16px",
+                  fontStyle: "normal",
+                  fontWeight: 350,
+                  lineHeight: "24px",
+                  color: "#484848",
+                }}
+              >
                 Leave a Comment:
               </label>
               <div className="mt-2">
@@ -143,7 +195,15 @@ const PhysicalDonationForm = ({ setSuccess }: PhysicalDonationFormProps) => {
         <div className="mt-6 flex items-center justify-center gap-x-6">
           <button
             type="submit"
-            className="rounded-md bg-[#694C97] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#7b61a3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7b61a3]"
+            className="rounded-md bg-[#694C97] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#7b61a3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7b61a3] w-full"
+            style={{
+              fontFamily: "Open Sans, sans-serif",
+              fontSize: "18px",
+              fontStyle: "normal",
+              fontWeight: 700,
+              lineHeight: "150%", // 30px
+              letterSpacing: "0.8px",
+            }}
           >
             Submit Donation
           </button>

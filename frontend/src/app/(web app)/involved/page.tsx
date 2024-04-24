@@ -44,7 +44,7 @@ export default function Involved() {
           />
           <WhiteCard
             imageUrl="/group.svg"
-            buttonUrl="/donate"
+            buttonUrl="/donations"
             buttonText="Learn More"
             title="Donate"
             description="Your support and contributions will enable us to meet our goals and improve conditions. Your generous donation will fund our mission."

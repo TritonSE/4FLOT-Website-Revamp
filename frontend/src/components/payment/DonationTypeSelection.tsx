@@ -12,7 +12,7 @@ export default function DonationSelector({ monetary, setMonetary }: DonationSele
   // true => Monetary, false => Physical
 
   return (
-    <div className="py-4">
+    <div className="py-8">
       <div className="sm:hidden">
         <label htmlFor="donation-type" className="sr-only">
           Select donation type
@@ -32,19 +32,28 @@ export default function DonationSelector({ monetary, setMonetary }: DonationSele
       </div>
       <div className="hidden sm:block">
         <div
-          className="isolate flex divide-x divide-gray-200 rounded-lg shadow"
+          className="isolate flex divide-x divide-gray-200 rounded-lg border border-gray-300 border-2"
           aria-label="Donation type"
+          style={{ height: "75px" }}
         >
           <button
             key="monetary"
             className={classNames(
               monetary
                 ? "text-white font-bold"
-                : "text-gray-500 hover:text-gray-700 bg-white font-medium",
+                : "text-black hover:text-gray-700 bg-white font-medium",
               "group relative min-w-0 flex-1 overflow-hidden rounded-l-lg p-4 text-center text-sm hover:bg-gray-50 focus:z-10 cursor-pointer",
             )}
             onClick={() => {
               setMonetary(true);
+            }}
+            style={{
+              fontFamily: "Open Sans, sans-serif",
+              fontSize: "20px",
+              fontStyle: "normal",
+              fontWeight: 400,
+              lineHeight: "150%", // 30px
+              letterSpacing: "0.8px",
             }}
           >
             <span className="relative z-20 cursor-pointer">Monetary</span>
@@ -62,11 +71,19 @@ export default function DonationSelector({ monetary, setMonetary }: DonationSele
             className={classNames(
               !monetary
                 ? "text-white font-bold"
-                : "text-gray-500 hover:text-gray-700 bg-white font-medium",
+                : "text-black hover:text-gray-700 bg-white font-medium",
               "group relative min-w-0 flex-1 overflow-hidden rounded-r-lg p-4 text-center text-sm hover:bg-gray-50 focus:z-10 cursor-pointer",
             )}
             onClick={() => {
               setMonetary(false);
+            }}
+            style={{
+              fontFamily: "Open Sans, sans-serif",
+              fontSize: "20px",
+              fontStyle: "normal",
+              fontWeight: 400,
+              lineHeight: "150%", // 30px
+              letterSpacing: "0.4px",
             }}
           >
             <span className="relative z-20 cursor-pointer">Physical</span>

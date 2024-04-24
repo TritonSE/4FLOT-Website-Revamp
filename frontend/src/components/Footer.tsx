@@ -28,7 +28,7 @@ const Footer = () => {
     testimonials: "/testimonials",
     ourTeam: "/team",
     contactUs: "/contact",
-    donate: "/donate",
+    donate: "/donations",
     newsletter: "/newsletter",
   };
 
