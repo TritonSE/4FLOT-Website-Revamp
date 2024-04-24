@@ -1,0 +1,100 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto+Slab:wght@100..900&display=swap");
+
+.cardContainer {
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+}
+
+.cardContainer img {
+  border-radius: 10px 10px 0px 0px;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  padding-top: 24px;
+  padding-left: 29px;
+  padding-right: 29px;
+}
+
+.homeCardContent {
+  height: 290px;
+  gap: 10px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  padding-left: 29px;
+  padding-right: 29px;
+}
+
+.cardTitle {
+  font: var(--font-title-m);
+  text-align: left;
+}
+
+.homeCardDescription {
+  font: var(--font-body-reg);
+  font-size: 14px;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 32px;
+}
+
+.cardDescription {
+  font: var(--font-body-reg);
+  height: 72px;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.homeCardButton {
+  width: 100%;
+  height: 48px;
+  border-radius: 4px;
+
+  background: var(--color-secondary-blue);
+
+  font: var(--font-body);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 30px */
+  letter-spacing: 0.4px;
+  color: white;
+  padding-bottom: 50px;
+}
+
+.homeCardButton:hover {
+  background: var(--color-secondary-blue-hover);
+}
+
+.cardButton {
+  width: 100%;
+  height: 48px;
+  border-radius: 4px;
+
+  background: var(--color-secondary-blue);
+
+  font: var(--font-body);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 30px */
+  letter-spacing: 0.4px;
+  color: white;
+}
+
+.cardButton:hover {
+  background: var(--color-secondary-blue-hover);
+}
