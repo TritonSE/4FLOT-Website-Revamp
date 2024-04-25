@@ -12,17 +12,7 @@
   justify-content: space-between;
   max-width: 100%;
   margin-top: 50px;
-  margin-left: 100px;
+  margin-left: 140px;
+  margin-bottom: 50px;
   gap: 50px;
-}
-
-.cancelButton {
-  background-color: #694c97;
-  color: white;
-  border: 2px #694c97;
-}
-
-.saveButton {
-  background-color: white;
-  color: #694c97;
 }
