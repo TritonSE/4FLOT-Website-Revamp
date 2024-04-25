@@ -5,19 +5,26 @@ import {
   GridColDef,
   GridEventListener,
   GridRowClassNameParams,
+  GridCellParams,
   GridRowId,
+  GridRowModel,
 } from "@mui/x-data-grid";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-
 import styles from "./page.module.css";
-
 import AlertBanner from "@/components/AlertBanner";
 import EmailCopyBtn from "@/components/EmailCopyBtn";
 import RowCopyBtn from "@/components/RowCopyBtn";
 import RowDeleteBtn from "@/components/RowDeleteBtn";
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import { getAllMailingListEntries,MailingListEntries,deleteMailingListEntry } from '@/api/mailinglistentries'; // Import your MailingListEntry type
+
+
+
 
 export default function MailingList() {
+
   const columns: GridColDef<(typeof rows)[number]>[] = [
     {
       field: "lastName",
@@ -68,135 +75,65 @@ export default function MailingList() {
       renderHeader: () => (
         <div style={{ display: "flex", alignItems: "center" }}>
           <div style={{ marginRight: "180px" }}>Email</div>
-          <EmailCopyBtn onClick={handleCopyEmails} />
+          <EmailCopyBtn onClick={handleCopyEmails} onHover={handleEmailHover}/>
         </div>
       ),
     },
   ];
 
-  const rows = [
-    {
-      id: 1,
-      lastName: "Snow",
-      firstName: "Jon",
-      memberSince: "2021-10-10",
-      email: "tsejenny4flot@gmail.com",
-    },
-    {
-      id: 2,
-      lastName: "Lannister",
-      firstName: "Cersei",
-      memberSince: "2021-10-10",
-      email: "tsekev4flot@gmail.com",
-    },
-    {
-      id: 3,
-      lastName: "Lannister",
-      firstName: "Jaime",
-      memberSince: "2021-10-10",
-      email: "tsesophia4flot@gmail.com",
-    },
-    {
-      id: 4,
-      lastName: "Stark",
-      firstName: "Arya",
-      memberSince: "2021-10-10",
-      email: "tsejen4flot@gmail.com",
-    },
-    {
-      id: 5,
-      lastName: "Targaryen",
-      firstName: "Daenerys",
-      memberSince: "2021-10-10",
-      email: "tsekevin4flot@gmail.com",
-    },
-    {
-      id: 6,
-      lastName: "Melisandre",
-      firstName: "bacad",
-      memberSince: "2021-10-10",
-      email: "tsesophia4flot@gmail.com",
-    },
-    {
-      id: 7,
-      lastName: "Clifford",
-      firstName: "Ferrara",
-      memberSince: "2021-10-10",
-      email: "tseabc4flot@gmail.com",
-    },
-    {
-      id: 8,
-      lastName: "Frances",
-      firstName: "Rossini",
-      memberSince: "2021-10-10",
-      email: "tsevaia4flot@gmail.com",
-    },
-    {
-      id: 9,
-      lastName: "Roxie",
-      firstName: "Harvey",
-      memberSince: "2021-10-10",
-      email: "tsebcdadf4flot@gmail.com",
-    },
-    {
-      id: 10,
-      lastName: "Melisandre",
-      firstName: "konichiwa",
-      memberSince: "2021-10-10",
-      email: "tsesophia4flot@gmail.com",
-    },
-    {
-      id: 11,
-      lastName: "Clifford",
-      firstName: "Ferrara",
-      memberSince: "2021-10-10",
-      email: "tseabc4flot@gmail.com",
-    },
-    {
-      id: 12,
-      lastName: "Frances",
-      firstName: "Rossini",
-      memberSince: "2021-10-10",
-      email: "tsevaia4flot@gmail.com",
-    },
-    {
-      id: 13,
-      lastName: "Roxie",
-      firstName: "Harvey",
-      memberSince: "2021-10-10",
-      email: "tsebcdadf4flot@gmail.com",
-    },
-    {
-      id: 14,
-      lastName: "Melisandre",
-      firstName: "bakakaka",
-      memberSince: "2021-10-10",
-      email: "tsesophia4flot@gmail.com",
-    },
-    {
-      id: 15,
-      lastName: "Clifford",
-      firstName: "Ferrara",
-      memberSince: "2021-10-10",
-      email: "tseabc4flot@gmail.com",
-    },
-    {
-      id: 16,
-      lastName: "Frances",
-      firstName: "Rossini",
-      memberSince: "2021-10-10",
-      email: "tsevaia4flot@gmail.com",
-    },
-    {
-      id: 17,
-      lastName: "Roxie",
-      firstName: "Harvey",
-      memberSince: "2021-10-10",
-      email: "tsebcdadf4flot@gmail.com",
-    },
-  ];
+  const [rows, setRow] = useState<MailingListEntries[]>([]);
 
-  const [selectedRow, setSelectedRow] = React.useState<GridRowId | null>(null);
+  useEffect(() => {
+    getAllMailingListEntries()
+      .then(result => {
+        if (result.success) {
+          console.log('Data:', result.data); // Log the data
+          setRow(result.data);
+        } else {
+          console.error('ERROR:', result.error); // Log any errors
+        }
+      });
+  }, []);
+
+
+  const [rowsCurrent, setRowsCurrent] = React.useState(rows);
+
+  const [searchTerm, setSearchTerm] = React.useState<string>("");
+  const [filteredRows, setRows] = useState<{ id: number; lastName: string; firstName: string; memberSince: string; email: string; }[]>([]);
+
+  const handleEmailHover = (hovering: boolean) => {
+    if (hovering) {
+      setHover(true);
+    } else {
+      setHover(false);
+    }
+  };
+
+  const handleSearch = () => {
+    const searchTerms = searchTerm.toLowerCase().split(' ');
+  
+    let filteredRows = rows.filter((row) => {
+      const firstName = row.firstName.toLowerCase();
+      const lastName = row.lastName.toLowerCase();
+  
+      return searchTerms.every((term) => firstName.includes(term) || lastName.includes(term));
+    });
+  
+    if (filteredRows.length !== rows.length) {
+      setRowsCurrent(filteredRows);
+    }
+  
+
+    if (searchTerm === "") {
+      setRowsCurrent(rows);
+    }
+  
+    console.log("filteredRows:", rowsCurrent);
+  };
+  const [alertType, setAlertType] = useState("");
+  const [hover, setHover] = useState(false);
+  const [selectedRow, setSelectedRow] = useState<GridRowId | null>(null);
+
 
   const handleCellClick: GridEventListener<"rowClick"> = (
     params, // GridRowParams
@@ -204,12 +141,27 @@ export default function MailingList() {
     setSelectedRow(params.id === selectedRow ? null : params.id);
   };
 
+
+  const getCellClassName = (params: GridCellParams) => {
+    let colClasses = "";
+    if (params.colDef.field === "email" && hover) {
+      colClasses += ` ${styles.selectedCol}`;
+      if (params.id === 2) {
+        colClasses += ` ${styles.selectedColStart}`;
+      }
+      if (params.id === 14) {
+        colClasses += ` ${styles.selectedColEnd}`;
+      }
+    }
+    return colClasses;
+  };
+
   const getRowClassName = (params: GridRowClassNameParams) => {
     let rowClasses = "";
-
+  
     // Add alternating row colors
-    rowClasses += params.indexRelativeToCurrentPage % 2 === 0 ? "evenRow" : "oddRow";
-
+    rowClasses += params.indexRelativeToCurrentPage % 2 === 0 ? styles.evenRow : styles.oddRow;
+  
     // Add border to the selected row
     if (selectedRow === params.id) {
       rowClasses += ` ${styles.selectedRow}`;
@@ -230,6 +182,7 @@ export default function MailingList() {
     navigator.clipboard
       .writeText(emailsToCopy())
       .then(() => {
+        setAlertType("copyEmails");
         setShowAlert(true);
       })
       .catch((error) => {
@@ -238,13 +191,18 @@ export default function MailingList() {
       });
   };
 
+  const selectedRowContents = rows.find((row) => row.id === selectedRow);
+  const email = selectedRowContents !== undefined ? selectedRowContents.email : "";
+
   const handleCopyRow = () => {
     const rowToCopy = () => {
       return "TODO: implement copying the current row selection";
     };
     navigator.clipboard
-      .writeText(rowToCopy())
+      
+      .writeText(email)
       .then(() => {
+        setAlertType("copyRow");
         setShowAlert(true);
       })
       .catch((error) => {
@@ -254,10 +212,46 @@ export default function MailingList() {
   };
 
   const handleDeleteRow = () => {
-    console.log("TODO: implement delete row");
+    if (selectedRow !== null) {
+      const selectedRowData = rows.find((row) => row.id === selectedRow);
+      if (selectedRowData) {
+        // Store a copy of the row data before deletion
+        const deletedRowCopy = { ...selectedRowData };
+
+        
+        // Make an API call to delete the row
+        console.log("selectedRowData:", selectedRowData._id);
+        deleteMailingListEntry(selectedRowData._id)
+          .then((response) => {
+            if (response.success) {
+              // Remove the deleted row from the local state
+              setRow((prevRows) => prevRows.filter((row) => row.id !== selectedRow));
+              
+              // Optionally, show an alert/banner indicating successful deletion
+              setAlertType("deleteRow");
+              setShowAlert(true);
+            } else {
+              // Handle error response from API
+              console.error("Error deleting row:", response.error);
+              // Optionally, show an error message
+            }
+          })
+          .catch((error) => {
+            console.error("Error deleting row:", error);
+            // Optionally, show an error message
+          });
+      }
+    }
+  };
+  
+  const handleUndoDelete = () => {
+    alert("TODO: implement undo delete (need backend to be completed first)");
+    setAlertType("");
+    setShowAlert(false);
   };
 
   const handleCloseAlert = () => {
+    setAlertType("");
     setShowAlert(false);
   };
 
@@ -278,36 +272,118 @@ export default function MailingList() {
     }
   };
 
+  const alertContent = () => {
+    switch (alertType) {
+      case "copyEmails":
+        return {
+          text: "Emails copied to clipboard",
+          icon: "/copy_icon_dark.svg",
+        };
+      case "copyRow":
+        return { text: "Contact copied", icon: "/copy_icon_dark.svg" };
+      case "deleteRow":
+        return { text: "Contact deleted", icon: "/trash_icon_dark.svg", undo: handleUndoDelete };
+      default:
+        alert("Error: Unknown alert type");
+        return { text: "", icon: "" };
+    }
+  };
+
+
+  React.useEffect(() => {
+    handleSearch();}); 
+
   return (
     <Box sx={{ height: 720, width: 1119 }}>
       {showAlert && (
         <AlertBanner
-          text="Copied to clipboard"
-          img="/copy_icon_dark.svg"
+          text={alertContent().text}
+          img={alertContent().icon}
+          undo={alertContent().undo}
           onClose={handleCloseAlert}
         />
       )}
-      <Box sx={{ my: 5, display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
-        {selectedRow !== null && <RowCopyBtn onClick={handleCopyRow} />}
-        {selectedRow !== null && <RowDeleteBtn onClick={handleDeleteRow} />}
-        <div>
-          <h4>Insert search bar</h4>
+      <Box sx={{ 
+        my: 5, 
+        display: "flex", 
+        flexDirection: "row", 
+        justifyContent: "flex-end", 
+        alignItems: "center" 
+      }}>
+        <div style={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          gap: '8px' 
+        }}>
+          {selectedRow !== null && <RowCopyBtn onClick={handleCopyRow} />}
+          {selectedRow !== null && <RowDeleteBtn onClick={handleDeleteRow} />}
+          <div style={{ 
+            display: 'flex', 
+            width: '256px', 
+            padding: '8px', 
+            alignItems: 'center', 
+            gap: '8px', 
+            borderRadius: '4px', 
+            border: '1px solid #D8D8D8', 
+            background: '#FFF', 
+            position: 'relative', 
+            marginLeft: '16px',
+          }}>
+            <input
+              type="text"
+              placeholder="Search By Name..."
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+                console.log("searchTerm:", e.target.value);
+                // handleSearch();
+              }}
+              style={{ 
+                paddingLeft: '30px', 
+                border: 'none', 
+                flex: '1',
+                color: '#484848',
+                fontFamily: 'Open Sans',
+                fontSize: '16px',
+                fontStyle: 'normal',
+                fontWeight: '400',
+                lineHeight: '24px'
+              }} // Make room for the image
+            />
+            <img 
+              src="/ic_search.png" 
+              alt="search icon" 
+              style={{ 
+                position: 'absolute', 
+                left: '8px', 
+                top: '50%', 
+                transform: 'translateY(-50%)', 
+                height: '20px', 
+                width: '20px' 
+              }} 
+            />
+          </div>
         </div>
       </Box>
       <DataGrid
         columns={columns}
-        rows={rows.slice((currentPage - 1) * 14, currentPage * 14)}
+        rows={rowsCurrent.slice((currentPage - 1) * 14, currentPage * 14)}
         autoHeight
         rowHeight={48}
         hideFooter
         rowSelectionModel={selectedRow !== null ? [selectedRow] : []}
         onCellClick={handleCellClick}
-        getRowClassName={getRowClassName}
+        getRowClassName={getRowClassName} // Here's where you pass the function
+        getCellClassName={getCellClassName}
         initialState={{
           pagination: {
             paginationModel: {
               pageSize: 14, // Set page size
             },
+          },
+        }}
+        sx={{
+          "& .MuiDataGrid-row:hover": {
+            background: "rgba(105, 76, 151, 0.05)",
           },
         }}
         disableRowSelectionOnClick

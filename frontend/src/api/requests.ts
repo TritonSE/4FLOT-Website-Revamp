@@ -1,4 +1,4 @@
-type Method = "GET" | "POST" | "PUT";
+type Method = "GET" | "POST" | "PUT" | "DELETE";
 
 /**
  * The first part of the backend API URL, which we will automatically prepend to
@@ -82,6 +82,14 @@ export async function get(url: string, headers: Record<string, string> = {}): Pr
   return response;
 }
 
+
+export async function deletedEntry(url: string, headers: Record<string, string> = {}): Promise<Response> {
+  const response = await fetchRequest("DELETE", API_BASE_URL + url, undefined, headers);
+  console.log("been here ahha");
+  await assertOk(response);
+  return response;
+}
+
 /**
  * Sends a POST request to the provided API URL.
  *
@@ -158,3 +166,4 @@ export function handleAPIError(error: unknown): APIError {
   }
   return { success: false, error: `Unknown error: ${String(error)}` };
 }
+

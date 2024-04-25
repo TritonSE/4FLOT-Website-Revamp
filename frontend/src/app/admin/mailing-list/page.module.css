@@ -31,4 +31,17 @@
 .selectedRow {
   border-radius: 5px;
   box-shadow: inset 0 0 0 2px #bda7e0;
+  box-shadow: inset 0 0.5px 0 2px #bda7e0;
+  
+}
+.selectedCol {
+  background: rgba(105, 76, 151, 0.05);
+}
+
+.evenRow {
+  background-color: #ffffff; /* White color for even rows */
+}
+
+.oddRow {
+  background-color: #f8f5fb; /* #F8F5FB color for odd rows */
 }

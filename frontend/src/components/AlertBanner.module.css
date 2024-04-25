@@ -30,8 +30,24 @@
   background: none;
   border: none;
   cursor: pointer;
-}
+  font-size: 0;
 
+}
 .hidden {
   display: none;
+}
+
+
+.undoButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: var(--font-body);
+  margin-right: 6px;
+}
+
+.rightElems {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
