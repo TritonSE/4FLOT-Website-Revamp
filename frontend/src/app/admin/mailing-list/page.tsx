@@ -140,9 +140,8 @@ export default function MailingList() {
       );
     });
 
-    if (filteredRows.length !== rows.length) {
-      setRowsCurrent(filteredRows);
-    }
+    setCurrentPage(1);
+    setRowsCurrent(filteredRows);
   };
 
   const handleCellClick: GridEventListener<"rowClick"> = (params) => {
@@ -288,161 +287,170 @@ export default function MailingList() {
   };
 
   return (
-    <Box sx={{ height: 720, width: 1119 }}>
-      {showAlert && (
-        <AlertBanner
-          text={alertContent().text}
-          img={alertContent().icon}
-          undo={alertContent().undo}
-          onClose={handleCloseAlert}
-        />
-      )}
-      <Box
-        sx={{
-          my: 5,
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "flex-end",
-          alignItems: "center",
-        }}
-      >
-        <div
-          style={{
+    <div className={styles.page}>
+      <Box sx={{ height: 720, width: 1119 }}>
+        {showAlert && (
+          <AlertBanner
+            text={alertContent().text}
+            img={alertContent().icon}
+            undo={alertContent().undo}
+            onClose={handleCloseAlert}
+          />
+        )}
+        <Box
+          sx={{
+            my: 5,
             display: "flex",
+            flexDirection: "row",
+            justifyContent: "flex-end",
             alignItems: "center",
-            gap: "8px",
           }}
         >
-          {selectedRow !== null && <RowCopyBtn onClick={handleCopyRow} />}
-          {selectedRow !== null && <RowDeleteBtn onClick={handleDeleteRow} />}
           <div
             style={{
               display: "flex",
-              width: "256px",
-              padding: "8px",
               alignItems: "center",
               gap: "8px",
-              borderRadius: "4px",
-              border: "1px solid #D8D8D8",
-              background: "#FFF",
-              position: "relative",
-              marginLeft: "16px",
             }}
           >
-            <input
-              type="text"
-              placeholder="Search By Name..."
-              onChange={(e) => {
-                handleSearch(e.target.value);
-                if (e.target.value === "") {
-                  setRowsCurrent(rows);
-                }
-              }}
+            {selectedRow !== null && <RowCopyBtn onClick={handleCopyRow} />}
+            {selectedRow !== null && <RowDeleteBtn onClick={handleDeleteRow} />}
+            <div
               style={{
-                paddingLeft: "30px",
-                border: "none",
-                flex: "1",
-                color: "#484848",
-                fontFamily: "Open Sans",
-                fontSize: "16px",
-                fontStyle: "normal",
-                fontWeight: "400",
-                lineHeight: "24px",
-              }} // Make room for the image
-            />
-            <img
-              src="/ic_search.png"
-              alt="search icon"
-              style={{
-                position: "absolute",
-                left: "8px",
-                top: "50%",
-                transform: "translateY(-50%)",
-                height: "20px",
-                width: "20px",
+                display: "flex",
+                width: "256px",
+                padding: "8px",
+                alignItems: "center",
+                gap: "8px",
+                borderRadius: "4px",
+                border: "1px solid #D8D8D8",
+                background: "#FFF",
+                position: "relative",
+                marginLeft: "16px",
               }}
-            />
+            >
+              <input
+                type="text"
+                placeholder="Search By Name..."
+                onChange={(e) => {
+                  handleSearch(e.target.value);
+                  if (e.target.value === "") {
+                    setRowsCurrent(rows);
+                  }
+                }}
+                style={{
+                  paddingLeft: "30px",
+                  border: "none",
+                  flex: "1",
+                  color: "#484848",
+                  fontFamily: "Open Sans",
+                  fontSize: "16px",
+                  fontStyle: "normal",
+                  fontWeight: "400",
+                  lineHeight: "24px",
+                }} // Make room for the image
+              />
+              <img
+                src="/ic_search.png"
+                alt="search icon"
+                style={{
+                  position: "absolute",
+                  left: "8px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  height: "20px",
+                  width: "20px",
+                }}
+              />
+            </div>
           </div>
-        </div>
-      </Box>
-      <DataGrid
-        columns={columns}
-        rows={rowsCurrent.slice((currentPage - 1) * 14, currentPage * 14)}
-        autoHeight
-        rowHeight={48}
-        hideFooter
-        rowSelectionModel={selectedRow !== null ? [selectedRow] : []}
-        onCellClick={handleCellClick}
-        getRowClassName={getRowClassName} // Here's where you pass the function
-        getCellClassName={getCellClassName}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 14, // Set page size
+        </Box>
+        <DataGrid
+          columns={columns}
+          rows={rowsCurrent.slice((currentPage - 1) * 14, currentPage * 14)}
+          autoHeight
+          rowHeight={48}
+          hideFooter
+          rowSelectionModel={selectedRow !== null ? [selectedRow] : []}
+          onCellClick={handleCellClick}
+          getRowClassName={getRowClassName} // Here's where you pass the function
+          getCellClassName={getCellClassName}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 14, // Set page size
+              },
             },
-          },
-        }}
-        sx={{
-          "& .MuiDataGrid-row:hover": {
-            background: "rgba(105, 76, 151, 0.05)",
-          },
-        }}
-        disableRowSelectionOnClick
-      />
-      <Box
-        sx={{ width: 245, height: 32, position: "relative", gap: 16, marginLeft: 53, marginTop: 5 }}
-      >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            fontFamily: "Open Sans",
-            fontWeight: 400,
-            fontSize: "16px",
-            lineHeight: "24px",
-            color: "#909090",
+          }}
+          sx={{
+            "& .MuiDataGrid-row:hover": {
+              background: "rgba(105, 76, 151, 0.05)",
+            },
+          }}
+          disableRowSelectionOnClick
+        />
+        <Box
+          sx={{
+            width: 245,
+            height: 80,
+            position: "relative",
+            gap: 16,
+            marginLeft: 53,
+            marginTop: 5,
           }}
         >
-          <Image
-            src="/ic_caretleft.svg" //
-            alt="Previous page"
-            width={24}
-            height={24}
-            className={styles.arrow}
-            onClick={handlePreviousPage}
-            style={{ marginRight: 15, opacity: currentPage === 1 ? 0.5 : 1 }} // Adjust opacity for disabled state
-          />
-          <span style={{ marginRight: "15px" }}>Page </span>
           <div
             style={{
-              display: "inline-block",
-              padding: "2px 11px",
-              margin: "0 5px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
               fontFamily: "Open Sans",
               fontWeight: 400,
               fontSize: "16px",
               lineHeight: "24px",
-              color: "#000000",
-              borderRadius: "4px",
-              border: "1px solid #D8D8D8",
+              color: "#909090",
             }}
           >
-            {currentPage}
+            <Image
+              src="/ic_caretleft.svg" //
+              alt="Previous page"
+              width={24}
+              height={24}
+              className={styles.arrow}
+              onClick={handlePreviousPage}
+              style={{ marginRight: 15, opacity: currentPage === 1 ? 0.5 : 1 }} // Adjust opacity for disabled state
+            />
+            <span style={{ marginRight: "15px" }}>Page </span>
+            <div
+              style={{
+                display: "inline-block",
+                padding: "2px 11px",
+                margin: "0 5px",
+                fontFamily: "Open Sans",
+                fontWeight: 400,
+                fontSize: "16px",
+                lineHeight: "24px",
+                color: "#000000",
+                borderRadius: "4px",
+                border: "1px solid #D8D8D8",
+              }}
+            >
+              {currentPage}
+            </div>
+            <span style={{ marginLeft: "15px" }}> of </span>
+            <span style={{ marginLeft: "15px" }}> {totalPages}</span>
+            <Image
+              src="/ic_caretright.svg"
+              alt="Next page"
+              width={24}
+              height={24}
+              className={styles.arrow}
+              onClick={handleNextPage}
+              style={{ marginLeft: 15, opacity: currentPage === totalPages ? 0.5 : 1 }} // Adjust opacity for disabled state
+            />
           </div>
-          <span style={{ marginLeft: "15px" }}> of </span>
-          <span style={{ marginLeft: "15px" }}> {totalPages}</span>
-          <Image
-            src="/ic_caretright.svg"
-            alt="Next page"
-            width={24}
-            height={24}
-            className={styles.arrow}
-            onClick={handleNextPage}
-            style={{ marginLeft: 15, opacity: currentPage === totalPages ? 0.5 : 1 }} // Adjust opacity for disabled state
-          />
-        </div>
+        </Box>
       </Box>
-    </Box>
+    </div>
   );
 }

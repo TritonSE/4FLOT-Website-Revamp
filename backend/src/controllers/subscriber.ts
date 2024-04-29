@@ -13,12 +13,24 @@ export const createSubscriber: RequestHandler = async (req, res, next) => {
   const errors = validationResult(req);
   const { email } = req.body;
 
+  let memSince;
+  if (req.body.memberSince) {
+    memSince = req.body.memberSince;
+  } else {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+    const day = String(currentDate.getDate()).padStart(2, "0");
+    memSince = `${year}-${month}-${day}`;
+  }
+
   try {
     validationErrorParser(errors);
     const subscriber = await Subscriber.create({
       email: email,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
+      memberSince: memSince,
       quarterlyUpdates: req.body.quarterlyUpdates,
       specialUpdates: req.body.specialUpdates,
     });

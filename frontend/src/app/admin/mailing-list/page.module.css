@@ -1,11 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&family=Roboto+Slab:wght@100..900&display=swap");
 
+.page {
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 282px;
+  padding-top: 22px;
+  padding-bottom: 50px;
+}
+
 .Headings {
   text-align: left;
-  font: var(--font-small-subtitle);
+  font: var(--font-body);
   font-size: 16px;
   font-style: normal;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 24px; /* 133.333% */
   color: white;
 }
