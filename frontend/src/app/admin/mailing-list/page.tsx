@@ -2,29 +2,29 @@
 import Box from "@mui/material/Box";
 import {
   DataGrid,
+  GridCellParams,
   GridColDef,
   GridEventListener,
   GridRowClassNameParams,
-  GridCellParams,
   GridRowId,
-  GridRowModel,
 } from "@mui/x-data-grid";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+
 import styles from "./page.module.css";
+
+import {
+  Subscriber,
+  createSubscriber,
+  deleteSubscriber,
+  getAllSubscribers,
+} from "@/api/subscriber";
 import AlertBanner from "@/components/AlertBanner";
 import EmailCopyBtn from "@/components/EmailCopyBtn";
 import RowCopyBtn from "@/components/RowCopyBtn";
 import RowDeleteBtn from "@/components/RowDeleteBtn";
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import { getAllMailingListEntries,MailingListEntries,deleteMailingListEntry } from '@/api/mailinglistentries'; // Import your MailingListEntry type
-
-
-
 
 export default function MailingList() {
-
   const columns: GridColDef<(typeof rows)[number]>[] = [
     {
       field: "lastName",
@@ -75,31 +75,48 @@ export default function MailingList() {
       renderHeader: () => (
         <div style={{ display: "flex", alignItems: "center" }}>
           <div style={{ marginRight: "180px" }}>Email</div>
-          <EmailCopyBtn onClick={handleCopyEmails} onHover={handleEmailHover}/>
+          <EmailCopyBtn onClick={handleCopyEmails} onHover={handleEmailHover} />
         </div>
       ),
     },
   ];
 
-  const [rows, setRow] = useState<MailingListEntries[]>([]);
+  const [rows, setRow] = useState<Subscriber[]>([]);
+  const [rowsCurrent, setRowsCurrent] = React.useState(rows);
+  const [alertType, setAlertType] = useState("");
+  const [hover, setHover] = useState(false);
+  const [selectedRow, setSelectedRow] = useState<GridRowId | null>(null);
+  const [currentPage, setCurrentPage] = useState(1); // Track current page
+  const [totalPages, setTotalPages] = useState(Math.ceil(rows.length / 14)); // Calculate total pages
+  const [showAlert, setShowAlert] = useState(false);
+  const [deletedRow, setDeletedRow] = useState<Subscriber | null>(null);
 
   useEffect(() => {
-    getAllMailingListEntries()
-      .then(result => {
+    getAllSubscribers()
+      .then((result) => {
         if (result.success) {
-          console.log('Data:', result.data); // Log the data
-          setRow(result.data);
+          console.log("Data:", result.data);
+
+          const formattedRows = result.data.map((item) => ({
+            ...item,
+            id: item._id.toString(),
+          }));
+
+          setRow(formattedRows);
+          setRowsCurrent(formattedRows);
         } else {
-          console.error('ERROR:', result.error); // Log any errors
+          console.error("ERROR:", result.error);
         }
+      })
+      .catch((error) => {
+        alert(error);
       });
   }, []);
 
-
-  const [rowsCurrent, setRowsCurrent] = React.useState(rows);
-
-  const [searchTerm, setSearchTerm] = React.useState<string>("");
-  const [filteredRows, setRows] = useState<{ id: number; lastName: string; firstName: string; memberSince: string; email: string; }[]>([]);
+  useEffect(() => {
+    // Update total pages when rows change
+    setTotalPages(Math.ceil(rows.length / 14));
+  }, [rows]);
 
   const handleEmailHover = (hovering: boolean) => {
     if (hovering) {
@@ -109,38 +126,28 @@ export default function MailingList() {
     }
   };
 
-  const handleSearch = () => {
-    const searchTerms = searchTerm.toLowerCase().split(' ');
-  
-    let filteredRows = rows.filter((row) => {
-      const firstName = row.firstName.toLowerCase();
-      const lastName = row.lastName.toLowerCase();
-  
-      return searchTerms.every((term) => firstName.includes(term) || lastName.includes(term));
+  const handleSearch = (term: string) => {
+    const searchTerms = term.toLowerCase().split(" ");
+
+    const filteredRows = rows.filter((row) => {
+      const firstName = row.firstName ? row.firstName.toLowerCase() : "";
+      const lastName = row.lastName ? row.lastName.toLowerCase() : "";
+      const email = row.email.toLowerCase();
+
+      return searchTerms.every(
+        (search) =>
+          firstName.includes(search) || lastName.includes(search) || email.includes(search),
+      );
     });
-  
+
     if (filteredRows.length !== rows.length) {
       setRowsCurrent(filteredRows);
     }
-  
-
-    if (searchTerm === "") {
-      setRowsCurrent(rows);
-    }
-  
-    console.log("filteredRows:", rowsCurrent);
   };
-  const [alertType, setAlertType] = useState("");
-  const [hover, setHover] = useState(false);
-  const [selectedRow, setSelectedRow] = useState<GridRowId | null>(null);
 
-
-  const handleCellClick: GridEventListener<"rowClick"> = (
-    params, // GridRowParams
-  ) => {
+  const handleCellClick: GridEventListener<"rowClick"> = (params) => {
     setSelectedRow(params.id === selectedRow ? null : params.id);
   };
-
 
   const getCellClassName = (params: GridCellParams) => {
     let colClasses = "";
@@ -158,10 +165,10 @@ export default function MailingList() {
 
   const getRowClassName = (params: GridRowClassNameParams) => {
     let rowClasses = "";
-  
+
     // Add alternating row colors
     rowClasses += params.indexRelativeToCurrentPage % 2 === 0 ? styles.evenRow : styles.oddRow;
-  
+
     // Add border to the selected row
     if (selectedRow === params.id) {
       rowClasses += ` ${styles.selectedRow}`;
@@ -169,14 +176,10 @@ export default function MailingList() {
     return rowClasses;
   };
 
-  const [currentPage, setCurrentPage] = useState(1); // Track current page
-  const [totalPages, setTotalPages] = useState(Math.ceil(rows.length / 14)); // Calculate total pages
-  const [showAlert, setShowAlert] = useState(false);
-
   const handleCopyEmails = () => {
     const emailsToCopy = () => {
       const values = rows.map((row) => row.email);
-      const copiedText = values.join("\n");
+      const copiedText = values.join(", ");
       return copiedText;
     };
     navigator.clipboard
@@ -191,15 +194,10 @@ export default function MailingList() {
       });
   };
 
-  const selectedRowContents = rows.find((row) => row.id === selectedRow);
-  const email = selectedRowContents !== undefined ? selectedRowContents.email : "";
-
   const handleCopyRow = () => {
-    const rowToCopy = () => {
-      return "TODO: implement copying the current row selection";
-    };
+    const selectedRowContents = rows.find((row) => row._id === selectedRow);
+    const email = selectedRowContents !== undefined ? selectedRowContents.email : "";
     navigator.clipboard
-      
       .writeText(email)
       .then(() => {
         setAlertType("copyRow");
@@ -213,52 +211,52 @@ export default function MailingList() {
 
   const handleDeleteRow = () => {
     if (selectedRow !== null) {
-      const selectedRowData = rows.find((row) => row.id === selectedRow);
+      const selectedRowData = rows.find((row) => row._id === selectedRow);
       if (selectedRowData) {
-        // Store a copy of the row data before deletion
-        const deletedRowCopy = { ...selectedRowData };
+        setDeletedRow(selectedRowData);
 
-        
-        // Make an API call to delete the row
         console.log("selectedRowData:", selectedRowData._id);
-        deleteMailingListEntry(selectedRowData._id)
+        deleteSubscriber(selectedRowData._id)
           .then((response) => {
             if (response.success) {
-              // Remove the deleted row from the local state
-              setRow((prevRows) => prevRows.filter((row) => row.id !== selectedRow));
-              
-              // Optionally, show an alert/banner indicating successful deletion
+              setRowsCurrent((prevRows) => prevRows.filter((row) => row._id !== selectedRow));
+
               setAlertType("deleteRow");
               setShowAlert(true);
             } else {
-              // Handle error response from API
               console.error("Error deleting row:", response.error);
-              // Optionally, show an error message
             }
           })
           .catch((error) => {
             console.error("Error deleting row:", error);
-            // Optionally, show an error message
           });
       }
     }
   };
-  
+
   const handleUndoDelete = () => {
-    alert("TODO: implement undo delete (need backend to be completed first)");
-    setAlertType("");
-    setShowAlert(false);
+    if (deletedRow !== null) {
+      createSubscriber(deletedRow)
+        .then((response) => {
+          if (response.success) {
+            setRowsCurrent(rows);
+
+            setAlertType("");
+            setShowAlert(false);
+          } else {
+            console.error("Error undoing deletion:", response.error);
+          }
+        })
+        .catch((error) => {
+          console.error("Error undoing deletion:", error);
+        });
+    }
   };
 
   const handleCloseAlert = () => {
     setAlertType("");
     setShowAlert(false);
   };
-
-  useEffect(() => {
-    // Update total pages when rows change
-    setTotalPages(Math.ceil(rows.length / 14));
-  }, [rows]);
 
   const handlePreviousPage = () => {
     if (currentPage > 1) {
@@ -289,10 +287,6 @@ export default function MailingList() {
     }
   };
 
-
-  React.useEffect(() => {
-    handleSearch();}); 
-
   return (
     <Box sx={{ height: 720, width: 1119 }}>
       {showAlert && (
@@ -303,63 +297,70 @@ export default function MailingList() {
           onClose={handleCloseAlert}
         />
       )}
-      <Box sx={{ 
-        my: 5, 
-        display: "flex", 
-        flexDirection: "row", 
-        justifyContent: "flex-end", 
-        alignItems: "center" 
-      }}>
-        <div style={{ 
-          display: 'flex', 
-          alignItems: 'center', 
-          gap: '8px' 
-        }}>
+      <Box
+        sx={{
+          my: 5,
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "flex-end",
+          alignItems: "center",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+          }}
+        >
           {selectedRow !== null && <RowCopyBtn onClick={handleCopyRow} />}
           {selectedRow !== null && <RowDeleteBtn onClick={handleDeleteRow} />}
-          <div style={{ 
-            display: 'flex', 
-            width: '256px', 
-            padding: '8px', 
-            alignItems: 'center', 
-            gap: '8px', 
-            borderRadius: '4px', 
-            border: '1px solid #D8D8D8', 
-            background: '#FFF', 
-            position: 'relative', 
-            marginLeft: '16px',
-          }}>
+          <div
+            style={{
+              display: "flex",
+              width: "256px",
+              padding: "8px",
+              alignItems: "center",
+              gap: "8px",
+              borderRadius: "4px",
+              border: "1px solid #D8D8D8",
+              background: "#FFF",
+              position: "relative",
+              marginLeft: "16px",
+            }}
+          >
             <input
               type="text"
               placeholder="Search By Name..."
               onChange={(e) => {
-                setSearchTerm(e.target.value);
-                console.log("searchTerm:", e.target.value);
-                // handleSearch();
+                handleSearch(e.target.value);
+                if (e.target.value === "") {
+                  setRowsCurrent(rows);
+                }
               }}
-              style={{ 
-                paddingLeft: '30px', 
-                border: 'none', 
-                flex: '1',
-                color: '#484848',
-                fontFamily: 'Open Sans',
-                fontSize: '16px',
-                fontStyle: 'normal',
-                fontWeight: '400',
-                lineHeight: '24px'
+              style={{
+                paddingLeft: "30px",
+                border: "none",
+                flex: "1",
+                color: "#484848",
+                fontFamily: "Open Sans",
+                fontSize: "16px",
+                fontStyle: "normal",
+                fontWeight: "400",
+                lineHeight: "24px",
               }} // Make room for the image
             />
-            <img 
-              src="/ic_search.png" 
-              alt="search icon" 
-              style={{ 
-                position: 'absolute', 
-                left: '8px', 
-                top: '50%', 
-                transform: 'translateY(-50%)', 
-                height: '20px', 
-                width: '20px' 
-              }} 
+            <img
+              src="/ic_search.png"
+              alt="search icon"
+              style={{
+                position: "absolute",
+                left: "8px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                height: "20px",
+                width: "20px",
+              }}
             />
           </div>
         </div>

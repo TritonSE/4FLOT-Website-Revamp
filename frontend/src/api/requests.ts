@@ -81,10 +81,15 @@ export async function get(url: string, headers: Record<string, string> = {}): Pr
   return response;
 }
 
-
-export async function deletedEntry(url: string, headers: Record<string, string> = {}): Promise<Response> {
+/**
+ * Sends a DELETE request to the provided API URL.
+ *
+ * @param url The URL to request
+ * @param headers The headers of the request (optional)
+ * @returns The Response object returned by `fetch()`
+ */
+export async function del(url: string, headers: Record<string, string> = {}): Promise<Response> {
   const response = await fetchRequest("DELETE", API_BASE_URL + url, undefined, headers);
-  console.log("been here ahha");
   await assertOk(response);
   return response;
 }
@@ -165,4 +170,3 @@ export function handleAPIError(error: unknown): APIError {
   }
   return { success: false, error: `Unknown error: ${String(error)}` };
 }
-

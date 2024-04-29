@@ -29,7 +29,7 @@ export default function Dashboard() {
 
         <DashboardCard
           imageURI="/dashboard_mailinglist.png"
-          url="/mailinglist"
+          url="/mailing-list"
           title="Mailing List"
           last_updated="Month XX, XXXX, XX:XX"
         />

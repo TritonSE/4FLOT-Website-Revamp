@@ -31,12 +31,10 @@
   border: none;
   cursor: pointer;
   font-size: 0;
-
 }
 .hidden {
   display: none;
 }
-
 
 .undoButton {
   background: none;
