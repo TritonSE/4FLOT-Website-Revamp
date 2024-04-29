@@ -27,12 +27,7 @@ export async function getAllEventDetails(): Promise<APIResult<EventDetails[]>> {
   try {
     const response = await get("/api/eventDetails");
     const json = (await response.json()) as EventDetails[];
-    const events = [];
-    for (const ev of json) {
-      // put each event in the event array
-      events.push(ev);
-    }
-    return { success: true, data: events };
+    return { success: true, data: json };
   } catch (error) {
     return handleAPIError(error);
   }

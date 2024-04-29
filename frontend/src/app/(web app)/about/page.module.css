@@ -2,25 +2,19 @@
 .page {
   background: var(--Functional-Background, #f9f9f9);
 }
+
 .cards {
   display: flex;
   flex-direction: column;
-  gap: 232px;
-  margin-left: 52px;
-  margin-bottom: 136px;
+  gap: 128px;
+  margin-left: 91px;
+  margin-right: 111px;
+  margin-top: 150px;
+  margin-bottom: 145px;
+  align-items: center;
 }
 
 .backgroundImageContainer {
   position: relative;
   z-index: 1;
-}
-
-.whiteCardsContainer {
-  position: absolute;
-  top: 944px;
-  z-index: 2;
-}
-
-.cardsBackground {
-  height: 2000px;
 }
