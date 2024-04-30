@@ -8,7 +8,9 @@
 
   position: fixed;
   width: 100%;
-  height: 153px;
+  height: 145px;
+
+  z-index: 3;
 
   background: white;
 }
@@ -47,6 +49,8 @@
   position: fixed;
   top: 0;
   left: 0;
+
+  z-index: 4;
 
   display: flex;
   flex-direction: column;

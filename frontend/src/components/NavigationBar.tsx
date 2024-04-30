@@ -23,7 +23,7 @@ const NavigationBar = () => {
           return "Page Editor";
         } else if (window.location.pathname === "/admin/newslettercreator") {
           return "Newsletter Creator";
-        } else if (window.location.pathname === "/admin/mailinglist") {
+        } else if (window.location.pathname === "/admin/mailing-list") {
           return "Mailing List";
         } else if (window.location.pathname === "/admin/settings") {
           return "Settings";
@@ -116,7 +116,7 @@ const NavigationBar = () => {
           <div className={activeMenu === "Mailing List" ? styles.menuActive : styles.menuDiv}>
             <Image width={18} height={18} src="/mailIcon.svg" alt="Mail Icon" />
             <Link
-              href="/admin/mailinglist"
+              href="/admin/mailing-list"
               onClick={() => {
                 handleOnClick("Mailing List");
               }}

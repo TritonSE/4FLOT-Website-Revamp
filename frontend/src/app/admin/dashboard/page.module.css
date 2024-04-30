@@ -1,8 +1,8 @@
 .page {
   display: flex;
-  justify-content: center;
-  padding-left: 30px;
-  padding-top: 140px;
+  justify-content: flex-start;
+  padding-left: 90px;
+  padding-top: 150px;
 }
 
 .gridContainer {

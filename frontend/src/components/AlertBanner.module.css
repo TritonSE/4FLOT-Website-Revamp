@@ -1,0 +1,51 @@
+.wrapper {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  z-index: 1000;
+  width: 380px;
+  padding: 16px 18px;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  border: 1px solid var(--Functional-Success, #3bb966);
+  background: #e1f2df;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
+  font-family: "Open Sans";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.alert {
+  display: flex;
+  direction: row;
+  gap: 12px;
+  align-items: center;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0;
+}
+.hidden {
+  display: none;
+}
+
+.undoButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: var(--font-body);
+  margin-right: 6px;
+}
+
+.rightElems {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
