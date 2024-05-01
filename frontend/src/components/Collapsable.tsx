@@ -8,9 +8,10 @@ type CollapsableProps = {
   title: string;
   subsection: string[];
   textbox: string[];
+  onChange: () => void;
 };
 
-const Collapsable = ({ title, subsection, textbox }: CollapsableProps) => {
+const Collapsable = ({ title, subsection, textbox, onChange }: CollapsableProps) => {
   const [open, setOpen] = useState<boolean>(true);
 
   const toggleSection = () => {
@@ -40,7 +41,7 @@ const Collapsable = ({ title, subsection, textbox }: CollapsableProps) => {
               // eslint-disable-next-line react/jsx-key
               <div>
                 <p className={styles.subtitle}>{subtitle}</p>
-                <div className={styles.basicInput} contentEditable>
+                <div className={styles.basicInput} contentEditable onInput={onChange}>
                   {text}
                 </div>
               </div>

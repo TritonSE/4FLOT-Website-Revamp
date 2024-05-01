@@ -6,8 +6,9 @@
   justify-content: center;
   align-items: center;
   background: white;
-  border: 2px solid var(--color-primary-purple-hover); 
+  border: 2px solid var(--color-primary-purple-hover);
   border-radius: 4px;
+  color: var(--color-primary-purple-hover);
 }
 
 .button:hover {
@@ -21,8 +22,8 @@
   font-size: 20px;
   letter-spacing: 0.5px;
   text-align: center;
-  color: var(--color-primary-purple-hover);
+
   padding: 12px 24px;
   white-space: nowrap;
-  border: 2px var(--color-primary-purple-hover); 
+  border: 2px var(--color-primary-purple-hover);
 }

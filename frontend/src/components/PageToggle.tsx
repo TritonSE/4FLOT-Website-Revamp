@@ -15,13 +15,13 @@ const PageToggle = ({ pages, links, currPage }: PageToggleProps) => {
       {pages.map((page, index) => {
         const link = links[index];
         return (
-          <Link
+          <a
             key={index}
             href={link}
             className={currPage === index ? styles.menuActive : styles.menu}
           >
             {page}
-          </Link>
+          </a>
         );
       })}
     </div>

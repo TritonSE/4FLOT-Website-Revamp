@@ -6,7 +6,8 @@ import React, { useEffect, useState } from "react";
 import styles from "./NavigationBar.module.css";
 
 const NavigationBar = () => {
-  const [activeMenu, setActiveMenu] = useState<string>("Dashboard");
+  const [activeMenu, setActiveMenu] = useState<string>("");
+  const [activePageEditor, setActivePageEditor] = useState<string>("");
 
   /**
    * Upon page load, display correct text for navigation bar
@@ -15,20 +16,37 @@ const NavigationBar = () => {
   useEffect(() => {
     const handleLoad = () => {
       if (typeof window !== "undefined") {
-        if (window.location.pathname === "/admin/dashboard") {
+        const url = window.location.pathname;
+        if (url === "/admin/dashboard") {
           return "Dashboard";
-        } else if (window.location.pathname === "/admin/eventcreator") {
+        } else if (url === "/admin/eventcreator") {
           return "Event Creator";
-        } else if (window.location.pathname === "/admin/pageeditor") {
+        } else if (url.startsWith("/admin/pageeditor")) {
+          // For Page Editor subpages
+          if (url.endsWith("home")) {
+            setActivePageEditor("Home");
+          } else if (url.endsWith("about")) {
+            setActivePageEditor("About Us");
+          } else if (url.endsWith("mission")) {
+            setActivePageEditor("Our Mission");
+          } else if (url.endsWith("team")) {
+            setActivePageEditor("Our Team");
+          } else if (url.endsWith("contact")) {
+            setActivePageEditor("Contact Us");
+          } else if (url.endsWith("involved")) {
+            setActivePageEditor("Get Involved");
+          } else if (url.endsWith("events")) {
+            setActivePageEditor("Upcoming Events");
+          }
           return "Page Editor";
-        } else if (window.location.pathname === "/admin/newslettercreator") {
+        } else if (url === "/admin/newslettercreator") {
           return "Newsletter Creator";
-        } else if (window.location.pathname === "/admin/mailinglist") {
+        } else if (url === "/admin/mailinglist") {
           return "Mailing List";
-        } else if (window.location.pathname === "/admin/settings") {
+        } else if (url === "/admin/settings") {
           return "Settings";
         } else {
-          return "";
+          return url;
         }
       } else {
         return "Dashboard";
@@ -40,17 +58,26 @@ const NavigationBar = () => {
   /* Upon clicking purple sidebar to new page, update navigation bar */
   const handleOnClick = (menuDiv: string) => {
     setActiveMenu(menuDiv);
+    setActivePageEditor("");
   };
   return (
     <main>
       <div className={styles.headerBar}>
         <div className={styles.title}>
           <p>{activeMenu}</p>
-          {activeMenu !== "Dashboard" && (
+          {activeMenu !== "Dashboard" && activePageEditor === "" && (
             <div className={styles.pageDesc}>
               <p>Dashboard &gt;</p>
               <p style={{ font: "var(--font-body-bold)", color: "var(--color-primary-purple)" }}>
                 {activeMenu}
+              </p>
+            </div>
+          )}
+          {activeMenu === "Page Editor" && activePageEditor !== "" && (
+            <div className={styles.pageDesc}>
+              <p>Dashboard &gt; Page Editor &gt;</p>
+              <p style={{ font: "var(--font-body-bold)", color: "var(--color-primary-purple)" }}>
+                {activePageEditor}
               </p>
             </div>
           )}

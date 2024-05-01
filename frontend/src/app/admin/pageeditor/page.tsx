@@ -15,7 +15,7 @@ export default function Dashboard() {
         />
         <PageEditorCard
           imageURI="/impact_bg.png"
-          url="/pageeditor/aboutus"
+          url="/pageeditor/about"
           title="About Us"
           last_updated="Month XX, XXXX, XX:XX"
         />

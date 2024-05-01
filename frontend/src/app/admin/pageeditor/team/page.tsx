@@ -1,8 +1,6 @@
 "use client";
-// Admin Page Editor landing page
-import React, { useState } from "react";
-
 import styles from "./page.module.css";
+import React, { useState } from "react";
 
 import Button from "@/components/Button";
 import CancelButton from "@/components/CancelButton";
@@ -13,9 +11,8 @@ import PageToggle from "@/components/PageToggle";
 
 export default function Dashboard() {
   const [isEdited, setIsEdited] = useState(false);
-
   const handleEdit = () => {
-    setIsEdited(true);
+    if (!isEdited) setIsEdited(true);
   };
 
   const handleSave = () => {
@@ -31,29 +28,27 @@ export default function Dashboard() {
   return (
     <main className={styles.page}>
       <PageToggle
-        pages={["Get Involved", "Upcoming Events"]}
-        links={["./involved", "./events"]}
-        currPage={1}
+        pages={["About Us", "Our Mission", "Our Team", "Contact Us"]}
+        links={["./about", "./mission", "./team", "./contact"]}
+        currPage={2}
       />
       <div className={styles.sectionContainer}>
         <Collapsable
-          title="Page Header"
-          subsection={["Subtitle", "Header Image"]}
+          title="Section 1"
+          subsection={["Section Title", "Body Text"]}
           textbox={[
-            "Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi.",
-            "",
+            "Our Team",
+            "Our dedicated team @ 4 Future Leaders of Tomorrow is a non-profit charitable organization committed in preventing and ending homelessness, hunger and disparity in underprivileged communities. Everyone deserves a chance for a better future!. We are reaching out by providing resources in needed communities - whether it be a delicious meal, warm clothing, educational supplies, referrals, toys or even bus passes",
           ]}
           onChange={handleEdit}
         />
         <Collapsable
-          title="Section 1"
-          subsection={["Section Title", "Section Subtitle"]}
-          textbox={[
-            "Volunteer With Us",
-            "Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi.",
-          ]}
+          title="Section 2"
+          subsection={["Staff Name", "Staff Position", "Image"]}
+          textbox={["Staff Name", "Officer", ""]}
           onChange={handleEdit}
         />
+
         <div className={styles.buttonContainer}>
           <CancelButton text="Cancel" color={isEdited ? "active" : "unactive"} />
           <Button text="Save" color={isEdited ? "active" : "unactive"} />
