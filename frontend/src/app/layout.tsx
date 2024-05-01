@@ -1,5 +1,7 @@
 import { Inter, Open_Sans, Roboto_Slab } from "next/font/google";
 
+import { FirebaseProvider } from "../lib/firebaseContext";
+
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -26,7 +28,9 @@ const robotoSlab = Roboto_Slab({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${openSans.variable} ${inter.variable} ${robotoSlab.variable}`}>
-      <body>{children}</body>
+      <body>
+        <FirebaseProvider>{children}</FirebaseProvider>
+      </body>
     </html>
   );
 }
