@@ -36,11 +36,10 @@ app.use(
 app.use("/api/subscribers", subscriberRoutes);
 app.use("/api/member", memberRoutes);
 app.use("/api/BackgroundImage", backgroundImageRoutes);
-
 app.use("/api/eventDetails", eventDetailsRoutes);
 app.use("/api/volunteerDetails", volunteerDetailsRoutes);
 app.use("/api/testimonial", testimonialRoutes);
-app.use("/api/newsletter", newsletterRoutes); // Use newsletter routes
+app.use("/api/newsletter", newsletterRoutes);
 app.use("/api/emails", emailRoutes);
 app.use("/api/orders", paypalRoutes); // Donation Order routes
 

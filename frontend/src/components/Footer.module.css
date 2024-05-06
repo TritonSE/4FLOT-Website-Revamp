@@ -37,6 +37,7 @@
   flex-direction: row;
   justify-content: left;
   align-items: center;
+  /* background-color: red; */
 }
 
 .linkDiv {
@@ -153,11 +154,23 @@
 
 /* LOGO CONTENT */
 .logoImage {
-  margin-right: 46px;
+  margin-right: 40px;
 }
 
 .facebookLogo {
-  margin-right: 32px;
+  margin-right: 24px;
+}
+
+.instagramLogo {
+  margin-right: 24px;
+}
+
+.youtubeLogo {
+  margin-right: 24px;
+}
+
+.twitterLogo {
+  margin-right: 24px;
 }
 
 /* LINK CONTENT */
