@@ -34,7 +34,7 @@ export default function DonateButton({ setSuccess, amount }: DonateButtonProps) 
         createOrder={() => {
           return createOrder({ productId: "donation", amount: amountRef.current, quantity: "1" });
         }}
-        onApprove={async (data, actions) => {
+        onApprove={async (data: { orderID: string }, actions: { restart: () => void }) => {
           const orderData = captureOrder(data.orderID) as OrderData;
 
           // Three cases to handle:
