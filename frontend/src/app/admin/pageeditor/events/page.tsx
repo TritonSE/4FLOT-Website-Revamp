@@ -1,6 +1,7 @@
 "use client";
-// Admin Page Editor landing page
 import React, { useState } from "react";
+
+import { updatePage } from "../../../../api/pageeditor";
 
 import styles from "./page.module.css";
 
@@ -13,14 +14,26 @@ import PageToggle from "@/components/PageToggle";
 
 export default function Dashboard() {
   const [isEdited, setIsEdited] = useState(false);
+  // const [phSubtitle, setPhSubtitle] = useState<string>("");
+  // const [s1Subtitle, setS1Subtitle] = useState<string>("");
+  // const [s1Text, setS1Text] = useState<string>("");
 
+  let phSubtitle;
+  let s1Subtitle;
+  let s1Text;
   const handleEdit = () => {
     setIsEdited(true);
+    phSubtitle = document.getElementById("0") as HTMLInputElement;
+    s1Subtitle = document.getElementById("1") as HTMLInputElement;
+    s1Text = document.getElementById("2") as HTMLInputElement;
   };
 
   const handleSave = () => {
     // Implement save logic
-    console.log("Save changes");
+    if (isEdited) {
+      console.log("Save changes");
+      updatePage({ phSubtitle, s1Subtitle, s1Text });
+    }
   };
 
   const handleCancel = () => {
@@ -56,7 +69,7 @@ export default function Dashboard() {
         />
         <div className={styles.buttonContainer}>
           <CancelButton text="Cancel" color={isEdited ? "active" : "unactive"} />
-          <Button text="Save" color={isEdited ? "active" : "unactive"} />
+          <Button text="Save" color={isEdited ? "active" : "unactive"} onClick={handleSave} />
         </div>
       </div>
     </main>

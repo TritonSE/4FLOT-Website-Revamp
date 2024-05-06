@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
+import { getPageText } from "../../../api/pageeditor";
 import EventsList from "../../../components/EventsList";
 
 import styles from "./page.module.css";
@@ -10,6 +11,9 @@ import BackgroundHeader from "@/components/BackgroundHeader";
 
 export default function UpcomingEvents() {
   const [images, setImages] = useState<BackgroundImage[]>([]);
+  const [phSubtitle, setPhSubtitle] = useState<string>("");
+  const [s1Subtitle, setS1Subtitle] = useState<string>("");
+  const [s1Text, setS1Text] = useState<string>("");
 
   useEffect(() => {
     getBackgroundImages(BackgroundImagePages.TEAM)
@@ -23,22 +27,37 @@ export default function UpcomingEvents() {
       });
   }, []);
 
+  let pageText;
+  useEffect(() => {
+    getPageText("Upcoming Events")
+      .then((response) => {
+        if (response.success) {
+          pageText = response.data;
+          setPhSubtitle(pageText.ph_subtitle);
+          setS1Subtitle(pageText.s1_title);
+          setS1Text(pageText.s1_text);
+        } else {
+          alert(response.error);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }, []);
+
   return (
     <div className="items-center justify-center">
       <BackgroundHeader
         backgroundImageURIs={images.map((image) => image.imageURI)}
         header="GET INVOLVED"
         title="Upcoming Events"
-        description="Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi."
+        description={phSubtitle}
       />
+
       <div className={styles.body}>
         <div className={styles.bodyTitle}>
-          <h1 style={{ font: "var(--font-title-l)" }}>Volunteer With Us</h1>
-          <p style={{ font: "var(--font-body-reg)" }}>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque necessitatibus
-            asperiores, optio quasi sit tempora in amet aut natus, similique enim explicabo id
-            expedita minima doloribus repellendus est? Quos, officia?
-          </p>
+          <h1 style={{ font: "var(--font-title-l)" }}>{s1Subtitle}</h1>
+          <p style={{ font: "var(--font-body-reg)" }}>{s1Text}</p>
         </div>
         <EventsList page="events" />
       </div>

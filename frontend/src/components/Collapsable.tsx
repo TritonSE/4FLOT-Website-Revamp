@@ -41,7 +41,12 @@ const Collapsable = ({ title, subsection, textbox, onChange }: CollapsableProps)
               // eslint-disable-next-line react/jsx-key
               <div>
                 <p className={styles.subtitle}>{subtitle}</p>
-                <div className={styles.basicInput} contentEditable onInput={onChange}>
+                <div
+                  className={styles.basicInput}
+                  contentEditable
+                  onInput={onChange}
+                  id={String(index)}
+                >
                   {text}
                 </div>
               </div>
