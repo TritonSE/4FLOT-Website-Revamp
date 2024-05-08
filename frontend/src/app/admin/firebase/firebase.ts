@@ -1,0 +1,49 @@
+import { FirebaseApp, FirebaseOptions, initializeApp } from "firebase/app";
+import { Auth, getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+
+import env from "../util/validateEnv";
+
+/**
+ * Initialize Firebase with the Firebase config
+ * @returns Firebase Auth instance
+ */
+export const initFirebase = () => {
+  if (!env.NEXT_PUBLIC_FIREBASE_SETTINGS) {
+    throw new Error("Cannot get firebase settings");
+  }
+
+  const firebaseConfig = env.NEXT_PUBLIC_FIREBASE_SETTINGS as FirebaseOptions;
+
+  const app: FirebaseApp = initializeApp(firebaseConfig);
+  const auth: Auth = getAuth(app);
+
+  return auth;
+};
+
+/**
+ * Uses Firebase to login with email and password
+ * @param auth Firebase Auth instance. In components get with useFirebase()
+ * @param email email address
+ * @param password password
+ * @returns boolean true if sign in successful, false otherwise
+ */
+export const firebaseSignIn = async (auth: Auth, email: string, password: string) => {
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
+/**
+ * Sign out using Firebase and delete client data holding the JWT
+ * @param auth Firebase Auth instance. In components get with useFirebase()
+ */
+export const firebaseSignOut = async (auth: Auth) => {
+  try {
+    await signOut(auth);
+  } catch (error) {
+    alert(error);
+  }
+};

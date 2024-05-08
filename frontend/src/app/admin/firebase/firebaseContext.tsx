@@ -5,22 +5,22 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 
 import { initFirebase } from "./firebase";
 
-type FirebaseContextType = {
-  auth: Auth | null;
-  user: string | null;
-};
+const FirebaseContext = createContext<Auth | null>(null);
 
-const FirebaseContext = createContext<FirebaseContextType | null>(null);
-
+/**
+ * Firebase Context Provider giving access to Auth object in components
+ */
 export const FirebaseProvider = ({ children }: { children: React.ReactNode }) => {
   const [auth, setAuth] = useState<Auth | null>(null);
-  const [user, setUser] = useState<string | null>(null);
 
   useEffect(() => {
-    setAuth(initFirebase());
+    // Don't initialize Firebase if it has already been initialized
+    if (!auth) {
+      setAuth(initFirebase());
+    }
   }, []);
 
-  return <FirebaseContext.Provider value={{ auth, user }}>{children}</FirebaseContext.Provider>;
+  return <FirebaseContext.Provider value={auth}>{children}</FirebaseContext.Provider>;
 };
 
 export const useFirebase = () => useContext(FirebaseContext);
