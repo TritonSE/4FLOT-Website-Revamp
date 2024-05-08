@@ -8,7 +8,7 @@ import {
   signOut,
 } from "firebase/auth";
 
-import env from "@/app/admin/util/validateEnv";
+import env from "./validateEnv";
 
 export const initFirebase = () => {
   if (!env.NEXT_PUBLIC_FIREBASE_SETTINGS) {

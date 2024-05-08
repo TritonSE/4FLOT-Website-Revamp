@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 
-import { firebaseSignIn } from "@/lib/firebase";
-import { useFirebase } from "@/lib/firebaseContext";
+import { firebaseSignIn } from "@/app/admin/util/firebase";
+import { useFirebase } from "@/app/admin/util/firebaseContext";
 
 // import Link from "next/link";
 

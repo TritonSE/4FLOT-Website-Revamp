@@ -2,10 +2,6 @@ import Image from "next/image";
 
 import LoginForm from "./LoginForm";
 
-type LoginSectionProps = {
-  // TODO: Pass firebase signin function here
-};
-
 const LoginSection = () => {
   return (
     <div className="flex flex-row">
