@@ -4,7 +4,6 @@ import { get, handleAPIError, put } from "./requests";
 import type { APIResult } from "./requests";
 
 export type PageText = {
-  _id: string;
   page: string;
   ph_subtitle: string;
   ph_images: string;

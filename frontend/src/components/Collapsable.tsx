@@ -8,7 +8,7 @@ type CollapsableProps = {
   title: string;
   subsection: string[];
   textbox: string[];
-  onChange: () => void;
+  onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 };
 
 const Collapsable = ({ title, subsection, textbox, onChange }: CollapsableProps) => {
@@ -16,6 +16,12 @@ const Collapsable = ({ title, subsection, textbox, onChange }: CollapsableProps)
 
   const toggleSection = () => {
     setOpen(!open);
+  };
+
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    event.target.style.height = "auto";
+    event.target.style.height = 2 + event.target.scrollHeight + "px";
+    onChange(event);
   };
 
   return (
@@ -41,14 +47,12 @@ const Collapsable = ({ title, subsection, textbox, onChange }: CollapsableProps)
               // eslint-disable-next-line react/jsx-key
               <div>
                 <p className={styles.subtitle}>{subtitle}</p>
-                <div
+                <textarea
                   className={styles.basicInput}
-                  contentEditable
-                  onInput={onChange}
-                  id={String(index)}
-                >
-                  {text}
-                </div>
+                  onInput={handleChange}
+                  id={subtitle}
+                  value={text}
+                ></textarea>
               </div>
             );
           })}

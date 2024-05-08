@@ -7,7 +7,7 @@ const router = express.Router();
 router.get("/:page", PageEditorValidator.getPageEditor, PageEditorController.getPage);
 router.put(
   "/:page", // getPageEditor validator works to just check page
-  PageEditorValidator.getPageEditor,
+  //   PageEditorValidator.getPageEditor,
   PageEditorController.updatePageEditor,
 );
 

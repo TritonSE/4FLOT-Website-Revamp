@@ -1,7 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import { updatePage } from "../../../../api/pageeditor";
+import { getPageText, updatePage } from "../../../../api/pageeditor";
 
 import styles from "./page.module.css";
 
@@ -10,29 +10,65 @@ import CancelButton from "@/components/CancelButton";
 import Collapsable from "@/components/Collapsable";
 import PageToggle from "@/components/PageToggle";
 
-// import PageEditorCard from "@/components/PageEditorCard";
-
 export default function Dashboard() {
   const [isEdited, setIsEdited] = useState(false);
-  // const [phSubtitle, setPhSubtitle] = useState<string>("");
-  // const [s1Subtitle, setS1Subtitle] = useState<string>("");
-  // const [s1Text, setS1Text] = useState<string>("");
+  const [phSubtitle, setPhSubtitle] = useState<string>("");
+  const [s1Title, setS1Title] = useState<string>("");
+  const [s1Text, setS1Text] = useState<string>("");
 
-  let phSubtitle;
-  let s1Subtitle;
-  let s1Text;
-  const handleEdit = () => {
+  /* Get page data from MongoDB */
+  let pageText;
+  useEffect(() => {
+    getPageText("Upcoming Events")
+      .then((response) => {
+        if (response.success) {
+          pageText = response.data;
+          setPhSubtitle(pageText.ph_subtitle);
+          setS1Title(pageText.s1_title);
+          setS1Text(pageText.s1_text);
+        } else {
+          alert(response.error);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }, []);
+
+  /* Handle Fields upon edit */
+  const handleEdit = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setIsEdited(true);
-    phSubtitle = document.getElementById("0") as HTMLInputElement;
-    s1Subtitle = document.getElementById("1") as HTMLInputElement;
-    s1Text = document.getElementById("2") as HTMLInputElement;
+    if (event.target.id === "Subtitle") {
+      setPhSubtitle(event.target.value);
+    } else if (event.target.id === "Section Title") {
+      setS1Title(event.target.value);
+    } else if (event.target.id === "Section Subtitle") {
+      setS1Text(event.target.value);
+    }
   };
 
   const handleSave = () => {
     // Implement save logic
     if (isEdited) {
       console.log("Save changes");
-      updatePage({ phSubtitle, s1Subtitle, s1Text });
+      updatePage({
+        page: "Upcoming Events",
+        ph_subtitle: phSubtitle,
+        s1_title: s1Title,
+        s1_text: s1Text,
+        ph_images: "",
+      })
+        .then((response) => {
+          if (response.success) {
+            alert("Success!");
+          } else {
+            alert(response.error);
+          }
+        })
+        .catch((error) => {
+          alert(error);
+        });
+      setIsEdited(false);
     }
   };
 
@@ -52,19 +88,13 @@ export default function Dashboard() {
         <Collapsable
           title="Page Header"
           subsection={["Subtitle", "Header Image"]}
-          textbox={[
-            "Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi.",
-            "",
-          ]}
+          textbox={[phSubtitle, ""]}
           onChange={handleEdit}
         />
         <Collapsable
           title="Section 1"
           subsection={["Section Title", "Section Subtitle"]}
-          textbox={[
-            "Volunteer With Us",
-            "Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi.",
-          ]}
+          textbox={[s1Title, s1Text]}
           onChange={handleEdit}
         />
         <div className={styles.buttonContainer}>

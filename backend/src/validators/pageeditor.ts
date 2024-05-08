@@ -48,7 +48,7 @@ export const getPageEditor = [makePageValidator()];
 export const createPageEditor = [
   makeIDValidator(),
   makePageValidator(),
-  makeImageValidator(),
+  //   makeImageValidator(),
   makeSubtitleValidator(),
   makeTitleValidator(),
   makeTextValidator(),
