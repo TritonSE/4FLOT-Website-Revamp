@@ -1,14 +1,16 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 
 import { firebaseSignIn } from "@/app/admin/firebase/firebase";
 import { useFirebase } from "@/app/admin/firebase/firebaseContext";
 
-// import Link from "next/link";
+type LoginFormProps = {
+  setForgotPass: Dispatch<SetStateAction<boolean>>;
+};
 
-const LoginForm = () => {
+const LoginForm = ({ setForgotPass }: LoginFormProps) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [valid, setValid] = useState(true);
@@ -100,13 +102,16 @@ const LoginForm = () => {
                 />
               </div>
               {!valid && <p className="m-1 text-sm text-red-500">Invalid email or password.</p>}
-
-              {/* Uncomment this if we do the forgot password feature
               <div className="text-sm">
-                <Link href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                <button
+                  onClick={() => {
+                    setForgotPass(true);
+                  }}
+                  className="m-1 font-semibold text-[#694C97] hover:text-[#553884]"
+                >
                   Forgot password?
-                </Link>
-              </div> */}
+                </button>
+              </div>
             </div>
 
             <div>
