@@ -1,6 +1,6 @@
 import { Inter, Open_Sans, Roboto_Slab } from "next/font/google";
 
-import { FirebaseProvider } from "./admin/util/firebaseContext";
+import { FirebaseProvider } from "./admin/firebase/firebaseContext";
 
 import type { Metadata } from "next";
 

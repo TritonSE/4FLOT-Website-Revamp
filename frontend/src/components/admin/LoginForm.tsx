@@ -1,30 +1,44 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-import { firebaseSignIn } from "@/app/admin/util/firebase";
-import { useFirebase } from "@/app/admin/util/firebaseContext";
+import { firebaseSignIn } from "@/app/admin/firebase/firebase";
+import { useFirebase } from "@/app/admin/firebase/firebaseContext";
 
 // import Link from "next/link";
 
 const LoginForm = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [valid, setValid] = useState(true);
 
-  const firebase = useFirebase();
+  const router = useRouter();
+  const auth = useFirebase();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    console.log(`Username: ${email}`);
+    console.log(`Password: ${password}`);
     e.preventDefault();
-    if (firebase?.auth) {
-      firebaseSignIn(firebase.auth, email, password)
-        .then(() => {
-          console.log("successfully signed in");
-        })
-        .catch((error) => {
-          alert(error);
-        });
+
+    let signInSuccessful = false;
+    try {
+      if (auth) {
+        signInSuccessful = await firebaseSignIn(auth, email, password);
+      }
+    } catch (error) {
+      // firebaseSignIn should not throw an error because
+      // it has error handling inside the funciton
+      // something has gone very wrong
+      alert(error);
     }
-    console.log(`email:${email}\npassword:${password}`);
+
+    if (signInSuccessful) {
+      setValid(true);
+      router.push("/admin/dashboard");
+    } else {
+      setValid(false);
+    }
   };
 
   return (
@@ -43,7 +57,7 @@ const LoginForm = () => {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          <form className="space-y-6">
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                 Email Address
@@ -85,6 +99,7 @@ const LoginForm = () => {
                   }}
                 />
               </div>
+              {!valid && <p className="m-1 text-sm text-red-500">Invalid email or password.</p>}
 
               {/* Uncomment this if we do the forgot password feature
               <div className="text-sm">
@@ -98,6 +113,12 @@ const LoginForm = () => {
               <button
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-[#694C97] px-3 py-1.5 text-sm font-bold leading-6 text-white shadow-sm hover:bg-[#553884] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#694C97]"
+                onClick={(e: React.FormEvent<HTMLButtonElement>) => {
+                  e.preventDefault();
+                  handleSubmit(e).catch((error) => {
+                    console.log(error);
+                  });
+                }}
               >
                 Continue
               </button>
