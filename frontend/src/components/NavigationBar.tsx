@@ -17,11 +17,11 @@ const NavigationBar = () => {
       if (typeof window !== "undefined") {
         if (window.location.pathname === "/admin/dashboard") {
           return "Dashboard";
-        } else if (window.location.pathname === "/admin/eventcreator") {
+        } else if (window.location.pathname === "/admin/event-creator") {
           return "Event Creator";
-        } else if (window.location.pathname === "/admin/pageeditor") {
+        } else if (window.location.pathname === "/admin/page-editor") {
           return "Page Editor";
-        } else if (window.location.pathname === "/admin/newslettercreator") {
+        } else if (window.location.pathname === "/admin/newsletter-creator") {
           return "Newsletter Creator";
         } else if (window.location.pathname === "/admin/mailing-list") {
           return "Mailing List";
@@ -83,7 +83,7 @@ const NavigationBar = () => {
           <div className={activeMenu === "Event Creator" ? styles.menuActive : styles.menuDiv}>
             <Image width={18} height={18} src="/calendarIcon.svg" alt="Calendar Icon" />
             <Link
-              href="/admin/eventcreator"
+              href="/admin/event-creator"
               onClick={() => {
                 handleOnClick("Event Creator");
               }}
@@ -94,7 +94,7 @@ const NavigationBar = () => {
           <div className={activeMenu === "Page Editor" ? styles.menuActive : styles.menuDiv}>
             <Image width={18} height={18} src="/pageIcon.svg" alt="Page Icon" />
             <Link
-              href="/admin/pageeditor"
+              href="/admin/page-editor"
               onClick={() => {
                 handleOnClick("Page Editor");
               }}
@@ -105,7 +105,7 @@ const NavigationBar = () => {
           <div className={activeMenu === "Newsletter Creator" ? styles.menuActive : styles.menuDiv}>
             <Image width={18} height={18} src="/newsletterIcon.svg" alt="Newsletter Icon" />
             <Link
-              href="/admin/newslettercreator"
+              href="/admin/newsletter-creator"
               onClick={() => {
                 handleOnClick("Newsletter Creator");
               }}

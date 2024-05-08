@@ -27,7 +27,8 @@ const Footer = () => {
     getInvolved: "/involved",
     ourImpact: "/impact",
     ourMission: "/mission",
-    upcomingEvents: "/events",
+    upcomingEvents: "/upcoming-events",
+    pastEvents: "/past-events",
     testimonials: "/testimonials",
     ourTeam: "/team",
     contactUs: "/contact",
@@ -152,8 +153,8 @@ const Footer = () => {
             <Link className={`${styles.link} ${styles.normalLink}`} href={links.ourTeam}>
               Our Team
             </Link>
-            <Link className={`${styles.link} ${styles.normalLink}`} href={links.donate}>
-              Donate
+            <Link className={`${styles.link} ${styles.normalLink}`} href={links.pastEvents}>
+              Past Events
             </Link>
             <Link className={`${styles.link} ${styles.normalLink}`} href={links.newsletter}>
               Newsletter
@@ -163,6 +164,9 @@ const Footer = () => {
           <div className={styles.linkRow}>
             <Link className={`${styles.link} ${styles.normalLink}`} href={links.contactUs}>
               Contact Us
+            </Link>
+            <Link className={`${styles.link} ${styles.normalLink}`} href={links.donate}>
+              Donate
             </Link>
           </div>
         </div>

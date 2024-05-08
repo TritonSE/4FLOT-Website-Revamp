@@ -43,7 +43,8 @@ const HeaderBar = () => {
           <div className={styles.getInvolved}>
             <Link href="/involved">Get Involved</Link>
             <div className={styles.getInvolvedDropdown}>
-              <Link href="/events">Upcoming Events</Link>
+              <Link href="/upcoming-events">Upcoming Events</Link>
+              <Link href="/past-events">Past Events</Link>
               <Link href="/donations">Donate</Link>
             </div>
           </div>
