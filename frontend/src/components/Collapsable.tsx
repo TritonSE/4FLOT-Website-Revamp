@@ -19,8 +19,10 @@ const Collapsable = ({ title, subsection, textbox, onChange }: CollapsableProps)
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    // Auto increase height when typing
     event.target.style.height = "auto";
     event.target.style.height = 2 + event.target.scrollHeight + "px";
+    // Call onChange function
     onChange(event);
   };
 

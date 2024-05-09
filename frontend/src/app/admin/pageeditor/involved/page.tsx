@@ -22,6 +22,7 @@ export default function Dashboard() {
         pages={["Get Involved", "Upcoming Events"]}
         links={["./involved", "./events"]}
         currPage={0}
+        refreshPage={true}
       />
       <div className={styles.sectionContainer}>
         <Collapsable

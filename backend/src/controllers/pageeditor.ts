@@ -6,11 +6,9 @@ import validationErrorParser from "src/util/validationErrorParser";
 
 export const getPage: RequestHandler = async (req, res, next) => {
   const { page } = req.params;
-  //   const page = "Upcoming Events";
 
   try {
     const pageText = await PageEditor.findOne({ page: page });
-    // const pageText = await PageEditor.findById("6637c188033bde155d9c95cd");
 
     if (!pageText) {
       throw createHttpError(404, "Page not found.");

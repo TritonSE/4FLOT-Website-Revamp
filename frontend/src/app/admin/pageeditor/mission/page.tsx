@@ -31,6 +31,7 @@ export default function Dashboard() {
         pages={["About Us", "Our Mission", "Our Team", "Contact Us"]}
         links={["./about", "./mission", "./team", "./contact"]}
         currPage={1}
+        refreshPage={true}
       />
       <div className={styles.sectionContainer}>
         <Collapsable

@@ -52,6 +52,7 @@ export default function Dashboard() {
     if (isEdited) {
       console.log("Save changes");
       updatePage({
+        //Pass edited text to MongoDB
         page: "Upcoming Events",
         ph_subtitle: phSubtitle,
         s1_title: s1Title,
@@ -74,7 +75,24 @@ export default function Dashboard() {
 
   const handleCancel = () => {
     // Implement cancel logic
-    console.log("Cancel changes");
+    if (isEdited) {
+      console.log("Cancel changes");
+      getPageText("Upcoming Events")
+        .then((response) => {
+          if (response.success) {
+            pageText = response.data;
+            setPhSubtitle(pageText.ph_subtitle);
+            setS1Title(pageText.s1_title);
+            setS1Text(pageText.s1_text);
+          } else {
+            alert(response.error);
+          }
+        })
+        .catch((error) => {
+          alert(error);
+        });
+      setIsEdited(false);
+    }
   };
 
   return (
@@ -83,6 +101,7 @@ export default function Dashboard() {
         pages={["Get Involved", "Upcoming Events"]}
         links={["./involved", "./events"]}
         currPage={1}
+        refreshPage={true}
       />
       <div className={styles.sectionContainer}>
         <Collapsable
@@ -98,7 +117,11 @@ export default function Dashboard() {
           onChange={handleEdit}
         />
         <div className={styles.buttonContainer}>
-          <CancelButton text="Cancel" color={isEdited ? "active" : "unactive"} />
+          <CancelButton
+            text="Cancel"
+            color={isEdited ? "active" : "unactive"}
+            onClick={handleCancel}
+          />
           <Button text="Save" color={isEdited ? "active" : "unactive"} onClick={handleSave} />
         </div>
       </div>

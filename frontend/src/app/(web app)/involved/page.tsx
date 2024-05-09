@@ -9,6 +9,9 @@ import WhiteCard from "@/components/WhiteCard";
 
 export default function Involved() {
   const [images, setImages] = useState<BackgroundImage[]>([]);
+  // const [phSubtitle, setPhSubtitle] = useState<string>("");
+  // const [s1Title, setS1Title] = useState<string>("");
+  // const [s2Title, setS2Title] = useState<string>("");
 
   useEffect(() => {
     getBackgroundImages(BackgroundImagePages.TEAM)
@@ -21,6 +24,24 @@ export default function Involved() {
         alert(error);
       });
   }, []);
+
+  // let pageText;
+  // useEffect(() => {
+  //   getPageText("Get Involved")
+  //     .then((response) => {
+  //       if (response.success) {
+  //         pageText = response.data;
+  //         setPhSubtitle(pageText.ph_subtitle);
+  //         setS1Subtitle(pageText.s1_title);
+  //         setS1Text(pageText.s1_text);
+  //       } else {
+  //         alert(response.error);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       alert(error);
+  //     });
+  // }, []);
 
   return (
     <main className={styles.page}>
