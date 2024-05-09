@@ -79,7 +79,7 @@ export default function MailingList() {
       .then((result) => {
         if (result.success) {  
           const formattedRows = result.data
-            .filter(item => !item.archive) // filter out items where archive is false
+            .filter(item => item.archive) // filter out items where archive is false
             .map((item) => ({
               ...item,
               id: item._id.toString(),
@@ -238,8 +238,8 @@ export default function MailingList() {
     >
       <PageToggle
         pages={["Current Newsletter", "Archive"]}
-        links={["./newslettercreator", "./newslettercreator/archive"]}
-        currPage={0}
+        links={["./", "./newslettercreator/archive"]}
+        currPage={1}
       />
     </Box>
 
