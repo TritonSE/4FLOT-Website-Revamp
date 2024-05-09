@@ -58,14 +58,14 @@ export default function Involved() {
         <div className={styles.cards}>
           <WhiteCard
             imageUrl="/cal.svg"
-            buttonUrl="/events"
+            buttonUrl="/upcoming-events"
             buttonText="Learn More"
             title="Upcoming Events"
             description="Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi."
           />
           <WhiteCard
             imageUrl="/group.svg"
-            buttonUrl="/donate"
+            buttonUrl="/donations"
             buttonText="Learn More"
             title="Donate"
             description="Your support and contributions will enable us to meet our goals and improve conditions. Your generous donation will fund our mission."

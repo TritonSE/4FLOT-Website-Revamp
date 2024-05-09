@@ -8,6 +8,7 @@ const subscriberSchema = new Schema({
   email: { type: String, required: true },
   firstName: { type: String },
   lastName: { type: String },
+  memberSince: { type: String },
   quarterlyUpdates: { type: Boolean },
   specialUpdates: { type: Boolean },
 });

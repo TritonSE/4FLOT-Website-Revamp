@@ -29,8 +29,21 @@ export type CreateNewsletterEmailRequest = {
   specialUpdates: boolean;
 };
 
+export type CreateDonationEmailRequest = {
+  type: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  comment: string;
+};
+
 export async function sendEmail(
-  email: CreateContactEmailRequest | CreateVolunteerEmailRequest | CreateNewsletterEmailRequest,
+  email:
+    | CreateContactEmailRequest
+    | CreateVolunteerEmailRequest
+    | CreateNewsletterEmailRequest
+    | CreateDonationEmailRequest,
 ) {
   try {
     await post("/api/emails", email);

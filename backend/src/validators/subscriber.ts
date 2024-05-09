@@ -13,6 +13,15 @@ import Subscriber from "src/models/subscriber";
  * 4. normalize email then
  * 5. check if email already exists in db
  */
+
+const makeIDValidator = () =>
+  body("_id")
+    .exists()
+    .withMessage("_id is required")
+    .bail()
+    .isString()
+    .withMessage("_id must be a number");
+
 const makeEmailValidator = () =>
   body("email")
     .trim()
@@ -50,3 +59,5 @@ export const createSubscriber = [
   makeQuarterlyUpdatesValidator(),
   makeSpecialUpdatesValidator(),
 ];
+
+export const deleteSubscriber = [makeIDValidator()];

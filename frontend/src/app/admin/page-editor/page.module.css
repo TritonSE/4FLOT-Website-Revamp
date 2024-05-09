@@ -1,0 +1,18 @@
+.page {
+  display: flex;
+  justify-content: center;
+  padding-left: 30px;
+  padding-top: 50px;
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 100%;
+  margin-top: 50px;
+  margin-left: 140px;
+  margin-bottom: 50px;
+  gap: 50px;
+}
