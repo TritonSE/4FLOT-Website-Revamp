@@ -21,13 +21,6 @@ const makeSubtitleValidator = () =>
     .bail()
     .isString()
     .withMessage("subtitle must be a string");
-const makeImageValidator = () =>
-  body("ph_images")
-    .exists()
-    .withMessage("images is required")
-    .bail()
-    .isString()
-    .withMessage("images must be a string");
 const makeTitleValidator = () =>
   body("s1_title")
     .exists()
@@ -48,7 +41,6 @@ export const getPageEditor = [makePageValidator()];
 export const createPageEditor = [
   makeIDValidator(),
   makePageValidator(),
-  //   makeImageValidator(),
   makeSubtitleValidator(),
   makeTitleValidator(),
   makeTextValidator(),

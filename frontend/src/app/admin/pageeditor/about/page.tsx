@@ -17,6 +17,18 @@ export default function Dashboard() {
     setIsEdited(true);
   };
 
+  const handleSave = () => {
+    // Implement save logic
+    console.log("Save changes");
+    setIsEdited(false);
+  };
+
+  const handleCancel = () => {
+    // Implement cancel logic
+    console.log("Cancel changes");
+    setIsEdited(false);
+  };
+
   return (
     <main className={styles.page}>
       <PageToggle
@@ -65,8 +77,12 @@ export default function Dashboard() {
           onChange={handleEdit}
         />
         <div className={styles.buttonContainer}>
-          <CancelButton text="Cancel" color={isEdited ? "active" : "unactive"} />
-          <Button text="Save" color={isEdited ? "active" : "unactive"} />
+          <CancelButton
+            text="Cancel"
+            color={isEdited ? "active" : "unactive"}
+            onClick={handleCancel}
+          />
+          <Button text="Save" color={isEdited ? "active" : "unactive"} onClick={handleSave} />
         </div>
       </div>
     </main>
