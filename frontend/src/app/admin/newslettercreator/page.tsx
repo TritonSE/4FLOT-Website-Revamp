@@ -64,7 +64,6 @@ export default function MailingList() {
 
   ];
 
-  
   const [rows, setRow] = useState<Newsletter[]>([]);
   const [rowsCurrent, setRowsCurrent] = React.useState(rows);
   const [selectedRow, setSelectedRow] = useState<GridRowId | null>(null);
@@ -141,7 +140,6 @@ export default function MailingList() {
       openNewsletter(false);
     }
   };
-
 
 
   const handleSetSidebarOpen = (open: boolean) => {

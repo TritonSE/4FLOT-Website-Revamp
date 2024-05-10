@@ -12,6 +12,7 @@ import { NewsletterSidebarWarning } from "@/components/NewsletterSidebarWarning"
 import { NewsletterDeleteWarning } from "@/components/NewsletterDeleteWarning";
 
 import { TextField } from "@/components/TextField";
+import { TextFieldContent } from "@/components/TextFieldContent";
 
 type newsletterSidebarProps = {
   newsletter: null | Newsletter;
@@ -272,7 +273,7 @@ const NewsletterSidebar = ({
               />
               <h2>Newsletter Cover</h2>
               <p>Placeholder - to be replaced with image</p>
-              <TextField
+              <TextFieldContent
                 className={`${styles.textField} ${styles.stretch}`}
                 label="Newsletter Content"
                 value={content}
