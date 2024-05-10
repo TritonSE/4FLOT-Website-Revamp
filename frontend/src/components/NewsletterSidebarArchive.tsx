@@ -114,7 +114,7 @@ const NewsletterSidebar = ({
           description,
           date,
           content,
-          archive: false,
+          archive: true,
         });
       }
       setIsEditing(false);

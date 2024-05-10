@@ -22,7 +22,7 @@ import {
   updateNewsletter,
   deleteNewsletter,
 } from "@/api/newsletter";
-import NewsletterSidebar from "@/components/NewsletterSidebar";
+import NewsletterSidebar from "@/components/NewsletterSidebarArchive";
 import PageToggle from "@/components/PageToggle";
 
 export default function MailingList() {
@@ -203,7 +203,6 @@ export default function MailingList() {
     }
     return rowClasses;
   };
-
 
   return (
     <div className={styles.page}>
