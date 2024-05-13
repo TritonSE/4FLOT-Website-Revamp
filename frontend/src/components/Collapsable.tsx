@@ -39,7 +39,7 @@ const Collapsable = ({ title, subsection, textbox, onChange }: CollapsableProps)
           />
         )}
         {!open && <Image src="/ic_caretdown.svg" alt="^" width={24} height={24} />}
-        <a>{title}</a>
+        <a className={styles.title}>{title}</a>
       </button>
       {open && (
         <div className={styles.content}>

@@ -10,7 +10,7 @@ import CancelButton from "@/components/CancelButton";
 import Collapsable from "@/components/Collapsable";
 import PageToggle from "@/components/PageToggle";
 
-export default function Dashboard() {
+export default function EventsPageEditor() {
   const [isEdited, setIsEdited] = useState(false);
   const [phSubtitle, setPhSubtitle] = useState<string>("");
   const [s1Title, setS1Title] = useState<string>("");
