@@ -10,14 +10,27 @@ type EventsListProps = {
 };
 
 export default function EventsList({ page }: EventsListProps) {
-  const [events, setEvents] = useState<EventDetails[]>([]);
+  const [pastEvents, setPastEvents] = useState<EventDetails[]>([]);
+  const [upcomingEvents, setUpcomingEvents] = useState<EventDetails[]>([]);
 
   // Fetch events
   useEffect(() => {
     getAllEventDetails()
       .then((response) => {
         if (response.success) {
-          setEvents(response.data);
+          const currentDate = new Date();
+
+          const filteredPastEvents = response.data.filter((item) => {
+            const eventDate = new Date(item.date);
+            return eventDate < currentDate;
+          });
+          setPastEvents(filteredPastEvents);
+
+          const filteredUpcomingEvents = response.data.filter((item) => {
+            const eventDate = new Date(item.date);
+            return eventDate >= currentDate;
+          });
+          setUpcomingEvents(filteredUpcomingEvents);
         } else {
           alert(response.error);
         }
@@ -33,25 +46,40 @@ export default function EventsList({ page }: EventsListProps) {
         style={{ display: "flex", flexWrap: "wrap", columnGap: "24px", rowGap: "50px" }}
         className="events"
       >
-        {events.length === 0 ? (
+        {upcomingEvents.length === 0 ? (
           <p>Loading...</p>
         ) : (
-          events.map((event: EventDetails) => (
+          upcomingEvents.map((event: EventDetails) => (
             <EventCard key={event._id} event={event} page={page} />
           ))
         )}
       </div>
     );
-  } else {
+  } else if (page === "upcoming-events") {
     return (
       <div
         style={{ display: "flex", flexWrap: "wrap", columnGap: "85px", rowGap: "85px" }}
         className="events"
       >
-        {events.length === 0 ? (
+        {upcomingEvents.length === 0 ? (
           <p>Loading...</p>
         ) : (
-          events.map((event: EventDetails) => (
+          upcomingEvents.map((event: EventDetails) => (
+            <EventCard key={event._id} event={event} page={page} />
+          ))
+        )}
+      </div>
+    );
+  } else if (page === "past-events") {
+    return (
+      <div
+        style={{ display: "flex", flexWrap: "wrap", columnGap: "85px", rowGap: "85px" }}
+        className="events"
+      >
+        {pastEvents.length === 0 ? (
+          <p>Loading...</p>
+        ) : (
+          pastEvents.map((event: EventDetails) => (
             <EventCard key={event._id} event={event} page={page} />
           ))
         )}

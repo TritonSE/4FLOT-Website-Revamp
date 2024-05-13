@@ -9,20 +9,20 @@ export default function Dashboard() {
       <div className={styles.gridContainer}>
         <DashboardCard
           imageURI="/dashboard_eventcreator.png"
-          url="/eventcreator"
+          url="/event-creator"
           title="Event Creator"
           last_updated="Month XX, XXXX, XX:XX"
         />
         <DashboardCard
           imageURI="/dashboard_pageeditor.png"
-          url="/pageeditor"
+          url="/page-editor"
           title="Page Editor"
           last_updated="Month XX, XXXX, XX:XX"
         />
 
         <DashboardCard
           imageURI="/dashboard_newsletter.png"
-          url="/newslettercreator"
+          url="/newsletter-creator"
           title="Newsletter"
           last_updated="Month XX, XXXX, XX:XX"
         />

@@ -27,13 +27,13 @@ const EventsCard = ({ event, page }: CardProps) => {
             <div className={styles.cardTitle}>{event.name}</div>
             <div className={styles.homeCardDescription}>{event.description}</div>
           </div>
-          <Link href={`/events/${event._id}`}>
+          <Link href={`/upcoming-events/${event._id}`}>
             <button className={styles.homeCardButton}>Learn More</button>
           </Link>
         </div>
       </main>
     );
-  } else {
+  } else if (page === "upcoming-events") {
     return (
       <main className={styles.cardContainer} style={{ width: `578px`, height: `536px` }}>
         <div style={{ width: "578px", height: "270px", overflow: "hidden" }}>
@@ -45,9 +45,24 @@ const EventsCard = ({ event, page }: CardProps) => {
             <div className={styles.cardTitle}>{event.name}</div>
             <div className={styles.cardDescription}>{event.description}</div>
           </div>
-          <Link href={`/events/${event._id}`}>
+          <Link href={`/upcoming-events/${event._id}`}>
             <button className={styles.cardButton}>Learn More</button>
           </Link>
+        </div>
+      </main>
+    );
+  } else if (page === "past-events") {
+    return (
+      <main className={styles.cardContainer} style={{ width: `578px`, height: `450px` }}>
+        <div style={{ width: "578px", height: "270px", overflow: "hidden" }}>
+          <Image src={event.imageURI} alt="image" width={578} height={270} />
+        </div>
+
+        <div className={styles.cardContent}>
+          <div className={styles.textContainer}>
+            <div className={styles.cardTitle}>{event.name}</div>
+            <div className={styles.cardDescription}>{event.description}</div>
+          </div>
         </div>
       </main>
     );
