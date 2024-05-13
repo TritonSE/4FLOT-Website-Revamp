@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 255, 255, 255;
+  --background-end-rgb: 255, 255, 255;
+  --font-small-subtitle: normal 700 28px/150% "Roboto Slab", sans-serif;
+  --font-body: normal 400 20px/120% "Open Sans", sans-serif;
+  --font-body-reg: normal 400 16px/150% "Open Sans", sans-serif;
+  --font-body-bold: normal 700 16px/150% "Open Sans", sans-serif;
+  --font-title-xl: normal 700 48px/150% "Roboto Slab", sans-serif;
+  --font-title-l: normal 700 32px/150% "Roboto Slab", sans-serif;
+  --font-title-m: normal 700 28px/150% "Roboto Slab", sans-serif;
+  --color-primary-purple: #694c97;
+  --color-primary-purple-hover: #7b61a3;
+  --color-secondary-blue: #0370bb;
+  --color-secondary-blue-hover: #3c98d7;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  /* color: rgb(var(--foreground-rgb)); */
+  background-color: #edf1f9;
+  /* background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb)))
+    rgb(var(--background-start-rgb)); */
+}

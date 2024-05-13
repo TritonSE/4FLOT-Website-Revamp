@@ -35,6 +35,10 @@ export const createEmail: RequestHandler = async (req, res, next) => {
     const specialStr = specialUpdates ? "Yes" : "No";
     EMAIL_SUBJECT = `Newsletter Form: Subscription by ${firstName} ${lastName}`;
     EMAIL_BODY = `First Name: ${firstName} \nLast Name: ${lastName}\nEmail: ${email}\nReceive Quarterly Updates: ${quarterlyStr}\nReceive Special Events Updates: ${specialStr}`;
+  } else if (req.body.type === "donation") {
+    const { firstName, lastName, email, phone, comment } = req.body;
+    EMAIL_SUBJECT = `Physical Donation Form: Donation from ${firstName} ${lastName}`;
+    EMAIL_BODY = `First Name: ${firstName}\nLast Name: ${lastName}\nEmail: ${email}\nPhone Number: ${phone}\nDonation Comment:\n${comment}`;
   }
 
   try {

@@ -1,4 +1,4 @@
-type Method = "GET" | "POST" | "PUT";
+type Method = "GET" | "POST" | "PUT" | "DELETE";
 
 /**
  * The first part of the backend API URL, which we will automatically prepend to
@@ -77,6 +77,19 @@ async function assertOk(response: Response): Promise<void> {
 export async function get(url: string, headers: Record<string, string> = {}): Promise<Response> {
   // GET requests do not have a body
   const response = await fetchRequest("GET", API_BASE_URL + url, undefined, headers);
+  await assertOk(response);
+  return response;
+}
+
+/**
+ * Sends a DELETE request to the provided API URL.
+ *
+ * @param url The URL to request
+ * @param headers The headers of the request (optional)
+ * @returns The Response object returned by `fetch()`
+ */
+export async function del(url: string, headers: Record<string, string> = {}): Promise<Response> {
+  const response = await fetchRequest("DELETE", API_BASE_URL + url, undefined, headers);
   await assertOk(response);
   return response;
 }

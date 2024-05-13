@@ -7,7 +7,6 @@ const eventDetailsSchema = new Schema({
   date: { type: String, required: true },
   location: { type: String, required: true },
   imageURI: { type: String, required: true },
-  volunteers: { type: [String], required: false, default: [] },
 });
 
 type EventDetails = InferSchemaType<typeof eventDetailsSchema>;

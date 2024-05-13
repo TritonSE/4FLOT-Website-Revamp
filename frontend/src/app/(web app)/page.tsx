@@ -47,7 +47,7 @@ export default function Home() {
       <div className={styles.whiteCardsContainer}>
         <WhiteCard
           imageUrl="/Donate.svg"
-          buttonUrl="/"
+          buttonUrl="/donations"
           buttonText="Donate"
           title="Help Our Cause"
           description="Your support and contributions will enable us to meet our goals and improve conditions. 
@@ -64,7 +64,7 @@ export default function Home() {
         </div>
 
         <div className={styles.buttonContainer}>
-          <Button text={see_more_text} link={"/events"} />
+          <Button text={see_more_text} link={"/upcoming-events"} />
         </div>
         <Description
           title="Our Community Sponsors"

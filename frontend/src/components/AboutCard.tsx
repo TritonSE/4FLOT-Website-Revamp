@@ -18,30 +18,39 @@ const AboutCard: React.FC<AboutCardProps> = ({
   ourText,
   title,
   description,
-  // imageUrl,
+  imageUrl,
   buttonUrl,
   buttonText,
   contentSide,
 }) => {
+  const imageStyle = {
+    backgroundImage: `url(${imageUrl})`,
+  };
   if (contentSide === "left") {
     return (
-      <div className={styles.rectangleContainer}>
-        <div className={styles.contentLeft}>
-          <div className={styles.subtitleText}>{ourText}</div>
-          <div className={styles.titleText}>{title}</div>
-          <div className={styles.descriptionText}>{description}</div>
-          <Button text={buttonText} link={buttonUrl} />
+      <div className={styles.card}>
+        <div className={styles.rectangleContainerLeft}>
+          <div className={styles.contentLeft}>
+            <div className={styles.subtitleText}>{ourText}</div>
+            <div className={styles.titleText}>{title}</div>
+            <div className={styles.descriptionText}>{description}</div>
+            <Button text={buttonText} link={buttonUrl} />
+          </div>
         </div>
+        <div className={styles.imageContainerRight} style={imageStyle}></div>
       </div>
     );
   } else {
     return (
-      <div className={styles.rectangleContainer}>
-        <div className={styles.contentRight}>
-          <div className={styles.subtitleText}>{ourText}</div>
-          <div className={styles.titleText}>{title}</div>
-          <div className={styles.descriptionText}>{description}</div>
-          <Button text={buttonText} link={buttonUrl} />
+      <div className={styles.card}>
+        <div className={styles.imageContainerLeft} style={imageStyle}></div>
+        <div className={styles.rectangleContainerRight}>
+          <div className={styles.contentRight}>
+            <div className={styles.subtitleText}>{ourText}</div>
+            <div className={styles.titleText}>{title}</div>
+            <div className={styles.descriptionText}>{description}</div>
+            <Button text={buttonText} link={buttonUrl} />
+          </div>
         </div>
       </div>
     );
