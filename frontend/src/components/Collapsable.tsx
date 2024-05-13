@@ -46,8 +46,7 @@ const Collapsable = ({ title, subsection, textbox, onChange }: CollapsableProps)
           {subsection.map((subtitle, index) => {
             const text = textbox[index];
             return (
-              // eslint-disable-next-line react/jsx-key
-              <div>
+              <div key={subtitle}>
                 <p className={styles.subtitle}>{subtitle}</p>
                 <textarea
                   className={styles.basicInput}
