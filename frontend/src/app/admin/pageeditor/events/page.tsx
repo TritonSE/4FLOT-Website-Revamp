@@ -39,11 +39,11 @@ export default function EventsPageEditor() {
   /* Handle Fields upon edit */
   const handleEdit = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setIsEdited(true);
-    if (event.target.id === "Subtitle") {
+    if (event.target.id === "Page Header: Subtitle") {
       setPhSubtitle(event.target.value);
-    } else if (event.target.id === "Section Title") {
+    } else if (event.target.id === "Section 1: Section Title") {
       setS1Title(event.target.value);
-    } else if (event.target.id === "Section Subtitle") {
+    } else if (event.target.id === "Section 1: Section Subtitle") {
       setS1Text(event.target.value);
     }
   };

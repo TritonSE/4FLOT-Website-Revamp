@@ -51,7 +51,7 @@ const Collapsable = ({ title, subsection, textbox, onChange }: CollapsableProps)
                 <textarea
                   className={styles.basicInput}
                   onInput={handleChange}
-                  id={subtitle}
+                  id={title + ": " + subtitle}
                   value={text}
                 ></textarea>
               </div>

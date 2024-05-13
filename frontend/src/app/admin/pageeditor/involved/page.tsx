@@ -1,5 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
+import { getPageText, updatePage } from "../../../../api/pageeditor";
 
 import styles from "./page.module.css";
 
@@ -12,21 +14,95 @@ import PageToggle from "@/components/PageToggle";
 
 export default function Dashboard() {
   const [isEdited, setIsEdited] = useState(false);
+  const [phSubtitle, setPhSubtitle] = useState<string>("");
+  const [s1Subtitle, setS1Subtitle] = useState<string>("");
+  const [s2Subtitle, setS2Subtitle] = useState<string>("");
 
-  const handleEdit = () => {
+  /* Get page data from MongoDB */
+  let pageText;
+  useEffect(() => {
+    getPageText("Get Involved")
+      .then((response) => {
+        if (response.success) {
+          pageText = response.data;
+          setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
+          setS1Subtitle(pageText.pageSections[1].sectionSubtitle ?? "");
+          setS2Subtitle(pageText.pageSections[2].sectionSubtitle ?? "");
+          console.log("response.data: ", response.data);
+        } else {
+          alert(response.error);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }, []);
+
+  /* Handle Fields upon edit */
+  const handleEdit = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setIsEdited(true);
+    if (event.target.id === "Page Header: Subtitle") {
+      setPhSubtitle(event.target.value);
+    } else if (event.target.id === "Section 1 - Upcoming Events: Subtitle") {
+      setS1Subtitle(event.target.value);
+    } else if (event.target.id === "Section 2 - Donate: Subtitle") {
+      setS2Subtitle(event.target.value);
+    }
   };
 
   const handleSave = () => {
     // Implement save logic
-    console.log("Save changes");
-    setIsEdited(false);
+    if (isEdited) {
+      console.log("Save changes");
+      updatePage({
+        //Pass edited text to MongoDB
+        page: "Upcoming Events",
+        pageSections: [
+          {
+            subtitle: phSubtitle,
+          },
+          {
+            sectionSubtitle: s1Subtitle,
+          },
+          {
+            sectionSubtitle: s2Subtitle,
+          },
+        ],
+      })
+        .then((response) => {
+          if (response.success) {
+            alert("Success!");
+          } else {
+            alert(response.error);
+          }
+        })
+        .catch((error) => {
+          alert(error);
+        });
+      setIsEdited(false);
+    }
   };
 
   const handleCancel = () => {
     // Implement cancel logic
-    console.log("Cancel changes");
-    setIsEdited(false);
+    if (isEdited) {
+      console.log("Cancel changes");
+      getPageText("Upcoming Events")
+        .then((response) => {
+          if (response.success) {
+            pageText = response.data;
+            setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
+            setS1Subtitle(pageText.pageSections[1].sectionSubtitle ?? "");
+            setS2Subtitle(pageText.pageSections[2].sectionSubtitle ?? "");
+          } else {
+            alert(response.error);
+          }
+        })
+        .catch((error) => {
+          alert(error);
+        });
+      setIsEdited(false);
+    }
   };
 
   return (
