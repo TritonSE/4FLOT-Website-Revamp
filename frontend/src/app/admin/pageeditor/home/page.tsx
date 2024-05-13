@@ -1,5 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
+import { getPageText, updatePage } from "../../../../api/pageeditor";
 
 import styles from "./page.module.css";
 
@@ -12,22 +14,109 @@ import PageToggle from "@/components/PageToggle";
 
 export default function Dashboard() {
   const [isEdited, setIsEdited] = useState(false);
+  const [phSubtitle, setPhSubtitle] = useState<string>("");
+  const [s1Subtitle, setS1Subtitle] = useState<string>("");
+  const [s1Text, setS1Text] = useState<string>("");
+  const [s2Subtitle, setS2Subtitle] = useState<string>("");
+  const [s2Text, setS2Text] = useState<string>("");
 
-  const handleEdit = () => {
-    setIsEdited(true);
-  };
+  /* Get page data from MongoDB */
+ let pageText;
+ useEffect(() => {
+   getPageText("Home")
+     .then((response) => {
+       if (response.success) {
+         pageText = response.data;
+         setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
+         setS1Subtitle(pageText.pageSections[1].sectionTitle ?? "");
+         setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
+         setS2Subtitle(pageText.pageSections[2].sectionTitle ?? "");
+         setS2Text(pageText.pageSections[2].sectionSubtitle ?? "");
+         console.log("response.data: ", response.data);
+       } else {
+         alert(response.error);
+       }
+     })
+     .catch((error) => {
+       alert(error);
+     });
+ }, []);
 
-  const handleSave = () => {
-    // Implement save logic
+ /* Handle Fields upon edit */
+ const handleEdit = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  setIsEdited(true);
+  if (event.target.id === "Page Header: Subtitle") {
+    setPhSubtitle(event.target.value);
+  } else if (event.target.id === "Section 1: Section Title") {
+    setS1Subtitle(event.target.value);
+  } else if (event.target.id === "Section 1: Body Text") {
+    setS1Text(event.target.value);
+  } else if (event.target.id === "Section 2: Section Title") {
+    setS2Subtitle(event.target.value);
+  } else if (event.target.id === "Section 2: Body Text") {
+    setS2Text(event.target.value);
+  }
+  
+};
+
+const handleSave = () => {
+  // Implement save logic
+  if (isEdited) {
     console.log("Save changes");
+    updatePage({
+      //Pass edited text to MongoDB
+      page: "Home",
+      pageSections: [
+        {
+          subtitle: phSubtitle,
+        },
+        {
+          sectionTitle: s1Subtitle,
+          sectionSubtitle: s1Text,
+        },
+        {
+          sectionTitle: s2Subtitle,
+          sectionSubtitle: s2Text,
+        },
+      ],
+    })
+      .then((response) => {
+        if (response.success) {
+          alert("Success!");
+        } else {
+          alert(response.error);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
     setIsEdited(false);
-  };
+  }
+};
 
-  const handleCancel = () => {
-    // Implement cancel logic
+const handleCancel = () => {
+  // Implement cancel logic
+  if (isEdited) {
     console.log("Cancel changes");
+    getPageText("Home")
+      .then((response) => {
+        if (response.success) {
+          pageText = response.data;
+          setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
+          setS1Subtitle(pageText.pageSections[1].sectionTitle ?? "");
+          setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
+          setS2Subtitle(pageText.pageSections[2].sectionTitle ?? "");
+          setS2Text(pageText.pageSections[2].sectionSubtitle ?? "");
+        } else {
+          alert(response.error);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
     setIsEdited(false);
-  };
+  }
+};
 
   return (
     <main className={styles.page}>
@@ -36,28 +125,19 @@ export default function Dashboard() {
         <Collapsable
           title="Page Header"
           subsection={["Subtitle", "Header Image Carousel"]}
-          textbox={[
-            "4FLOT is committed in preventing and ending homelessness, hunger and disparity in underprivileged communities.",
-            "",
-          ]}
+          textbox={[phSubtitle, ]}
           onChange={handleEdit}
         />
         <Collapsable
           title="Section 1"
           subsection={["Section Title", "Body Text"]}
-          textbox={[
-            "Get Involved at our Upcoming Events",
-            "Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi.",
-          ]}
+          textbox={[s1Subtitle, s1Text]}
           onChange={handleEdit}
         />
         <Collapsable
           title="Section 2"
           subsection={["Section Title", "Body Text", "Sponsor Image Gallery"]}
-          textbox={[
-            "Our Community Sponsors",
-            "Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi.",
-          ]}
+          textbox={[s2Subtitle, s2Text]}
           onChange={handleEdit}
         />
         <div className={styles.buttonContainer}>

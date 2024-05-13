@@ -1,5 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
+import { getPageText, updatePage } from "../../../../api/pageeditor";
 
 import styles from "./page.module.css";
 
@@ -12,21 +14,122 @@ import PageToggle from "@/components/PageToggle";
 
 export default function Dashboard() {
   const [isEdited, setIsEdited] = useState(false);
+  const [phSubtitle, setPhSubtitle] = useState<string>("");
+  const [s1Subtitle, setS1Subtitle] = useState<string>("");
+  const [s1Text, setS1Text] = useState<string>("");
+  const [s2Subtitle, setS2Subtitle] = useState<string>("");
+  const [s2Text, setS2Text] = useState<string>("");
+  const [s3Subtitle, setS3Subtitle] = useState<string>("");
+  const [s3Text, setS3Text] = useState<string>("");
 
-  const handleEdit = () => {
+ /* Get page data from MongoDB */
+ let pageText;
+ useEffect(() => {
+   getPageText("About Us")
+     .then((response) => {
+       if (response.success) {
+         pageText = response.data;
+         setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
+         setS1Subtitle(pageText.pageSections[1].sectionTitle ?? "");
+         setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
+         setS2Subtitle(pageText.pageSections[2].sectionTitle ?? "");
+         setS2Text(pageText.pageSections[2].sectionSubtitle ?? "");
+         setS3Subtitle(pageText.pageSections[3].sectionTitle ?? "");
+         setS3Text(pageText.pageSections[3].sectionSubtitle ?? "");
+         console.log("response.data: ", response.data);
+       } else {
+         alert(response.error);
+       }
+     })
+     .catch((error) => {
+       alert(error);
+     });
+ }, []);
+
+  /* Handle Fields upon edit */
+  const handleEdit = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setIsEdited(true);
+    if (event.target.id === "Page Subtitle: Subtitle") {
+      setPhSubtitle(event.target.value);
+    } else if (event.target.id === "Section 1 - Our Mission: Section Title") {
+      setS1Subtitle(event.target.value);
+    } else if (event.target.id === "Section 1 - Our Mission: Body Text") {
+      setS1Text(event.target.value);
+    } else if (event.target.id === "Section 2 - Our Team: Section Title") {
+      setS2Subtitle(event.target.value);
+    } else if (event.target.id === "Section 2 - Our Team: Body Text") {
+      setS2Text(event.target.value);
+    } else if (event.target.id === "Section 3 - Contact Us: Section Title") {
+      setS3Subtitle(event.target.value);
+    } else if (event.target.id === "Section 3 - Contact Us: Body Text") {
+      setS3Text(event.target.value);
+    }
+    
   };
 
   const handleSave = () => {
     // Implement save logic
-    console.log("Save changes");
-    setIsEdited(false);
+    if (isEdited) {
+      console.log("Save changes");
+      updatePage({
+        //Pass edited text to MongoDB
+        page: "About Us",
+        pageSections: [
+          {
+            subtitle: phSubtitle,
+          },
+          {
+            sectionTitle: s1Subtitle,
+            sectionSubtitle: s1Text,
+          },
+          {
+            sectionTitle: s2Subtitle,
+            sectionSubtitle: s2Text,
+          },
+          {
+            sectionTitle: s3Subtitle,
+            sectionSubtitle: s3Text,
+          },
+        ],
+      })
+        .then((response) => {
+          if (response.success) {
+            alert("Success!");
+          } else {
+            alert(response.error);
+          }
+        })
+        .catch((error) => {
+          alert(error);
+        });
+      setIsEdited(false);
+    }
   };
 
   const handleCancel = () => {
     // Implement cancel logic
-    console.log("Cancel changes");
-    setIsEdited(false);
+    if (isEdited) {
+      console.log("Cancel changes");
+      getPageText("About Us")
+        .then((response) => {
+          if (response.success) {
+            pageText = response.data;
+            setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
+            setS1Subtitle(pageText.pageSections[1].sectionTitle ?? "");
+            setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
+            setS2Subtitle(pageText.pageSections[2].sectionTitle ?? "");
+            setS2Text(pageText.pageSections[2].sectionSubtitle ?? "");
+            setS3Subtitle(pageText.pageSections[3].sectionTitle ?? "");
+            setS3Text(pageText.pageSections[3].sectionSubtitle ?? "");
+          } else {
+            alert(response.error);
+          }
+        })
+        .catch((error) => {
+          alert(error);
+        });
+      setIsEdited(false);
+    }
   };
 
   return (
@@ -41,39 +144,25 @@ export default function Dashboard() {
         <Collapsable
           title="Page Subtitle"
           subsection={["Subtitle"]}
-          textbox={[
-            "4FLOT is committed in preventing and ending homelessness, hunger and disparity in underprivileged communities. ",
-          ]}
+          textbox={[phSubtitle, ""]}
           onChange={handleEdit}
         />
         <Collapsable
           title="Section 1 - Our Mission"
           subsection={["Section Title", "Body Text", "Section Image"]}
-          textbox={[
-            "Why We Do It",
-            "Leading the way for generations to come! Together we can .... make a difference by paying it forward with Love, Compassion, and Community Outreach for all humanity.",
-            "",
-          ]}
+          textbox={[s1Subtitle, s1Text]}
           onChange={handleEdit}
         />
         <Collapsable
           title="Section 2 - Our Team"
           subsection={["Section Title", "Body Text", "Section Image"]}
-          textbox={[
-            "Meet our Team",
-            "Leading the way for generations to come! Together we can .... make a difference by paying it forward with Love, Compassion, and Community Outreach for all humanity.",
-            "",
-          ]}
+          textbox={[s2Subtitle, s2Text]}
           onChange={handleEdit}
         />
         <Collapsable
           title="Section 3 - Contact Us"
           subsection={["Section Title", "Body Text", "Section Image"]}
-          textbox={[
-            "Stay Connected",
-            "Leading the way for generations to come! Together we can .... make a difference by paying it forward with Love, Compassion, and Community Outreach for all humanity.",
-            "",
-          ]}
+          textbox={[s3Subtitle, s3Text]}
           onChange={handleEdit}
         />
         <div className={styles.buttonContainer}>

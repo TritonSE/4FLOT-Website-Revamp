@@ -1,6 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
+import { getPageText } from "../../api/pageeditor";
+
 import "./globals.css";
 import BackgroundHeader from "../../components/BackgroundHeader";
 
@@ -14,6 +16,11 @@ import WhiteCard from "@/components/WhiteCard";
 
 export default function Home() {
   const [images, setImages] = useState<BackgroundImage[]>([]);
+  const [phSubtitle, setPhSubtitle] = useState<string>("");
+  const [s1Subtitle, setS1Subtitle] = useState<string>("");
+  const [s1Text, setS1Text] = useState<string>("");
+  const [s2Subtitle, setS2Subtitle] = useState<string>("");
+  const [s2Text, setS2Text] = useState<string>("");
 
   const see_more_text = "See More";
   const sponsor_us_text = "Sponsor Us";
@@ -31,6 +38,29 @@ export default function Home() {
       });
   }, []);
 
+    /* Get page data from MongoDB */
+  let pageText;
+  useEffect(() => {
+    getPageText("Home")
+      .then((response) => {
+        if (response.success) {
+          pageText = response.data;
+          setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
+          setS1Subtitle(pageText.pageSections[1].sectionTitle ?? "");
+          setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
+          setS2Subtitle(pageText.pageSections[2].sectionTitle ?? "");
+          setS2Text(pageText.pageSections[2].sectionSubtitle ?? "");
+          console.log("response.data: ", response.data);
+        } else {
+          alert(response.error);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }, []);
+
+
   return (
     <main className={styles.page}>
       {images.length > 0 && (
@@ -38,9 +68,7 @@ export default function Home() {
           backgroundImageURIs={images.map((image) => image.imageURI)}
           header={""}
           title={"4 Future Leaders of Tomorrow"}
-          description={
-            "4FLOT is committed in preventing and ending homelessness, hunger and disparity in underprivileged communities."
-          }
+          description={phSubtitle}
           button={<Button text="Learn More" link="/about" />}
         />
       )}
@@ -56,8 +84,8 @@ export default function Home() {
       </div>
       <div className={styles.container}>
         <Description
-          title="Get Involved at our Upcoming Events"
-          description="Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi."
+          title={s1Subtitle}
+          description={s1Text}
         />
         <div className={styles.eventsListContainer}>
           <EventsList page="home" />
@@ -67,8 +95,8 @@ export default function Home() {
           <Button text={see_more_text} link={"/upcoming-events"} />
         </div>
         <Description
-          title="Our Community Sponsors"
-          description="Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi."
+          title={s2Subtitle}
+          description={s2Text}
         />
         <img className={styles.sponsor_image} src="/Sponsors.svg" alt="Sponsors" />
         <div className={styles.buttonContainer}>
