@@ -12,11 +12,25 @@ type ForgotPasswordProps = {
 const ForgotPassword = ({ setForgotPass }: ForgotPasswordProps) => {
   const [email, setEmail] = useState<string>("");
   const [state, setState] = useState("unclicked");
+  const [errorMsg, setErrorMsg] = useState<string>("");
 
   const auth = useFirebase();
 
+  const isValidEmail = (email: string) => {
+    // Regular expression to validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!isValidEmail(email)) {
+      setErrorMsg("Invalid email address");
+      return;
+    }
+
+    setErrorMsg("");
     if (auth) {
       setState("loading");
       sendPasswordResetEmail(auth, email)
@@ -71,8 +85,10 @@ const ForgotPassword = ({ setForgotPass }: ForgotPasswordProps) => {
                   className="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#553884] sm:text-sm sm:leading-6"
                   onChange={(e) => {
                     setEmail(e.target.value);
+                    setErrorMsg("");
                   }}
                 />
+                {errorMsg && <p className="m-1 text-sm text-red-500">{errorMsg}</p>}
               </div>
             </div>
             <div>

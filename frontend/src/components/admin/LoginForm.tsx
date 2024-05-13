@@ -6,6 +6,8 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import { firebaseSignIn } from "@/app/admin/firebase/firebase";
 import { useFirebase } from "@/app/admin/firebase/firebaseContext";
 
+import styles from "./LoginForm.module.css";
+
 type LoginFormProps = {
   setForgotPass: Dispatch<SetStateAction<boolean>>;
 };
@@ -47,15 +49,8 @@ const LoginForm = ({ setForgotPass }: LoginFormProps) => {
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <h2 className="mb-2 text-left text-xl font-semibold leading-9 tracking-tight text-gray-500">
-            4 Future Leaders of Tomorrow
-          </h2>
-          <h2
-            style={{ font: "var(--font-title-l)" }}
-            className="text-left text-2xl font-bold leading-9 tracking-tight text-gray-900"
-          >
-            Log Into Your Account
-          </h2>
+          <h2 className={styles.title}>4 Future Leaders of Tomorrow</h2>
+          <h2 className={styles.subtitle}>Log Into Your Account</h2>
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -69,6 +64,7 @@ const LoginForm = ({ setForgotPass }: LoginFormProps) => {
                   id="email"
                   name="email"
                   type="email"
+                  placeholder="Enter email"
                   autoComplete="email"
                   required
                   className="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#553884] sm:text-sm sm:leading-6"
@@ -93,11 +89,20 @@ const LoginForm = ({ setForgotPass }: LoginFormProps) => {
                   id="password"
                   name="password"
                   type="password"
+                  placeholder="Enter password"
                   autoComplete="current-password"
                   required
                   className="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#553884] sm:text-sm sm:leading-6"
                   onChange={(e) => {
                     setPassword(e.target.value);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      handleSubmit(e).catch((error) => {
+                        console.log(error);
+                      });
+                    }
                   }}
                 />
               </div>
@@ -116,6 +121,7 @@ const LoginForm = ({ setForgotPass }: LoginFormProps) => {
 
             <div>
               <button
+                id="submit"
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-[#694C97] px-3 py-1.5 text-sm font-bold leading-6 text-white shadow-sm hover:bg-[#553884] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#694C97]"
                 onClick={(e: React.FormEvent<HTMLButtonElement>) => {
