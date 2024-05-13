@@ -11,11 +11,7 @@ type NewsletterDeleteWarningProps = {
   onClose: () => void;
 };
 
-export const NewsletterDeleteWarning = ({
-  save,
-  discard,
-  onClose,
-}: NewsletterDeleteWarningProps) => {
+export const NewsletterDeleteWarning = ({ save, discard }: NewsletterDeleteWarningProps) => {
   return (
     <div className={styles.wrapper}>
       <button className={styles.closeButton} onClick={discard}>

@@ -53,3 +53,16 @@
   background-color: #f8f5fb; /* #F8F5FB color for odd rows */
 }
 
+.sidebar-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 400px; /* Adjust width as needed */
+  transition: transform 0.3s ease-out;
+  transform: translateX(100%);
+}
+
+.sidebar-container.open {
+  transform: translateX(0%);
+}

@@ -35,25 +35,24 @@ export const getNewsletter: RequestHandler = async (req, res, next) => {
 };
 
 export const createNewsletter: RequestHandler = async (req, res, next) => {
-  console.log(req.body);
   const errors = validationResult(req);
-  const { _id, image, title, description, date, content, archive } = req.body;
+  const { image, title, description, date, content } = req.body;
 
   try {
     validationErrorParser(errors);
 
     const newsletter = await Newsletter.create({
-      _id,
       image,
       title,
       description,
       date,
       content,
-      archive,
     });
 
+    console.log("newsletter: ", newsletter);
     res.status(201).json(newsletter);
   } catch (error) {
+    console.error("Error creating newsletter:", error);
     next(error);
   }
 };

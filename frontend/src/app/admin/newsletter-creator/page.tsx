@@ -12,7 +12,6 @@ import React, { useEffect, useState } from "react";
 
 import styles from "./page.module.css";
 
-
 import {
   CreateNewsletterRequest,
   Newsletter,
@@ -20,12 +19,11 @@ import {
   getAllNewsletters,
   getNewsletter,
   updateNewsletter,
-  deleteNewsletter,
 } from "@/api/newsletter";
-import NewsletterSidebar from "@/components/NewsletterSidebarArchive";
+import NewsletterSidebar from "@/components/NewsletterSidebar";
 import PageToggle from "@/components/PageToggle";
 
-export default function MailingList() {
+export default function NewsletterCreator() {
   const columns: GridColDef<(typeof rows)[number]>[] = [
     {
       field: "title",
@@ -61,12 +59,12 @@ export default function MailingList() {
       disableColumnMenu: true,
       renderHeader: () => <div>Date</div>,
     },
-
   ];
 
-  
   const [rows, setRow] = useState<Newsletter[]>([]);
   const [rowsCurrent, setRowsCurrent] = React.useState(rows);
+  const [currentNewsletters, setCurrentNewsletters] = useState<Newsletter[]>([]);
+  const [archiveNewsletters, setArchiveNewsletters] = useState<Newsletter[]>([]);
   const [selectedRow, setSelectedRow] = useState<GridRowId | null>(null);
   const [currentPage, setCurrentPage] = useState(1); // Track current page
   const [totalPages, setTotalPages] = useState(Math.ceil(rows.length / 14)); // Calculate total pages
@@ -77,16 +75,35 @@ export default function MailingList() {
   useEffect(() => {
     getAllNewsletters()
       .then((result) => {
-        if (result.success) {  
-          const formattedRows = result.data
-            .filter(item => item.archive) // filter out items where archive is false
-            .map((item) => ({
-              ...item,
-              id: item._id.toString(),
-            }));
-  
-          setRow(formattedRows);
-          setRowsCurrent(formattedRows);
+        if (result.success) {
+          const currentYear = new Date().getFullYear();
+
+          const filteredCurrent = result.data.filter((item) => {
+            const itemDate = new Date(item.date);
+            return itemDate.getFullYear() === currentYear;
+          });
+
+          const formattedCurrentRows = filteredCurrent.map((item) => ({
+            ...item,
+            id: item._id.toString(),
+          }));
+
+          setCurrentNewsletters(formattedCurrentRows);
+
+          const filteredArchive = result.data.filter((item) => {
+            const itemDate = new Date(item.date);
+            return itemDate.getFullYear() < currentYear;
+          });
+
+          const formattedArchiveRows = filteredArchive.map((item) => ({
+            ...item,
+            id: item._id.toString(),
+          }));
+
+          setArchiveNewsletters(formattedArchiveRows);
+
+          setRow(formattedCurrentRows);
+          setRowsCurrent(formattedCurrentRows);
         } else {
           console.error("ERROR:", result.error);
         }
@@ -121,6 +138,14 @@ export default function MailingList() {
     }
   }, [sidebarOpen]);
 
+  const handleTogglePage = (index: number) => {
+    if (index === 0) {
+      setRowsCurrent(currentNewsletters);
+    } else if (index === 1) {
+      setRowsCurrent(archiveNewsletters);
+    }
+  };
+
   const openNewsletter = (createNew: boolean) => {
     if (createNew) {
       setSelectedRow(null);
@@ -128,12 +153,10 @@ export default function MailingList() {
     setSidebarOpen(true);
   };
 
-
   useEffect(() => {
     // Update total pages when rows change
     setTotalPages(Math.ceil(rows.length / 14));
   }, [rows]);
-
 
   const handleCellClick: GridEventListener<"rowClick"> = (params) => {
     if (!sidebarOpen) {
@@ -141,8 +164,6 @@ export default function MailingList() {
       openNewsletter(false);
     }
   };
-
-
 
   const handleSetSidebarOpen = (open: boolean) => {
     setSidebarOpen(open);
@@ -176,9 +197,6 @@ export default function MailingList() {
       });
   };
 
-
-
-
   const handlePreviousPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
@@ -206,56 +224,58 @@ export default function MailingList() {
 
   return (
     <div className={styles.page}>
-      <Box sx={{ height: 720, width: 1119, justifyContent:"space-between" }}>
-      {sidebarOpen && (
-          <NewsletterSidebar
-            key={rerenderKey}
-            newsletter={selectedNewsletter}
-            setSidebarOpen={handleSetSidebarOpen}
-            updateNewsletter={handleUpdateNewsletter}
-            createNewsletter={handleCreateNewsletter}
-          />
+      <Box sx={{ height: 720, width: 1119, justifyContent: "space-between" }}>
+        {sidebarOpen && (
+          <div className={`${styles.sidebarContainer} ${sidebarOpen ? styles.open : ""}`}>
+            <NewsletterSidebar
+              key={rerenderKey}
+              newsletter={selectedNewsletter}
+              setSidebarOpen={handleSetSidebarOpen}
+              updateNewsletter={handleUpdateNewsletter}
+              createNewsletter={handleCreateNewsletter}
+            />
+          </div>
         )}
-        
-      <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        marginBottom: "30px",
-        marginTop: "50px",
-      }}
-    >
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "flex-start",
-        alignItems: "center",
-      }}
-    >
-      <PageToggle
-        pages={["Current Newsletter", "Archive"]}
-        links={["./", "./newslettercreator/archive"]}
-        currPage={1}
-      />
-    </Box>
 
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "flex-end",
-        alignItems: "center",
-      }}
-    >
-        <button
-            onClick={() => {
-              openNewsletter(true);
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: "30px",
+            marginTop: "50px",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "flex-start",
+              alignItems: "center",
             }}
-            style={{
-                position: 'relative',
+          >
+            <PageToggle
+              pages={["Current Newsletter", "Archive"]}
+              onTogglePage={handleTogglePage}
+              currPage={currentPage}
+            />
+          </Box>
+
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "flex-end",
+              alignItems: "center",
+            }}
+          >
+            <button
+              onClick={() => {
+                openNewsletter(true);
+              }}
+              style={{
+                position: "relative",
                 fontFamily: "Open Sans",
                 fontWeight: 700,
                 fontSize: "16px",
@@ -263,19 +283,23 @@ export default function MailingList() {
                 letterSpacing: "0.32",
                 width: 196,
                 height: 40,
-                backgroundColor: '#694C97', 
-                color: '#FFF',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                
-            }}          
-        >
-            <img src="/ic_add.svg" alt="Add Icon" style={{ width: 24, height: 24, marginRight: 5 }} />Add Newsletter
-        </button>
-    </Box>
-  </Box>
-
+                backgroundColor: "#694C97",
+                color: "#FFF",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: "4px",
+              }}
+            >
+              <img
+                src="/ic_add.svg"
+                alt="Add Icon"
+                style={{ width: 24, height: 24, marginRight: 5 }}
+              />
+              Add Newsletter
+            </button>
+          </Box>
+        </Box>
 
         <DataGrid
           columns={columns}

@@ -1,18 +1,15 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
-import { useRouter } from 'next/router';
 
-import { CreateNewsletterRequest, Newsletter,deleteNewsletter } from "../api/newsletter";
+import { CreateNewsletterRequest, Newsletter, deleteNewsletter } from "../api/newsletter";
 
 import styles from "./NewsletterSidebar.module.css";
 
 import AlertBanner from "@/components/AlertBanner";
-import { NewsletterSidebarWarning } from "@/components/NewsletterSidebarWarning";
 import { NewsletterDeleteWarning } from "@/components/NewsletterDeleteWarning";
-
+import { NewsletterSidebarWarning } from "@/components/NewsletterSidebarWarning";
 import { TextField } from "@/components/TextField";
-import { TextFieldContent } from "@/components/TextFieldContent";
 
 type newsletterSidebarProps = {
   newsletter: null | Newsletter;
@@ -37,23 +34,23 @@ const NewsletterSidebar = ({
   const [title, setTitle] = useState(newsletter ? newsletter.title : "");
   const [description, setDescription] = useState(newsletter ? newsletter.description : "");
   const [date, setDate] = useState(newsletter ? newsletter.date : "");
-  const [content, setContent] = useState(newsletter ? newsletter.content : []);
+  const [content, setContent] = useState(newsletter ? newsletter.content : "");
   const [isEditing, setIsEditing] = useState<boolean>(!newsletter);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [errors, setErrors] = useState<formErrors>({});
   const [warningOpen, setWarningOpen] = useState(false);
-  const [warningDelete, setWarningDelete] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
   const confirmCancel = () => {
     setTitle(newsletter ? newsletter.title : "");
     setDescription(newsletter ? newsletter.description : "");
     setDate(newsletter ? newsletter.date : "");
-    setContent(newsletter ? newsletter.content : []);
+    setContent(newsletter ? newsletter.content : "");
     setIsEditing(false);
     setIsDeleting(false);
     setErrors({});
     setWarningOpen(false);
+    setSidebarOpen(false);
   };
 
   const handleCancel = () => {
@@ -82,7 +79,6 @@ const NewsletterSidebar = ({
       setSidebarOpen(false);
     }
   };
-  
 
   const handleSave = () => {
     setWarningOpen(false);
@@ -103,19 +99,14 @@ const NewsletterSidebar = ({
           description,
           date,
           content,
-          archive: newsletter.archive,
         });
-
       } else {
-
-
         createNewsletter({
           image: "/newsletter2.png",
           title,
           description,
           date,
           content,
-          archive: false,
         });
       }
       setIsEditing(false);
@@ -125,22 +116,27 @@ const NewsletterSidebar = ({
     }
   };
 
-  
-
-
   const handleDelete = () => {
-   
     setIsDeleting(true);
-    
   };
 
   const confirmDelete = () => {
-
-    deleteNewsletter(newsletter._id);
-    setSidebarOpen(false);
-    window.location.reload();
+    if (newsletter) {
+      deleteNewsletter(newsletter._id)
+        .then((result) => {
+          if (result.success) {
+            console.log("successful deletion");
+          } else {
+            console.error("ERROR:", result.error);
+          }
+        })
+        .catch((error) => {
+          alert(error);
+        });
+      setSidebarOpen(false);
+      window.location.reload();
+    }
   };
-  
 
   const alertContent = {
     text: "Newsletter Saved!",
@@ -150,71 +146,68 @@ const NewsletterSidebar = ({
     setShowAlert(false);
   };
 
-
-  if(isDeleting) {
-
+  if (isDeleting) {
     return (
-        <div className={styles.sidebar}>
-          
-          <div className={styles.alert}>
-            {showAlert && <AlertBanner text={alertContent.text} onClose={handleCloseAlert} />}
-          </div>
-          <div
-            className={styles.closeWindow}
-            onClick={() => {
-              setSidebarOpen(false);
-            }}
-          >
-            <Image src="/ic_doublecaretright.svg" alt="test" width={24} height={24} />
-            <p>Close Window</p>
-          </div>
-          <div className={styles.sidebarContents}>
-            <div className={styles.header}>
-              <h1>Newsletter Details</h1>
-  
-              {/* Edit button */}
-              <button
-                onClick={() => {
-                  setIsEditing(true);
-                  console.log("isEditing:", isEditing);
-                }}
-                className={styles.editButton}
-              >
-                <Image src="/ic_edit.svg" alt="Add Icon" width={24} height={24} />
-                <p>Edit</p>
-              </button>
-            </div>
-            <h2>Newsletter Title</h2>
-            <p>{title}</p>
-            <h2>Newsletter Description</h2>
-            <p>{description}</p>
-            <h2>Date & Time</h2>
-            <p>{date}</p>
-            <h2>Newsletter Cover</h2>
-            <p>Placeholder - to be replaced with image</p>
-            <h2>Newsletter Content</h2>
-            {content.map((paragraph: string, index: number) => (
-              <p key={index} className={styles.contentPar}>
-                {paragraph}
-              </p>
-            ))}
-            {/* Delete button */}
+      <div className={styles.sidebar}>
+        <div className={styles.alert}>
+          {showAlert && <AlertBanner text={alertContent.text} onClose={handleCloseAlert} />}
+        </div>
+        <div
+          className={styles.closeWindow}
+          onClick={() => {
+            setSidebarOpen(false);
+          }}
+        >
+          <Image src="/ic_doublecaretright.svg" alt="test" width={24} height={24} />
+          <p>Close Window</p>
+        </div>
+        <div className={styles.sidebarContents}>
+          <div className={styles.header}>
+            <h1>Newsletter Details</h1>
 
-            <div className={styles.deleteButtonWrapper}>
-              <button onClick={handleDelete} className={styles.deleteButton}>
-                <p>Delete</p>
-              </button>
-            </div>
-            <div className={styles.grayOut}></div>
-            <NewsletterDeleteWarning
+            {/* Edit button */}
+            <button
+              onClick={() => {
+                setIsEditing(true);
+                console.log("isEditing:", isEditing);
+              }}
+              className={styles.editButton}
+            >
+              <Image src="/ic_edit.svg" alt="Add Icon" width={24} height={24} />
+              <p>Edit</p>
+            </button>
+          </div>
+          <h2>Newsletter Title</h2>
+          <p>{title}</p>
+          <h2>Newsletter Description</h2>
+          <p>{description}</p>
+          <h2>Date & Time</h2>
+          <p>{date}</p>
+          <h2>Newsletter Cover</h2>
+          <p>Placeholder - to be replaced with image</p>
+          <h2>Newsletter Content</h2>
+          {content.split(".").map((paragraph: string, index: number) => (
+            <p key={index} className={styles.contentPar}>
+              {paragraph}
+            </p>
+          ))}
+          {/* Delete button */}
+
+          <div className={styles.deleteButtonWrapper}>
+            <button onClick={handleDelete} className={styles.deleteButton}>
+              <p>Delete</p>
+            </button>
+          </div>
+          <div className={styles.grayOut}></div>
+          <NewsletterDeleteWarning
             save={confirmDelete}
             discard={confirmCancel}
             onClose={confirmCancel}
-            />
-          </div>
+          />
         </div>
-      );
-    }
+      </div>
+    );
+  }
 
   if (isEditing) {
     return (
@@ -273,16 +266,55 @@ const NewsletterSidebar = ({
               />
               <h2>Newsletter Cover</h2>
               <p>Placeholder - to be replaced with image</p>
-              <TextFieldContent
+              <h2>Newsletter Content</h2>
+              <textarea
+                className={`${styles.textArea} ${styles.stretch}`}
+                value={content}
+                onChange={(event) => {
+                  setContent(event.target.value);
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    event.preventDefault(); // Prevent default behavior of textarea on Enter
+                    const { selectionStart, selectionEnd, value } =
+                      event.target as HTMLTextAreaElement;
+                    const newText =
+                      value.substring(0, selectionStart) + "\n" + value.substring(selectionEnd);
+                    setContent(newText);
+                    // (event.target as HTMLTextAreaElement).setSelectionRange(
+                    //   selectionStart + 1,
+                    //   selectionStart + 1,
+                    // ); // Move cursor to the new line
+                    console.log(content);
+                  }
+                }}
+              />
+              {/* <TextFieldContent
                 className={`${styles.textField} ${styles.stretch}`}
                 label="Newsletter Content"
                 value={content}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                   const contentStr = event.target.value;
-                  setContent(contentStr.split("\n"));
+                  setContent(contentStr);
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    event.preventDefault(); // Prevent default behavior of textarea on Enter
+                    const { selectionStart, selectionEnd, value } =
+                      event.target as HTMLTextAreaElement;
+                    const newText =
+                      value.substring(0, selectionStart) + "\n" + value.substring(selectionEnd);
+                    setContent(newText);
+                    // (event.target as HTMLTextAreaElement).setSelectionRange(
+                    //   selectionStart + 1,
+                    //   selectionStart + 1,
+                    // ); // Move cursor to the new line
+                    console.log(content);
+                    event.preventDefault();
+                  }
                 }}
                 error={errors.content}
-              />
+              /> */}
             </div>
           </form>
         </div>
@@ -290,7 +322,6 @@ const NewsletterSidebar = ({
           {/* Cancel button */}
           <button onClick={handleCancel} className={styles.cancelButton}>
             <p>Cancel</p>
-            
           </button>
           {/* Save button */}
           <button onClick={handleSave} className={styles.saveButton}>
@@ -301,12 +332,10 @@ const NewsletterSidebar = ({
     );
 
     //if is deleting
-  } 
-  else {
+  } else {
     // not in edit mode
     return (
       <div className={styles.sidebar}>
-        
         <div className={styles.alert}>
           {showAlert && <AlertBanner text={alertContent.text} onClose={handleCloseAlert} />}
         </div>
@@ -344,7 +373,7 @@ const NewsletterSidebar = ({
           <h2>Newsletter Cover</h2>
           <p>Placeholder - to be replaced with image</p>
           <h2>Newsletter Content</h2>
-          {content.map((paragraph: string, index: number) => (
+          {content.split("\n").map((paragraph: string, index: number) => (
             <p key={index} className={styles.contentPar}>
               {paragraph}
             </p>

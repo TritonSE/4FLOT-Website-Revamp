@@ -1,4 +1,4 @@
-import { get, handleAPIError, post, put,del } from "./requests";
+import { del, get, handleAPIError, post, put } from "./requests";
 
 import type { APIResult } from "./requests";
 
@@ -8,8 +8,7 @@ export type Newsletter = {
   title: string;
   description: string;
   date: string;
-  content: string[];
-  archive: boolean;
+  content: string;
 };
 
 export type CreateNewsletterRequest = {
@@ -17,8 +16,7 @@ export type CreateNewsletterRequest = {
   title: string;
   description: string;
   date: string;
-  content: string[];
-  archive: boolean;
+  content: string;
 };
 
 export async function getNewsletter(id: string): Promise<APIResult<Newsletter>> {

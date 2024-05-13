@@ -40,15 +40,8 @@ const makeContentValidator = () =>
     .exists()
     .withMessage("content is required")
     .bail()
-    .isArray()
-    .withMessage("content must be an array of strings");
-const makeArchiveValidator = () =>
-  body("archive")
-    .exists()
-    .withMessage("archive is required")
-    .bail()
-    .isBoolean()
-    .withMessage("archive must be a boolean");
+    .isString()
+    .withMessage("content must be a string");
 
 export const createNewsletter = [
   makeImageValidator(),
@@ -56,7 +49,6 @@ export const createNewsletter = [
   makeDescriptionValidator(),
   makeDateValidator(),
   makeContentValidator(),
-  makeArchiveValidator(),
 ];
 
 export const updateNewsletter = [
@@ -66,7 +58,6 @@ export const updateNewsletter = [
   makeDescriptionValidator(),
   makeDateValidator(),
   makeContentValidator(),
-  makeArchiveValidator(),
 ];
 
 export const getNewsletter = [makeIDValidator()];
