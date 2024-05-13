@@ -30,7 +30,7 @@ const PageToggle = ({ pages, links, onTogglePage, currPage }: PageToggleProps) =
     );
   } else if (pages && onTogglePage) {
     return (
-      <div>
+      <div className={styles.container}>
         {pages.map((page, index) => (
           <button
             key={index}

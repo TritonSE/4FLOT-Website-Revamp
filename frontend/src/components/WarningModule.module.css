@@ -29,11 +29,21 @@
 }
 
 .saveButton {
+  font: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 150%; /* 24px */
+  letter-spacing: 0.32px;
   background: #694c97;
   color: #fff;
 }
 
 .deleteButton {
+  font: var(--font-body);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 150%; /* 24px */
+  letter-spacing: 0.32px;
   background: #fff;
   border: 1px solid #b93b3b;
   color: #b93b3b;

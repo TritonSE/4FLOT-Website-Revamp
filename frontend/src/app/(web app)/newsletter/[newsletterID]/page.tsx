@@ -85,9 +85,7 @@ export default function NewsletterDisplay({ params }: Props) {
           Here’s Our Story
         </div>
 
-        <div className={styles.content}>
-          {newsletter?.content.split("\n").map((line, index) => <p key={index}>{line}</p>)}
-        </div>
+        <pre className={styles.content}>{newsletter?.content}</pre>
 
         <div className={styles.subtitleSharePost} style={{ display: "flex", alignItems: "center" }}>
           Share This Post

@@ -65,9 +65,10 @@ export default function NewsletterCreator() {
   const [rowsCurrent, setRowsCurrent] = React.useState(rows);
   const [currentNewsletters, setCurrentNewsletters] = useState<Newsletter[]>([]);
   const [archiveNewsletters, setArchiveNewsletters] = useState<Newsletter[]>([]);
+  const [pageToggle, setPageToggle] = useState(0);
   const [selectedRow, setSelectedRow] = useState<GridRowId | null>(null);
-  const [currentPage, setCurrentPage] = useState(1); // Track current page
-  const [totalPages, setTotalPages] = useState(Math.ceil(rows.length / 14)); // Calculate total pages
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(Math.ceil(rows.length / 14));
   const [selectedNewsletter, setSelectedNewsletter] = useState<Newsletter | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [rerenderKey, setRerenderKey] = useState(0);
@@ -144,6 +145,7 @@ export default function NewsletterCreator() {
     } else if (index === 1) {
       setRowsCurrent(archiveNewsletters);
     }
+    setPageToggle(index);
   };
 
   const openNewsletter = (createNew: boolean) => {
@@ -258,7 +260,7 @@ export default function NewsletterCreator() {
             <PageToggle
               pages={["Current Newsletter", "Archive"]}
               onTogglePage={handleTogglePage}
-              currPage={currentPage}
+              currPage={pageToggle}
             />
           </Box>
 

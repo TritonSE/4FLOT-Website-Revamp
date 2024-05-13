@@ -7,9 +7,8 @@ import { CreateNewsletterRequest, Newsletter, deleteNewsletter } from "../api/ne
 import styles from "./NewsletterSidebar.module.css";
 
 import AlertBanner from "@/components/AlertBanner";
-import { NewsletterDeleteWarning } from "@/components/NewsletterDeleteWarning";
-import { NewsletterSidebarWarning } from "@/components/NewsletterSidebarWarning";
 import { TextField } from "@/components/TextField";
+import { WarningModule } from "@/components/WarningModule";
 
 type newsletterSidebarProps = {
   newsletter: null | Newsletter;
@@ -186,11 +185,7 @@ const NewsletterSidebar = ({
           <h2>Newsletter Cover</h2>
           <p>Placeholder - to be replaced with image</p>
           <h2>Newsletter Content</h2>
-          {content.split(".").map((paragraph: string, index: number) => (
-            <p key={index} className={styles.contentPar}>
-              {paragraph}
-            </p>
-          ))}
+          <pre className={styles.content}>{content}</pre>
           {/* Delete button */}
 
           <div className={styles.deleteButtonWrapper}>
@@ -199,9 +194,13 @@ const NewsletterSidebar = ({
             </button>
           </div>
           <div className={styles.grayOut}></div>
-          <NewsletterDeleteWarning
-            save={confirmDelete}
-            discard={confirmCancel}
+          <WarningModule
+            titleText="Are you sure you want to delete this newsletter?"
+            subtitleText="This action is permanent and cannot be undone."
+            cancelText="No, cancel"
+            actionText="Delete newsletter"
+            cancel={confirmCancel}
+            action={confirmDelete}
             onClose={confirmCancel}
           />
         </div>
@@ -214,9 +213,13 @@ const NewsletterSidebar = ({
       <div className={styles.sidebar}>
         {warningOpen && <div className={styles.grayOut}></div>}
         {warningOpen && (
-          <NewsletterSidebarWarning
-            save={handleSave}
-            discard={confirmCancel}
+          <WarningModule
+            titleText="You have unsaved changes!"
+            subtitleText="Do you want to save the changes you made to this event?"
+            cancelText="Discard changes"
+            actionText="Save changes"
+            cancel={confirmCancel}
+            action={handleSave}
             onClose={() => {
               setWarningOpen(false);
             }}
@@ -268,53 +271,14 @@ const NewsletterSidebar = ({
               <p>Placeholder - to be replaced with image</p>
               <h2>Newsletter Content</h2>
               <textarea
+                id="textarea"
                 className={`${styles.textArea} ${styles.stretch}`}
                 value={content}
                 onChange={(event) => {
+                  console.log("onChange");
                   setContent(event.target.value);
                 }}
-                onKeyDown={(event) => {
-                  if (event.key === "Enter") {
-                    event.preventDefault(); // Prevent default behavior of textarea on Enter
-                    const { selectionStart, selectionEnd, value } =
-                      event.target as HTMLTextAreaElement;
-                    const newText =
-                      value.substring(0, selectionStart) + "\n" + value.substring(selectionEnd);
-                    setContent(newText);
-                    // (event.target as HTMLTextAreaElement).setSelectionRange(
-                    //   selectionStart + 1,
-                    //   selectionStart + 1,
-                    // ); // Move cursor to the new line
-                    console.log(content);
-                  }
-                }}
               />
-              {/* <TextFieldContent
-                className={`${styles.textField} ${styles.stretch}`}
-                label="Newsletter Content"
-                value={content}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  const contentStr = event.target.value;
-                  setContent(contentStr);
-                }}
-                onKeyDown={(event) => {
-                  if (event.key === "Enter") {
-                    event.preventDefault(); // Prevent default behavior of textarea on Enter
-                    const { selectionStart, selectionEnd, value } =
-                      event.target as HTMLTextAreaElement;
-                    const newText =
-                      value.substring(0, selectionStart) + "\n" + value.substring(selectionEnd);
-                    setContent(newText);
-                    // (event.target as HTMLTextAreaElement).setSelectionRange(
-                    //   selectionStart + 1,
-                    //   selectionStart + 1,
-                    // ); // Move cursor to the new line
-                    console.log(content);
-                    event.preventDefault();
-                  }
-                }}
-                error={errors.content}
-              /> */}
             </div>
           </form>
         </div>
@@ -373,11 +337,7 @@ const NewsletterSidebar = ({
           <h2>Newsletter Cover</h2>
           <p>Placeholder - to be replaced with image</p>
           <h2>Newsletter Content</h2>
-          {content.split("\n").map((paragraph: string, index: number) => (
-            <p key={index} className={styles.contentPar}>
-              {paragraph}
-            </p>
-          ))}
+          <pre className={styles.content}>{content}</pre>
           {/* Delete button */}
           <div className={styles.deleteButtonWrapper}>
             <button onClick={handleDelete} className={styles.deleteButton}>
