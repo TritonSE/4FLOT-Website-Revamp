@@ -23,9 +23,10 @@ export default function EventsPageEditor() {
       .then((response) => {
         if (response.success) {
           pageText = response.data;
-          setPhSubtitle(pageText.ph_subtitle);
-          setS1Title(pageText.s1_title);
-          setS1Text(pageText.s1_text);
+          setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
+          setS1Title(pageText.pageSections[1].sectionTitle ?? "");
+          setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
+          console.log("response.data: ", response.data);
         } else {
           alert(response.error);
         }
@@ -54,10 +55,15 @@ export default function EventsPageEditor() {
       updatePage({
         //Pass edited text to MongoDB
         page: "Upcoming Events",
-        ph_subtitle: phSubtitle,
-        s1_title: s1Title,
-        s1_text: s1Text,
-        ph_images: "",
+        pageSections: [
+          {
+            subtitle: phSubtitle,
+          },
+          {
+            sectionTitle: s1Title,
+            sectionSubtitle: s1Text,
+          },
+        ],
       })
         .then((response) => {
           if (response.success) {
@@ -81,9 +87,9 @@ export default function EventsPageEditor() {
         .then((response) => {
           if (response.success) {
             pageText = response.data;
-            setPhSubtitle(pageText.ph_subtitle);
-            setS1Title(pageText.s1_title);
-            setS1Text(pageText.s1_text);
+            setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
+            setS1Title(pageText.pageSections[1].sectionTitle ?? "");
+            setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
           } else {
             alert(response.error);
           }

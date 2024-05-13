@@ -1,14 +1,16 @@
-// import { get, handleAPIError, post, put } from "./requests";
 import { get, handleAPIError, put } from "./requests";
 
 import type { APIResult } from "./requests";
 
+export type PageSection = {
+  subtitle?: string;
+  sectionTitle?: string;
+  sectionSubtitle?: string;
+};
+
 export type PageText = {
   page: string;
-  ph_subtitle: string;
-  ph_images: string;
-  s1_title: string;
-  s1_text: string;
+  pageSections: PageSection[];
 };
 
 export async function getPageText(page: string): Promise<APIResult<PageText>> {

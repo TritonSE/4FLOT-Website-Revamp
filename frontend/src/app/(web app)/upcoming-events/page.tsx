@@ -33,9 +33,9 @@ export default function UpcomingEvents() {
       .then((response) => {
         if (response.success) {
           pageText = response.data;
-          setPhSubtitle(pageText.ph_subtitle);
-          setS1Subtitle(pageText.s1_title);
-          setS1Text(pageText.s1_text);
+          setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
+          setS1Subtitle(pageText.pageSections[1].sectionTitle ?? "");
+          setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
         } else {
           alert(response.error);
         }
