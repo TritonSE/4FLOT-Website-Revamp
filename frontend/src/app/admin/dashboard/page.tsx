@@ -2,17 +2,13 @@
 
 import { usePrivatePage } from "../util/hooks";
 
-import UserIcon from "@/components/UserIcon";
-
-// <div className="p-4">
-//   <UserIcon />
-// </div>
 import styles from "./page.module.css";
 
 import DashboardCard from "@/components/DashboardCard";
 
 export default function Dashboard() {
   usePrivatePage();
+
   return (
     <main className={styles.page}>
       <div className={styles.gridContainer}>
