@@ -22,7 +22,7 @@ const LoginSection = () => {
           />
         </div>
       </div>
-      <div className="w-1/2 h-screen">
+      <div className=" bg-white w-1/2 h-screen">
         <div className="m-0 p-0 flex justify-center items-center h-screen">
           {forgotPass ? (
             <ForgotPassword setForgotPass={setForgotPass} />
