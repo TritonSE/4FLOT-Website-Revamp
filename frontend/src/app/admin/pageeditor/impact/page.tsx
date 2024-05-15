@@ -18,7 +18,7 @@ export default function Dashboard() {
 
   const [phSubtitle, setPhSubtitle] = useState<string>("");
   const [s1Subtitle, setS1Subtitle] = useState<string>("");
-  const [s2Subtitle, setS2Subtitle] = useState<string>("");
+  const [s2Subtitle, setS2Subtitle] = useState<string   >("");
 
      /* Get page data from MongoDB */
  let pageText;
@@ -124,13 +124,13 @@ export default function Dashboard() {
           onChange={handleEdit}
         />
         <Collapsable
-          title="Section 1"
+          title="Section 1 - Testimonials"
           subsection={["Subtitle"]}
           textbox={[s1Subtitle]}
           onChange={handleEdit}
         />
         <Collapsable
-          title="Section 2"
+          title="Section 2 - Newsletter"
           subsection={["Subtitle"]}
           textbox={[s2Subtitle]}
           onChange={handleEdit}
