@@ -3,6 +3,7 @@ import { InferSchemaType, Schema, model } from "mongoose";
 const eventDetailsSchema = new Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
+  content: { type: String, required: true },
   guidelines: { type: String, required: true },
   date: { type: String, required: true },
   location: { type: String, required: true },

@@ -21,6 +21,13 @@ const makeDescriptionValidator = () =>
     .bail()
     .isString()
     .withMessage("description must be a string");
+const makeContentValidator = () =>
+  body("content")
+    .exists()
+    .withMessage("content is required")
+    .bail()
+    .isString()
+    .withMessage("content must be a string");
 const makeGuidlinesValidator = () =>
   body("guidelines")
     .exists()
@@ -56,6 +63,7 @@ const makeImageURIValidator = () =>
 export const createEventDetails = [
   makeNameValidator(),
   makeDescriptionValidator(),
+  makeContentValidator(),
   makeGuidlinesValidator(),
   makeDateValidator(),
   makeLocationValidator(),
