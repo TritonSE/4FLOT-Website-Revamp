@@ -3,7 +3,7 @@
 import { sendPasswordResetEmail } from "firebase/auth";
 import React, { Dispatch, SetStateAction, useState } from "react";
 
-import { useFirebase } from "@/app/admin/firebase/firebaseContext";
+import { useFirebase } from "@/app/admin/firebase/firebaseProvider";
 
 type ForgotPasswordProps = {
   setForgotPass: Dispatch<SetStateAction<boolean>>;

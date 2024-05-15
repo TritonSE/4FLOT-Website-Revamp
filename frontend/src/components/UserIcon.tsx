@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import * as React from "react";
 
 import { firebaseSignOut } from "@/app/admin/firebase/firebase";
-import { useFirebase } from "@/app/admin/firebase/firebaseContext";
+import { useFirebase } from "@/app/admin/firebase/firebaseProvider";
 
 export default function UserIcon() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

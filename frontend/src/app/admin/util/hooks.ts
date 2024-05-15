@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-import { useFirebase } from "../firebase/firebaseContext";
+import { useFirebase } from "../firebase/firebaseProvider";
 
 /**
  * Hook that returns the state of login for the user

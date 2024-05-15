@@ -1,5 +1,6 @@
 import { FirebaseApp, FirebaseOptions, initializeApp } from "firebase/app";
 import { Auth, getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { FirebaseStorage, getStorage } from "firebase/storage";
 
 import env from "../util/validateEnv";
 
@@ -16,8 +17,9 @@ export const initFirebase = () => {
 
   const app: FirebaseApp = initializeApp(firebaseConfig);
   const auth: Auth = getAuth(app);
+  const storage: FirebaseStorage = getStorage(app);
 
-  return auth;
+  return { app, auth, storage };
 };
 
 /**
@@ -46,4 +48,15 @@ export const firebaseSignOut = async (auth: Auth) => {
   } catch (error) {
     alert(error);
   }
+};
+
+/**
+ * Get's the firebase config for use with reactfire components
+ *
+ */
+export const getFirebaseConfig = (): FirebaseOptions => {
+  if (!env.NEXT_PUBLIC_FIREBASE_SETTINGS) {
+    throw new Error("Cannot get firebase settings");
+  }
+  return env.NEXT_PUBLIC_FIREBASE_SETTINGS as FirebaseOptions;
 };

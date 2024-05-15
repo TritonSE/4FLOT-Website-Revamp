@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { Dispatch, SetStateAction, useState } from "react";
 
 import { firebaseSignIn } from "@/app/admin/firebase/firebase";
-import { useFirebase } from "@/app/admin/firebase/firebaseContext";
+import { useFirebase } from "@/app/admin/firebase/firebaseProvider";
 
 import styles from "./LoginForm.module.css";
 
