@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 
-import { MyFirebaseProvider } from "./util/firebase-providers";
+import { MyFirebaseProvider } from "./firebase/reactfireProvider";
 
 import HeaderBarSpace from "@/components/HeaderBarSpace";
 import NavigationBar from "@/components/NavigationBar";

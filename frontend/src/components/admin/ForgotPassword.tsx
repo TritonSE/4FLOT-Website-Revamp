@@ -16,10 +16,10 @@ const ForgotPassword = ({ setForgotPass }: ForgotPasswordProps) => {
 
   const auth = useFirebase();
 
-  const isValidEmail = (email: string) => {
+  const isValidEmail = (_email: string) => {
     // Regular expression to validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    return emailRegex.test(_email);
   };
 
   const handleSubmit = (e: React.FormEvent) => {

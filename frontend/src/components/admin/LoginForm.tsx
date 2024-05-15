@@ -3,10 +3,10 @@
 import { useRouter } from "next/navigation";
 import React, { Dispatch, SetStateAction, useState } from "react";
 
+import styles from "./LoginForm.module.css";
+
 import { firebaseSignIn } from "@/app/admin/firebase/firebase";
 import { useFirebase } from "@/app/admin/firebase/firebaseProvider";
-
-import styles from "./LoginForm.module.css";
 
 type LoginFormProps = {
   setForgotPass: Dispatch<SetStateAction<boolean>>;
