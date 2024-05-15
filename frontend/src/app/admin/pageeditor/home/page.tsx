@@ -5,6 +5,7 @@ import { getPageText, updatePage } from "../../../../api/pageeditor";
 
 import styles from "./page.module.css";
 
+import AlertBanner from "@/components/AlertBanner";
 import Button from "@/components/Button";
 import CancelButton from "@/components/CancelButton";
 import Collapsable from "@/components/Collapsable";

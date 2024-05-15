@@ -5,6 +5,7 @@ import { getPageText, updatePage } from "../../../../api/pageeditor";
 
 import styles from "./page.module.css";
 
+import AlertBanner from "@/components/AlertBanner";
 import Button from "@/components/Button";
 import CancelButton from "@/components/CancelButton";
 import Collapsable from "@/components/Collapsable";
@@ -22,29 +23,31 @@ export default function Dashboard() {
   const [s3Subtitle, setS3Subtitle] = useState<string>("");
   const [s3Text, setS3Text] = useState<string>("");
 
- /* Get page data from MongoDB */
- let pageText;
- useEffect(() => {
-   getPageText("About Us")
-     .then((response) => {
-       if (response.success) {
-         pageText = response.data;
-         setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
-         setS1Subtitle(pageText.pageSections[1].sectionTitle ?? "");
-         setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
-         setS2Subtitle(pageText.pageSections[2].sectionTitle ?? "");
-         setS2Text(pageText.pageSections[2].sectionSubtitle ?? "");
-         setS3Subtitle(pageText.pageSections[3].sectionTitle ?? "");
-         setS3Text(pageText.pageSections[3].sectionSubtitle ?? "");
-         console.log("response.data: ", response.data);
-       } else {
-         alert(response.error);
-       }
-     })
-     .catch((error) => {
-       alert(error);
-     });
- }, []);
+  const [showAlert, setShowAlert] = useState(false);
+
+  /* Get page data from MongoDB */
+  let pageText;
+  useEffect(() => {
+    getPageText("About Us")
+      .then((response) => {
+        if (response.success) {
+          pageText = response.data;
+          setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
+          setS1Subtitle(pageText.pageSections[1].sectionTitle ?? "");
+          setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
+          setS2Subtitle(pageText.pageSections[2].sectionTitle ?? "");
+          setS2Text(pageText.pageSections[2].sectionSubtitle ?? "");
+          setS3Subtitle(pageText.pageSections[3].sectionTitle ?? "");
+          setS3Text(pageText.pageSections[3].sectionSubtitle ?? "");
+          console.log("response.data: ", response.data);
+        } else {
+          alert(response.error);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }, []);
 
   /* Handle Fields upon edit */
   const handleEdit = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -64,7 +67,6 @@ export default function Dashboard() {
     } else if (event.target.id === "Section 3 - Contact Us: Body Text") {
       setS3Text(event.target.value);
     }
-    
   };
 
   const handleSave = () => {
@@ -132,8 +134,15 @@ export default function Dashboard() {
     }
   };
 
+  const handleCloseAlert = () => {
+    setShowAlert(false);
+  };
+
   return (
     <main className={styles.page}>
+      <div className={styles.alert}>
+        {showAlert && <AlertBanner text={"Event Details Saved!"} onClose={handleCloseAlert} />}
+      </div>
       <PageToggle
         pages={["About Us", "Our Mission", "Our Team", "Contact Us"]}
         links={["./about", "./mission", "./team", "./contact"]}

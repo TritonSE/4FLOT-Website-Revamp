@@ -17,3 +17,10 @@
   justify-content: flex-end;
   gap: 24px;
 }
+
+.alert {
+  position: fixed;
+  z-index: 4;
+  top: 58px;
+  left: 872px;
+}
