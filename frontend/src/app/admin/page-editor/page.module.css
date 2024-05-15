@@ -1,5 +1,6 @@
 .page {
   display: flex;
+  flex-direction: column; 
   justify-content: center;
   padding-left: 30px;
   padding-top: 50px;

@@ -8,6 +8,7 @@ const nextConfig = {
       "i.imgur.com",
       "images.unsplash.com",
       "plus.unsplash.com",
+      "firebasestorage.googleapis.com"
     ],
   },
 };

@@ -1,6 +1,7 @@
 // Admin Page Editor landing page
 import styles from "./page.module.css";
 
+import ImageDisplay from "@/components/ImageDisplay";
 import PageEditorCard from "@/components/PageEditorCard";
 
 export default function Dashboard() {
@@ -38,6 +39,7 @@ export default function Dashboard() {
           last_updated="Month XX, XXXX, XX:XX"
         />
       </div>
+      <ImageDisplay />
     </main>
   );
 }
