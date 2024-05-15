@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "next": "^14.1.2",
-    "nodemailer": "^6.9.11"
+    "nodemailer": "^6.9.11",
+    "react-dropzone": "^14.2.3"
   },
   "devDependencies": {
     "@types/nodemailer": "^6.4.14"
