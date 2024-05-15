@@ -5,18 +5,21 @@ import { getPageText, updatePage } from "../../../../api/pageeditor";
 
 import styles from "./page.module.css";
 
+import AlertBanner from "@/components/AlertBanner";
 import Button from "@/components/Button";
 import CancelButton from "@/components/CancelButton";
 import Collapsable from "@/components/Collapsable";
 import PageToggle from "@/components/PageToggle";
-
-// import PageEditorCard from "@/components/PageEditorCard";
+import { WarningModule } from "@/components/WarningModule";
 
 export default function Dashboard() {
   const [isEdited, setIsEdited] = useState(false);
   const [phSubtitle, setPhSubtitle] = useState<string>("");
   const [s1Subtitle, setS1Subtitle] = useState<string>("");
   const [s2Subtitle, setS2Subtitle] = useState<string>("");
+
+  const [showAlert, setShowAlert] = useState(false);
+  const [warningOpen, setWarningOpen] = useState(false);
 
   /* Get page data from MongoDB */
   let pageText;
@@ -56,7 +59,7 @@ export default function Dashboard() {
       console.log("Save changes");
       updatePage({
         //Pass edited text to MongoDB
-        page: "Upcoming Events",
+        page: "Get Involved",
         pageSections: [
           {
             subtitle: phSubtitle,
@@ -71,7 +74,7 @@ export default function Dashboard() {
       })
         .then((response) => {
           if (response.success) {
-            alert("Success!");
+            setShowAlert(true);
           } else {
             alert(response.error);
           }
@@ -81,32 +84,64 @@ export default function Dashboard() {
         });
       setIsEdited(false);
     }
+    setWarningOpen(false);
   };
 
   const handleCancel = () => {
-    // Implement cancel logic
+    // Show cancel warning
     if (isEdited) {
-      console.log("Cancel changes");
-      getPageText("Upcoming Events")
-        .then((response) => {
-          if (response.success) {
-            pageText = response.data;
-            setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
-            setS1Subtitle(pageText.pageSections[1].sectionSubtitle ?? "");
-            setS2Subtitle(pageText.pageSections[2].sectionSubtitle ?? "");
-          } else {
-            alert(response.error);
-          }
-        })
-        .catch((error) => {
-          alert(error);
-        });
-      setIsEdited(false);
+      setWarningOpen(true);
     }
+  };
+
+  const confirmCancel = () => {
+    // Implement cancel logic
+    setWarningOpen(false);
+    console.log("Cancel changes");
+    getPageText("Get Involved")
+      .then((response) => {
+        if (response.success) {
+          pageText = response.data;
+          setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
+          setS1Subtitle(pageText.pageSections[1].sectionSubtitle ?? "");
+          setS2Subtitle(pageText.pageSections[2].sectionSubtitle ?? "");
+        } else {
+          alert(response.error);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+    setIsEdited(false);
+  };
+
+  const handleCloseAlert = () => {
+    setShowAlert(false);
   };
 
   return (
     <main className={styles.page}>
+      <div className={styles.alert}>
+        {showAlert && <AlertBanner text={"Event Details Saved!"} onClose={handleCloseAlert} />}
+      </div>
+      <div>
+        {warningOpen && <div className={styles.grayOut}></div>}
+        <div className={styles.warningPopup}>
+          {warningOpen && (
+            <WarningModule
+              titleText="You have unsaved changes!"
+              subtitleText="Do you want to save the changes you made to this event?"
+              cancelText="Discard changes"
+              actionText="Save changes"
+              cancel={confirmCancel}
+              action={handleSave}
+              onClose={() => {
+                setWarningOpen(false);
+              }}
+            />
+          )}
+        </div>
+      </div>
       <PageToggle
         pages={["Get Involved", "Upcoming Events"]}
         links={["./involved", "./events"]}
@@ -117,26 +152,19 @@ export default function Dashboard() {
         <Collapsable
           title="Page Header"
           subsection={["Subtitle", "Header Image"]}
-          textbox={[
-            "4FLOT is committed in preventing and ending homelessness, hunger and disparity in underprivileged communities.",
-            "",
-          ]}
+          textbox={[phSubtitle, ""]}
           onChange={handleEdit}
         />
         <Collapsable
           title="Section 1 - Upcoming Events"
           subsection={["Subtitle"]}
-          textbox={[
-            "Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi.",
-          ]}
+          textbox={[s1Subtitle]}
           onChange={handleEdit}
         />
         <Collapsable
           title="Section 2 - Donate"
           subsection={["Subtitle"]}
-          textbox={[
-            "Your support and contributions will enable us to meet our goals and improve conditions. Your generous donation will fund our mission.",
-          ]}
+          textbox={[s2Subtitle]}
           onChange={handleEdit}
         />
         <div className={styles.buttonContainer}>

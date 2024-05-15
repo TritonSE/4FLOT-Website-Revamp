@@ -17,3 +17,26 @@
   justify-content: flex-end;
   gap: 24px;
 }
+
+.alert {
+  position: fixed;
+  z-index: 4;
+  top: 58px;
+  left: 872px;
+}
+
+.grayOut {
+  opacity: 0.3;
+  background: #484848;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 130%;
+}
+
+.warningPopup {
+  position: relative;
+  left: 250px;
+  z-index: 5;
+}

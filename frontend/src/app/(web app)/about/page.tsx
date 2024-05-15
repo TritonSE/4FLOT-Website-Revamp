@@ -44,7 +44,6 @@ export default function Impact() {
           setS2Text(pageText.pageSections[2].sectionSubtitle ?? "");
           setS3Subtitle(pageText.pageSections[3].sectionTitle ?? "");
           setS3Text(pageText.pageSections[3].sectionSubtitle ?? "");
-          console.log("response.data: ", response.data);
         } else {
           alert(response.error);
         }
