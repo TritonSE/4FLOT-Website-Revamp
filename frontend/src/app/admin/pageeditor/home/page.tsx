@@ -5,7 +5,6 @@ import { getPageText, updatePage } from "../../../../api/pageeditor";
 
 import styles from "./page.module.css";
 
-import AlertBanner from "@/components/AlertBanner";
 import Button from "@/components/Button";
 import CancelButton from "@/components/CancelButton";
 import Collapsable from "@/components/Collapsable";
@@ -22,83 +21,8 @@ export default function Dashboard() {
   const [s2Text, setS2Text] = useState<string>("");
 
   /* Get page data from MongoDB */
- let pageText;
- useEffect(() => {
-   getPageText("Home")
-     .then((response) => {
-       if (response.success) {
-         pageText = response.data;
-         setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
-         setS1Subtitle(pageText.pageSections[1].sectionTitle ?? "");
-         setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
-         setS2Subtitle(pageText.pageSections[2].sectionTitle ?? "");
-         setS2Text(pageText.pageSections[2].sectionSubtitle ?? "");
-         console.log("response.data: ", response.data);
-       } else {
-         alert(response.error);
-       }
-     })
-     .catch((error) => {
-       alert(error);
-     });
- }, []);
-
- /* Handle Fields upon edit */
- const handleEdit = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-  setIsEdited(true);
-  if (event.target.id === "Page Header: Subtitle") {
-    setPhSubtitle(event.target.value);
-  } else if (event.target.id === "Section 1: Section Title") {
-    setS1Subtitle(event.target.value);
-  } else if (event.target.id === "Section 1: Body Text") {
-    setS1Text(event.target.value);
-  } else if (event.target.id === "Section 2: Section Title") {
-    setS2Subtitle(event.target.value);
-  } else if (event.target.id === "Section 2: Body Text") {
-    setS2Text(event.target.value);
-  }
-  
-};
-
-const handleSave = () => {
-  // Implement save logic
-  if (isEdited) {
-    console.log("Save changes");
-    updatePage({
-      //Pass edited text to MongoDB
-      page: "Home",
-      pageSections: [
-        {
-          subtitle: phSubtitle,
-        },
-        {
-          sectionTitle: s1Subtitle,
-          sectionSubtitle: s1Text,
-        },
-        {
-          sectionTitle: s2Subtitle,
-          sectionSubtitle: s2Text,
-        },
-      ],
-    })
-      .then((response) => {
-        if (response.success) {
-          alert("Success!");
-        } else {
-          alert(response.error);
-        }
-      })
-      .catch((error) => {
-        alert(error);
-      });
-    setIsEdited(false);
-  }
-};
-
-const handleCancel = () => {
-  // Implement cancel logic
-  if (isEdited) {
-    console.log("Cancel changes");
+  let pageText;
+  useEffect(() => {
     getPageText("Home")
       .then((response) => {
         if (response.success) {
@@ -108,6 +32,7 @@ const handleCancel = () => {
           setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
           setS2Subtitle(pageText.pageSections[2].sectionTitle ?? "");
           setS2Text(pageText.pageSections[2].sectionSubtitle ?? "");
+          console.log("response.data: ", response.data);
         } else {
           alert(response.error);
         }
@@ -115,9 +40,82 @@ const handleCancel = () => {
       .catch((error) => {
         alert(error);
       });
-    setIsEdited(false);
-  }
-};
+  }, []);
+
+  /* Handle Fields upon edit */
+  const handleEdit = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setIsEdited(true);
+    if (event.target.id === "Page Header: Subtitle") {
+      setPhSubtitle(event.target.value);
+    } else if (event.target.id === "Section 1: Section Title") {
+      setS1Subtitle(event.target.value);
+    } else if (event.target.id === "Section 1: Body Text") {
+      setS1Text(event.target.value);
+    } else if (event.target.id === "Section 2: Section Title") {
+      setS2Subtitle(event.target.value);
+    } else if (event.target.id === "Section 2: Body Text") {
+      setS2Text(event.target.value);
+    }
+  };
+
+  const handleSave = () => {
+    // Implement save logic
+    if (isEdited) {
+      console.log("Save changes");
+      updatePage({
+        //Pass edited text to MongoDB
+        page: "Home",
+        pageSections: [
+          {
+            subtitle: phSubtitle,
+          },
+          {
+            sectionTitle: s1Subtitle,
+            sectionSubtitle: s1Text,
+          },
+          {
+            sectionTitle: s2Subtitle,
+            sectionSubtitle: s2Text,
+          },
+        ],
+      })
+        .then((response) => {
+          if (response.success) {
+            alert("Success!");
+          } else {
+            alert(response.error);
+          }
+        })
+        .catch((error) => {
+          alert(error);
+        });
+      setIsEdited(false);
+    }
+  };
+
+  const handleCancel = () => {
+    // Implement cancel logic
+    if (isEdited) {
+      console.log("Cancel changes");
+      getPageText("Home")
+        .then((response) => {
+          if (response.success) {
+            pageText = response.data;
+            setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
+            setS1Subtitle(pageText.pageSections[1].sectionTitle ?? "");
+            setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
+            setS2Subtitle(pageText.pageSections[2].sectionTitle ?? "");
+            setS2Text(pageText.pageSections[2].sectionSubtitle ?? "");
+          } else {
+            alert(response.error);
+          }
+        })
+        .catch((error) => {
+          alert(error);
+        });
+      setIsEdited(false);
+    }
+  };
 
   return (
     <main className={styles.page}>
@@ -126,7 +124,7 @@ const handleCancel = () => {
         <Collapsable
           title="Page Header"
           subsection={["Subtitle", "Header Image Carousel"]}
-          textbox={[phSubtitle, ]}
+          textbox={[phSubtitle]}
           onChange={handleEdit}
         />
         <Collapsable

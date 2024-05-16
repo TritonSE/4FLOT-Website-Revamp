@@ -18,41 +18,41 @@ export default function Dashboard() {
 
   const [phSubtitle, setPhSubtitle] = useState<string>("");
   const [s1Subtitle, setS1Subtitle] = useState<string>("");
-  const [s2Subtitle, setS2Subtitle] = useState<string   >("");
+  const [s2Subtitle, setS2Subtitle] = useState<string>("");
 
-     /* Get page data from MongoDB */
- let pageText;
- useEffect(() => {
-   getPageText("Our Impact")
-     .then((response) => {
-       if (response.success) {
-         pageText = response.data;
-         setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
-         setS1Subtitle(pageText.pageSections[1].sectionTitle ?? "");
-         setS2Subtitle(pageText.pageSections[2].sectionTitle ?? "");
-         console.log("response.data: ", response.data);
-       } else {
-         alert(response.error);
-       }
-     })
-     .catch((error) => {
-       alert(error);
-     });
- }, []);
+  /* Get page data from MongoDB */
+  let pageText;
+  useEffect(() => {
+    getPageText("Our Impact")
+      .then((response) => {
+        if (response.success) {
+          pageText = response.data;
+          setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
+          setS1Subtitle(pageText.pageSections[1].sectionTitle ?? "");
+          setS2Subtitle(pageText.pageSections[2].sectionTitle ?? "");
+          console.log("response.data: ", response.data);
+        } else {
+          alert(response.error);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }, []);
 
- /* Handle Fields upon edit */
- const handleEdit = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  /* Handle Fields upon edit */
+  const handleEdit = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setIsEdited(true);
     if (event.target.id === "Page Header: Subtitle") {
       setPhSubtitle(event.target.value);
     } else if (event.target.id === "Section 1 - Testimonials: Subtitle") {
       setS1Subtitle(event.target.value);
-    }else if (event.target.id === "Section 2 - Newsletter: Subtitle") {
+    } else if (event.target.id === "Section 2 - Newsletter: Subtitle") {
       setS2Subtitle(event.target.value);
-    } 
- };
+    }
+  };
 
- const handleSave = () => {
+  const handleSave = () => {
     // Implement save logic
     if (isEdited) {
       console.log("Save changes");
@@ -84,7 +84,7 @@ export default function Dashboard() {
       setIsEdited(false);
     }
   };
-  
+
   const handleCancel = () => {
     // Implement cancel logic
     if (isEdited) {
@@ -106,7 +106,6 @@ export default function Dashboard() {
       setIsEdited(false);
     }
   };
-
 
   return (
     <main className={styles.page}>
@@ -147,4 +146,4 @@ export default function Dashboard() {
       </div>
     </main>
   );
-};
+}

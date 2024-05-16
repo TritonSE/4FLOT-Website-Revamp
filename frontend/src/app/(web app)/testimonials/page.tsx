@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 
-import { getPageText } from "../../../api/pageeditor";
 import { Testimonial, getAllTestimonials } from "../../../api/testimonial";
 import TestimonialCard from "../../../components/TestimonialCard";
 

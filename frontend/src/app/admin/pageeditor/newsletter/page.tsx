@@ -1,9 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
+import { getPageText, updatePage } from "../../../../api/pageeditor";
+
 import styles from "./page.module.css";
 
-import { getPageText, updatePage } from "../../../../api/pageeditor";
 import Button from "@/components/Button";
 import CancelButton from "@/components/CancelButton";
 import Collapsable from "@/components/Collapsable";
@@ -18,23 +19,23 @@ export default function Dashboard() {
   const [s1Text, setS1Text] = useState<string>("");
 
   /* Get page data from MongoDB */
- let pageText;
- useEffect(() => {
-   getPageText("Newsletter")
-     .then((response) => {
-       if (response.success) {
-         pageText = response.data;
-         setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
-         setS1Subtitle(pageText.pageSections[1].sectionTitle ?? "");
-         setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
-       } else {
-         alert(response.error);
-       }
-     })
-     .catch((error) => {
-       alert(error);
-     });
- }, []);
+  let pageText;
+  useEffect(() => {
+    getPageText("Newsletter")
+      .then((response) => {
+        if (response.success) {
+          pageText = response.data;
+          setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
+          setS1Subtitle(pageText.pageSections[1].sectionTitle ?? "");
+          setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
+        } else {
+          alert(response.error);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }, []);
 
   /* Handle Fields upon edit */
   const handleEdit = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -45,9 +46,8 @@ export default function Dashboard() {
       setS1Subtitle(event.target.value);
     } else if (event.target.id === "Section 1: Section Subtitle") {
       setS1Text(event.target.value);
-    }  
+    }
   };
-
 
   const handleSave = () => {
     // Implement save logic
@@ -91,7 +91,6 @@ export default function Dashboard() {
             setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
             setS1Subtitle(pageText.pageSections[1].sectionTitle ?? "");
             setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
-            
           } else {
             alert(response.error);
           }
@@ -113,10 +112,10 @@ export default function Dashboard() {
       />
       <div className={styles.sectionContainer}>
         <Collapsable
-            title="Page Header"
-            subsection={["Subtitle"]}
-            textbox={[phSubtitle]}
-            onChange={handleEdit}
+          title="Page Header"
+          subsection={["Subtitle"]}
+          textbox={[phSubtitle]}
+          onChange={handleEdit}
         />
         <Collapsable
           title="Section 1"
@@ -124,7 +123,7 @@ export default function Dashboard() {
           textbox={[s1Subtitle, s1Text]}
           onChange={handleEdit}
         />
-        
+
         <div className={styles.buttonContainer}>
           <CancelButton
             text="Cancel"
