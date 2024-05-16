@@ -12,7 +12,7 @@ import { Newsletter, getAllNewsletters } from "@/api/newsletter";
 import BackgroundHeader from "@/components/BackgroundHeader";
 import Button from "@/components/Button";
 
-export default function Newsletter() {
+export default function NewsletterPage() {
   const [popupOpen, setPopup] = useState(false);
   const [images, setImages] = useState<BackgroundImage[]>([]);
   const [curNewsletters, setCurNewsletters] = useState<Newsletter[]>([]);
@@ -35,10 +35,18 @@ export default function Newsletter() {
     getAllNewsletters()
       .then((response) => {
         if (response.success) {
-          const curLetters = response.data.filter((item) => !item.archive);
+          const currentYear = new Date().getFullYear();
+
+          const curLetters = response.data.filter((item) => {
+            const itemDate = new Date(item.date);
+            return itemDate.getFullYear() === currentYear;
+          });
           setCurNewsletters(curLetters);
 
-          const archiveLetters = response.data.filter((item) => item.archive);
+          const archiveLetters = response.data.filter((item) => {
+            const itemDate = new Date(item.date);
+            return itemDate.getFullYear() < currentYear;
+          });
           const newslettersByYear: Record<string, Newsletter[]> = {};
 
           archiveLetters.forEach((newsletter) => {

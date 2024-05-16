@@ -1,4 +1,4 @@
-import { get, handleAPIError, post, put } from "./requests";
+import { del, get, handleAPIError, post, put } from "./requests";
 
 import type { APIResult } from "./requests";
 
@@ -8,8 +8,15 @@ export type Newsletter = {
   title: string;
   description: string;
   date: string;
-  content: string[];
-  archive: boolean;
+  content: string;
+};
+
+export type CreateNewsletterRequest = {
+  image: string;
+  title: string;
+  description: string;
+  date: string;
+  content: string;
 };
 
 export async function getNewsletter(id: string): Promise<APIResult<Newsletter>> {
@@ -36,7 +43,9 @@ export async function getAllNewsletters(): Promise<APIResult<Newsletter[]>> {
   }
 }
 
-export async function createNewsletter(newsletter: Newsletter): Promise<APIResult<Newsletter>> {
+export async function createNewsletter(
+  newsletter: CreateNewsletterRequest,
+): Promise<APIResult<Newsletter>> {
   try {
     const response = await post("/api/newsletter", newsletter);
     const json = (await response.json()) as Newsletter;
@@ -52,6 +61,16 @@ export async function updateNewsletter(newsletter: Newsletter): Promise<APIResul
     const response = await put(`/api/newsletter/${id}`, newsletter, {
       "Content-Type": "application/json",
     });
+    const json = (await response.json()) as Newsletter;
+    return { success: true, data: json };
+  } catch (error) {
+    return handleAPIError(error);
+  }
+}
+
+export async function deleteNewsletter(id: string): Promise<APIResult<Newsletter>> {
+  try {
+    const response = await del(`/api/newsletter/${id}`);
     const json = (await response.json()) as Newsletter;
     return { success: true, data: json };
   } catch (error) {

@@ -5,8 +5,7 @@ const newsletterSchema = new Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
   date: { type: String, required: true },
-  content: { type: [String], required: true },
-  archive: { type: Boolean, required: true },
+  content: { type: String, required: true },
 });
 
 type Newsletters = InferSchemaType<typeof newsletterSchema>;
