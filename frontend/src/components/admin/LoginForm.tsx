@@ -1,12 +1,12 @@
 "use client";
 
+import { getAuth } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import React, { Dispatch, SetStateAction, useState } from "react";
 
 import styles from "./LoginForm.module.css";
 
 import { firebaseSignIn } from "@/app/admin/firebase/firebase";
-import { useFirebase } from "@/app/admin/firebase/firebaseProvider";
 
 type LoginFormProps = {
   setForgotPass: Dispatch<SetStateAction<boolean>>;
@@ -18,7 +18,7 @@ const LoginForm = ({ setForgotPass }: LoginFormProps) => {
   const [valid, setValid] = useState(true);
 
   const router = useRouter();
-  const auth = useFirebase();
+  const auth = getAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     console.log(`Username: ${email}`);
@@ -27,9 +27,7 @@ const LoginForm = ({ setForgotPass }: LoginFormProps) => {
 
     let signInSuccessful = false;
     try {
-      if (auth) {
-        signInSuccessful = await firebaseSignIn(auth, email, password);
-      }
+      signInSuccessful = await firebaseSignIn(auth, email, password);
     } catch (error) {
       // firebaseSignIn should not throw an error because
       // it has error handling inside the funciton

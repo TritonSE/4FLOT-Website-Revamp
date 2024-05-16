@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 
-import { FirebaseProvider } from "./firebase/firebaseProvider";
+import ReactFireProvider from "./firebase/reactfireProvider";
 
 import HeaderBarSpace from "@/components/HeaderBarSpace";
 import NavigationBar from "@/components/NavigationBar";
@@ -14,12 +14,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const isLoginPage = pathname === "/admin";
 
   return (
-    <FirebaseProvider>
+    <ReactFireProvider>
       <section>
         {!isLoginPage && <NavigationBar />}
         {!isLoginPage && <HeaderBarSpace />}
         {children}
       </section>
-    </FirebaseProvider>
+    </ReactFireProvider>
   );
 }

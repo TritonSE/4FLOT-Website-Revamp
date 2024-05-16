@@ -1,26 +1,33 @@
 "use client";
 
-import { FirebaseOptions } from "firebase/app";
-import { FirebaseStorage } from "firebase/storage";
-import { FC, ReactNode } from "react";
-import { FirebaseAppProvider, StorageProvider } from "reactfire";
+import { FirebaseApp } from "firebase/app";
+import { Auth, getAuth } from "firebase/auth";
+import { FirebaseStorage, getStorage } from "firebase/storage";
+import { FC, ReactNode, useMemo } from "react";
+import { AuthProvider, FirebaseAppProvider, StorageProvider, useFirebaseApp } from "reactfire";
 
-type FirebaseProviderSDKsProps = {
-  storage: FirebaseStorage;
-  firebaseConfig: FirebaseOptions;
-  children: ReactNode;
+import { getFirebaseConfig } from "./firebase";
+
+const FirebaseSDKProvider: FC<{ children: ReactNode }> = ({ children }) => {
+  const app: FirebaseApp = useFirebaseApp();
+  const auth: Auth = useMemo(() => getAuth(app), []);
+  const storage: FirebaseStorage = useMemo(() => getStorage(app), []);
+
+  return (
+    <AuthProvider sdk={auth}>
+      <StorageProvider sdk={storage}>{children}</StorageProvider>
+    </AuthProvider>
+  );
 };
 
-const FirebaseProviderSDKs: FC<FirebaseProviderSDKsProps> = ({
-  storage,
-  firebaseConfig,
-  children,
-}: FirebaseProviderSDKsProps) => {
+const ReactFireProvider: FC<{ children: ReactNode }> = ({ children }) => {
+  const firebaseConfig = getFirebaseConfig();
+
   return (
     <FirebaseAppProvider firebaseConfig={firebaseConfig}>
-      <StorageProvider sdk={storage}>{children}</StorageProvider>
+      <FirebaseSDKProvider>{children}</FirebaseSDKProvider>
     </FirebaseAppProvider>
   );
 };
 
-export default FirebaseProviderSDKs;
+export default ReactFireProvider;

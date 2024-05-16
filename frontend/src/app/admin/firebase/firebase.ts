@@ -19,7 +19,7 @@ export const initFirebase = () => {
   const auth: Auth = getAuth(app);
   const storage: FirebaseStorage = getStorage(app);
 
-  return { app, auth, storage };
+  return { auth, storage };
 };
 
 /**
@@ -31,6 +31,8 @@ export const initFirebase = () => {
  */
 export const firebaseSignIn = async (auth: Auth, email: string, password: string) => {
   try {
+    console.log("trying sign in");
+    console.log(`auth: ${auth}`);
     await signInWithEmailAndPassword(auth, email, password);
     return true;
   } catch (error) {
