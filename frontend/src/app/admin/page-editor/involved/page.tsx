@@ -12,11 +12,11 @@ import Collapsable from "@/components/Collapsable";
 import PageToggle from "@/components/PageToggle";
 import { WarningModule } from "@/components/WarningModule";
 
-export default function EventsPageEditor() {
+export default function InvolvedEditor() {
   const [isEdited, setIsEdited] = useState(false);
   const [phSubtitle, setPhSubtitle] = useState<string>("");
-  const [s1Title, setS1Title] = useState<string>("");
-  const [s1Text, setS1Text] = useState<string>("");
+  const [s1Subtitle, setS1Subtitle] = useState<string>("");
+  const [s2Subtitle, setS2Subtitle] = useState<string>("");
 
   const [showAlert, setShowAlert] = useState(false);
   const [warningOpen, setWarningOpen] = useState(false);
@@ -24,13 +24,13 @@ export default function EventsPageEditor() {
   /* Get page data from MongoDB */
   let pageText;
   useEffect(() => {
-    getPageText("Upcoming Events")
+    getPageText("Get Involved")
       .then((response) => {
         if (response.success) {
           pageText = response.data;
           setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
-          setS1Title(pageText.pageSections[1].sectionTitle ?? "");
-          setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
+          setS1Subtitle(pageText.pageSections[1].sectionSubtitle ?? "");
+          setS2Subtitle(pageText.pageSections[2].sectionSubtitle ?? "");
           console.log("response.data: ", response.data);
         } else {
           alert(response.error);
@@ -46,10 +46,10 @@ export default function EventsPageEditor() {
     setIsEdited(true);
     if (event.target.id === "Page Header: Subtitle") {
       setPhSubtitle(event.target.value);
-    } else if (event.target.id === "Section 1: Section Title") {
-      setS1Title(event.target.value);
-    } else if (event.target.id === "Section 1: Section Subtitle") {
-      setS1Text(event.target.value);
+    } else if (event.target.id === "Section 1 - Upcoming Events: Subtitle") {
+      setS1Subtitle(event.target.value);
+    } else if (event.target.id === "Section 2 - Donate: Subtitle") {
+      setS2Subtitle(event.target.value);
     }
   };
 
@@ -59,14 +59,16 @@ export default function EventsPageEditor() {
       console.log("Save changes");
       updatePage({
         //Pass edited text to MongoDB
-        page: "Upcoming Events",
+        page: "Get Involved",
         pageSections: [
           {
             subtitle: phSubtitle,
           },
           {
-            sectionTitle: s1Title,
-            sectionSubtitle: s1Text,
+            sectionSubtitle: s1Subtitle,
+          },
+          {
+            sectionSubtitle: s2Subtitle,
           },
         ],
       })
@@ -96,13 +98,13 @@ export default function EventsPageEditor() {
     // Implement cancel logic
     setWarningOpen(false);
     console.log("Cancel changes");
-    getPageText("Upcoming Events")
+    getPageText("Get Involved")
       .then((response) => {
         if (response.success) {
           pageText = response.data;
           setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
-          setS1Title(pageText.pageSections[1].sectionTitle ?? "");
-          setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
+          setS1Subtitle(pageText.pageSections[1].sectionSubtitle ?? "");
+          setS2Subtitle(pageText.pageSections[2].sectionSubtitle ?? "");
         } else {
           alert(response.error);
         }
@@ -143,7 +145,7 @@ export default function EventsPageEditor() {
       <PageToggle
         pages={["Get Involved", "Upcoming Events"]}
         links={["./involved", "./events"]}
-        currPage={1}
+        currPage={0}
         refreshPage={true}
       />
       <div className={styles.sectionContainer}>
@@ -154,9 +156,15 @@ export default function EventsPageEditor() {
           onChange={handleEdit}
         />
         <Collapsable
-          title="Section 1"
-          subsection={["Section Title", "Section Subtitle"]}
-          textbox={[s1Title, s1Text]}
+          title="Section 1 - Upcoming Events"
+          subsection={["Subtitle"]}
+          textbox={[s1Subtitle]}
+          onChange={handleEdit}
+        />
+        <Collapsable
+          title="Section 2 - Donate"
+          subsection={["Subtitle"]}
+          textbox={[s2Subtitle]}
           onChange={handleEdit}
         />
         <div className={styles.buttonContainer}>

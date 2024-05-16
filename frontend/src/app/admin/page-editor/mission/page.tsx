@@ -12,7 +12,7 @@ import PageToggle from "@/components/PageToggle";
 
 // import PageEditorCard from "@/components/PageEditorCard";
 
-export default function Dashboard() {
+export default function MissionEditor() {
   const [isEdited, setIsEdited] = useState(false);
   const [valueSubtitle, setvalueSubtitle] = useState<string>("");
   const [phSubtitle, setPhSubtitle] = useState<string>("");

@@ -19,9 +19,9 @@ const NavigationBar = () => {
         const url = window.location.pathname;
         if (url === "/admin/dashboard") {
           return "Dashboard";
-        } else if (url === "/admin/eventcreator") {
+        } else if (url === "/admin/event-creator") {
           return "Event Creator";
-        } else if (url.startsWith("/admin/pageeditor")) {
+        } else if (url.startsWith("/admin/page-editor")) {
           // For Page Editor subpages
           if (url.endsWith("home")) {
             setActivePageEditor("Home");
@@ -39,9 +39,9 @@ const NavigationBar = () => {
             setActivePageEditor("Upcoming Events");
           }
           return "Page Editor";
-        } else if (url === "/admin/newslettercreator") {
+        } else if (url === "/admin/newsletter-creator") {
           return "Newsletter Creator";
-        } else if (url === "/admin/mailinglist") {
+        } else if (url === "/admin/mailing-list") {
           return "Mailing List";
         } else if (url === "/admin/settings") {
           return "Settings";
@@ -110,7 +110,7 @@ const NavigationBar = () => {
           <div className={activeMenu === "Event Creator" ? styles.menuActive : styles.menuDiv}>
             <Image width={18} height={18} src="/calendarIcon.svg" alt="Calendar Icon" />
             <Link
-              href="/admin/eventcreator"
+              href="/admin/event-creator"
               onClick={() => {
                 handleOnClick("Event Creator");
               }}
@@ -121,7 +121,7 @@ const NavigationBar = () => {
           <div className={activeMenu === "Page Editor" ? styles.menuActive : styles.menuDiv}>
             <Image width={18} height={18} src="/pageIcon.svg" alt="Page Icon" />
             <Link
-              href="/admin/pageeditor"
+              href="/admin/page-editor"
               onClick={() => {
                 handleOnClick("Page Editor");
               }}
@@ -132,7 +132,7 @@ const NavigationBar = () => {
           <div className={activeMenu === "Newsletter Creator" ? styles.menuActive : styles.menuDiv}>
             <Image width={18} height={18} src="/newsletterIcon.svg" alt="Newsletter Icon" />
             <Link
-              href="/admin/newslettercreator"
+              href="/admin/newsletter-creator"
               onClick={() => {
                 handleOnClick("Newsletter Creator");
               }}
@@ -143,7 +143,7 @@ const NavigationBar = () => {
           <div className={activeMenu === "Mailing List" ? styles.menuActive : styles.menuDiv}>
             <Image width={18} height={18} src="/mailIcon.svg" alt="Mail Icon" />
             <Link
-              href="/admin/mailinglist"
+              href="/admin/mailing-list"
               onClick={() => {
                 handleOnClick("Mailing List");
               }}
