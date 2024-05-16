@@ -19,6 +19,6 @@ jobs:
           npm run build
         env:
           NEXT_PUBLIC_BACKEND_URL: ''
-          NEXT_PUBLIC_FIREBASE_SETTINGS: '{}'
+          NEXT_PUBLIC_FIREBASE_SETTINGS: '{"apiKey":"XXXXXXXXXXXX"}'
           NEXT_PUBLIC_PAYPAL_CLIENT_ID: ''
           NEXT_PUBLIC_PAYPAL_CLIENT_SECRET: ''
