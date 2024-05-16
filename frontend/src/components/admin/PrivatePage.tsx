@@ -9,7 +9,6 @@ import LoadingSpinner from "./LoadingSpinner";
 const PrivatePage: FC<{ children: ReactNode }> = ({ children }) => {
   const router = useRouter();
   const { status, data: signInCheckResult } = useSigninCheck();
-  console.log(signInCheckResult);
 
   if (status === "loading") {
     return <LoadingSpinner />;

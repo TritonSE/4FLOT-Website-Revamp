@@ -21,8 +21,6 @@ const LoginForm = ({ setForgotPass }: LoginFormProps) => {
   const auth = getAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
-    console.log(`Username: ${email}`);
-    console.log(`Password: ${password}`);
     e.preventDefault();
 
     let signInSuccessful = false;
