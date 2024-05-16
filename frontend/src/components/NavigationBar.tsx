@@ -4,6 +4,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 import styles from "./NavigationBar.module.css";
+import UserIcon from "./UserIcon";
 
 const NavigationBar = () => {
   const [activeMenu, setActiveMenu] = useState<string>("Dashboard");
@@ -56,9 +57,7 @@ const NavigationBar = () => {
           )}
         </div>
         <div className={styles.user}>
-          <Image src={"/sampleUserPhoto.svg"} alt="userImage" width={36} height={36}></Image>
-          <p>John Doe</p>
-          <Image src={"/ic_caretdown.svg"} alt="upArrow" width={24} height={24}></Image>
+          <UserIcon />
         </div>
       </div>
       <div className={styles.navBar}>
