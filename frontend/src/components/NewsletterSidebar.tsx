@@ -111,7 +111,7 @@ const NewsletterSidebar = ({
       setIsEditing(false);
       setErrors({});
       setShowAlert(true);
-      if (typeof window !== "undefined" && window?.location) {
+      if (typeof window?.location !== "undefined") {
         const location = window.location as { reload: () => void };
         location.reload();
       }
@@ -136,7 +136,7 @@ const NewsletterSidebar = ({
           alert(error);
         });
       setSidebarOpen(false);
-      if (typeof window !== "undefined" && window?.location) {
+      if (typeof window?.location !== "undefined") {
         const location = window.location as { reload: () => void };
         location.reload();
       }
