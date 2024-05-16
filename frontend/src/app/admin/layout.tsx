@@ -8,6 +8,7 @@ import HeaderBarSpace from "@/components/HeaderBarSpace";
 import NavigationBar from "@/components/NavigationBar";
 
 import "../globals.css";
+import PrivatePage from "@/components/admin/PrivatePage";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -18,7 +19,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <section>
         {!isLoginPage && <NavigationBar />}
         {!isLoginPage && <HeaderBarSpace />}
-        {children}
+        {!isLoginPage ? <PrivatePage>{children}</PrivatePage> : children}
       </section>
     </ReactFireProvider>
   );
