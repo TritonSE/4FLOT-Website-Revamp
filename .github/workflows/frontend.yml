@@ -16,7 +16,7 @@ jobs:
         run: |
           npm ci --legacy-peer-deps
           npm run lint-check
-          npm run build
+          npm run experimental-generate
         env:
           NEXT_PUBLIC_BACKEND_URL: ''
           NEXT_PUBLIC_FIREBASE_SETTINGS: '{"apiKey":"XXXXXXXXXXXX"}'

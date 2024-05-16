@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "check": "next experimental-generate",
     "start": "next start",
     "lint": "next lint",
     "check-git-hooks": "cd .. && node .secret-scan/secret-scan.js -- --check-git-hooks",
