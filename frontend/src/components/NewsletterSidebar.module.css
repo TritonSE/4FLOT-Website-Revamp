@@ -1,0 +1,181 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  width: 38vw;
+  z-index: 3;
+  border-left: 1px solid #c9c9c9;
+  background: #fff;
+}
+
+.grayOut {
+  opacity: 0.3;
+  background: #484848;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.closeWindow {
+  display: flex;
+  width: 524px;
+  height: 41px;
+  padding: 10px 20px;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  color: var(--Neutral-Gray4, #909090);
+  border-bottom: 1px solid #c9c9c9;
+  font: var(--font-body);
+  font-size: 14px;
+}
+
+.closeWindow:hover {
+  cursor: pointer;
+}
+
+.sidebarContents {
+  padding: 60px;
+  padding-left: 35px;
+}
+
+.sidebarContents h1 {
+  font: var(--font-small-subtitle);
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 27px */
+  letter-spacing: 0.36px;
+}
+
+.sidebarContents h2 {
+  padding-top: 24px;
+  font: var(--font-body);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
+  color: #909090;
+}
+
+.sidebarContents {
+  font: var(--font-body);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+}
+
+.header {
+  display: flex;
+  direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 46px;
+}
+
+.sidebar button {
+  display: flex;
+  padding: 4px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  border-radius: 4px;
+}
+
+.sidebar button img {
+  padding: 4px;
+}
+
+.sidebar button p {
+  font: var(--text-body);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 150%; /* 30px */
+  letter-spacing: 0.7px;
+}
+
+.editButton {
+  background: #694c97;
+  color: #fff;
+}
+
+.cancelButton {
+  font: var(--font-body);
+  background: #fff;
+  border: 1px solid #694c97;
+  color: #694c97;
+}
+
+.saveButton {
+  font: var(--font-body);
+  background: #694c97;
+  color: #fff;
+}
+
+.deleteButton {
+  background: #fff;
+  border: 1px solid #b93b3b;
+  color: #b93b3b;
+}
+
+.bottomButtons {
+  display: flex;
+  direction: row;
+  gap: 24px;
+  justify-content: flex-end;
+  margin-right: 60px;
+  margin-bottom: 77px;
+}
+
+.deleteButtonWrapper {
+  display: flex;
+  direction: row;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.contentPar {
+  margin-bottom: 1rem;
+}
+
+.sidebar .alert {
+  position: relative;
+  top: 35px;
+}
+
+.sidebar .alert .div {
+  position: absolute;
+}
+
+.sidebar .alert img {
+  padding: 0;
+}
+
+.textField {
+  width: 454px;
+}
+
+.textArea {
+  width: 454px;
+  height: 288px;
+  padding: 12px;
+  border: 1px solid #d8d8d8;
+  border-radius: 4px;
+}
+
+.content {
+  width: 100%;
+  white-space: pre-wrap;
+  font: var(--font-body);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}

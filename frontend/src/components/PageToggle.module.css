@@ -1,10 +1,11 @@
 .container {
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
   float: left;
-
+  margin-top: 12px;
   gap: 24px;
-  margin-bottom: 12px;
+  margin-bottom: 0px;
   padding: 0 12px;
   border-bottom: solid 1px #6c6c6c;
 }

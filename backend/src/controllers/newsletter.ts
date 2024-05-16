@@ -36,13 +36,12 @@ export const getNewsletter: RequestHandler = async (req, res, next) => {
 
 export const createNewsletter: RequestHandler = async (req, res, next) => {
   const errors = validationResult(req);
-  const { _id, image, title, description, date, content } = req.body;
+  const { image, title, description, date, content } = req.body;
 
   try {
     validationErrorParser(errors);
 
     const newsletter = await Newsletter.create({
-      _id,
       image,
       title,
       description,
@@ -50,8 +49,10 @@ export const createNewsletter: RequestHandler = async (req, res, next) => {
       content,
     });
 
+    console.log("newsletter: ", newsletter);
     res.status(201).json(newsletter);
   } catch (error) {
+    console.error("Error creating newsletter:", error);
     next(error);
   }
 };
@@ -79,6 +80,22 @@ export const updateNewsletter: RequestHandler = async (req, res, next) => {
       res.status(404);
     }
     res.status(200).json(updatedNewsletter);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deleteNewsletter: RequestHandler = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const newsletter = await Newsletter.findByIdAndDelete(id);
+
+    if (!newsletter) {
+      throw createHttpError(404, "Newsletter not found.");
+    }
+
+    res.status(200).json(newsletter);
   } catch (error) {
     next(error);
   }

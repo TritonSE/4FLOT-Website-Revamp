@@ -22,14 +22,24 @@
   z-index: 1002;
 }
 
-/* .text {
+.text {
   font-weight: 16px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 47px;
-} */
+  /* gap: 47px; */
+}
+
+.content {
+  width: 100%;
+  white-space: pre-wrap;
+  font: var(--font-body);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
 
 .description {
   text-align: left;
