@@ -1,6 +1,4 @@
 "use client";
-// import html2canvas from "html2canvas";
-// import { jsPDF } from "jspdf";
 import React, { useEffect, useState } from "react";
 
 import { Newsletter, getNewsletter } from "../../../../api/newsletter";
@@ -36,16 +34,6 @@ export default function NewsletterDisplay({ params }: Props) {
 
   const handleSubscribeClick = () => {
     setPopup(true);
-  };
-
-  const printDocument = () => {
-    window.scrollTo(0, 0);
-    // html2canvas(document.body, { scale: 0.32 }).then((canvas) => {
-    //   const imgData = canvas.toDataURL("image/png");
-    //   const pdf = new jsPDF();
-    //   pdf.addImage(imgData, "PNG", 0, 0);
-    //   pdf.save("download.pdf");
-    // });
   };
 
   useEffect(() => {
@@ -93,24 +81,11 @@ export default function NewsletterDisplay({ params }: Props) {
             flexShrink: 0,
           }}
         />
-        <div
-          className={styles.subtitleSmaller}
-          style={{ display: "flex", alignItems: "center" }}
-          onClick={printDocument}
-        >
+        <div className={styles.subtitleSmaller} style={{ display: "flex", alignItems: "center" }}>
           Here’s Our Story
-          <img
-            src="/ic_download.svg"
-            alt="Download Icon"
-            style={{ marginLeft: "10px", width: "27px", height: "27px" }}
-          />
         </div>
 
-        {newsletter?.content.map((paragraph, index) => (
-          <p key={index} className={styles.description}>
-            {paragraph}
-          </p>
-        ))}
+        <pre className={styles.content}>{newsletter?.content}</pre>
 
         <div className={styles.subtitleSharePost} style={{ display: "flex", alignItems: "center" }}>
           Share This Post

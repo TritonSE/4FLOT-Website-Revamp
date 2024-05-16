@@ -12,5 +12,6 @@ router.put(
   NewsletterController.updateNewsletter,
 );
 router.post("/", NewsletterValidator.createNewsletter, NewsletterController.createNewsletter);
+router.delete("/:id", NewsletterValidator.deleteNewsletter, NewsletterController.deleteNewsletter);
 
 export default router;
