@@ -111,7 +111,7 @@ const NewsletterSidebar = ({
       setIsEditing(false);
       setErrors({});
       setShowAlert(true);
-      window.location.reload();
+      if (window?.location) window.location.reload();
     }
   };
 
@@ -133,7 +133,7 @@ const NewsletterSidebar = ({
           alert(error);
         });
       setSidebarOpen(false);
-      window.location.reload();
+      if (window?.location) window.location.reload();
     }
   };
 

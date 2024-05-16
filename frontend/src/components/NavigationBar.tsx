@@ -16,17 +16,17 @@ const NavigationBar = () => {
   useEffect(() => {
     const handleLoad = () => {
       if (typeof window !== "undefined") {
-        if (window.location.pathname === "/admin/dashboard") {
+        if (window.location?.pathname === "/admin/dashboard") {
           return "Dashboard";
-        } else if (window.location.pathname === "/admin/event-creator") {
+        } else if (window.location?.pathname === "/admin/event-creator") {
           return "Event Creator";
-        } else if (window.location.pathname === "/admin/page-editor") {
+        } else if (window.location?.pathname === "/admin/page-editor") {
           return "Page Editor";
-        } else if (window.location.pathname === "/admin/newsletter-creator") {
+        } else if (window.location?.pathname === "/admin/newsletter-creator") {
           return "Newsletter Creator";
-        } else if (window.location.pathname === "/admin/mailing-list") {
+        } else if (window.location?.pathname === "/admin/mailing-list") {
           return "Mailing List";
-        } else if (window.location.pathname === "/admin/settings") {
+        } else if (window.location?.pathname === "/admin/settings") {
           return "Settings";
         } else {
           return "";
