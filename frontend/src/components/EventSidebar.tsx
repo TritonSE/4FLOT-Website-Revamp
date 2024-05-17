@@ -220,16 +220,18 @@ const EventSidebar = ({
               <p>Delete</p>
             </button>
           </div>
-          <div className={styles.grayOut}></div>
-          <WarningModule
-            titleText="Are you sure you want to delete this event?"
-            subtitleText="This action is permanent and cannot be undone."
-            cancelText="No, cancel"
-            actionText="Delete event"
-            cancel={confirmCancel}
-            action={confirmDelete}
-            onClose={confirmCancel}
-          />
+          <div className={styles.fixedPosition}>
+            <div className={styles.grayOut}></div>
+            <WarningModule
+              titleText="Are you sure you want to delete this event?"
+              subtitleText="This action is permanent and cannot be undone."
+              cancelText="No, cancel"
+              actionText="Delete event"
+              cancel={confirmCancel}
+              action={confirmDelete}
+              onClose={confirmCancel}
+            />
+          </div>
         </div>
       </div>
     );
@@ -238,19 +240,21 @@ const EventSidebar = ({
   if (isEditing) {
     return (
       <div className={styles.sidebar}>
-        {warningOpen && <div className={styles.grayOut}></div>}
         {warningOpen && (
-          <WarningModule
-            titleText="You have unsaved changes!"
-            subtitleText="Do you want to save the changes you made to this event?"
-            cancelText="Discard changes"
-            actionText="Save changes"
-            cancel={confirmCancel}
-            action={handleSave}
-            onClose={() => {
-              setWarningOpen(false);
-            }}
-          />
+          <div className={styles.fixedPosition}>
+            <div className={styles.grayOut}></div>
+            <WarningModule
+              titleText="You have unsaved changes!"
+              subtitleText="Do you want to save the changes you made to this event?"
+              cancelText="Discard changes"
+              actionText="Save changes"
+              cancel={confirmCancel}
+              action={handleSave}
+              onClose={() => {
+                setWarningOpen(false);
+              }}
+            />
+          </div>
         )}
         <div
           className={styles.closeWindow}
