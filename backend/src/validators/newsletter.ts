@@ -40,10 +40,18 @@ const makeContentValidator = () =>
     .exists()
     .withMessage("content is required")
     .bail()
-    .isArray()
-    .withMessage("content must be an array of strings");
+    .isString()
+    .withMessage("content must be a string");
 
 export const createNewsletter = [
+  makeImageValidator(),
+  makeTitleValidator(),
+  makeDescriptionValidator(),
+  makeDateValidator(),
+  makeContentValidator(),
+];
+
+export const updateNewsletter = [
   makeIDValidator(),
   makeImageValidator(),
   makeTitleValidator(),
@@ -53,3 +61,5 @@ export const createNewsletter = [
 ];
 
 export const getNewsletter = [makeIDValidator()];
+
+export const deleteNewsletter = [makeIDValidator()];

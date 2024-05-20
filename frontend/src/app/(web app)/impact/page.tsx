@@ -12,10 +12,10 @@ import WhiteCard from "@/components/WhiteCard";
 export default function Impact() {
   const [images, setImages] = useState<BackgroundImage[]>([]);
 
-    //admin variables
-    const [phSubtitle, setPhSubtitle] = useState<string>("");
-    const [s1Subtitle, setS1Subtitle] = useState<string>("");
-    const [s2Subtitle, setS2Subtitle] = useState<string>("");
+  //admin variables
+  const [phSubtitle, setPhSubtitle] = useState<string>("");
+  const [s1Subtitle, setS1Subtitle] = useState<string>("");
+  const [s2Subtitle, setS2Subtitle] = useState<string>("");
 
   useEffect(() => {
     getBackgroundImages(BackgroundImagePages.TEAM)
@@ -46,7 +46,6 @@ export default function Impact() {
         alert(error);
       });
   }, []);
-
 
   return (
     <main className={styles.page}>

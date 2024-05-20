@@ -12,7 +12,7 @@ import Collapsable from "@/components/Collapsable";
 import PageToggle from "@/components/PageToggle";
 import { WarningModule } from "@/components/WarningModule";
 
-export default function EventsPageEditor() {
+export default function EventsEditor() {
   const [isEdited, setIsEdited] = useState(false);
   const [phSubtitle, setPhSubtitle] = useState<string>("");
   const [s1Title, setS1Title] = useState<string>("");

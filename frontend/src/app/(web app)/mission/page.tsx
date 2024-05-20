@@ -4,7 +4,6 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 import { getPageText } from "../../../api/pageeditor";
-
 import Button from "../../../components/Button";
 import ValueCard from "../../../components/ValueCard";
 
@@ -78,11 +77,10 @@ export default function Mission() {
         <div className={styles.text}>
           <div className={styles.titlelarge}>{valueSubtitle}</div>
           <div className={styles.rectangleContainer}>
-          <ValueCard
+            <ValueCard
               title={Value1}
               iconSrc="/threepeople.svg"
-              description="Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec
-              blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi"
+              description={Value1_Description}
             ></ValueCard>
             <ValueCard
               title={Value2}
@@ -101,8 +99,7 @@ export default function Mission() {
         <div className={styles.storyContainer}>
           <div className={styles.storyText}>
             <div className={styles.titlelarge}>{s1Subtitle}</div>
-            <p className={styles.description}>{s1Text}
-            </p>
+            <p className={styles.description}>{s1Text}</p>
             <Button text="Meet Our Team" link="/team"></Button>
           </div>
           <div className={styles.imageContainer}>

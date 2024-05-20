@@ -12,7 +12,7 @@ import PageToggle from "@/components/PageToggle";
 
 // import PageEditorCard from "@/components/PageEditorCard";
 
-export default function Dashboard() {
+export default function MissionEditor() {
   const [isEdited, setIsEdited] = useState(false);
   const [valueSubtitle, setvalueSubtitle] = useState<string>("");
   const [phSubtitle, setPhSubtitle] = useState<string>("");
@@ -25,35 +25,35 @@ export default function Dashboard() {
   const [s1Text, setS1Text] = useState<string>("");
   const [s1Subtitle, setS1Subtitle] = useState<string>("");
 
- /* Get page data from MongoDB */
- let pageText;
- useEffect(() => {
-   getPageText("Our Mission")
-     .then((response) => {
-       if (response.success) {
-         pageText = response.data;
-         setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
-         setvalueSubtitle(pageText.pageSections[1].subtitle ?? "");
-         setValue1(pageText.pageSections[2].sectionTitle ?? "");
-         setValue1_Description(pageText.pageSections[2].sectionSubtitle ?? "");
-         setValue2(pageText.pageSections[3].sectionTitle ?? "");
-         setValue2_Description(pageText.pageSections[3].sectionSubtitle ?? "");
-         setValue3(pageText.pageSections[4].sectionTitle ?? "");
-         setValue3_Description(pageText.pageSections[4].sectionSubtitle ?? "");
-         setS1Subtitle(pageText.pageSections[5].sectionTitle ?? "");
-         setS1Text(pageText.pageSections[5].sectionSubtitle ?? "");
-         console.log("response.data: ", response.data);
-       } else {
-         alert(response.error);
-       }
-     })
-     .catch((error) => {
-       alert(error);
-     });
- }, []);
+  /* Get page data from MongoDB */
+  let pageText;
+  useEffect(() => {
+    getPageText("Our Mission")
+      .then((response) => {
+        if (response.success) {
+          pageText = response.data;
+          setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
+          setvalueSubtitle(pageText.pageSections[1].subtitle ?? "");
+          setValue1(pageText.pageSections[2].sectionTitle ?? "");
+          setValue1_Description(pageText.pageSections[2].sectionSubtitle ?? "");
+          setValue2(pageText.pageSections[3].sectionTitle ?? "");
+          setValue2_Description(pageText.pageSections[3].sectionSubtitle ?? "");
+          setValue3(pageText.pageSections[4].sectionTitle ?? "");
+          setValue3_Description(pageText.pageSections[4].sectionSubtitle ?? "");
+          setS1Subtitle(pageText.pageSections[5].sectionTitle ?? "");
+          setS1Text(pageText.pageSections[5].sectionSubtitle ?? "");
+          console.log("response.data: ", response.data);
+        } else {
+          alert(response.error);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }, []);
 
-   /* Handle Fields upon edit */
-   const handleEdit = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  /* Handle Fields upon edit */
+  const handleEdit = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setIsEdited(true);
     if (event.target.id === "Page Subtitle: Subtitle") {
       setPhSubtitle(event.target.value);
@@ -67,11 +67,11 @@ export default function Dashboard() {
       setValue2(event.target.value);
     } else if (event.target.id === "Section 1: Value #2 Description") {
       setValue2_Description(event.target.value);
-    }  else if (event.target.id === "Section 1: Value #3") {
+    } else if (event.target.id === "Section 1: Value #3") {
       setValue3(event.target.value);
     } else if (event.target.id === "Section 1: Value #3 Description") {
       setValue3_Description(event.target.value);
-    }else if (event.target.id === "Section 2: Section Title") {
+    } else if (event.target.id === "Section 2: Section Title") {
       setS1Subtitle(event.target.value);
     } else if (event.target.id === "Section 2: Body Text") {
       setS1Text(event.target.value);
@@ -87,7 +87,7 @@ export default function Dashboard() {
         page: "Our Mission",
         pageSections: [
           {
-            subtitle: phSubtitle
+            subtitle: phSubtitle,
           },
           {
             subtitle: valueSubtitle,
@@ -107,7 +107,7 @@ export default function Dashboard() {
           {
             sectionTitle: s1Subtitle,
             sectionSubtitle: s1Text,
-          }
+          },
         ],
       })
         .then((response) => {
@@ -162,7 +162,7 @@ export default function Dashboard() {
         refreshPage={true}
       />
       <div className={styles.sectionContainer}>
-      <Collapsable
+        <Collapsable
           title="Page Subtitle"
           subsection={["Subtitle"]}
           textbox={[phSubtitle]}
@@ -193,11 +193,7 @@ export default function Dashboard() {
         <Collapsable
           title="Section 2"
           subsection={["Section Title", "Body Text", "Image Gallery"]}
-          textbox={[
-            s1Subtitle,
-            s1Text,
-            "",
-          ]}
+          textbox={[s1Subtitle, s1Text, ""]}
           onChange={handleEdit}
         />
         <div className={styles.buttonContainer}>

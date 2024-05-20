@@ -8,9 +8,7 @@ import CancelButton from "@/components/CancelButton";
 import Collapsable from "@/components/Collapsable";
 import PageToggle from "@/components/PageToggle";
 
-// import PageEditorCard from "@/components/PageEditorCard";
-
-export default function Dashboard() {
+export default function ContactEditor() {
   const [isEdited, setIsEdited] = useState(false);
 
   const handleEdit = () => {

@@ -38,7 +38,7 @@ export default function Home() {
       });
   }, []);
 
-    /* Get page data from MongoDB */
+  /* Get page data from MongoDB */
   let pageText;
   useEffect(() => {
     getPageText("Home")
@@ -59,7 +59,6 @@ export default function Home() {
         alert(error);
       });
   }, []);
-
 
   return (
     <main className={styles.page}>
@@ -83,10 +82,7 @@ export default function Home() {
         />
       </div>
       <div className={styles.container}>
-        <Description
-          title={s1Subtitle}
-          description={s1Text}
-        />
+        <Description title={s1Subtitle} description={s1Text} />
         <div className={styles.eventsListContainer}>
           <EventsList page="home" />
         </div>
@@ -94,10 +90,7 @@ export default function Home() {
         <div className={styles.buttonContainer}>
           <Button text={see_more_text} link={"/upcoming-events"} />
         </div>
-        <Description
-          title={s2Subtitle}
-          description={s2Text}
-        />
+        <Description title={s2Subtitle} description={s2Text} />
         <img className={styles.sponsor_image} src="/Sponsors.svg" alt="Sponsors" />
         <div className={styles.buttonContainer}>
           <Button text={sponsor_us_text} link={"/contact"} />

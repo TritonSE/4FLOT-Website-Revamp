@@ -10,7 +10,7 @@ import PageToggle from "@/components/PageToggle";
 
 // import PageEditorCard from "@/components/PageEditorCard";
 
-export default function Dashboard() {
+export default function TeamEditor() {
   const [isEdited, setIsEdited] = useState(false);
   const handleEdit = () => {
     setIsEdited(true);
