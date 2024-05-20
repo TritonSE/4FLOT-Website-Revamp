@@ -141,8 +141,8 @@ export default function EventsPageEditor() {
         </div>
       </div>
       <PageToggle
-        pages={["Get Involved", "Upcoming Events"]}
-        links={["./involved", "./events"]}
+        pages={["Get Involved", "Upcoming Events", "Past Events"]}
+        links={["./involved", "./events", "./pastevents"]}
         currPage={1}
         refreshPage={true}
       />

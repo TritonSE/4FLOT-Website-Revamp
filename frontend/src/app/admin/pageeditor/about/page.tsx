@@ -11,9 +11,7 @@ import CancelButton from "@/components/CancelButton";
 import Collapsable from "@/components/Collapsable";
 import PageToggle from "@/components/PageToggle";
 
-// import PageEditorCard from "@/components/PageEditorCard";
-
-export default function Dashboard() {
+export default function AboutEditor() {
   const [isEdited, setIsEdited] = useState(false);
   const [phSubtitle, setPhSubtitle] = useState<string>("");
   const [s1Subtitle, setS1Subtitle] = useState<string>("");
