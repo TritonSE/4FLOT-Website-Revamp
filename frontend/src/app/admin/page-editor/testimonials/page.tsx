@@ -12,15 +12,11 @@ import Collapsable from "@/components/Collapsable";
 import PageToggle from "@/components/PageToggle";
 import { WarningModule } from "@/components/WarningModule";
 
-export default function AboutEditor() {
+export default function TeamEditor() {
   const [isEdited, setIsEdited] = useState(false);
   const [phSubtitle, setPhSubtitle] = useState<string>("");
   const [s1Subtitle, setS1Subtitle] = useState<string>("");
   const [s1Text, setS1Text] = useState<string>("");
-  const [s2Subtitle, setS2Subtitle] = useState<string>("");
-  const [s2Text, setS2Text] = useState<string>("");
-  const [s3Subtitle, setS3Subtitle] = useState<string>("");
-  const [s3Text, setS3Text] = useState<string>("");
 
   const [showAlert, setShowAlert] = useState(false);
   const [warningOpen, setWarningOpen] = useState(false);
@@ -28,18 +24,13 @@ export default function AboutEditor() {
   /* Get page data from MongoDB */
   let pageText;
   useEffect(() => {
-    getPageText("About Us")
+    getPageText("Testimonials")
       .then((response) => {
         if (response.success) {
           pageText = response.data;
           setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
           setS1Subtitle(pageText.pageSections[1].sectionTitle ?? "");
           setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
-          setS2Subtitle(pageText.pageSections[2].sectionTitle ?? "");
-          setS2Text(pageText.pageSections[2].sectionSubtitle ?? "");
-          setS3Subtitle(pageText.pageSections[3].sectionTitle ?? "");
-          setS3Text(pageText.pageSections[3].sectionSubtitle ?? "");
-          console.log("response.data: ", response.data);
         } else {
           alert(response.error);
         }
@@ -52,30 +43,22 @@ export default function AboutEditor() {
   /* Handle Fields upon edit */
   const handleEdit = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setIsEdited(true);
-    if (event.target.id === "Page Subtitle: Subtitle") {
+    if (event.target.id === "Page Header: Subtitle") {
       setPhSubtitle(event.target.value);
-    } else if (event.target.id === "Section 1 - Our Mission: Section Title") {
+    } else if (event.target.id === "Section 1: Section Title") {
       setS1Subtitle(event.target.value);
-    } else if (event.target.id === "Section 1 - Our Mission: Body Text") {
+    } else if (event.target.id === "Section 1: Body Text") {
       setS1Text(event.target.value);
-    } else if (event.target.id === "Section 2 - Our Team: Section Title") {
-      setS2Subtitle(event.target.value);
-    } else if (event.target.id === "Section 2 - Our Team: Body Text") {
-      setS2Text(event.target.value);
-    } else if (event.target.id === "Section 3 - Contact Us: Section Title") {
-      setS3Subtitle(event.target.value);
-    } else if (event.target.id === "Section 3 - Contact Us: Body Text") {
-      setS3Text(event.target.value);
     }
   };
 
   const handleSave = () => {
     // Implement save logic
     if (isEdited) {
-      console.log("Save changes");
+      console.log("Testimonials");
       updatePage({
         //Pass edited text to MongoDB
-        page: "About Us",
+        page: "Testimonials",
         pageSections: [
           {
             subtitle: phSubtitle,
@@ -83,14 +66,6 @@ export default function AboutEditor() {
           {
             sectionTitle: s1Subtitle,
             sectionSubtitle: s1Text,
-          },
-          {
-            sectionTitle: s2Subtitle,
-            sectionSubtitle: s2Text,
-          },
-          {
-            sectionTitle: s3Subtitle,
-            sectionSubtitle: s3Text,
           },
         ],
       })
@@ -120,17 +95,13 @@ export default function AboutEditor() {
     // Implement cancel logic
     setWarningOpen(false);
     console.log("Cancel changes");
-    getPageText("About Us")
+    getPageText("Testimonials")
       .then((response) => {
         if (response.success) {
           pageText = response.data;
           setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
           setS1Subtitle(pageText.pageSections[1].sectionTitle ?? "");
           setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
-          setS2Subtitle(pageText.pageSections[2].sectionTitle ?? "");
-          setS2Text(pageText.pageSections[2].sectionSubtitle ?? "");
-          setS3Subtitle(pageText.pageSections[3].sectionTitle ?? "");
-          setS3Text(pageText.pageSections[3].sectionSubtitle ?? "");
         } else {
           alert(response.error);
         }
@@ -171,34 +142,29 @@ export default function AboutEditor() {
       <PageToggle
         pages={["About Us", "Our Mission", "Our Team", "Contact Us"]}
         links={["./about", "./mission", "./team", "./contact"]}
-        currPage={0}
+        currPage={2}
         refreshPage={true}
       />
       <div className={styles.sectionContainer}>
         <Collapsable
-          title="Page Subtitle"
+          title="Page Header"
           subsection={["Subtitle"]}
-          textbox={[phSubtitle, ""]}
+          textbox={[phSubtitle]}
           onChange={handleEdit}
         />
         <Collapsable
-          title="Section 1 - Our Mission"
-          subsection={["Section Title", "Body Text", "Section Image"]}
+          title="Section 1"
+          subsection={["Section Title", "Body Text"]}
           textbox={[s1Subtitle, s1Text]}
           onChange={handleEdit}
         />
         <Collapsable
-          title="Section 2 - Our Team"
-          subsection={["Section Title", "Body Text", "Section Image"]}
-          textbox={[s2Subtitle, s2Text]}
+          title="Section 2"
+          subsection={["Staff Name", "Staff Position", "Image"]}
+          textbox={["Staff Name", "Officer", ""]}
           onChange={handleEdit}
         />
-        <Collapsable
-          title="Section 3 - Contact Us"
-          subsection={["Section Title", "Body Text", "Section Image"]}
-          textbox={[s3Subtitle, s3Text]}
-          onChange={handleEdit}
-        />
+
         <div className={styles.buttonContainer}>
           <CancelButton
             text="Cancel"
