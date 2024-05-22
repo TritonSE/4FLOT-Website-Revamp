@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  float: left;
+  margin-top: 12px;
+  gap: 24px;
+  margin-bottom: 0px;
+  padding: 0 12px;
+  border-bottom: solid 1px #6c6c6c;
+}
+
+.menu {
+  font: var(--font-body-reg);
+  font-size: 14px;
+  color: #6c6c6c;
+  padding-bottom: 12px;
+}
+
+.menuActive {
+  font: var(--font-body-bold);
+  font-size: 14px;
+  color: var(--color-primary-purple);
+  border-bottom: solid 3px var(--color-primary-purple);
+  padding-bottom: 12px;
+}

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 
 import styles from "./DashboardCards.module.css";
@@ -26,9 +25,9 @@ const PageEditorCard = ({ title, last_updated, imageURI, url }: CardProps) => {
           <div className={styles.cardTitle}>{title}</div>
           <div className={styles.homeCardDescription}>{`Last Updated: ${last_updated}`}</div>
         </div>
-        <Link href={`./${url}`}>
+        <a href={`./${url}`}>
           <button className={styles.cardButton}>Open Editor</button>
-        </Link>
+        </a>
       </div>
     </main>
   );

@@ -1,0 +1,86 @@
+.wrapper {
+  position: absolute;
+  top: 200px;
+  padding: 24px;
+  background-color: #fff;
+  border-radius: 5px;
+  margin: 52px;
+}
+
+.wrapper button img {
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.wrapper button p {
+  font: var(--text-body);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 150%; /* 30px */
+  letter-spacing: 0.7px;
+}
+
+.closeButton {
+  position: relative;
+  float: right;
+}
+
+.saveButton {
+  font: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 150%; /* 24px */
+  letter-spacing: 0.32px;
+  background: #694c97;
+  color: #fff;
+}
+
+.deleteButton {
+  font: var(--font-body);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 150%; /* 24px */
+  letter-spacing: 0.32px;
+  background: #fff;
+  border: 1px solid #b93b3b;
+  color: #b93b3b;
+}
+
+.wrapper h1 {
+  color: #000;
+  font: var(--font-small-subtitle);
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 36px */
+  letter-spacing: 0.48px;
+}
+
+.wrapper p {
+  color: #000;
+  font: var(--font-body);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+}
+
+.buttonWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.wrapper button {
+  display: flex;
+  padding: 4px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  border-radius: 4px;
+}
