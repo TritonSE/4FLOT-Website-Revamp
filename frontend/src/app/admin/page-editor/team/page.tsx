@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 import { getPageText, updatePage } from "../../../../api/pageeditor";
 
-import styles from "./page.module.css";
+import styles from "../testimonials/page.module.css";
 
 import AlertBanner from "@/components/AlertBanner";
 import Button from "@/components/Button";
@@ -112,6 +112,11 @@ export default function TeamEditor() {
     setIsEdited(false);
   };
 
+  const handleAdd = () => {
+    console.log("Add Volunteer");
+    setIsEdited(true);
+  };
+
   const handleCloseAlert = () => {
     setShowAlert(false);
   };
@@ -160,10 +165,13 @@ export default function TeamEditor() {
         />
         <Collapsable
           title="Section 2"
-          subsection={["Staff Name", "Staff Position", "Image"]}
-          textbox={["Staff Name", "Officer", ""]}
+          listTitles={["Staff Name", "Staff Position"]}
+          listText={[["Staff Name", "Officer"]]}
           onChange={handleEdit}
         />
+        <button className={styles.addButton} onClick={handleAdd}>
+          Add Staff
+        </button>
 
         <div className={styles.buttonContainer}>
           <CancelButton

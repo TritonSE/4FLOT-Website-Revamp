@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 import { getPageText, updatePage } from "../../../../api/pageeditor";
 
-import styles from "./page.module.css";
+import styles from "../about/page.module.css";
 
 import AlertBanner from "@/components/AlertBanner";
 import Button from "@/components/Button";

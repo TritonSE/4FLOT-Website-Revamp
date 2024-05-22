@@ -6,8 +6,8 @@ import styles from "./Collapsable.module.css";
 
 type CollapsableProps = {
   title: string;
-  subsection: string[];
-  textbox: string[];
+  subsection?: string[];
+  textbox?: string[];
   onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   // The following are only for numbered lists (Our Team, Testimonials)
   listTitles?: string[];
@@ -22,7 +22,6 @@ const Collapsable = ({
   listTitles,
   listText,
 }: CollapsableProps) => {
-  const hasNumberedList = listTitles !== null && listText !== null;
   const [open, setOpen] = useState<boolean>(true);
 
   const toggleSection = () => {
@@ -54,46 +53,49 @@ const Collapsable = ({
       </button>
       {open && (
         <div className={styles.content}>
-          {subsection.map((subtitle, index) => {
-            const text = textbox[index];
-            return (
-              <div key={subtitle}>
-                <p className={styles.subtitle}>{subtitle}</p>
-                <textarea
-                  className={styles.basicInput}
-                  onInput={handleChange}
-                  id={title + ": " + subtitle}
-                  value={text}
-                ></textarea>
-              </div>
-            );
-          })}
-          {hasNumberedList && (
+          {typeof subsection !== "undefined" && typeof textbox !== "undefined" && (
             <div>
-              <ol>
-                {listText?.map((textArray, index) => {
-                  let subtitle = "";
-                  return listTitles?.map((listTitle, innerIndex) => {
-                    if (innerIndex === 0) {
-                      subtitle = index + 1 + ". \t" + listTitle;
-                    } else {
-                      subtitle = "\t\t" + listTitle;
-                    }
-                    return (
-                      <li key={subtitle}>
-                        <p className={styles.subtitle}>{subtitle}</p>
-                        <textarea
-                          className={styles.tabInput}
-                          onInput={handleChange}
-                          id={listTitle + ": " + index}
-                          value={textArray[innerIndex]}
-                        ></textarea>
-                      </li>
-                    );
-                  });
-                })}
-              </ol>
+              {subsection.map((subtitle, index) => {
+                const text = textbox[index];
+                return (
+                  <div key={subtitle}>
+                    <p className={styles.subtitle}>{subtitle}</p>
+                    <textarea
+                      className={styles.basicInput}
+                      onInput={handleChange}
+                      id={title + ": " + subtitle}
+                      value={text}
+                    ></textarea>
+                  </div>
+                );
+              })}
             </div>
+          )}
+
+          {typeof listTitles !== "undefined" && typeof listText !== "undefined" && (
+            <ol>
+              {listText.map((textArray, index) => {
+                let subtitle = "";
+                return listTitles.map((listTitle, innerIndex) => {
+                  if (innerIndex === 0) {
+                    subtitle = index + 1 + ". \t" + listTitle;
+                  } else {
+                    subtitle = "\t\t" + listTitle;
+                  }
+                  return (
+                    <li key={subtitle}>
+                      <p className={styles.subtitle}>{subtitle}</p>
+                      <textarea
+                        className={styles.tabInput}
+                        onInput={handleChange}
+                        id={listTitle + ": " + index}
+                        value={textArray[innerIndex]}
+                      ></textarea>
+                    </li>
+                  );
+                });
+              })}
+            </ol>
           )}
         </div>
       )}

@@ -231,7 +231,7 @@ export default function TestimonialsEditor() {
       ["", ""], // and one new item at the end
     ]);
     editedTestimonials.add(testimonialArray.length); //Add index to list of edited indices
-    alert(testimonialArray.length);
+    setIsEdited(true);
   };
 
   const handleCloseAlert = () => {

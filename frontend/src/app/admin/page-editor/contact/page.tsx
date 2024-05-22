@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-import styles from "./page.module.css";
+import styles from "../about/page.module.css";
 
 import Button from "@/components/Button";
 import CancelButton from "@/components/CancelButton";
