@@ -9,6 +9,7 @@
   flex-direction: column;
   gap: 32px;
   padding: 32px;
+  margin-top: 63px;
 }
 
 .buttonContainer {
@@ -23,4 +24,38 @@
   z-index: 4;
   top: 58px;
   left: 872px;
+}
+
+.grayOut {
+  opacity: 0.3;
+  background: #484848;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 130%;
+}
+
+.warningPopup {
+  position: relative;
+  left: 250px;
+  z-index: 5;
+}
+
+.addButton {
+  position: relative;
+  left: 30%;
+
+  background: #f3edf9;
+  border: 1px dashed var(--color-primary-purple);
+  border-radius: 4px;
+  width: 42%;
+
+  font: var(--font-body-reg);
+  color: var(--color-primary-purple);
+  padding: 9px;
+}
+
+.addButton:hover {
+  border: 1px solid var(--color-primary-purple);
 }

@@ -2,6 +2,12 @@
 import React, { useEffect, useState } from "react";
 
 import { getPageText, updatePage } from "../../../../api/pageeditor";
+import {
+  Testimonial,
+  createTestimonial,
+  getAllQuotes,
+  updateTestimonial,
+} from "../../../../api/testimonial";
 
 import styles from "./page.module.css";
 
@@ -12,11 +18,17 @@ import Collapsable from "@/components/Collapsable";
 import PageToggle from "@/components/PageToggle";
 import { WarningModule } from "@/components/WarningModule";
 
-export default function TeamEditor() {
+export default function TestimonialsEditor() {
   const [isEdited, setIsEdited] = useState(false);
   const [phSubtitle, setPhSubtitle] = useState<string>("");
   const [s1Subtitle, setS1Subtitle] = useState<string>("");
   const [s1Text, setS1Text] = useState<string>("");
+  const [s2Title, setS2Title] = useState<string>("");
+  const [s2Subtitle, setS2Subtitle] = useState<string>("");
+
+  const [testimonialData, setTestimonialData] = useState<Testimonial[]>([]); //Holds all testimonials as Testimonials
+  const [testimonialArray, setTestimonialArray] = useState<string[][]>([]); //Holds all testimonials as strings
+  const [editedTestimonials] = useState<Set<number>>(new Set()); //Indices of edited testimonials
 
   const [showAlert, setShowAlert] = useState(false);
   const [warningOpen, setWarningOpen] = useState(false);
@@ -24,6 +36,22 @@ export default function TeamEditor() {
   /* Get page data from MongoDB */
   let pageText;
   useEffect(() => {
+    getAllQuotes()
+      .then((response2) => {
+        if (response2.success) {
+          setTestimonialData(response2.data);
+          const newArray: string[][] = [];
+          for (const elem of response2.data) {
+            newArray.push([elem.title, elem.description]); // and one new item at the end
+          }
+          setTestimonialArray(newArray);
+        } else {
+          alert(response2.error);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
     getPageText("Testimonials")
       .then((response) => {
         if (response.success) {
@@ -31,6 +59,8 @@ export default function TeamEditor() {
           setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
           setS1Subtitle(pageText.pageSections[1].sectionTitle ?? "");
           setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
+          setS2Title(pageText.pageSections[2].sectionTitle ?? "");
+          setS2Subtitle(pageText.pageSections[2].sectionSubtitle ?? "");
         } else {
           alert(response.error);
         }
@@ -47,15 +77,43 @@ export default function TeamEditor() {
       setPhSubtitle(event.target.value);
     } else if (event.target.id === "Section 1: Section Title") {
       setS1Subtitle(event.target.value);
-    } else if (event.target.id === "Section 1: Body Text") {
+    } else if (event.target.id === "Section 1: Subtitle") {
       setS1Text(event.target.value);
+    } else if (event.target.id === "Section 2: Section Title") {
+      setS2Title(event.target.value);
+    } else if (event.target.id === "Section 2: Subtitle") {
+      setS2Subtitle(event.target.value);
+    } else if (event.target.id.startsWith("Testimonial Header")) {
+      const testimonialIndex = Number(event.target.id.slice(event.target.id.indexOf(":") + 2));
+      //Update textarea by changing testimonialArray element
+      const updateArray = testimonialArray.map((elem, index) => {
+        if (index === testimonialIndex) {
+          return [event.target.value, elem[1]];
+        } else {
+          return elem;
+        }
+      });
+      setTestimonialArray(updateArray);
+      editedTestimonials.add(testimonialIndex); //Add index to list of edited indices
+    } else if (event.target.id.startsWith("Testimonial Description")) {
+      const testimonialIndex = Number(event.target.id.slice(event.target.id.indexOf(":") + 2));
+      //Update textarea by changing testimonialArray element
+      const updateArray = testimonialArray.map((elem, index) => {
+        if (index === testimonialIndex) {
+          return [elem[0], event.target.value];
+        } else {
+          return elem;
+        }
+      });
+      setTestimonialArray(updateArray);
+      editedTestimonials.add(testimonialIndex); //Add index to list of edited indices
     }
   };
 
   const handleSave = () => {
     // Implement save logic
     if (isEdited) {
-      console.log("Testimonials");
+      console.log("Save Testimonials Page");
       updatePage({
         //Pass edited text to MongoDB
         page: "Testimonials",
@@ -66,6 +124,10 @@ export default function TeamEditor() {
           {
             sectionTitle: s1Subtitle,
             sectionSubtitle: s1Text,
+          },
+          {
+            sectionTitle: s2Title,
+            sectionSubtitle: s2Subtitle,
           },
         ],
       })
@@ -79,6 +141,47 @@ export default function TeamEditor() {
         .catch((error) => {
           alert(error);
         });
+
+      if (editedTestimonials.size > 0) {
+        //Pass edited testimonials to MongoDB
+        for (const index of Array.from(editedTestimonials)) {
+          //If creating new testimonial
+          if (index >= testimonialData.length) {
+            createTestimonial({
+              title: testimonialArray[index][0],
+              description: testimonialArray[index][1],
+              image: "/impact1.png",
+              type: "quote",
+            })
+              .then((response) => {
+                if (response.success) {
+                  setShowAlert(true);
+                } else {
+                  alert(response.error);
+                }
+              })
+              .catch((error) => {
+                alert(error);
+              });
+          } else {
+            //If editing testimonial
+            //Update testimonial with edited values stored in testimonialArray
+            testimonialData[index].title = testimonialArray[index][0];
+            testimonialData[index].description = testimonialArray[index][1];
+            updateTestimonial(testimonialData[index])
+              .then((response) => {
+                if (response.success) {
+                  setShowAlert(true);
+                } else {
+                  alert(response.error);
+                }
+              })
+              .catch((error) => {
+                alert(error);
+              });
+          }
+        }
+      }
       setIsEdited(false);
     }
     setWarningOpen(false);
@@ -102,6 +205,8 @@ export default function TeamEditor() {
           setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
           setS1Subtitle(pageText.pageSections[1].sectionTitle ?? "");
           setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
+          setS2Title(pageText.pageSections[2].sectionTitle ?? "");
+          setS2Subtitle(pageText.pageSections[2].sectionSubtitle ?? "");
         } else {
           alert(response.error);
         }
@@ -109,7 +214,24 @@ export default function TeamEditor() {
       .catch((error) => {
         alert(error);
       });
+    if (editedTestimonials.size > 0) {
+      const updateArray: string[][] = [];
+      for (const elem of testimonialData) {
+        updateArray.push([elem.title, elem.description]);
+      }
+      setTestimonialArray(updateArray);
+    }
     setIsEdited(false);
+  };
+
+  const handleAdd = () => {
+    console.log("Add Testimonial");
+    setTestimonialArray([
+      ...testimonialArray,
+      ["", ""], // and one new item at the end
+    ]);
+    editedTestimonials.add(testimonialArray.length); //Add index to list of edited indices
+    alert(testimonialArray.length);
   };
 
   const handleCloseAlert = () => {
@@ -140,9 +262,9 @@ export default function TeamEditor() {
         </div>
       </div>
       <PageToggle
-        pages={["About Us", "Our Mission", "Our Team", "Contact Us"]}
-        links={["./about", "./mission", "./team", "./contact"]}
-        currPage={2}
+        pages={["Our Impact", "Testimonials", "Newsletter"]}
+        links={["./impact", "./testimonials", "./newsletter"]}
+        currPage={1}
         refreshPage={true}
       />
       <div className={styles.sectionContainer}>
@@ -154,14 +276,19 @@ export default function TeamEditor() {
         />
         <Collapsable
           title="Section 1"
-          subsection={["Section Title", "Body Text"]}
+          subsection={["Section Title", "Subtitle"]}
           textbox={[s1Subtitle, s1Text]}
+          listTitles={["Testimonial Header", "Testimonial Description"]}
+          listText={testimonialArray}
           onChange={handleEdit}
         />
+        <button className={styles.addButton} onClick={handleAdd}>
+          Add Testimonial
+        </button>
         <Collapsable
           title="Section 2"
-          subsection={["Staff Name", "Staff Position", "Image"]}
-          textbox={["Staff Name", "Officer", ""]}
+          subsection={["Section Title", "Subtitle"]}
+          textbox={[s2Title, s2Subtitle]}
           onChange={handleEdit}
         />
 

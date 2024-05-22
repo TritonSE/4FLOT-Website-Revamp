@@ -9,9 +9,20 @@ type CollapsableProps = {
   subsection: string[];
   textbox: string[];
   onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  // The following are only for numbered lists (Our Team, Testimonials)
+  listTitles?: string[];
+  listText?: string[][];
 };
 
-const Collapsable = ({ title, subsection, textbox, onChange }: CollapsableProps) => {
+const Collapsable = ({
+  title,
+  subsection,
+  textbox,
+  onChange,
+  listTitles,
+  listText,
+}: CollapsableProps) => {
+  const hasNumberedList = listTitles !== null && listText !== null;
   const [open, setOpen] = useState<boolean>(true);
 
   const toggleSection = () => {
@@ -57,6 +68,33 @@ const Collapsable = ({ title, subsection, textbox, onChange }: CollapsableProps)
               </div>
             );
           })}
+          {hasNumberedList && (
+            <div>
+              <ol>
+                {listText?.map((textArray, index) => {
+                  let subtitle = "";
+                  return listTitles?.map((listTitle, innerIndex) => {
+                    if (innerIndex === 0) {
+                      subtitle = index + 1 + ". \t" + listTitle;
+                    } else {
+                      subtitle = "\t\t" + listTitle;
+                    }
+                    return (
+                      <li key={subtitle}>
+                        <p className={styles.subtitle}>{subtitle}</p>
+                        <textarea
+                          className={styles.tabInput}
+                          onInput={handleChange}
+                          id={listTitle + ": " + index}
+                          value={textArray[innerIndex]}
+                        ></textarea>
+                      </li>
+                    );
+                  });
+                })}
+              </ol>
+            </div>
+          )}
         </div>
       )}
     </div>

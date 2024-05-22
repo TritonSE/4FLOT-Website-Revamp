@@ -47,6 +47,7 @@
   font-weight: 400;
   line-height: 24px;
   margin-bottom: 2px;
+  white-space: pre;
 }
 
 .basicInput {
@@ -57,11 +58,11 @@
   padding: 6px 12px;
 }
 
-.imageInput {
+.tabInput {
   font-size: 14px;
-  width: auto;
-  height: auto;
+  width: 100%;
   border: 1px solid #d8d8d8;
   border-radius: 4px;
   padding: 6px 12px;
+  margin-left: 33px;
 }
