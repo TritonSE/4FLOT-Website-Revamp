@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
+import {Member, createMember, getAllMembers, updateMember} from "../../../../api/member"
 import { getPageText, updatePage } from "../../../../api/pageeditor";
-
 import styles from "../testimonials/page.module.css";
 
 import AlertBanner from "@/components/AlertBanner";
@@ -12,7 +12,13 @@ import Collapsable from "@/components/Collapsable";
 import PageToggle from "@/components/PageToggle";
 import { WarningModule } from "@/components/WarningModule";
 
+// import PageEditorCard from "@/components/PageEditorCard";
+
 export default function TeamEditor() {
+  const [members, setMembers] = useState<Member[]>([]);
+  const [membersArray, setMembersArray] = useState<string[][]>([]);
+  const [editedMembers] = useState<Set<number>>(new Set()); //Indices of edited testimonials
+
   const [isEdited, setIsEdited] = useState(false);
   const [phSubtitle, setPhSubtitle] = useState<string>("");
   const [s1Subtitle, setS1Subtitle] = useState<string>("");
@@ -20,7 +26,6 @@ export default function TeamEditor() {
 
   const [showAlert, setShowAlert] = useState(false);
   const [warningOpen, setWarningOpen] = useState(false);
-
   /* Get page data from MongoDB */
   let pageText;
   useEffect(() => {
@@ -38,7 +43,26 @@ export default function TeamEditor() {
       .catch((error) => {
         alert(error);
       });
+
+    getAllMembers()
+    .then((response2) => {
+      if(response2.success) {
+        setMembers(response2.data);
+        const newArray: string[][] = [];
+        for (const elem of response2.data) {
+          newArray.push([elem.name, elem.role]);
+        }
+        setMembersArray(newArray);
+        
+      } else {
+        alert(response2.error);
+      }
+    })
+    .catch((error) => {
+      alert(error);
+    })
   }, []);
+
 
   /* Handle Fields upon edit */
   const handleEdit = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -49,13 +73,37 @@ export default function TeamEditor() {
       setS1Subtitle(event.target.value);
     } else if (event.target.id === "Section 1: Body Text") {
       setS1Text(event.target.value);
+    } else if (event.target.id.includes("Staff Name")) {
+      const memberIndex = Number(event.target.id.slice(event.target.id.indexOf(":") + 2));
+      const updateArray = membersArray.map((elem, index) => {
+        if (index === memberIndex) {
+          return [event.target.value, elem[1]];
+        } else {
+          return elem;
+        }
+      });
+      setMembersArray(updateArray);
+      editedMembers.add(memberIndex);
+    }else if (event.target.id.includes("Staff Position")) {
+      const memberIndex = Number(event.target.id.slice(event.target.id.indexOf(":") + 2));
+      //Update textarea by changing testimonialArray element
+      const updateArray = membersArray.map((elem, index) => {
+        if (index === memberIndex) {
+          return [elem[0], event.target.value];
+        } else {
+          return elem;
+        }
+      });
+      setMembersArray(updateArray);
+      editedMembers.add(memberIndex); //Add index to list of edited indices
     }
   };
 
+  
   const handleSave = () => {
     // Implement save logic
     if (isEdited) {
-      console.log("Our Team");
+      console.log("save in team");
       updatePage({
         //Pass edited text to MongoDB
         page: "Our Team",
@@ -79,6 +127,43 @@ export default function TeamEditor() {
         .catch((error) => {
           alert(error);
         });
+      
+      if (editedMembers.size > 0 ) {
+        for (const index of Array.from(editedMembers)) {
+          if (index >= members.length) {
+            createMember({
+              name: membersArray[index][0],
+              role: membersArray[index][1],
+              // profilePictureURL: "/impact1.png"
+            })
+            .then((response2) => {
+              if(response2.success) {
+                setShowAlert(true);
+              } else {
+                alert(response2.error);
+              }
+            })
+            .catch((error) => {
+              alert(error);
+            });
+          } else {
+            members[index].name = membersArray[index][0];
+            members[index].role = membersArray[index][1];
+            updateMember(members[index])
+            .then((response) => {
+              if(response.success) {
+                setShowAlert(true);
+              } else {
+                alert(response.error);
+              }
+            })
+            .catch((error) => {
+              alert(error);
+            });
+          }
+        }
+      }
+      
       setIsEdited(false);
     }
     setWarningOpen(false);
@@ -109,11 +194,23 @@ export default function TeamEditor() {
       .catch((error) => {
         alert(error);
       });
+    if(editedMembers.size > 0) {
+      const updateArray: string[][] = [];
+      for (const elem of members) {
+        updateArray.push([elem.name, elem.role]);
+      }
+      setMembersArray(updateArray);
+    }
     setIsEdited(false);
   };
 
   const handleAdd = () => {
     console.log("Add Volunteer");
+    setMembersArray([
+      ...membersArray,
+      ["", ""],
+    ]);
+    editedMembers.add(members.length);
     setIsEdited(true);
   };
 
@@ -166,12 +263,13 @@ export default function TeamEditor() {
         <Collapsable
           title="Section 2"
           listTitles={["Staff Name", "Staff Position"]}
-          listText={[["Staff Name", "Officer"]]}
+          listText={membersArray}
           onChange={handleEdit}
         />
-        <button className={styles.addButton} onClick={handleAdd}>
+
+      <button className={styles.addButton} onClick={handleAdd}>
           Add Staff
-        </button>
+      </button>
 
         <div className={styles.buttonContainer}>
           <CancelButton

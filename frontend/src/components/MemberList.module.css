@@ -1,0 +1,15 @@
+.member-entry {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .member-entry label {
+    margin-right: 10px;
+  }
+  
+  .member-entry input {
+    margin-bottom: 10px;
+  }
+  
