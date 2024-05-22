@@ -20,7 +20,7 @@ type eventSidebarProps = {
 type formErrors = {
   name?: boolean;
   description?: boolean;
-  content?: boolean;
+  description_short?: boolean;
   guidelines?: boolean;
   date?: boolean;
   location?: boolean;
@@ -34,7 +34,7 @@ const EventSidebar = ({
 }: eventSidebarProps) => {
   const [name, setName] = useState(eventDetails ? eventDetails.name : "");
   const [description, setDescription] = useState(eventDetails ? eventDetails.description : "");
-  const [content, setContent] = useState(eventDetails ? eventDetails.content : "");
+  const [description_short, setDescription_short] = useState(eventDetails ? eventDetails.description_short : "");
   const [date, setDate] = useState(eventDetails ? eventDetails.date : "");
   const [location, setLocation] = useState(eventDetails ? eventDetails.location : "");
   const [guidelines, setGuidelines] = useState(eventDetails ? eventDetails.guidelines : "");
@@ -47,7 +47,7 @@ const EventSidebar = ({
   const confirmCancel = () => {
     setName(eventDetails ? eventDetails.name : "");
     setDescription(eventDetails ? eventDetails.description : "");
-    setContent(eventDetails ? eventDetails.content : "");
+    setDescription_short(eventDetails ? eventDetails.description_short : "");
     setDate(eventDetails ? eventDetails.date : "");
     setLocation(eventDetails ? eventDetails.location : "");
     setGuidelines(eventDetails ? eventDetails.guidelines : "");
@@ -62,7 +62,7 @@ const EventSidebar = ({
     if (
       name !== (eventDetails ? eventDetails.name : "") ||
       description !== (eventDetails ? eventDetails.description : "") ||
-      content !== (eventDetails ? eventDetails.content : "") ||
+      description_short !== (eventDetails ? eventDetails.description_short : "") ||
       date !== (eventDetails ? eventDetails.date : "") ||
       location !== (eventDetails ? eventDetails.location : "") ||
       guidelines !== (eventDetails ? eventDetails.guidelines : "")
@@ -77,7 +77,7 @@ const EventSidebar = ({
     if (
       name !== (eventDetails ? eventDetails.name : "") ||
       description !== (eventDetails ? eventDetails.description : "") ||
-      content !== (eventDetails ? eventDetails.content : "") ||
+      description_short !== (eventDetails ? eventDetails.description_short : "") ||
       date !== (eventDetails ? eventDetails.date : "") ||
       location !== (eventDetails ? eventDetails.location : "") ||
       guidelines !== (eventDetails ? eventDetails.guidelines : "")
@@ -91,10 +91,11 @@ const EventSidebar = ({
 
   const handleSave = () => {
     setWarningOpen(false);
+
     if (
       name === "" ||
       description === "" ||
-      content === "" ||
+      description_short === "" ||
       date === "" ||
       location === "" ||
       guidelines === ""
@@ -102,7 +103,7 @@ const EventSidebar = ({
       setErrors({
         name: name === "",
         description: description === "",
-        content: content === "",
+        description_short: description_short === "",
         date: date === "",
         location: location === "",
         guidelines: guidelines === "",
@@ -110,32 +111,37 @@ const EventSidebar = ({
     } else {
       setIsEditing(false);
       if (eventDetails) {
+        
         updateEvent({
           _id: eventDetails._id,
           name,
           description,
-          content,
           guidelines,
           date,
           location,
           imageURI: eventDetails.imageURI,
+          description_short
         });
       } else {
+        
         createEvent({
           name,
           description,
-          content,
           guidelines,
           date,
           location,
           imageURI: "https://tse.ucsd.edu/assets/images/icons__tse-bulb__128.png",
+          description_short,
         });
       }
       setIsEditing(false);
       setErrors({});
       setShowAlert(true);
       window.location.reload();
+    
     }
+  
+    
   };
 
   const handleDelete = () => {
@@ -144,10 +150,13 @@ const EventSidebar = ({
 
   const confirmDelete = () => {
     if (eventDetails) {
+      console.log(eventDetails._id)
+
       deleteEventDetails(eventDetails._id)
         .then((result) => {
           if (result.success) {
             console.log("successful deletion");
+            window.location.reload();
           } else {
             console.error("ERROR:", result.error);
           }
@@ -156,7 +165,7 @@ const EventSidebar = ({
           alert(error);
         });
       setSidebarOpen(false);
-      window.location.reload();
+      
     }
   };
 
@@ -201,9 +210,9 @@ const EventSidebar = ({
           <h2>Event Title</h2>
           <p>{name}</p>
           <h2>Event Description (short)</h2>
-          <pre className={styles.textAreaContent}>{description}</pre>
+          <pre className={styles.textAreaContent}>{description_short}</pre>
           <h2>Event Description (long)</h2>
-          <pre className={styles.textAreaContent}>{content}</pre>
+          <pre className={styles.textAreaContent}>{description}</pre>
           <h2>Date & Time</h2>
           <p>{date}</p>
           <h2>Location</h2>
@@ -274,34 +283,39 @@ const EventSidebar = ({
               <TextField
                 className={styles.textField}
                 label="Event Title"
+                placeholder="Event Title"
                 value={name}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                   setName(event.target.value);
+                  
                 }}
                 error={errors.name}
               />
               <h2>Event Description (short)</h2>
               <textarea
-                id="description"
+                id="description_short"
                 className={`${styles.textArea} ${styles.stretch}`}
+                placeholder="This is a short description of your event that will be displayed on the event page."
+                value={description_short}
+                onChange={(event) => {
+                  setDescription_short(event.target.value);
+                }}
+              />
+              <h2>Event Description (long)</h2>
+              <textarea
+                id="description"
+                className={`${styles.textAreaLong} ${styles.stretch}`}
+                placeholder = "This is a long description of your event that will be displayed on the event page."
                 value={description}
                 onChange={(event) => {
                   setDescription(event.target.value);
                 }}
               />
-              <h2>Event Description (long)</h2>
-              <textarea
-                id="content"
-                className={`${styles.textAreaLong} ${styles.stretch}`}
-                value={content}
-                onChange={(event) => {
-                  setContent(event.target.value);
-                }}
-              />
               <TextField
                 className={`${styles.textField} ${styles.stretch}`}
-                label="Date & Time"
+                label="Date & Time (Month DD, YYYY, HH:MM-HH:MM)"
                 value={date}
+                placeholder = "Example: December 24, 2024, 9:00-10:00"
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                   setDate(event.target.value);
                 }}
@@ -311,6 +325,7 @@ const EventSidebar = ({
                 className={`${styles.textField} ${styles.stretch}`}
                 label="Location"
                 value={location}
+                placeholder = "Where will this event take place?"
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                   setLocation(event.target.value);
                 }}
@@ -320,6 +335,8 @@ const EventSidebar = ({
               <textarea
                 id="guidelines"
                 className={`${styles.textArea} ${styles.stretch}`}
+                placeholder = "This is a description of your event guidelines (dress codes, materials, qualifications, etc.)"
+
                 value={guidelines}
                 onChange={(event) => {
                   setGuidelines(event.target.value);
@@ -378,9 +395,9 @@ const EventSidebar = ({
           <h2>Event Title</h2>
           <p>{name}</p>
           <h2>Event Description (short)</h2>
-          <pre className={styles.textAreaContent}>{description}</pre>
+          <pre className={styles.textAreaContent}>{description_short}</pre>
           <h2>Event Description (long)</h2>
-          <pre className={styles.textAreaContent}>{content}</pre>
+          <pre className={styles.textAreaContent}>{description}</pre>
           <h2>Date & Time</h2>
           <p>{date}</p>
           <h2>Location</h2>

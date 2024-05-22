@@ -6,11 +6,11 @@ export type EventDetails = {
   _id: string;
   name: string;
   description: string;
-  content: string;
   guidelines: string;
   date: string;
   location: string;
   imageURI: string;
+  description_short: string;
 };
 
 export async function getEventDetails(id: string): Promise<APIResult<EventDetails>> {
@@ -36,11 +36,11 @@ export async function getAllEventDetails(): Promise<APIResult<EventDetails[]>> {
 export type CreateEventDetailsRequest = {
   name: string;
   description: string;
-  content: string;
   guidelines: string;
   date: string;
   location: string;
   imageURI: string;
+  description_short: string;
 };
 
 export async function createEventDetails(
@@ -60,11 +60,11 @@ export type UpdateEventDetailsRequest = {
   _id: string;
   name: string;
   description: string;
-  content: string;
   guidelines: string;
   date: string;
   location: string;
   imageURI: string;
+  description_short: string;
 };
 
 export async function updateEventDetails(
@@ -88,6 +88,9 @@ export async function deleteEventDetails(id: string): Promise<APIResult<EventDet
     const json = (await response.json()) as EventDetails;
     return { success: true, data: json };
   } catch (error) {
+    console.log("haha");
     return handleAPIError(error);
   }
 }
+
+

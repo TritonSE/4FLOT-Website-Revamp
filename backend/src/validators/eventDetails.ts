@@ -21,13 +21,6 @@ const makeDescriptionValidator = () =>
     .bail()
     .isString()
     .withMessage("description must be a string");
-const makeContentValidator = () =>
-  body("content")
-    .exists()
-    .withMessage("content is required")
-    .bail()
-    .isString()
-    .withMessage("content must be a string");
 const makeGuidlinesValidator = () =>
   body("guidelines")
     .exists()
@@ -59,15 +52,24 @@ const makeImageURIValidator = () =>
     .bail()
     .isURL()
     .withMessage("imageURI must be a URL");
+const makeDescriptionShortValidator = () =>
+  body("description_short")
+    .exists()
+    .withMessage("description_short is required")
+    .bail()
+    .isString()
+    .withMessage("description_short must be a string");
+
 
 export const createEventDetails = [
   makeNameValidator(),
   makeDescriptionValidator(),
-  makeContentValidator(),
   makeGuidlinesValidator(),
   makeDateValidator(),
   makeLocationValidator(),
   makeImageURIValidator(),
+  makeDescriptionShortValidator(),
 ];
 
 export const getEventDetails = [makeIDValidator()];
+export const deleteEventDetails = [makeIDValidator()];

@@ -16,5 +16,6 @@ router.post(
   EventDetailsValidator.createEventDetails,
   EventDetailsController.createEventDetails,
 );
+router.delete("/:id", EventDetailsValidator.deleteEventDetails, EventDetailsController.deleteEventDetails);
 
 export default router;

@@ -28,7 +28,7 @@ export default function EventCreator() {
     {
       field: "name",
       headerName: "Event Title",
-      width: 372.29,
+      width: 223,
       editable: false,
       resizable: false,
       headerClassName: `${styles.headingBackground} ${styles.cellBorderStyle} ${styles.Headings}`,
@@ -37,27 +37,52 @@ export default function EventCreator() {
       renderHeader: () => <div>Event Title</div>,
     },
     {
-      field: "description",
-      headerName: "Subtitle",
-      width: 372.29,
+      field: "description_short",
+      headerName: "Description Short",
+      width: 223,
       editable: false,
       resizable: false,
       headerClassName: `${styles.Headings} ${styles.headingBackground} ${styles.cellBorderStyle}`,
       cellClassName: `${styles.cellEntry} ${styles.cellBorderStyle}`,
       disableColumnMenu: true,
-      renderHeader: () => <div>Subtitle</div>,
+      renderHeader: () => <div>Description (short)</div>,
     },
 
     {
-      field: "date",
-      headerName: "Date",
-      width: 372.29,
+      field: "description",
+      headerName: "Description Long",
+      width: 223,
       editable: false,
       resizable: false,
       headerClassName: `${styles.Headings} ${styles.headingBackground} ${styles.cellBorderStyle}`,
       cellClassName: `${styles.cellEntry} ${styles.cellBorderStyle}`,
       disableColumnMenu: true,
-      renderHeader: () => <div>Date</div>,
+      renderHeader: () => <div>Description (long)</div>,
+    },
+
+
+    {
+      field: "date",
+      headerName: "DateTime",
+      width: 223,
+      editable: false,
+      resizable: false,
+      headerClassName: `${styles.Headings} ${styles.headingBackground} ${styles.cellBorderStyle}`,
+      cellClassName: `${styles.cellEntry} ${styles.cellBorderStyle}`,
+      disableColumnMenu: true,
+      renderHeader: () => <div>Date/Time</div>,
+    },
+
+    {
+      field: "location",
+      headerName: "Location",
+      width: 225.4,
+      editable: false,
+      resizable: false,
+      headerClassName: `${styles.Headings} ${styles.headingBackground} ${styles.cellBorderStyle}`,
+      cellClassName: `${styles.cellEntry} ${styles.cellBorderStyle}`,
+      disableColumnMenu: true,
+      renderHeader: () => <div>Location</div>,
     },
   ];
 
@@ -77,12 +102,26 @@ export default function EventCreator() {
     getAllEventDetails()
       .then((result) => {
         if (result.success) {
+
+          const now = new Date();
+          const utcDateCurrent = now;
+
           const currentYear = new Date().getFullYear();
 
           const filteredCurrent = result.data.filter((item) => {
+
+            const dateObj = new Date(item.date);
+            const utcDateitem = dateObj.getTime();;
+
+            console.log(utcDateitem);
+            
+            if (utcDateitem >= utcDateCurrent.getTime()) {
+
             return true;
-            // to implement
-          });
+            // to implement            
+            
+          }
+          return false});
 
           const formattedCurrentRows = filteredCurrent.map((item) => ({
             ...item,
@@ -92,7 +131,18 @@ export default function EventCreator() {
           setCurrentEvents(formattedCurrentRows);
 
           const filteredPast = result.data.filter((item) => {
-            // to implement
+            const dateObj = new Date(item.date);
+            const utcDateitem = dateObj.getTime();
+
+            console.log(utcDateitem);
+            
+            if (utcDateitem <utcDateCurrent.getTime()) {
+
+            return true;
+            // to implement            
+            
+          }
+          return false
           });
 
           const formattedPastRows = filteredPast.map((item) => ({
@@ -268,6 +318,7 @@ export default function EventCreator() {
               alignItems: "center",
             }}
           >
+            {pageToggle ===0 && (
             <button
               onClick={() => {
                 openEvent(true);
@@ -295,7 +346,7 @@ export default function EventCreator() {
                 style={{ width: 24, height: 24, marginRight: 5 }}
               />
               Add Event
-            </button>
+            </button>)}
           </Box>
         </Box>
 
@@ -318,6 +369,7 @@ export default function EventCreator() {
           sx={{
             "& .MuiDataGrid-row:hover": {
               background: "rgba(105, 76, 151, 0.05)",
+              
             },
           }}
           disableRowSelectionOnClick
@@ -342,6 +394,7 @@ export default function EventCreator() {
               fontSize: "16px",
               lineHeight: "24px",
               color: "#909090",
+              
             }}
           >
             <Image

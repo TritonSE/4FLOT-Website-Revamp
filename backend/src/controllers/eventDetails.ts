@@ -35,7 +35,7 @@ export const getEventDetails: RequestHandler = async (req, res, next) => {
 
 export const createEventDetails: RequestHandler = async (req, res, next) => {
   const errors = validationResult(req);
-  const { name, description, content, guidelines, date, location, imageURI } = req.body;
+  const { name, description, guidelines, date, location, imageURI,description_short } = req.body;
 
   try {
     validationErrorParser(errors);
@@ -43,11 +43,11 @@ export const createEventDetails: RequestHandler = async (req, res, next) => {
     const eventDetails = await EventDetails.create({
       name,
       description,
-      content,
       guidelines,
       date,
       location,
       imageURI,
+      description_short,
     });
 
     res.status(201).json(eventDetails);
@@ -83,3 +83,26 @@ export const updateEventDetails: RequestHandler = async (req, res, next) => {
     next(error);
   }
 };
+export const deleteEventDetails: RequestHandler = async (req, res, next) => {
+
+  console.log("haha2");
+  const { id } = req.params;
+
+  try {
+    const eventDetails = await EventDetails.findByIdAndDelete(id);
+    console.log(eventDetails);
+
+    if (!eventDetails) {
+
+      throw createHttpError(404, "event not found");
+
+    }
+
+    res.status(200).json(eventDetails);
+  } catch (error) {
+
+    next(error);
+
+  }
+};
+
