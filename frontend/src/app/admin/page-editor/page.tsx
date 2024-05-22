@@ -39,7 +39,6 @@ export default function PageEditorDashboard() {
           last_updated="Month XX, XXXX, XX:XX"
         />
       </div>
-      <ImageDisplay />
     </main>
   );
 }

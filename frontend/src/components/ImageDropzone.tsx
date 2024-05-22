@@ -6,19 +6,18 @@ import {MdFileUpload} from 'react-icons/md';
 import {useStorage} from 'reactfire';
 type FileDropzoneProps = {
   setImages: (images: string[]) => void;
+  type: string;
 }
+export default function FileDropzone({ setImages, type }: FileDropzoneProps) {
 
-export default function FileDropzone({ setImages }: FileDropzoneProps) {
   const storage = useStorage();
   const [uploading, setUploading] = useState(false);
-  const [fileName, setFileName] = useState("");
 
   async function uploadImageToFirebase(file: File) {
       setUploading(true);
-      const storageRef = ref(storage, `uploads/${file.name}`);
+      const storageRef = ref(storage, `${type}/${file.name}`);
       try {
           const uploadResult = await uploadBytes(storageRef, file);
-          setFileName(file.name);
           const downloadURL = await getDownloadURL(uploadResult.ref);
           setImages((images) => [...images, downloadURL]);
       } catch (error) {

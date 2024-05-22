@@ -7,7 +7,7 @@ import styles from "./page.module.css";
 
 import Button from "@/components/Button";
 import CancelButton from "@/components/CancelButton";
-import Collapsable from "@/components/Collapsable";
+import Collapsable, { UploadImageTypes } from "@/components/Collapsable";
 import PageToggle from "@/components/PageToggle";
 
 // import PageEditorCard from "@/components/PageEditorCard";
@@ -19,8 +19,10 @@ export default function HomeEditor() {
   const [s1Text, setS1Text] = useState<string>("");
   const [s2Subtitle, setS2Subtitle] = useState<string>("");
   const [s2Text, setS2Text] = useState<string>("");
+  const [sponsorImages, setSponsorImages] = useState<string[]>([]); //state that stores the image urls in the page
 
   /* Get page data from MongoDB */
+  //todo: load current image data from mongoDB and store in state
   let pageText;
   useEffect(() => {
     getPageText("Home")
@@ -32,6 +34,7 @@ export default function HomeEditor() {
           setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
           setS2Subtitle(pageText.pageSections[2].sectionTitle ?? "");
           setS2Text(pageText.pageSections[2].sectionSubtitle ?? "");
+          //setSponsorImages... 
           console.log("response.data: ", response.data);
         } else {
           alert(response.error);
@@ -45,6 +48,7 @@ export default function HomeEditor() {
   /* Handle Fields upon edit */
   const handleEdit = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setIsEdited(true);
+    if(event.target){
     if (event.target.id === "Page Header: Subtitle") {
       setPhSubtitle(event.target.value);
     } else if (event.target.id === "Section 1: Section Title") {
@@ -56,14 +60,16 @@ export default function HomeEditor() {
     } else if (event.target.id === "Section 2: Body Text") {
       setS2Text(event.target.value);
     }
+  }
   };
 
   const handleSave = () => {
     // Implement save logic
     if (isEdited) {
-      console.log("Save changes");
+      console.log("Save changes", sponsorImages);
       updatePage({
         //Pass edited text to MongoDB
+        //TODO: update with image handling
         page: "Home",
         pageSections: [
           {
@@ -77,6 +83,7 @@ export default function HomeEditor() {
             sectionTitle: s2Subtitle,
             sectionSubtitle: s2Text,
           },
+          //secitionTitle: sponsorImages...
         ],
       })
         .then((response) => {
@@ -106,6 +113,7 @@ export default function HomeEditor() {
             setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
             setS2Subtitle(pageText.pageSections[2].sectionTitle ?? "");
             setS2Text(pageText.pageSections[2].sectionSubtitle ?? "");
+            //setSponsorImages (refetch and reset to what it used to be)
           } else {
             alert(response.error);
           }
@@ -123,7 +131,7 @@ export default function HomeEditor() {
       <div className={styles.sectionContainer}>
         <Collapsable
           title="Page Header"
-          subsection={["Subtitle", "Header Image Carousel"]}
+          subsection={["Subtitle", "Header Image Carousel"]} //todo: image carousel upload
           textbox={[phSubtitle]}
           onChange={handleEdit}
         />
@@ -135,9 +143,12 @@ export default function HomeEditor() {
         />
         <Collapsable
           title="Section 2"
-          subsection={["Section Title", "Body Text", "Sponsor Image Gallery"]}
+          subsection={["Section Title", "Body Text", ]}
           textbox={[s2Subtitle, s2Text]}
           onChange={handleEdit}
+          imageUploadBox={UploadImageTypes.SPONSORS}
+          images = {sponsorImages}
+          setImages = {setSponsorImages}
         />
         <div className={styles.buttonContainer}>
           <CancelButton

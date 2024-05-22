@@ -5,7 +5,7 @@ import styles from "./page.module.css";
 
 import Button from "@/components/Button";
 import CancelButton from "@/components/CancelButton";
-import Collapsable from "@/components/Collapsable";
+import Collapsable, { UploadImageTypes } from "@/components/Collapsable";
 import PageToggle from "@/components/PageToggle";
 
 // import PageEditorCard from "@/components/PageEditorCard";
@@ -45,12 +45,14 @@ export default function TeamEditor() {
             "Our dedicated team @ 4 Future Leaders of Tomorrow is a non-profit charitable organization committed in preventing and ending homelessness, hunger and disparity in underprivileged communities. Everyone deserves a chance for a better future!. We are reaching out by providing resources in needed communities - whether it be a delicious meal, warm clothing, educational supplies, referrals, toys or even bus passes",
           ]}
           onChange={handleEdit}
+          imageUploadBox={UploadImageTypes.OUR_MISSION}
         />
         <Collapsable
           title="Section 2"
           subsection={["Staff Name", "Staff Position", "Image"]}
-          textbox={["Staff Name", "Officer", ""]}
-          onChange={handleEdit}
+        textbox={["Staff Name", "Officer"]}
+        onChange={handleEdit}
+        imageUploadBox={UploadImageTypes.OUR_TEAM}
         />
 
         <div className={styles.buttonContainer}>

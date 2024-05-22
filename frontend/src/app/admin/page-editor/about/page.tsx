@@ -8,7 +8,7 @@ import styles from "./page.module.css";
 import AlertBanner from "@/components/AlertBanner";
 import Button from "@/components/Button";
 import CancelButton from "@/components/CancelButton";
-import Collapsable from "@/components/Collapsable";
+import Collapsable, { UploadImageTypes } from "@/components/Collapsable";
 import PageToggle from "@/components/PageToggle";
 
 export default function AboutEditor() {
@@ -20,6 +20,9 @@ export default function AboutEditor() {
   const [s2Text, setS2Text] = useState<string>("");
   const [s3Subtitle, setS3Subtitle] = useState<string>("");
   const [s3Text, setS3Text] = useState<string>("");
+  const [missionImages, setMissionImages] = useState<string[]>([]);
+const [teamImages, setTeamImages] = useState<string[]>([]);
+const [contactImages, setContactImages] = useState<string[]>([]);
 
   const [showAlert, setShowAlert] = useState(false);
 
@@ -50,6 +53,7 @@ export default function AboutEditor() {
   /* Handle Fields upon edit */
   const handleEdit = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setIsEdited(true);
+    if(event.target){
     if (event.target.id === "Page Subtitle: Subtitle") {
       setPhSubtitle(event.target.value);
     } else if (event.target.id === "Section 1 - Our Mission: Section Title") {
@@ -64,6 +68,7 @@ export default function AboutEditor() {
       setS3Subtitle(event.target.value);
     } else if (event.target.id === "Section 3 - Contact Us: Body Text") {
       setS3Text(event.target.value);
+    }
     }
   };
 
@@ -156,21 +161,30 @@ export default function AboutEditor() {
         />
         <Collapsable
           title="Section 1 - Our Mission"
-          subsection={["Section Title", "Body Text", "Section Image"]}
+          subsection={["Section Title", "Body Text"]}
           textbox={[s1Subtitle, s1Text]}
           onChange={handleEdit}
+          imageUploadBox={UploadImageTypes.OUR_MISSION}
+          images={missionImages}
+          setImages={setMissionImages}
         />
         <Collapsable
           title="Section 2 - Our Team"
-          subsection={["Section Title", "Body Text", "Section Image"]}
+          subsection={["Section Title", "Body Text"]}
           textbox={[s2Subtitle, s2Text]}
           onChange={handleEdit}
+          imageUploadBox={UploadImageTypes.OUR_TEAM}
+          images = {teamImages}
+          setImages = {setTeamImages}
         />
         <Collapsable
           title="Section 3 - Contact Us"
-          subsection={["Section Title", "Body Text", "Section Image"]}
+          subsection={["Section Title", "Body Text" ]}
           textbox={[s3Subtitle, s3Text]}
           onChange={handleEdit}
+          imageUploadBox={UploadImageTypes.CONTACT_US}
+          images = {contactImages}
+          setImages = {setContactImages}
         />
         <div className={styles.buttonContainer}>
           <CancelButton
