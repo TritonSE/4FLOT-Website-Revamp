@@ -3,7 +3,7 @@
 import { sendPasswordResetEmail } from "firebase/auth";
 import React, { Dispatch, SetStateAction, useState } from "react";
 
-import { useFirebase } from "@/app/admin/firebase/firebaseContext";
+import { useAuth } from "@/app/admin/firebase/firebaseProvider";
 
 type ForgotPasswordProps = {
   setForgotPass: Dispatch<SetStateAction<boolean>>;
@@ -14,12 +14,12 @@ const ForgotPassword = ({ setForgotPass }: ForgotPasswordProps) => {
   const [state, setState] = useState("unclicked");
   const [errorMsg, setErrorMsg] = useState<string>("");
 
-  const auth = useFirebase();
+  const auth = useAuth();
 
-  const isValidEmail = (email: string) => {
+  const isValidEmail = (_email: string) => {
     // Regular expression to validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    return emailRegex.test(_email);
   };
 
   const handleSubmit = (e: React.FormEvent) => {

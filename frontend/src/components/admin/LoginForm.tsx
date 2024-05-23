@@ -3,10 +3,10 @@
 import { useRouter } from "next/navigation";
 import React, { Dispatch, SetStateAction, useState } from "react";
 
-import { firebaseSignIn } from "@/app/admin/firebase/firebase";
-import { useFirebase } from "@/app/admin/firebase/firebaseContext";
-
 import styles from "./LoginForm.module.css";
+
+import { firebaseSignIn } from "@/app/admin/firebase/firebase";
+import { useAuth } from "@/app/admin/firebase/firebaseProvider";
 
 type LoginFormProps = {
   setForgotPass: Dispatch<SetStateAction<boolean>>;
@@ -18,17 +18,17 @@ const LoginForm = ({ setForgotPass }: LoginFormProps) => {
   const [valid, setValid] = useState(true);
 
   const router = useRouter();
-  const auth = useFirebase();
+  const auth = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
-    console.log(`Username: ${email}`);
-    console.log(`Password: ${password}`);
     e.preventDefault();
 
     let signInSuccessful = false;
     try {
       if (auth) {
         signInSuccessful = await firebaseSignIn(auth, email, password);
+      } else {
+        throw new Error("Firebase Auth not initialized.");
       }
     } catch (error) {
       // firebaseSignIn should not throw an error because
