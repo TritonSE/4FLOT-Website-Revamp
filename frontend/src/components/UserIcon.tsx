@@ -10,12 +10,12 @@ import { useRouter } from "next/navigation";
 import * as React from "react";
 
 import { firebaseSignOut } from "@/app/admin/firebase/firebase";
-import { useFirebase } from "@/app/admin/firebase/firebaseProvider";
+import { useAuth } from "@/app/admin/firebase/firebaseProvider";
 
 export default function UserIcon() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const auth = useFirebase().auth;
+  const auth = useAuth();
   const router = useRouter();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
