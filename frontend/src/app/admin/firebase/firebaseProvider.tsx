@@ -2,28 +2,23 @@
 
 import { Auth } from "firebase/auth";
 import { FirebaseStorage } from "firebase/storage";
-import React, { FC, ReactNode, createContext, useContext, useEffect, useState } from "react";
+import React, { FC, ReactNode, createContext, useContext } from "react";
 
 import { FirebaseServices, initFirebase } from "./firebase";
 
 const AuthContext = createContext<Auth | undefined>(undefined);
 const StorageContext = createContext<FirebaseStorage | undefined>(undefined);
 
-export const FirebaseProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  const [firebaseServices, setFirebaseServices] = useState<FirebaseServices | undefined>(undefined);
+let firebaseServices: FirebaseServices | undefined;
 
-  useEffect(() => {
-    // Don't initialize Firebase if it has already been initialized
-    if (firebaseServices === undefined) {
-      setFirebaseServices(initFirebase());
-    }
-  }, []);
+export const FirebaseProvider: FC<{ children: ReactNode }> = ({ children }) => {
+  if (firebaseServices === undefined) {
+    firebaseServices = initFirebase();
+  }
 
   return (
-    <AuthContext.Provider value={firebaseServices?.auth}>
-      <StorageContext.Provider value={firebaseServices?.storage}>
-        {children}
-      </StorageContext.Provider>
+    <AuthContext.Provider value={firebaseServices.auth}>
+      <StorageContext.Provider value={firebaseServices.storage}>{children}</StorageContext.Provider>
     </AuthContext.Provider>
   );
 };

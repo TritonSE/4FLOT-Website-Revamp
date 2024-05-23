@@ -1,14 +1,13 @@
 "use client";
 
 import { getAuth } from "firebase/auth";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import { FC, ReactNode } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 import LoadingSpinner from "./LoadingSpinner";
 
 const PrivatePage: FC<{ children: ReactNode }> = ({ children }) => {
-  const router = useRouter();
   const auth = getAuth();
 
   const [user, loading, error] = useAuthState(auth);
@@ -21,7 +20,7 @@ const PrivatePage: FC<{ children: ReactNode }> = ({ children }) => {
   // firebase threw AuthError, non-critical
   if (error) {
     console.log(error);
-    router.push("/admin");
+    redirect("/admin");
     return <LoadingSpinner />;
   }
 
@@ -31,7 +30,7 @@ const PrivatePage: FC<{ children: ReactNode }> = ({ children }) => {
   }
 
   // otherwise go to login
-  router.push("/admin");
+  redirect("/admin");
   return <LoadingSpinner />;
 };
 

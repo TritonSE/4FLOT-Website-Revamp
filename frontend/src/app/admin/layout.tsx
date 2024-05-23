@@ -15,11 +15,17 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   return (
     <FirebaseProvider>
-      <section>
-        {!isLoginPage && <NavigationBar />}
-        {!isLoginPage && <HeaderBarSpace />}
-        {!isLoginPage ? <PrivatePage>{children}</PrivatePage> : children}
-      </section>
+      {!isLoginPage ? (
+        <PrivatePage>
+          <section>
+            <NavigationBar />
+            <HeaderBarSpace />
+            {children}
+          </section>
+        </PrivatePage>
+      ) : (
+        children
+      )}
     </FirebaseProvider>
   );
 }
