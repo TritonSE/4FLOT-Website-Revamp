@@ -6,7 +6,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import * as React from "react";
 
 import { firebaseSignOut } from "@/app/admin/firebase/firebase";
@@ -16,7 +16,6 @@ export default function UserIcon() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const auth = useAuth();
-  const router = useRouter();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -73,7 +72,7 @@ export default function UserIcon() {
               alert(error);
             });
             handleClose();
-            router.push("/admin");
+            redirect("/admin");
           }}
         >
           <ListItemIcon>
