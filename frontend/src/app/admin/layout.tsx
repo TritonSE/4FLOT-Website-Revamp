@@ -2,12 +2,11 @@
 
 import { usePathname } from "next/navigation";
 
-import ReactFireProvider from "./firebase/reactfireProvider";
-
-import HeaderBarSpace from "@/components/HeaderBarSpace";
-import NavigationBar from "@/components/NavigationBar";
+import { FirebaseProvider } from "./firebase/firebaseProvider";
 
 import "../globals.css";
+import HeaderBarSpace from "@/components/HeaderBarSpace";
+import NavigationBar from "@/components/NavigationBar";
 import PrivatePage from "@/components/admin/PrivatePage";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -15,12 +14,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const isLoginPage = pathname === "/admin";
 
   return (
-    <ReactFireProvider>
+    <FirebaseProvider>
       <section>
         {!isLoginPage && <NavigationBar />}
         {!isLoginPage && <HeaderBarSpace />}
         {!isLoginPage ? <PrivatePage>{children}</PrivatePage> : children}
       </section>
-    </ReactFireProvider>
+    </FirebaseProvider>
   );
 }

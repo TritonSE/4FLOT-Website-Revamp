@@ -4,11 +4,13 @@ import { FirebaseStorage, getStorage } from "firebase/storage";
 
 import env from "../util/validateEnv";
 
+export type FirebaseServices = { auth: Auth; storage: FirebaseStorage };
+
 /**
  * Initialize Firebase with the Firebase config
- * @returns Firebase Auth instance
+ * @returns FirebaseServices array instance
  */
-export const initFirebase = () => {
+export const initFirebase = (): FirebaseServices => {
   if (!env.NEXT_PUBLIC_FIREBASE_SETTINGS) {
     throw new Error("Cannot get firebase settings");
   }
