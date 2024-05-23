@@ -3,6 +3,7 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
+import { getPageText } from "../../../api/pageeditor";
 import Button from "../../../components/Button";
 import ValueCard from "../../../components/ValueCard";
 
@@ -13,6 +14,17 @@ import BackgroundHeader from "@/components/BackgroundHeader";
 
 export default function Mission() {
   const [images, setImages] = useState<BackgroundImage[]>([]);
+
+  const [valueSubtitle, setvalueSubtitle] = useState<string>("");
+  const [phSubtitle, setPhSubtitle] = useState<string>("");
+  const [Value1, setValue1] = useState<string>("");
+  const [Value1_Description, setValue1_Description] = useState<string>("");
+  const [Value2, setValue2] = useState<string>("");
+  const [Value2_Description, setValue2_Description] = useState<string>("");
+  const [Value3, setValue3] = useState<string>("");
+  const [Value3_Description, setValue3_Description] = useState<string>("");
+  const [s1Text, setS1Text] = useState<string>("");
+  const [s1Subtitle, setS1Subtitle] = useState<string>("");
 
   useEffect(() => {
     getBackgroundImages(BackgroundImagePages.TEAM)
@@ -26,37 +38,59 @@ export default function Mission() {
       });
   }, []);
 
+  let pageText;
+  useEffect(() => {
+    getPageText("Our Mission")
+      .then((response) => {
+        if (response.success) {
+          pageText = response.data;
+          setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
+          setvalueSubtitle(pageText.pageSections[1].subtitle ?? "");
+          setValue1(pageText.pageSections[2].sectionTitle ?? "");
+          setValue1_Description(pageText.pageSections[2].sectionSubtitle ?? "");
+          setValue2(pageText.pageSections[3].sectionTitle ?? "");
+          setValue2_Description(pageText.pageSections[3].sectionSubtitle ?? "");
+          setValue3(pageText.pageSections[4].sectionTitle ?? "");
+          setValue3_Description(pageText.pageSections[4].sectionSubtitle ?? "");
+          setS1Subtitle(pageText.pageSections[5].sectionTitle ?? "");
+          setS1Text(pageText.pageSections[5].sectionSubtitle ?? "");
+        } else {
+          alert(response.error);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }, []);
+
   return (
     <main>
       <BackgroundHeader
         backgroundImageURIs={images.map((image) => image.imageURI)}
         header="OUR MISSION"
         title="Why We Do It"
-        description="Leading the way for generations to come! Together we can make a difference by paying it forward with Love, Compassion, and Community Outreach for all humanity."
+        description={phSubtitle}
       />
 
       <div className={styles.page}>
         {/* We pay it forward*/}
         <div className={styles.text}>
-          <div className={styles.titlelarge}>We Pay It Forward With...</div>
+          <div className={styles.titlelarge}>{valueSubtitle}</div>
           <div className={styles.rectangleContainer}>
             <ValueCard
-              title="Service"
+              title={Value1}
               iconSrc="/threepeople.svg"
-              description="Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec
-              blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi."
+              description={Value1_Description}
             ></ValueCard>
             <ValueCard
-              title="Compassion"
+              title={Value2}
               iconSrc="/handheart.svg"
-              description="Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec
-              blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi."
+              description={Value2_Description}
             ></ValueCard>
             <ValueCard
-              title="Community"
+              title={Value3}
               iconSrc="/puzzle.svg"
-              description="Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec
-              blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi."
+              description={Value3_Description}
             ></ValueCard>
           </div>
         </div>
@@ -64,14 +98,8 @@ export default function Mission() {
         {/* OUR STORY*/}
         <div className={styles.storyContainer}>
           <div className={styles.storyText}>
-            <div className={styles.titlelarge}>Here&apos;s Our Story</div>
-            <p className={styles.description}>
-              At one point or another, each of the founding members have gone through personal
-              struggles, some have experienced homelessness, hunger, medical illnesses and others
-              juggled single parenting, while furthering their education, and so on. However, the
-              common denominator was that each of us needed Help. So now we are &quot;The
-              Helpers&quot; 4 Future Leaders of Tomorrow -because the people we help are our future.
-            </p>
+            <div className={styles.titlelarge}>{s1Subtitle}</div>
+            <p className={styles.description}>{s1Text}</p>
             <Button text="Meet Our Team" link="/team"></Button>
           </div>
           <div className={styles.imageContainer}>

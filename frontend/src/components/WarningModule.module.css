@@ -75,3 +75,12 @@
   gap: 18px;
   margin-top: 18px;
 }
+
+.wrapper button {
+  display: flex;
+  padding: 4px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  border-radius: 4px;
+}
