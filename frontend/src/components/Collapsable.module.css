@@ -66,3 +66,16 @@
   padding: 6px 12px;
   margin-left: 33px;
 }
+
+/* Following are only if putting 2 textboxes on one line*/
+.list {
+  display: flex;
+  direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.listItem {
+  width: 49%;
+}

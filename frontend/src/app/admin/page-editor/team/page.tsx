@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
-import {Member, createMember, getAllMembers, updateMember} from "../../../../api/member"
+import { Member, createMember, getAllMembers, updateMember } from "../../../../api/member";
 import { getPageText, updatePage } from "../../../../api/pageeditor";
 import styles from "../testimonials/page.module.css";
 
@@ -45,24 +45,22 @@ export default function TeamEditor() {
       });
 
     getAllMembers()
-    .then((response2) => {
-      if(response2.success) {
-        setMembers(response2.data);
-        const newArray: string[][] = [];
-        for (const elem of response2.data) {
-          newArray.push([elem.name, elem.role]);
+      .then((response2) => {
+        if (response2.success) {
+          setMembers(response2.data);
+          const newArray: string[][] = [];
+          for (const elem of response2.data) {
+            newArray.push([elem.name, elem.role]);
+          }
+          setMembersArray(newArray);
+        } else {
+          alert(response2.error);
         }
-        setMembersArray(newArray);
-        
-      } else {
-        alert(response2.error);
-      }
-    })
-    .catch((error) => {
-      alert(error);
-    })
+      })
+      .catch((error) => {
+        alert(error);
+      });
   }, []);
-
 
   /* Handle Fields upon edit */
   const handleEdit = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -84,7 +82,7 @@ export default function TeamEditor() {
       });
       setMembersArray(updateArray);
       editedMembers.add(memberIndex);
-    }else if (event.target.id.includes("Staff Position")) {
+    } else if (event.target.id.includes("Staff Position")) {
       const memberIndex = Number(event.target.id.slice(event.target.id.indexOf(":") + 2));
       //Update textarea by changing testimonialArray element
       const updateArray = membersArray.map((elem, index) => {
@@ -99,7 +97,6 @@ export default function TeamEditor() {
     }
   };
 
-  
   const handleSave = () => {
     // Implement save logic
     if (isEdited) {
@@ -127,8 +124,8 @@ export default function TeamEditor() {
         .catch((error) => {
           alert(error);
         });
-      
-      if (editedMembers.size > 0 ) {
+
+      if (editedMembers.size > 0) {
         for (const index of Array.from(editedMembers)) {
           if (index >= members.length) {
             createMember({
@@ -136,34 +133,34 @@ export default function TeamEditor() {
               role: membersArray[index][1],
               // profilePictureURL: "/impact1.png"
             })
-            .then((response2) => {
-              if(response2.success) {
-                setShowAlert(true);
-              } else {
-                alert(response2.error);
-              }
-            })
-            .catch((error) => {
-              alert(error);
-            });
+              .then((response2) => {
+                if (response2.success) {
+                  setShowAlert(true);
+                } else {
+                  alert(response2.error);
+                }
+              })
+              .catch((error) => {
+                alert(error);
+              });
           } else {
             members[index].name = membersArray[index][0];
             members[index].role = membersArray[index][1];
             updateMember(members[index])
-            .then((response) => {
-              if(response.success) {
-                setShowAlert(true);
-              } else {
-                alert(response.error);
-              }
-            })
-            .catch((error) => {
-              alert(error);
-            });
+              .then((response) => {
+                if (response.success) {
+                  setShowAlert(true);
+                } else {
+                  alert(response.error);
+                }
+              })
+              .catch((error) => {
+                alert(error);
+              });
           }
         }
       }
-      
+
       setIsEdited(false);
     }
     setWarningOpen(false);
@@ -194,7 +191,7 @@ export default function TeamEditor() {
       .catch((error) => {
         alert(error);
       });
-    if(editedMembers.size > 0) {
+    if (editedMembers.size > 0) {
       const updateArray: string[][] = [];
       for (const elem of members) {
         updateArray.push([elem.name, elem.role]);
@@ -206,10 +203,7 @@ export default function TeamEditor() {
 
   const handleAdd = () => {
     console.log("Add Volunteer");
-    setMembersArray([
-      ...membersArray,
-      ["", ""],
-    ]);
+    setMembersArray([...membersArray, ["", ""]]);
     editedMembers.add(members.length);
     setIsEdited(true);
   };
@@ -265,11 +259,12 @@ export default function TeamEditor() {
           listTitles={["Staff Name", "Staff Position"]}
           listText={membersArray}
           onChange={handleEdit}
+          isAdjacent={true}
         />
 
-      <button className={styles.addButton} onClick={handleAdd}>
+        <button className={styles.addButton} onClick={handleAdd}>
           Add Staff
-      </button>
+        </button>
 
         <div className={styles.buttonContainer}>
           <CancelButton

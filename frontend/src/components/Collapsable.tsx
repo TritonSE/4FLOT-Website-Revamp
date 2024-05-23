@@ -12,6 +12,7 @@ type CollapsableProps = {
   // The following are only for numbered lists (Our Team, Testimonials)
   listTitles?: string[];
   listText?: string[][];
+  isAdjacent?: boolean;
 };
 
 const Collapsable = ({
@@ -21,6 +22,7 @@ const Collapsable = ({
   onChange,
   listTitles,
   listText,
+  isAdjacent,
 }: CollapsableProps) => {
   const [open, setOpen] = useState<boolean>(true);
 
@@ -73,7 +75,7 @@ const Collapsable = ({
           )}
 
           {typeof listTitles !== "undefined" && typeof listText !== "undefined" && (
-            <ol>
+            <ol className={isAdjacent ? styles.list : styles.nothing}>
               {listText.map((textArray, index) => {
                 let subtitle = "";
                 return listTitles.map((listTitle, innerIndex) => {
@@ -83,7 +85,7 @@ const Collapsable = ({
                     subtitle = "\t\t" + listTitle;
                   }
                   return (
-                    <li key={subtitle}>
+                    <li key={subtitle} className={isAdjacent ? styles.listItem : styles.nothing}>
                       <p className={styles.subtitle}>{subtitle}</p>
                       <textarea
                         className={styles.tabInput}
