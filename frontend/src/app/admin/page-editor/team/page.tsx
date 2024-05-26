@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
-import { Member, createMember, getAllMembers, updateMember } from "../../../../api/member";
+import { Member, createMember, getAllMembers, updateMember, deleteMember } from "../../../../api/member";
 import { getPageText, updatePage } from "../../../../api/pageeditor";
 import styles from "../testimonials/page.module.css";
 
@@ -159,6 +159,25 @@ export default function TeamEditor() {
               });
           }
         }
+      }
+
+      for(let index = 0; index < membersArray.length; index++) {
+        const name = membersArray[index][0];
+        const role = membersArray[index][1];
+        if (name === "" && role === "") {
+          deleteMember(members[index])
+          .then((response) => {
+            if (response.success) {
+              setShowAlert(true);
+            } else {
+              alert(response.error);
+            }
+          })
+          .catch((error) => {
+            alert(error);
+          });
+        }
+
       }
 
       setIsEdited(false);

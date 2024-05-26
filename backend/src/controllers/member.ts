@@ -3,6 +3,7 @@ import MemberModel from "src/models/member";
 import { Types } from "mongoose";
 import validationErrorParser from "src/util/validationErrorParser";
 import { validationResult } from "express-validator";
+import createHttpError from "http-errors";
 
 export const createMember: RequestHandler = async (req, res, next) => {
   const { name, role, profilePictureURL } = req.body;
@@ -59,6 +60,22 @@ export const updateMember: RequestHandler = async (req, res, next) => {
       res.status(404);
     }
     res.status(200).json(updatedMember);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deleteMember: RequestHandler = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const member = await MemberModel.findByIdAndDelete(id);
+
+    if (!member) {
+      throw createHttpError(404, "Member not found.");
+    }
+
+    res.status(200).json(member);
   } catch (error) {
     next(error);
   }

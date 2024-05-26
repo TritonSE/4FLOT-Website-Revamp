@@ -10,5 +10,6 @@ router.post("/post", MembersValidator.createMember, MembersController.createMemb
 router.put(
     "/:id", MembersController.updateMember,
   );
+router.delete("/:id", MembersController.deleteMember);
 
 export default router;
