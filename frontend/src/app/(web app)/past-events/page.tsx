@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { getPageText } from "../../../api/pageeditor";
 import EventsList from "../../../components/EventsList";
 
-
 import styles from "./page.module.css";
 
 import { BackgroundImage, BackgroundImagePages, getBackgroundImages } from "@/api/images";
@@ -45,7 +44,6 @@ export default function PastEvents() {
         alert(error);
       });
   }, []);
-
 
   return (
     <div className="items-center justify-center">

@@ -25,9 +25,7 @@ type CreateMemberRequest = {
   profilePictureURL?: string;
 };
 
-export async function createMember(
-  member: CreateMemberRequest,
-): Promise<APIResult<Member>> {
+export async function createMember(member: CreateMemberRequest): Promise<APIResult<Member>> {
   try {
     const response = await post("/api/member/post", member);
     const json = (await response.json()) as Member;
@@ -44,8 +42,7 @@ type updateMemberRequest = {
   profilePictureURL?: string;
 };
 
-export async function updateMember(member: updateMemberRequest,
-): Promise<APIResult<Member>> {
+export async function updateMember(member: updateMemberRequest): Promise<APIResult<Member>> {
   try {
     const id = member._id;
     const response = await put(`/api/member/${id}`, member, {

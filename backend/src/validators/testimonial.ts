@@ -49,7 +49,11 @@ const makeImageValidator = () =>
     .notEmpty()
     .withMessage("image cannot be empty");
 
-export const createTestimonial = [makeTitleValidator(), makeImageValidator()];
+export const createTestimonial = [
+  makeTitleValidator(),
+  makeImageValidator(),
+  makeDescriptionValidator,
+];
 
 export const updateTestimonial = [makeIDValidator(), makeImageValidator()];
 

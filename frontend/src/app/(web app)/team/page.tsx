@@ -11,7 +11,6 @@ import { Member, getAllMembers } from "@/api/member";
 import BackgroundHeader from "@/components/BackgroundHeader";
 import MemberInfo from "@/components/MemberInfo";
 
-
 export default function Team() {
   const [members, setMembers] = useState<Member[]>([]);
   const [images, setImages] = useState<BackgroundImage[]>([]);
