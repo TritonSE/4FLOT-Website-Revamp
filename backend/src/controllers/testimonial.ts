@@ -1,6 +1,7 @@
 import { RequestHandler } from "express";
 import TestimonialModel from "src/models/testimonial";
 import { validationResult } from "express-validator";
+import createHttpError from "http-errors";
 import validationErrorParser from "src/util/validationErrorParser";
 
 export const createTestimonial: RequestHandler = async (req, res, next) => {
@@ -61,6 +62,22 @@ export const updateTestimonial: RequestHandler = async (req, res, next) => {
       res.status(404);
     }
     res.status(200).json(updatedTestimonial);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deleteTestimonial: RequestHandler = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const testimonial = await TestimonialModel.findByIdAndDelete(id);
+
+    if (!testimonial) {
+      throw createHttpError(404, "Testimonial not found.");
+    }
+
+    res.status(200).json(testimonial);
   } catch (error) {
     next(error);
   }

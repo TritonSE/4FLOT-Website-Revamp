@@ -12,7 +12,7 @@ type CollapsableProps = {
   // The following are only for numbered lists (Our Team, Testimonials)
   listTitles?: string[];
   listText?: string[][];
-  isAdjacent?: boolean;
+  isAdjacent?: boolean; // Whether to position textboxes on one line
 };
 
 const Collapsable = ({
@@ -75,6 +75,7 @@ const Collapsable = ({
           )}
 
           {typeof listTitles !== "undefined" && typeof listText !== "undefined" && (
+            // For the numbered list, if it exists
             <ol className={isAdjacent ? styles.list : styles.nothing}>
               {listText.map((textArray, index) => {
                 let subtitle = "";

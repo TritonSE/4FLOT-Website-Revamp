@@ -1,4 +1,4 @@
-import { get, handleAPIError, post, put } from "./requests";
+import { del, get, handleAPIError, post, put } from "./requests";
 
 import type { APIResult } from "./requests";
 export type Testimonial = {
@@ -54,6 +54,16 @@ export async function updateTestimonial(testimonial: Testimonial): Promise<APIRe
     const response = await put(`/api/testimonial/${id}`, testimonial, {
       "Content-Type": "application/json",
     });
+    const json = (await response.json()) as Testimonial;
+    return { success: true, data: json };
+  } catch (error) {
+    return handleAPIError(error);
+  }
+}
+
+export async function deleteTestimonial(id: string): Promise<APIResult<Testimonial>> {
+  try {
+    const response = await del(`/api/testimonial/${id}`);
     const json = (await response.json()) as Testimonial;
     return { success: true, data: json };
   } catch (error) {

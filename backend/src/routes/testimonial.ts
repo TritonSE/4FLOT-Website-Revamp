@@ -7,10 +7,11 @@ const router = express.Router();
 router.get("/get", TestimonialController.getAllTestimonials);
 router.get("/get/quote", TestimonialController.getAllQuotes);
 router.post("/post", TestimonialController.createTestimonial);
-router.put(
-  "/:id", // getNewsletter validator works to just check ID
-  TestimonialValidator.updateTestimonial,
-  TestimonialController.updateTestimonial,
+router.put("/:id", TestimonialValidator.updateTestimonial, TestimonialController.updateTestimonial);
+router.delete(
+  "/:id",
+  TestimonialValidator.deleteTestimonial,
+  TestimonialController.deleteTestimonial,
 );
 
 export default router;

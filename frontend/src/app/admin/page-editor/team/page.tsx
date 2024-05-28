@@ -1,7 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
-import { Member, createMember, getAllMembers, updateMember, deleteMember } from "../../../../api/member";
+import {
+  Member,
+  createMember,
+  deleteMember,
+  getAllMembers,
+  updateMember,
+} from "../../../../api/member";
 import { getPageText, updatePage } from "../../../../api/pageeditor";
 import styles from "../testimonials/page.module.css";
 
@@ -17,7 +23,7 @@ import { WarningModule } from "@/components/WarningModule";
 export default function TeamEditor() {
   const [members, setMembers] = useState<Member[]>([]);
   const [membersArray, setMembersArray] = useState<string[][]>([]);
-  const [editedMembers] = useState<Set<number>>(new Set()); //Indices of edited testimonials
+  const [editedMembers, setEditedMembers] = useState<Set<number>>(new Set()); //Indices of edited testimonials
 
   const [isEdited, setIsEdited] = useState(false);
   const [phSubtitle, setPhSubtitle] = useState<string>("");
@@ -128,56 +134,60 @@ export default function TeamEditor() {
       if (editedMembers.size > 0) {
         for (const index of Array.from(editedMembers)) {
           if (index >= members.length) {
-            createMember({
-              name: membersArray[index][0],
-              role: membersArray[index][1],
-              // profilePictureURL: "/impact1.png"
-            })
-              .then((response2) => {
-                if (response2.success) {
-                  setShowAlert(true);
-                } else {
-                  alert(response2.error);
-                }
+            //Check title & description aren't empty
+            if (membersArray[index][0] !== "" || membersArray[index][1] !== "") {
+              createMember({
+                name: membersArray[index][0],
+                role: membersArray[index][1],
+                // profilePictureURL: "/impact1.png"
               })
-              .catch((error) => {
-                alert(error);
-              });
+                .then((response2) => {
+                  if (response2.success) {
+                    setShowAlert(true);
+                  } else {
+                    // If adding and missing title/desc
+                    alert(response2.error);
+                    setMembersArray(membersArray.filter((elem, elemIndex) => elemIndex !== index));
+                  }
+                })
+                .catch((error) => {
+                  alert(error);
+                });
+            }
           } else {
             members[index].name = membersArray[index][0];
             members[index].role = membersArray[index][1];
-            updateMember(members[index])
-              .then((response) => {
-                if (response.success) {
-                  setShowAlert(true);
-                } else {
-                  alert(response.error);
-                }
-              })
-              .catch((error) => {
-                alert(error);
-              });
+            //If deleting member
+            if (members[index].name === "" && members[index].role === "") {
+              deleteMember(members[index])
+                .then((response) => {
+                  if (response.success) {
+                    setShowAlert(true);
+                  } else {
+                    alert(response.error);
+                  }
+                })
+                .catch((error) => {
+                  alert(error);
+                });
+            } else {
+              //If updating member
+              updateMember(members[index])
+                .then((response) => {
+                  if (response.success) {
+                    setShowAlert(true);
+                  } else {
+                    alert(response.error);
+                  }
+                })
+                .catch((error) => {
+                  alert(error);
+                });
+            }
           }
         }
-      }
-
-      for(let index = 0; index < membersArray.length; index++) {
-        const name = membersArray[index][0];
-        const role = membersArray[index][1];
-        if (name === "" && role === "") {
-          deleteMember(members[index])
-          .then((response) => {
-            if (response.success) {
-              setShowAlert(true);
-            } else {
-              alert(response.error);
-            }
-          })
-          .catch((error) => {
-            alert(error);
-          });
-        }
-
+        setMembersArray(membersArray.filter((elem) => elem[0] !== "" || elem[1] !== ""));
+        setEditedMembers(new Set());
       }
 
       setIsEdited(false);

@@ -5,6 +5,7 @@ import { getPageText, updatePage } from "../../../../api/pageeditor";
 import {
   Testimonial,
   createTestimonial,
+  deleteTestimonial,
   getAllQuotes,
   updateTestimonial,
 } from "../../../../api/testimonial";
@@ -28,7 +29,7 @@ export default function TestimonialsEditor() {
 
   const [testimonialData, setTestimonialData] = useState<Testimonial[]>([]); //Holds all testimonials as Testimonials
   const [testimonialArray, setTestimonialArray] = useState<string[][]>([]); //Holds all testimonials as strings
-  const [editedTestimonials] = useState<Set<number>>(new Set()); //Indices of edited testimonials
+  const [editedTestimonials, setEdited] = useState<Set<number>>(new Set()); //Indices of edited testimonials
 
   const [showAlert, setShowAlert] = useState(false);
   const [warningOpen, setWarningOpen] = useState(false);
@@ -141,46 +142,75 @@ export default function TestimonialsEditor() {
         .catch((error) => {
           alert(error);
         });
-
       if (editedTestimonials.size > 0) {
         //Pass edited testimonials to MongoDB
         for (const index of Array.from(editedTestimonials)) {
           //If creating new testimonial
           if (index >= testimonialData.length) {
-            createTestimonial({
-              title: testimonialArray[index][0],
-              description: testimonialArray[index][1],
-              image: "/impact1.png",
-              type: "quote",
-            })
-              .then((response) => {
-                if (response.success) {
-                  setShowAlert(true);
-                } else {
-                  alert(response.error);
-                }
+            //Check title & description aren't empty
+            if (testimonialArray[index][0] !== "" || testimonialArray[index][1] !== "") {
+              createTestimonial({
+                title: testimonialArray[index][0],
+                description: testimonialArray[index][1],
+                image: "/impact1.png",
+                type: "quote",
               })
-              .catch((error) => {
-                alert(error);
-              });
+                .then((response) => {
+                  if (response.success) {
+                    setTestimonialData([
+                      ...testimonialData,
+                      response.data, // add one new Testimonial to the array
+                    ]);
+                    setShowAlert(true);
+                  } else {
+                    // If adding and missing title/desc
+                    alert(response.error);
+                    setTestimonialArray(
+                      testimonialArray.filter((elem, elemIndex) => elemIndex !== index),
+                    );
+                  }
+                })
+                .catch((error) => {
+                  alert(error);
+                });
+            }
           } else {
             //If editing testimonial
             //Update testimonial with edited values stored in testimonialArray
             testimonialData[index].title = testimonialArray[index][0];
             testimonialData[index].description = testimonialArray[index][1];
-            updateTestimonial(testimonialData[index])
-              .then((response) => {
-                if (response.success) {
-                  setShowAlert(true);
-                } else {
-                  alert(response.error);
-                }
-              })
-              .catch((error) => {
-                alert(error);
-              });
+
+            //If deleting testimonial
+            if (testimonialData[index].title === "" && testimonialData[index].description === "") {
+              deleteTestimonial(testimonialData[index]._id)
+                .then((response) => {
+                  if (response.success) {
+                    setShowAlert(true);
+                  } else {
+                    alert(response.error);
+                  }
+                })
+                .catch((error) => {
+                  alert(error);
+                });
+            } else {
+              //If updating testimonial
+              updateTestimonial(testimonialData[index])
+                .then((response) => {
+                  if (response.success) {
+                    setShowAlert(true);
+                  } else {
+                    alert(response.error);
+                  }
+                })
+                .catch((error) => {
+                  alert(error);
+                });
+            }
           }
         }
+        setTestimonialArray(testimonialArray.filter((elem) => elem[0] !== "" || elem[1] !== ""));
+        setEdited(new Set());
       }
       setIsEdited(false);
     }
@@ -228,7 +258,7 @@ export default function TestimonialsEditor() {
     console.log("Add Testimonial");
     setTestimonialArray([
       ...testimonialArray,
-      ["", ""], // and one new item at the end
+      ["", ""], // add one new item at the end
     ]);
     editedTestimonials.add(testimonialArray.length); //Add index to list of edited indices
     setIsEdited(true);
