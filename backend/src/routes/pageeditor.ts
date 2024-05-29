@@ -4,11 +4,7 @@ import * as PageEditorValidator from "src/validators/pageeditor";
 
 const router = express.Router();
 
-router.get("/:page", PageEditorValidator.getPageEditor, PageEditorController.getPage);
-router.put(
-  "/:page", // getPageEditor validator works to just check page
-  //   PageEditorValidator.getPageEditor,
-  PageEditorController.updatePageEditor,
-);
+router.get("/:name", PageEditorValidator.getPageEditor, PageEditorController.getPage);
+router.put("/:name", PageEditorValidator.updatePageEditor, PageEditorController.updatePageEditor);
 
 export default router;
