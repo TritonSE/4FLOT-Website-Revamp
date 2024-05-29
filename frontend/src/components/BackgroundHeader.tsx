@@ -21,13 +21,6 @@ const BackgroundHeader = ({
   interval = 5000,
   button = null,
 }: BackgroundHeaderProps) => {
-  backgroundImageURIs = [
-    "back1.png",
-    "back2.jpeg",
-    "back3.png",
-    // Add more URIs as needed
-  ];
-
   const [activeIndex, setActiveIndex] = useState(0);
 
   const nextSlide = () => {
@@ -43,6 +36,7 @@ const BackgroundHeader = ({
     };
   }, [backgroundImageURIs.length, interval]);
 
+  console.log(backgroundImageURIs[activeIndex]);
   return (
     <div className="w-full h-[650px] relative">
       {backgroundImageURIs.map((uri, index) => (
