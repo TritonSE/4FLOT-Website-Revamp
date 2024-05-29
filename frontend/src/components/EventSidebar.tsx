@@ -1,13 +1,17 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import { CreateEventDetailsRequest, EventDetails, deleteEventDetails } from "../api/eventDetails";
-
 import styles from "./EventSidebar.module.css";
 
 import AlertBanner from "@/components/AlertBanner";
 import { TextField } from "@/components/TextField";
+import { TextFieldSmall } from "@/components/TextFieldSmall";
+import { TextFieldSmallest } from "@/components/TextFieldSmallest";
+
 import { WarningModule } from "@/components/WarningModule";
 
 type eventSidebarProps = {
@@ -35,7 +39,9 @@ const EventSidebar = ({
   const [name, setName] = useState(eventDetails ? eventDetails.name : "");
   const [description, setDescription] = useState(eventDetails ? eventDetails.description : "");
   const [description_short, setDescription_short] = useState(eventDetails ? eventDetails.description_short : "");
-  const [date, setDate] = useState(eventDetails ? eventDetails.date : "");
+  const [date, setDate] = useState(eventDetails ? new Date(eventDetails.date) : new Date());
+  const [startTime, setStartTime] = useState(eventDetails ? new Date(eventDetails.date).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) : "");
+  const [endTime, setEndTime] = useState(eventDetails ? new Date(new Date(eventDetails.date).getTime() + 2 * 60 * 60 * 1000).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) : "");
   const [location, setLocation] = useState(eventDetails ? eventDetails.location : "");
   const [guidelines, setGuidelines] = useState(eventDetails ? eventDetails.guidelines : "");
   const [isEditing, setIsEditing] = useState<boolean>(!eventDetails);
@@ -44,11 +50,28 @@ const EventSidebar = ({
   const [warningOpen, setWarningOpen] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
+  useEffect(() => {
+    if (date && startTime && endTime) {
+      const [startHour, startMinute] = startTime.split(":");
+      const [endHour, endMinute] = endTime.split(":");
+      const updatedStartDate = new Date(date);
+      const updatedEndDate = new Date(date);
+
+      updatedStartDate.setHours(parseInt(startHour), parseInt(startMinute));
+      updatedEndDate.setHours(parseInt(endHour), parseInt(endMinute));
+
+      setDate(updatedStartDate);
+      setEndTime(updatedEndDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
+    }
+  }, [startTime, endTime]);
+
   const confirmCancel = () => {
     setName(eventDetails ? eventDetails.name : "");
     setDescription(eventDetails ? eventDetails.description : "");
     setDescription_short(eventDetails ? eventDetails.description_short : "");
-    setDate(eventDetails ? eventDetails.date : "");
+    setDate(eventDetails ? new Date(eventDetails.date) : new Date());
+    setStartTime(eventDetails ? new Date(eventDetails.date).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) : "");
+    setEndTime(eventDetails ? new Date(new Date(eventDetails.date).getTime() + 2 * 60 * 60 * 1000).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) : "");
     setLocation(eventDetails ? eventDetails.location : "");
     setGuidelines(eventDetails ? eventDetails.guidelines : "");
     setIsEditing(false);
@@ -63,7 +86,7 @@ const EventSidebar = ({
       name !== (eventDetails ? eventDetails.name : "") ||
       description !== (eventDetails ? eventDetails.description : "") ||
       description_short !== (eventDetails ? eventDetails.description_short : "") ||
-      date !== (eventDetails ? eventDetails.date : "") ||
+      date !== (eventDetails ? new Date(eventDetails.date) : new Date()) ||
       location !== (eventDetails ? eventDetails.location : "") ||
       guidelines !== (eventDetails ? eventDetails.guidelines : "")
     ) {
@@ -78,7 +101,7 @@ const EventSidebar = ({
       name !== (eventDetails ? eventDetails.name : "") ||
       description !== (eventDetails ? eventDetails.description : "") ||
       description_short !== (eventDetails ? eventDetails.description_short : "") ||
-      date !== (eventDetails ? eventDetails.date : "") ||
+      date !== (eventDetails ? new Date(eventDetails.date) : new Date()) ||
       location !== (eventDetails ? eventDetails.location : "") ||
       guidelines !== (eventDetails ? eventDetails.guidelines : "")
     ) {
@@ -96,7 +119,7 @@ const EventSidebar = ({
       name === "" ||
       description === "" ||
       description_short === "" ||
-      date === "" ||
+      !date ||
       location === "" ||
       guidelines === ""
     ) {
@@ -104,31 +127,29 @@ const EventSidebar = ({
         name: name === "",
         description: description === "",
         description_short: description_short === "",
-        date: date === "",
+        date: !date,
         location: location === "",
         guidelines: guidelines === "",
       });
     } else {
       setIsEditing(false);
       if (eventDetails) {
-        
         updateEvent({
           _id: eventDetails._id,
           name,
           description,
           guidelines,
-          date,
+          date: date.toISOString(),
           location,
           imageURI: eventDetails.imageURI,
-          description_short
+          description_short,
         });
       } else {
-        
         createEvent({
           name,
           description,
           guidelines,
-          date,
+          date: date.toISOString(),
           location,
           imageURI: "https://tse.ucsd.edu/assets/images/icons__tse-bulb__128.png",
           description_short,
@@ -138,10 +159,7 @@ const EventSidebar = ({
       setErrors({});
       setShowAlert(true);
       window.location.reload();
-    
     }
-  
-    
   };
 
   const handleDelete = () => {
@@ -150,12 +168,9 @@ const EventSidebar = ({
 
   const confirmDelete = () => {
     if (eventDetails) {
-      console.log(eventDetails._id)
-
       deleteEventDetails(eventDetails._id)
         .then((result) => {
           if (result.success) {
-            console.log("successful deletion");
             window.location.reload();
           } else {
             console.error("ERROR:", result.error);
@@ -165,7 +180,6 @@ const EventSidebar = ({
           alert(error);
         });
       setSidebarOpen(false);
-      
     }
   };
 
@@ -214,7 +228,7 @@ const EventSidebar = ({
           <h2>Event Description (long)</h2>
           <pre className={styles.textAreaContent}>{description}</pre>
           <h2>Date & Time</h2>
-          <p>{date}</p>
+          <p>{date.toLocaleString()}</p>
           <h2>Location</h2>
           <p>{location}</p>
           <h2>Guidelines</h2>
@@ -223,7 +237,6 @@ const EventSidebar = ({
           <p>Placeholder - to be replaced with image</p>
 
           {/* Delete button */}
-
           <div className={styles.deleteButtonWrapper}>
             <button onClick={handleDelete} className={styles.deleteButton}>
               <p>Delete</p>
@@ -287,7 +300,6 @@ const EventSidebar = ({
                 value={name}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                   setName(event.target.value);
-                  
                 }}
                 error={errors.name}
               />
@@ -305,27 +317,56 @@ const EventSidebar = ({
               <textarea
                 id="description"
                 className={`${styles.textAreaLong} ${styles.stretch}`}
-                placeholder = "This is a long description of your event that will be displayed on the event page."
+                placeholder="This is a long description of your event that will be displayed on the event page."
                 value={description}
                 onChange={(event) => {
                   setDescription(event.target.value);
                 }}
               />
-              <TextField
-                className={`${styles.textField} ${styles.stretch}`}
-                label="Date & Time (Month DD, YYYY, HH:MM-HH:MM)"
-                value={date}
-                placeholder = "Example: December 24, 2024, 9:00-10:00"
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  setDate(event.target.value);
-                }}
-                error={errors.date}
-              />
+              <div className={styles.textField}>
+                <label>Date & Time </label>
+                <DatePicker
+                  selected={date}
+                  onChange={(date: Date) => setDate(date)}
+                  dateFormat="MMMM d, yyyy"
+                  customInput={
+                    <TextFieldSmall
+                      className={`${styles.textField} ${styles.stretch}`}
+                      label="Date & Time"
+                      value={date ? `${date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}, ${startTime}-${endTime}` : ''}
+                      placeholder="Select date and time"
+                    />
+                  }
+                />
+                {errors.date && <p className={styles.error}>Date is required</p>}
+              </div>
+              <div style={{ display: 'flex'}}>
+                <TextFieldSmallest
+                  className={styles.textField}
+                  label="Start Time"
+                  value={startTime}
+                  placeholder="Start Time"
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    setStartTime(event.target.value);
+                  }}
+                  error={errors.date}
+                />
+                <TextFieldSmallest
+                  className={styles.textField}
+                  label="End Time"
+                  value={endTime}
+                  placeholder="End Time"
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    setEndTime(event.target.value);
+                  }}
+                  error={errors.date}
+                />
+              </div>
               <TextField
                 className={`${styles.textField} ${styles.stretch}`}
                 label="Location"
                 value={location}
-                placeholder = "Where will this event take place?"
+                placeholder="Where will this event take place?"
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                   setLocation(event.target.value);
                 }}
@@ -335,8 +376,7 @@ const EventSidebar = ({
               <textarea
                 id="guidelines"
                 className={`${styles.textArea} ${styles.stretch}`}
-                placeholder = "This is a description of your event guidelines (dress codes, materials, qualifications, etc.)"
-
+                placeholder="This is a description of your event guidelines (dress codes, materials, qualifications, etc.)"
                 value={guidelines}
                 onChange={(event) => {
                   setGuidelines(event.target.value);
@@ -359,10 +399,7 @@ const EventSidebar = ({
         </div>
       </div>
     );
-
-    //if is deleting
   } else {
-    // not in edit mode
     return (
       <div className={styles.sidebar}>
         <div className={styles.alert}>
@@ -399,7 +436,7 @@ const EventSidebar = ({
           <h2>Event Description (long)</h2>
           <pre className={styles.textAreaContent}>{description}</pre>
           <h2>Date & Time</h2>
-          <p>{date}</p>
+          <p>{date.toLocaleString()}</p>
           <h2>Location</h2>
           <p>{location}</p>
           <h2>Guidelines</h2>

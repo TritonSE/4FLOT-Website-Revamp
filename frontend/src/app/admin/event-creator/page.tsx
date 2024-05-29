@@ -59,8 +59,6 @@ export default function EventCreator() {
       disableColumnMenu: true,
       renderHeader: () => <div>Description (long)</div>,
     },
-
-
     {
       field: "date",
       headerName: "DateTime",
@@ -71,6 +69,17 @@ export default function EventCreator() {
       cellClassName: `${styles.cellEntry} ${styles.cellBorderStyle}`,
       disableColumnMenu: true,
       renderHeader: () => <div>Date/Time</div>,
+      valueGetter: (params: { value?: string }) => {
+        if (String(params)) {
+          const itemDate = new Date(String(params));
+          const formattedDate = itemDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+          const formattedTime = itemDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+          const formattedDateTime = `${formattedDate}, ${formattedTime}-00:00`;
+          console.log('formattedDateTime:', formattedDateTime);
+          return formattedDateTime;
+        }
+        return null;
+      },
     },
 
     {
@@ -98,6 +107,8 @@ export default function EventCreator() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [rerenderKey, setRerenderKey] = useState(0);
 
+
+
   useEffect(() => {
     getAllEventDetails()
       .then((result) => {
@@ -111,6 +122,7 @@ export default function EventCreator() {
           const filteredCurrent = result.data.filter((item) => {
 
             const dateObj = new Date(item.date);
+            
             const utcDateitem = dateObj.getTime();;
 
             console.log(utcDateitem);
