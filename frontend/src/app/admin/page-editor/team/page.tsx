@@ -4,8 +4,8 @@ import React, { useState } from "react";
 import styles from "./page.module.css";
 
 import Button from "@/components/Button";
-import CancelButton from "@/components/CancelButton";
-import Collapsable, { UploadImageTypes } from "@/components/Collapsable";
+import CancelButton from "@/components/admin/pageeditor/CancelButton";
+// import Collapsable, { UploadImageTypes } from "@/components/Collapsable";
 import PageToggle from "@/components/PageToggle";
 
 // import PageEditorCard from "@/components/PageEditorCard";
@@ -50,9 +50,9 @@ export default function TeamEditor() {
         <Collapsable
           title="Section 2"
           subsection={["Staff Name", "Staff Position", "Image"]}
-        textbox={["Staff Name", "Officer"]}
-        onChange={handleEdit}
-        imageUploadBox={UploadImageTypes.OUR_TEAM}
+          textbox={["Staff Name", "Officer"]}
+          onChange={handleEdit}
+          imageUploadBox={UploadImageTypes.OUR_TEAM}
         />
 
         <div className={styles.buttonContainer}>
