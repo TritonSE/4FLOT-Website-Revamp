@@ -1,38 +1,60 @@
+"use client";
+
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
+
+import { getPageData } from "../../../api/pageeditor";
+import ContactForm from "../../../components/ContactForm";
+import ContactInfoCard from "../../../components/ContactInfoCard";
+import LoadingSpinner from "../../../components/admin/LoadingSpinner";
+import { generatePageMap } from "../../admin/util/pageeditUtil";
 
 import styles from "./page.module.css";
 
-import ContactForm from "@/components/ContactForm";
-import ContactInfoCard from "@/components/ContactInfoCard";
-
 export default function Contact() {
+  const [pageMap, setPageMap] = useState<Map<string, string | string[]>>();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    getPageData("contact")
+      .then((response) => {
+        if (response.success) setPageMap(generatePageMap(response.data));
+        else throw new Error(response.error);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+    setLoading(false);
+  }, []);
+
+  if (loading || !pageMap) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <main>
       <div className={styles.page}>
         {/*Reach Out To Us */}
         <div className={styles.text}>
           <div className={styles.title}>Reach Out To Us</div>
-          <p className={styles.description}>
-            There are many ways to join us and support our mission. Contact us to find out more
-            about volunteering opportunities, fundraising, and more !
-          </p>
+          <p className={styles.description}>{pageMap.get("Subtitle") as string}</p>
         </div>
         <div className={styles.contactContainer}>
           <ContactInfoCard
             title="Phone Number"
             iconSrc="/phone.svg"
-            description={["909-757-1313"]}
+            description={(pageMap.get("Phone Number") as string).split("\n")}
           ></ContactInfoCard>
           <ContactInfoCard
             title="Locations"
             iconSrc="/location.svg"
-            description={["San Bernardino County", "Riverside County", "Los Angeles County"]}
+            description={(pageMap.get("Locations") as string).split("\n")}
           ></ContactInfoCard>
           <ContactInfoCard
             title="Email"
             iconSrc="/email.svg"
-            description={["admin@4flot.com"]}
+            description={(pageMap.get("Email") as string).split("\n")}
           ></ContactInfoCard>
         </div>
 

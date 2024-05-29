@@ -1,75 +1,49 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 
-import "../globals.css";
-import { getPageText } from "../../api/pageeditor";
+import { getPageData } from "../../api/pageeditor";
 import BackgroundHeader from "../../components/BackgroundHeader";
+import Button from "../../components/Button";
+import Description from "../../components/Description";
+import EventsList from "../../components/EventsList";
+import WhiteCard from "../../components/WhiteCard";
+import LoadingSpinner from "../../components/admin/LoadingSpinner";
+import { generatePageMap } from "../admin/util/pageeditUtil";
 
 import styles from "./page.module.css";
-
-import { BackgroundImage, BackgroundImagePages, getBackgroundImages } from "@/api/images";
-import Button from "@/components/Button";
-import Description from "@/components/Description";
-import EventsList from "@/components/EventsList";
-import WhiteCard from "@/components/WhiteCard";
+import "../globals.css";
 
 export default function Home() {
-  const [images, setImages] = useState<BackgroundImage[]>([]);
-  const [phSubtitle, setPhSubtitle] = useState<string>("");
-  const [s1Subtitle, setS1Subtitle] = useState<string>("");
-  const [s1Text, setS1Text] = useState<string>("");
-  const [s2Subtitle, setS2Subtitle] = useState<string>("");
-  const [s2Text, setS2Text] = useState<string>("");
-
-  const see_more_text = "See More";
-  const sponsor_us_text = "Sponsor Us";
+  const [pageMap, setPageMap] = useState<Map<string, string | string[]>>();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    getBackgroundImages(BackgroundImagePages.HOME)
-      .then((result) => {
-        if (result.success) {
-          console.log(result.data, "images");
-          setImages(result.data);
-        }
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  }, []);
-
-  /* Get page data from MongoDB */
-  let pageText;
-  useEffect(() => {
-    getPageText("Home")
+    setLoading(true);
+    getPageData("home")
       .then((response) => {
-        if (response.success) {
-          pageText = response.data;
-          setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
-          setS1Subtitle(pageText.pageSections[1].sectionTitle ?? "");
-          setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
-          setS2Subtitle(pageText.pageSections[2].sectionTitle ?? "");
-          setS2Text(pageText.pageSections[2].sectionSubtitle ?? "");
-          console.log("response.data: ", response.data);
-        } else {
-          alert(response.error);
-        }
+        if (response.success) setPageMap(generatePageMap(response.data));
+        else throw new Error(response.error);
       })
       .catch((error) => {
         alert(error);
       });
+    setLoading(false);
   }, []);
+
+  if (loading || !pageMap) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <main className={styles.page}>
-      {images.length > 0 && (
-        <BackgroundHeader
-          backgroundImageURIs={images.map((image) => image.imageURI)}
-          header={""}
-          title={"4 Future Leaders of Tomorrow"}
-          description={phSubtitle}
-          button={<Button text="Learn More" link="/about" />}
-        />
-      )}
+      <BackgroundHeader
+        backgroundImageURIs={pageMap.get("Header Image Carousel") as string[]}
+        header={""}
+        title={"4 Future Leaders of Tomorrow"}
+        description={pageMap.get("Subtitle") as string}
+        button={<Button text="Learn More" link="/about" />}
+      />
       <div className={styles.whiteCardsContainer}>
         <WhiteCard
           imageUrl="/Donate.svg"
@@ -81,18 +55,32 @@ export default function Home() {
         />
       </div>
       <div className={styles.container}>
-        <Description title={s1Subtitle} description={s1Text} />
+        <Description
+          title={pageMap.get("Events Section Title") as string}
+          description={pageMap.get("Events Body Text") as string}
+        />
         <div className={styles.eventsListContainer}>
           <EventsList page="home" />
         </div>
 
         <div className={styles.buttonContainer}>
-          <Button text={see_more_text} link={"/upcoming-events"} />
+          <Button text="See More" link={"/upcoming-events"} />
         </div>
-        <Description title={s2Subtitle} description={s2Text} />
-        <img className={styles.sponsor_image} src="/Sponsors.svg" alt="Sponsors" />
+        <Description
+          title={pageMap.get("Sponsors Section Title") as string}
+          description={pageMap.get("Sponsors Body Text") as string}
+        />
+        <div className="flex items-center justify-center w-full h-auto">
+          <div className="flex flex-wrap justify-evenly gap-8 w-3/5 h-auto">
+            {(pageMap.get("Sponsor Image Gallery") as string[]).map((url) => (
+              <div key={url.split("&token=")[1]}>
+                <img src={url} alt="sponsor" className="h-auto w-auto max-h-16 max-w-auto" />
+              </div>
+            ))}
+          </div>
+        </div>
         <div className={styles.buttonContainer}>
-          <Button text={sponsor_us_text} link={"/contact"} />
+          <Button text="Sponsor Us" link={"/contact"} />
         </div>
       </div>
     </main>
