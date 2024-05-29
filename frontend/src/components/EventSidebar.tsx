@@ -38,10 +38,26 @@ const EventSidebar = ({
 }: eventSidebarProps) => {
   const [name, setName] = useState(eventDetails ? eventDetails.name : "");
   const [description, setDescription] = useState(eventDetails ? eventDetails.description : "");
-  const [description_short, setDescription_short] = useState(eventDetails ? eventDetails.description_short : "");
+  const [description_short, setDescription_short] = useState(
+    eventDetails ? eventDetails.description_short : "",
+  );
   const [date, setDate] = useState(eventDetails ? new Date(eventDetails.date) : new Date());
-  const [startTime, setStartTime] = useState(eventDetails ? new Date(eventDetails.date).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) : "");
-  const [endTime, setEndTime] = useState(eventDetails ? new Date(new Date(eventDetails.date).getTime() + 2 * 60 * 60 * 1000).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) : "");
+  const [startTime, setStartTime] = useState(
+    eventDetails
+      ? new Date(eventDetails.date).toLocaleTimeString("en-US", {
+          hour: "2-digit",
+          minute: "2-digit",
+        })
+      : "",
+  );
+  const [endTime, setEndTime] = useState(
+    eventDetails
+      ? new Date(new Date(eventDetails.date).getTime() + 2 * 60 * 60 * 1000).toLocaleTimeString(
+          "en-US",
+          { hour: "2-digit", minute: "2-digit" },
+        )
+      : "",
+  );
   const [location, setLocation] = useState(eventDetails ? eventDetails.location : "");
   const [guidelines, setGuidelines] = useState(eventDetails ? eventDetails.guidelines : "");
   const [isEditing, setIsEditing] = useState<boolean>(!eventDetails);
@@ -61,7 +77,9 @@ const EventSidebar = ({
       updatedEndDate.setHours(parseInt(endHour), parseInt(endMinute));
 
       setDate(updatedStartDate);
-      setEndTime(updatedEndDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }));
+      setEndTime(
+        updatedEndDate.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }),
+      );
     }
   }, [startTime, endTime]);
 
@@ -70,8 +88,22 @@ const EventSidebar = ({
     setDescription(eventDetails ? eventDetails.description : "");
     setDescription_short(eventDetails ? eventDetails.description_short : "");
     setDate(eventDetails ? new Date(eventDetails.date) : new Date());
-    setStartTime(eventDetails ? new Date(eventDetails.date).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) : "");
-    setEndTime(eventDetails ? new Date(new Date(eventDetails.date).getTime() + 2 * 60 * 60 * 1000).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) : "");
+    setStartTime(
+      eventDetails
+        ? new Date(eventDetails.date).toLocaleTimeString("en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+          })
+        : "",
+    );
+    setEndTime(
+      eventDetails
+        ? new Date(new Date(eventDetails.date).getTime() + 2 * 60 * 60 * 1000).toLocaleTimeString(
+            "en-US",
+            { hour: "2-digit", minute: "2-digit" },
+          )
+        : "",
+    );
     setLocation(eventDetails ? eventDetails.location : "");
     setGuidelines(eventDetails ? eventDetails.guidelines : "");
     setIsEditing(false);
@@ -324,7 +356,6 @@ const EventSidebar = ({
                 }}
               />
               <div className={styles.textField}>
-                <label>Date & Time </label>
                 <DatePicker
                   selected={date}
                   onChange={(date: Date) => setDate(date)}
@@ -333,34 +364,45 @@ const EventSidebar = ({
                     <TextFieldSmall
                       className={`${styles.textField} ${styles.stretch}`}
                       label="Date & Time"
-                      value={date ? `${date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}, ${startTime}-${endTime}` : ''}
+                      value={
+                        date
+                          ? `${date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}, ${startTime}-${endTime}`
+                          : ""
+                      }
                       placeholder="Select date and time"
                     />
                   }
                 />
                 {errors.date && <p className={styles.error}>Date is required</p>}
               </div>
-              <div style={{ display: 'flex'}}>
-                <TextFieldSmallest
-                  className={styles.textField}
-                  label="Start Time"
-                  value={startTime}
-                  placeholder="Start Time"
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    setStartTime(event.target.value);
-                  }}
-                  error={errors.date}
-                />
-                <TextFieldSmallest
-                  className={styles.textField}
-                  label="End Time"
-                  value={endTime}
-                  placeholder="End Time"
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    setEndTime(event.target.value);
-                  }}
-                  error={errors.date}
-                />
+              <div style={{ display: "flex" }}>
+                <div style={{ width: "100px" }}>
+                  <TextFieldSmallest
+                    className={styles.textField}
+                    label="Start Time"
+                    value={startTime}
+                    placeholder="Start Time"
+                    style={{ width: "100px" }}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                      setStartTime(event.target.value);
+                    }}
+                    error={errors.date}
+                  />
+                </div>
+                <p style={{ marginTop: "50px", marginLeft: "10px", marginRight: "10px" }}>to</p>
+                <div style={{ width: "100px" }}>
+                  <TextFieldSmallest
+                    className={styles.textField}
+                    label="End Time"
+                    value={endTime}
+                    placeholder="End Time"
+                    style={{ width: "100px" }}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                      setEndTime(event.target.value);
+                    }}
+                    error={errors.date}
+                  />
+                </div>
               </div>
               <TextField
                 className={`${styles.textField} ${styles.stretch}`}
