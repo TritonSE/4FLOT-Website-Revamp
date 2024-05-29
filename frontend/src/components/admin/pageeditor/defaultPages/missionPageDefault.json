@@ -1,0 +1,92 @@
+{
+  "name": "mission",
+  "isEdited": false,
+  "fields": [
+    {
+      "name": "Subtitle",
+      "type": "text",
+      "data": {
+        "text": "Leading the way for generations to come! Together we can make a difference by paying it forward with Service, Compassion, and Community for all humanity."
+      }
+    },
+    {
+      "name": "Values Section Title",
+      "type": "text",
+      "data": {
+        "text": "We pay it forward with..."
+      }
+    },
+    {
+      "name": "Value #1",
+      "type": "text",
+      "data": {
+        "text": "Service"
+      }
+    },
+    {
+      "name": "Value #1 Description",
+      "type": "text",
+      "data": {
+        "text": "Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi.."
+      }
+    },
+    {
+      "name": "Value #2",
+      "type": "text",
+      "data": {
+        "text": "Compassion"
+      }
+    },
+    {
+      "name": "Value #2 Description",
+      "type": "text",
+      "data": {
+        "text": "Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi.."
+      }
+    },
+    {
+      "name": "Value #3",
+      "type": "text",
+      "data": {
+        "text": "Community"
+      }
+    },
+    {
+      "name": "Value #3 Description",
+      "type": "text",
+      "data": {
+        "text": "Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi.."
+      }
+    },
+    {
+      "name": "Story Section Title",
+      "type": "text",
+      "data": {
+        "text": "Here's Our Story"
+      }
+    },
+    {
+      "name": "Body Text",
+      "type": "text",
+      "data": {
+        "text": "At one point or another, each of the founding members have gone through personal struggles, some have experienced homelessness, hunger, medical illnesses and others juggled single parenting, while furthering their education, and so on. However, the common denominator was that each of us needed Help. So now we are \"The Helpers\" 4 Future Leaders of Tomorrow -because the people we help are our future"
+      }
+    },
+    {
+      "name": "Image Gallery",
+      "type": "gallery",
+      "data": {
+        "images": [],
+        "maxImages": 3
+      }
+    },
+    {
+      "name": "Header Image Carousel",
+      "type": "gallery",
+      "data": {
+        "images": [],
+        "maxImages": 4
+      }
+    }
+  ]
+}

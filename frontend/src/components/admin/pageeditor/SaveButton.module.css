@@ -1,0 +1,26 @@
+.button {
+  width: max-content;
+  height: 48px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: var(--color-primary-purple);
+  border-radius: 4px;
+}
+
+.button:hover {
+  background: var(--color-primary-purple-hover);
+}
+
+.buttonBody {
+  font: var(--font-body);
+  font-style: normal;
+  font-weight: 650;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+  text-align: center;
+  color: white;
+  padding: 12px 24px;
+  white-space: nowrap;
+}

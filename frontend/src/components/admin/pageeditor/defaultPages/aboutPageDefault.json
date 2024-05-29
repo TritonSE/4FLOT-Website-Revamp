@@ -1,0 +1,87 @@
+{
+  "name": "about",
+  "isEdited": false,
+  "fields": [
+    {
+      "name": "Subtitle",
+      "type": "text",
+      "data": {
+        "text": "4FLOT is committed in preventing and ending homelessness, hunger and disparity in underprivileged communities."
+      }
+    },
+    {
+      "name": "Header Image Carousel",
+      "type": "gallery",
+      "data": {
+        "images": [],
+        "maxImages": 4
+      }
+    },
+    {
+      "name": "Mission Section Title",
+      "type": "text",
+      "data": {
+        "text": "Why We Do It"
+      }
+    },
+    {
+      "name": "Mission Body Text",
+      "type": "text",
+      "data": {
+        "text": "Leading the way for generations to come! Together we can .... make a difference by paying it forward with Love, Compassion, and Community Outreach for all humanity."
+      }
+    },
+    {
+      "name": "Mission Section Image",
+      "type": "image",
+      "data": {
+        "image": "",
+        "hasImage": false
+      }
+    },
+    {
+      "name": "Team Section Title",
+      "type": "text",
+      "data": {
+        "text": "Meet our Team"
+      }
+    },
+    {
+      "name": "Team Body Text",
+      "type": "text",
+      "data": {
+        "text": "Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi."
+      }
+    },
+    {
+      "name": "Team Section Image",
+      "type": "image",
+      "data": {
+        "image": "",
+        "hasImage": false
+      }
+    },
+    {
+      "name": "Contact Section Title",
+      "type": "text",
+      "data": {
+        "text": "Stay Connected"
+      }
+    },
+    {
+      "name": "Contact Body Text",
+      "type": "text",
+      "data": {
+        "text": "Lorem ipsum dolor sit amet consectetur. Et vestibulum enim nunc ultrices. Donec blandit sollicitudin vitae integer mauris sed. Mattis duis id viverra suscipit morbi."
+      }
+    },
+    {
+      "name": "Contact Section Image",
+      "type": "image",
+      "data": {
+        "image": "",
+        "hasImage": false
+      }
+    }
+  ]
+}
