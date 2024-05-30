@@ -7,6 +7,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { CreateEventDetailsRequest, EventDetails, deleteEventDetails } from "../api/eventDetails";
 
 import styles from "./EventSidebar.module.css";
+import { TextAreaCharLimit } from "./TextAreaCharLimit";
+import { TextFieldCharLimit } from "./TextFieldCharLimit";
 
 import AlertBanner from "@/components/AlertBanner";
 import { TextField } from "@/components/TextField";
@@ -323,7 +325,7 @@ const EventSidebar = ({
           </div>
           <form>
             <div className={styles.formRow}>
-              <TextField
+              <TextFieldCharLimit
                 className={styles.textField}
                 label="Event Title"
                 placeholder="Event Title"
@@ -332,9 +334,10 @@ const EventSidebar = ({
                   setName(event.target.value);
                 }}
                 error={errors.name}
+                maxCount={35}
               />
               <h2>Event Description (short)</h2>
-              <textarea
+              <TextAreaCharLimit
                 id="description_short"
                 className={`${styles.textArea} ${styles.stretch}`}
                 placeholder="This is a short description of your event that will be displayed on the event page."
@@ -342,9 +345,10 @@ const EventSidebar = ({
                 onChange={(event) => {
                   setDescription_short(event.target.value);
                 }}
+                maxCount={200}
               />
               <h2>Event Description (long)</h2>
-              <textarea
+              <TextAreaCharLimit
                 id="description"
                 className={`${styles.textAreaLong} ${styles.stretch}`}
                 placeholder="This is a long description of your event that will be displayed on the event page."
@@ -352,6 +356,7 @@ const EventSidebar = ({
                 onChange={(event) => {
                   setDescription(event.target.value);
                 }}
+                maxCount={275}
               />
               <div className={styles.textField}>
                 <DatePicker
