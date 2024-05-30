@@ -294,22 +294,6 @@ const EventSidebar = ({
   if (isEditing) {
     return (
       <div className={styles.sidebar}>
-        {warningOpen && (
-          <div className={styles.fixedPosition}>
-            <div className={styles.grayOut}></div>
-            <WarningModule
-              titleText="You have unsaved changes!"
-              subtitleText="Do you want to save the changes you made to this event?"
-              cancelText="Discard changes"
-              actionText="Save changes"
-              cancel={confirmCancel}
-              action={handleSave}
-              onClose={() => {
-                setWarningOpen(false);
-              }}
-            />
-          </div>
-        )}
         <div
           className={styles.closeWindow}
           onClick={() => {
@@ -444,6 +428,24 @@ const EventSidebar = ({
             <p>Save</p>
           </button>
         </div>
+        {warningOpen && (
+          <div className={styles.fixedPosition}>
+            <div className={styles.grayOut}></div>
+            <div className={styles.warningModule}>
+              <WarningModule
+                titleText="You have unsaved changes!"
+                subtitleText="Do you want to save the changes you made to this event?"
+                cancelText="Discard changes"
+                actionText="Save changes"
+                cancel={confirmCancel}
+                action={handleSave}
+                onClose={() => {
+                  setWarningOpen(false);
+                }}
+              />
+            </div>
+          </div>
+        )}
       </div>
     );
   } else {
