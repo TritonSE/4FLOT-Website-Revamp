@@ -170,6 +170,14 @@
   width: 454px;
 }
 
+.textFieldSmall {
+  width: 240px;
+}
+
+.textFieldSmallest {
+  width: 100px;
+}
+
 .textArea {
   width: 454px;
   height: 80px;

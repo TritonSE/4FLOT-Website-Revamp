@@ -361,8 +361,8 @@ const EventSidebar = ({
                   onChange={(date: Date) => setDate(date)}
                   dateFormat="MMMM d, yyyy"
                   customInput={
-                    <TextFieldSmall
-                      className={`${styles.textField} ${styles.stretch}`}
+                    <TextField
+                      className={`${styles.textFieldSmall} ${styles.stretch}`}
                       label="Date & Time"
                       value={
                         date
@@ -377,8 +377,8 @@ const EventSidebar = ({
               </div>
               <div style={{ display: "flex" }}>
                 <div style={{ width: "100px" }}>
-                  <TextFieldSmallest
-                    className={styles.textField}
+                  <TextField
+                    className={styles.textFieldSmallest}
                     label="Start Time"
                     value={startTime}
                     placeholder="Start Time"
@@ -391,8 +391,8 @@ const EventSidebar = ({
                 </div>
                 <p style={{ marginTop: "50px", marginLeft: "10px", marginRight: "10px" }}>to</p>
                 <div style={{ width: "100px" }}>
-                  <TextFieldSmallest
-                    className={styles.textField}
+                  <TextField
+                    className={styles.textFieldSmallest}
                     label="End Time"
                     value={endTime}
                     placeholder="End Time"
