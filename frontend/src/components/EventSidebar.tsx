@@ -1,17 +1,15 @@
 "use client";
 import Image from "next/image";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 import { CreateEventDetailsRequest, EventDetails, deleteEventDetails } from "../api/eventDetails";
+
 import styles from "./EventSidebar.module.css";
 
 import AlertBanner from "@/components/AlertBanner";
 import { TextField } from "@/components/TextField";
-import { TextFieldSmall } from "@/components/TextFieldSmall";
-import { TextFieldSmallest } from "@/components/TextFieldSmallest";
-
 import { WarningModule } from "@/components/WarningModule";
 
 type eventSidebarProps = {
@@ -358,7 +356,9 @@ const EventSidebar = ({
               <div className={styles.textField}>
                 <DatePicker
                   selected={date}
-                  onChange={(date: Date) => setDate(date)}
+                  onChange={(date: Date) => {
+                    setDate(date);
+                  }}
                   dateFormat="MMMM d, yyyy"
                   customInput={
                     <TextField
