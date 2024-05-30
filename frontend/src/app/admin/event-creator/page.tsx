@@ -72,10 +72,17 @@ export default function EventCreator() {
       valueGetter: (params: { value?: string }) => {
         if (String(params)) {
           const itemDate = new Date(String(params));
-          const formattedDate = itemDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-          const formattedTime = itemDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+          const formattedDate = itemDate.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          });
+          const formattedTime = itemDate.toLocaleTimeString("en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+          });
           const formattedDateTime = `${formattedDate}, ${formattedTime}-00:00`;
-          console.log('formattedDateTime:', formattedDateTime);
+          console.log("formattedDateTime:", formattedDateTime);
           return formattedDateTime;
         }
         return null;
@@ -107,33 +114,28 @@ export default function EventCreator() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [rerenderKey, setRerenderKey] = useState(0);
 
-
-
   useEffect(() => {
     getAllEventDetails()
       .then((result) => {
         if (result.success) {
-
           const now = new Date();
           const utcDateCurrent = now;
 
           const currentYear = new Date().getFullYear();
 
           const filteredCurrent = result.data.filter((item) => {
-
             const dateObj = new Date(item.date);
-            
-            const utcDateitem = dateObj.getTime();;
+
+            const utcDateitem = dateObj.getTime();
 
             console.log(utcDateitem);
-            
-            if (utcDateitem >= utcDateCurrent.getTime()) {
 
-            return true;
-            // to implement            
-            
-          }
-          return false});
+            if (utcDateitem >= utcDateCurrent.getTime()) {
+              return true;
+              // to implement
+            }
+            return false;
+          });
 
           const formattedCurrentRows = filteredCurrent.map((item) => ({
             ...item,
@@ -147,14 +149,12 @@ export default function EventCreator() {
             const utcDateitem = dateObj.getTime();
 
             console.log(utcDateitem);
-            
-            if (utcDateitem <utcDateCurrent.getTime()) {
 
-            return true;
-            // to implement            
-            
-          }
-          return false
+            if (utcDateitem < utcDateCurrent.getTime()) {
+              return true;
+              // to implement
+            }
+            return false;
           });
 
           const formattedPastRows = filteredPast.map((item) => ({
@@ -229,6 +229,9 @@ export default function EventCreator() {
   };
 
   const handleSetSidebarOpen = (open: boolean) => {
+    if (!open) {
+      setSelectedRow(null);
+    }
     setSidebarOpen(open);
   };
   const handleUpdateEvent = (eventData: EventDetails) => {
@@ -330,35 +333,36 @@ export default function EventCreator() {
               alignItems: "center",
             }}
           >
-            {pageToggle ===0 && (
-            <button
-              onClick={() => {
-                openEvent(true);
-              }}
-              style={{
-                position: "relative",
-                fontFamily: "Open Sans",
-                fontWeight: 700,
-                fontSize: "16px",
-                lineHeight: "24px",
-                letterSpacing: "0.32",
-                width: 196,
-                height: 40,
-                backgroundColor: "#694C97",
-                color: "#FFF",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                borderRadius: "4px",
-              }}
-            >
-              <img
-                src="/ic_add.svg"
-                alt="Add Icon"
-                style={{ width: 24, height: 24, marginRight: 5 }}
-              />
-              Add Event
-            </button>)}
+            {pageToggle === 0 && (
+              <button
+                onClick={() => {
+                  openEvent(true);
+                }}
+                style={{
+                  position: "relative",
+                  fontFamily: "Open Sans",
+                  fontWeight: 700,
+                  fontSize: "16px",
+                  lineHeight: "24px",
+                  letterSpacing: "0.32",
+                  width: 196,
+                  height: 40,
+                  backgroundColor: "#694C97",
+                  color: "#FFF",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: "4px",
+                }}
+              >
+                <img
+                  src="/ic_add.svg"
+                  alt="Add Icon"
+                  style={{ width: 24, height: 24, marginRight: 5 }}
+                />
+                Add Event
+              </button>
+            )}
           </Box>
         </Box>
 
@@ -381,7 +385,6 @@ export default function EventCreator() {
           sx={{
             "& .MuiDataGrid-row:hover": {
               background: "rgba(105, 76, 151, 0.05)",
-              
             },
           }}
           disableRowSelectionOnClick
@@ -406,7 +409,6 @@ export default function EventCreator() {
               fontSize: "16px",
               lineHeight: "24px",
               color: "#909090",
-              
             }}
           >
             <Image
