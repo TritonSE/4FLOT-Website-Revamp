@@ -364,7 +364,7 @@ const EventSidebar = ({
                 />
                 {errors.date && <p className={styles.error}>Date is required</p>}
               </div>
-              <div style={{ display: "flex" }}>
+              <div style={{ display: "flex", width: "240px" }}>
                 <div style={{ width: "100px" }}>
                   <TextField
                     className={styles.textFieldSmallest}
@@ -378,7 +378,16 @@ const EventSidebar = ({
                     error={errors.date}
                   />
                 </div>
-                <p style={{ marginTop: "50px", marginLeft: "10px", marginRight: "10px" }}>to</p>
+                <p
+                  style={{
+                    marginTop: "50px",
+                    marginLeft: "10px",
+                    marginRight: "10px",
+                    flexGrow: "1",
+                  }}
+                >
+                  to
+                </p>
                 <div style={{ width: "100px" }}>
                   <TextField
                     className={styles.textFieldSmallest}
