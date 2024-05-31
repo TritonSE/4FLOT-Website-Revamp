@@ -9,7 +9,7 @@ const nextConfig = {
       "images.unsplash.com",
       "plus.unsplash.com",
       "firebasestorage.googleapis.com",
-      "tse.ucsd.edu"
+      "tse.ucsd.edu",
     ],
   },
 };

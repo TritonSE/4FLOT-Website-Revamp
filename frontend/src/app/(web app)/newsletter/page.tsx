@@ -24,13 +24,6 @@ export default function NewsletterPage() {
   const [pageMap, setPageMap] = useState<Map<string, string | string[]>>();
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    setLoading(true);
-    loadNewspapers();
-    loadPageMap();
-    setLoading(false);
-  }, []);
-
   function loadPageMap() {
     getPageData("newsletter")
       .then((response) => {
@@ -81,6 +74,13 @@ export default function NewsletterPage() {
         alert(error);
       });
   }
+
+  useEffect(() => {
+    setLoading(true);
+    loadNewspapers();
+    loadPageMap();
+    setLoading(false);
+  }, []);
 
   const handleSubscribeClick = () => {
     setPopup(true);

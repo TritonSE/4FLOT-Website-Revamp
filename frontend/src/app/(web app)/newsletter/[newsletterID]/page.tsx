@@ -1,14 +1,15 @@
 "use client";
+
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 import { Newsletter, getNewsletter } from "../../../../api/newsletter";
+import { GalleryData, getPageData } from "../../../../api/pageeditor";
+import BackgroundHeader from "../../../../components/BackgroundHeader";
+import Button from "../../../../components/Button";
 import NewsletterPopup from "../../../../components/NewsletterPopup";
 
 import styles from "./page.module.css";
-
-import { BackgroundImage, BackgroundImagePages, getBackgroundImages } from "@/api/images";
-import BackgroundHeader from "@/components/BackgroundHeader";
-import Button from "@/components/Button";
 
 type Props = {
   params: { newsletterID: string };
@@ -18,18 +19,17 @@ export default function NewsletterDisplay({ params }: Props) {
   const [popupOpen, setPopup] = useState(false);
   const [newsletter, setNewsletter] = useState<Newsletter | null>(null);
 
-  const [images, setImages] = useState<BackgroundImage[]>([]);
+  const [images, setImages] = useState<string[]>([]);
 
   useEffect(() => {
-    getBackgroundImages(BackgroundImagePages.TEAM)
-      .then((result) => {
-        if (result.success) {
-          setImages(result.data);
-        }
+    getPageData("newsletter")
+      .then((response) => {
+        if (response.success) {
+          const carouselImages = (response.data.fields[1].data as GalleryData).images;
+          setImages(carouselImages);
+        } else throw new Error(response.error);
       })
-      .catch((error) => {
-        alert(error);
-      });
+      .catch(console.error);
   }, []);
 
   const handleSubscribeClick = () => {
@@ -53,7 +53,7 @@ export default function NewsletterDisplay({ params }: Props) {
   return (
     <main>
       <BackgroundHeader
-        backgroundImageURIs={images.map((image) => image.imageURI)}
+        backgroundImageURIs={images}
         header=""
         title="The 4FLOT Quarterly"
         description="4FLOT is committed in preventing and ending homelessness, hunger and disparity in underprivileged communities. "
@@ -69,7 +69,7 @@ export default function NewsletterDisplay({ params }: Props) {
           <NewsletterPopup open={popupOpen} setOpen={setPopup} />
         </div>
 
-        <img
+        <Image
           src={newsletter?.image ?? "image not found"}
           alt="Description of the image"
           style={{
@@ -80,6 +80,8 @@ export default function NewsletterDisplay({ params }: Props) {
             height: "775px",
             flexShrink: 0,
           }}
+          width={1550}
+          height={775}
         />
         <div className={styles.subtitleSmaller} style={{ display: "flex", alignItems: "center" }}>
           Here’s Our Story
@@ -90,10 +92,12 @@ export default function NewsletterDisplay({ params }: Props) {
         <div className={styles.subtitleSharePost} style={{ display: "flex", alignItems: "center" }}>
           Share This Post
           <a href="https://www.facebook.com/4FLOT.team/" target="_blank" rel="noopener noreferrer">
-            <img
+            <Image
               src="/facebook.svg"
               alt="facebook Icon"
               style={{ marginLeft: "20px", width: "30px", height: "30px", marginRight: "10px" }}
+              width={20}
+              height={30}
             />
           </a>
           <a
@@ -101,10 +105,12 @@ export default function NewsletterDisplay({ params }: Props) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img
+            <Image
               src="/twitter.svg"
               alt="twitter Icon"
               style={{ marginLeft: "10px", width: "40px", height: "40px", marginRight: "10px" }}
+              width={40}
+              height={40}
             />
           </a>
         </div>

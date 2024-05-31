@@ -1,31 +1,21 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import styles from "./Collapsable.module.css";
-import ImageDisplay from "./ImageDisplay";
-
-
-export enum UploadImageTypes {
-  SPONSORS = "Sponsors",
-  OUR_MISSION = "Our_Mission",
-  OUR_TEAM = "Our_Team",
-  CONTACT_US = "Contact_Us"
-}
-
+import { usePage } from "./admin/pageeditor/PageProvider";
+import { GalleryBox } from "./admin/pageeditor/inputBoxes/GalleryBox";
 
 type CollapsableProps = {
   title: string;
   subsection: string[];
   textbox: string[];
-  imageUploadBox: UploadImageTypes | undefined;
-  images: string[] | undefined;
-  setImages : (images: string[]) => void;
   onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 };
 
-const Collapsable = ({ title, subsection, textbox, onChange, imageUploadBox, images, setImages }: CollapsableProps) => {
+const Collapsable = ({ title, subsection, textbox, onChange }: CollapsableProps) => {
   const [open, setOpen] = useState<boolean>(true);
+  const page = usePage();
 
   const toggleSection = () => {
     setOpen(!open);
@@ -33,19 +23,16 @@ const Collapsable = ({ title, subsection, textbox, onChange, imageUploadBox, ima
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     // Auto increase height when typing
-    if(event && event.target){
-    event.target.style.height = "auto";
-    event.target.style.height = 2 + event.target.scrollHeight + "px";
+    if (event && event.target) {
+      event.target.style.height = "auto";
+      event.target.style.height = 2 + event.target.scrollHeight + "px";
     }
     // Call onChange function
     onChange(event);
   };
 
-  useEffect(() => { 
-    if(images){ //mark change in page when image is uploaded
-    handleChange({} as React.ChangeEvent<HTMLTextAreaElement>);
-    }
-  }, [images])
+  const field = page.fields[page.fields.findIndex((f) => f.name === title)];
+  const hasGalleryBox = field.type === "gallery";
 
   return (
     <div>
@@ -78,13 +65,12 @@ const Collapsable = ({ title, subsection, textbox, onChange, imageUploadBox, ima
               </div>
             );
           })}
-          {imageUploadBox &&
-           <div >
-           <p className={styles.subtitle}>Image Upload</p>
-           <ImageDisplay
-            type = {imageUploadBox} 
-            images = {images} setImages = {setImages}/> 
-           </div>}
+          {hasGalleryBox && (
+            <div>
+              <p className={styles.subtitle}>Image Upload</p>
+              <GalleryBox field={field} />
+            </div>
+          )}
         </div>
       )}
     </div>

@@ -1,8 +1,7 @@
 // Admin Page Editor landing page
-import styles from "./page.module.css";
+import PageEditorCard from "../../../components/PageEditorCard";
 
-import ImageDisplay from "@/components/admin/imageStorage/GalleryDisplay";
-import PageEditorCard from "@/components/PageEditorCard";
+import styles from "./page.module.css";
 
 export default function PageEditorDashboard() {
   return (

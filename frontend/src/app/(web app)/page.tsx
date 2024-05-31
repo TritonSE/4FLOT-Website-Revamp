@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 import { getPageData } from "../../api/pageeditor";
@@ -71,10 +72,17 @@ export default function Home() {
           description={pageMap.get("Sponsors Body Text") as string}
         />
         <div className="flex items-center justify-center w-full h-auto">
-          <div className="flex flex-wrap justify-evenly gap-8 w-3/5 h-auto">
+          <div className="flex flex-wrap justify-evenly gap-8 w-1/2 h-auto">
             {(pageMap.get("Sponsor Image Gallery") as string[]).map((url) => (
               <div key={url.split("&token=")[1]}>
-                <img src={url} alt="sponsor" className="h-auto w-auto max-h-16 max-w-auto" />
+                <Image
+                  src={url}
+                  alt="sponsor"
+                  width={450}
+                  height={90}
+                  className="h-auto w-auto max-h-20 max-w-auto"
+                  style={{ objectFit: "scale-down" }}
+                />
               </div>
             ))}
           </div>

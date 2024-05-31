@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 
@@ -14,16 +15,29 @@ const HeaderBar = () => {
 
   return (
     <div className={styles.headerBar}>
-      {/* <div className={styles.contentContainer}> */}
       <div className={styles.logo}>
         <Link href="/">
-          <img className={styles.logo} src="/Color=Default.svg" alt="Default Logo"></img>
+          <Image
+            src="/Color=Default.svg"
+            alt="Default Logo"
+            width={196}
+            height={70}
+            className={styles.logo}
+            style={{ objectFit: "fill" }}
+          />
         </Link>
       </div>
 
       <div className={styles.menu}>
         <button className={`${styles.menuBtn} ${menuOpen ? styles.open : ""}`} onClick={toggleMenu}>
-          <img className={styles.menuIcon} src="/nav_menu.svg" alt="Menu" />
+          <Image
+            src="/nav_menu.svg"
+            alt="Menu"
+            width={31}
+            height={31}
+            className={styles.menuIcon}
+            style={{ objectFit: "fill" }}
+          />
         </button>
       </div>
 
