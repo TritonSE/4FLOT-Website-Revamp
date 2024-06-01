@@ -21,3 +21,4 @@ mongoose_1.default
     });
 })
     .catch(console.error);
+module.exports = app_1.default;
