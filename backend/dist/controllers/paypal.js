@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.captureOrderHandler = exports.createOrderHandler = void 0;
-const paypal_1 = require("src/services/paypal");
+const paypal_1 = require("../services/paypal");
 const createOrderHandler = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { cart } = req.body;

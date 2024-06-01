@@ -27,8 +27,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const EventDetailsController = __importStar(require("src/controllers/eventDetails"));
-const EventDetailsValidator = __importStar(require("src/validators/eventDetails"));
+const EventDetailsController = __importStar(require("../controllers/eventDetails"));
+const EventDetailsValidator = __importStar(require("../validators/eventDetails"));
 const router = express_1.default.Router();
 router.get("/", EventDetailsController.getAllEventDetails);
 router.get("/:id", EventDetailsValidator.getEventDetails, EventDetailsController.getEventDetails);

@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getBackgroundImages = void 0;
-const BackgroundImage_1 = __importDefault(require("src/models/BackgroundImage"));
+const BackgroundImage_1 = __importDefault(require("../models/BackgroundImage"));
 const getBackgroundImages = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { page } = req.query;
     try {

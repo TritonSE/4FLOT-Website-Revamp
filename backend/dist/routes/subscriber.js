@@ -27,8 +27,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const SubscriberController = __importStar(require("src/controllers/subscriber"));
-const SubscriberValidator = __importStar(require("src/validators/subscriber"));
+const SubscriberController = __importStar(require("../controllers/subscriber"));
+const SubscriberValidator = __importStar(require("../validators/subscriber"));
 const router = express_1.default.Router();
 router.post("/", SubscriberValidator.createSubscriber, SubscriberController.createSubscriber);
 router.get("/", SubscriberController.getAllSubscribers);

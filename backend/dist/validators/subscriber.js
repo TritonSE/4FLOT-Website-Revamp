@@ -18,7 +18,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteSubscriber = exports.createSubscriber = void 0;
 const express_validator_1 = require("express-validator");
-const subscriber_1 = __importDefault(require("src/models/subscriber"));
+const subscriber_1 = __importDefault(require("../models/subscriber"));
 /*
  * 1. Trim whitespace then
  * 2. check if empty then

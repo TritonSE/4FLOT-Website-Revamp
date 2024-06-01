@@ -10,16 +10,16 @@ require("dotenv/config");
 const cors_1 = __importDefault(require("cors"));
 const express_1 = __importDefault(require("express"));
 const http_errors_1 = require("http-errors");
-const subscriber_1 = __importDefault(require("src/routes/subscriber"));
-const members_1 = __importDefault(require("src/routes/members"));
-const background_images_1 = __importDefault(require("src/routes/background_images"));
+const subscriber_1 = __importDefault(require("./routes/subscriber"));
+const members_1 = __importDefault(require("./routes/members"));
+const background_images_1 = __importDefault(require("./routes/background_images"));
 const eventDetails_1 = __importDefault(require("./routes/eventDetails"));
 const volunteerDetails_1 = __importDefault(require("./routes/volunteerDetails"));
-const testimonial_1 = __importDefault(require("src/routes/testimonial"));
-const newsletter_1 = __importDefault(require("src/routes/newsletter")); // Import newsletter routes
-const emails_1 = __importDefault(require("src/routes/emails"));
-const pageeditor_1 = __importDefault(require("src/routes/pageeditor"));
-const paypal_1 = __importDefault(require("src/routes/paypal"));
+const testimonial_1 = __importDefault(require("./routes/testimonial"));
+const newsletter_1 = __importDefault(require("./routes/newsletter")); // Import newsletter routes
+const emails_1 = __importDefault(require("./routes/emails"));
+const pageeditor_1 = __importDefault(require("./routes/pageeditor"));
+const paypal_1 = __importDefault(require("./routes/paypal"));
 const app = (0, express_1.default)();
 // initializes Express to accept JSON in the request/response body
 app.use(express_1.default.json());

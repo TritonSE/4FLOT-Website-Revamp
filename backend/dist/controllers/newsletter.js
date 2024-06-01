@@ -15,8 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteNewsletter = exports.updateNewsletter = exports.createNewsletter = exports.getNewsletter = exports.getAllNewsletters = void 0;
 const express_validator_1 = require("express-validator");
 const http_errors_1 = __importDefault(require("http-errors"));
-const newsletter_1 = __importDefault(require("src/models/newsletter"));
-const validationErrorParser_1 = __importDefault(require("src/util/validationErrorParser"));
+const newsletter_1 = __importDefault(require("../models/newsletter"));
+const validationErrorParser_1 = __importDefault(require("../util/validationErrorParser"));
 const getAllNewsletters = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const newsletters = yield newsletter_1.default.find({});

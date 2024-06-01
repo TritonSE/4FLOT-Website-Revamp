@@ -15,8 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.updatePageEditor = exports.getPage = void 0;
 const express_validator_1 = require("express-validator");
 const http_errors_1 = __importDefault(require("http-errors"));
-const pageeditor_1 = __importDefault(require("src/models/pageeditor"));
-const validationErrorParser_1 = __importDefault(require("src/util/validationErrorParser"));
+const pageeditor_1 = __importDefault(require("../models/pageeditor"));
+const validationErrorParser_1 = __importDefault(require("../util/validationErrorParser"));
 const getPage = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { page } = req.params;
     try {

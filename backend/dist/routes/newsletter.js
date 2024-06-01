@@ -27,8 +27,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const NewsletterController = __importStar(require("src/controllers/newsletter"));
-const NewsletterValidator = __importStar(require("src/validators/newsletter"));
+const NewsletterController = __importStar(require("../controllers/newsletter"));
+const NewsletterValidator = __importStar(require("../validators/newsletter"));
 const router = express_1.default.Router();
 router.get("/", NewsletterController.getAllNewsletters);
 router.get("/:id", NewsletterValidator.getNewsletter, NewsletterController.getNewsletter);

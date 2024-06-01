@@ -27,7 +27,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const BackgroundImageController = __importStar(require("src/controllers/BackgroundImage"));
+const BackgroundImageController = __importStar(require("../controllers/BackgroundImage"));
 const router = express_1.default.Router();
 router.get("/get", BackgroundImageController.getBackgroundImages);
 exports.default = router;

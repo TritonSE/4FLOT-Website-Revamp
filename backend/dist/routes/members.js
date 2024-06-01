@@ -27,7 +27,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const MembersController = __importStar(require("src/controllers/member"));
+const MembersController = __importStar(require("../controllers/member"));
 const router = express_1.default.Router();
 router.get("/get", MembersController.getAllMembers);
 router.post("/post", MembersController.createMember);

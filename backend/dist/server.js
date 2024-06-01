@@ -8,8 +8,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 require("module-alias/register");
 const mongoose_1 = __importDefault(require("mongoose"));
-const app_1 = __importDefault(require("src/app"));
-const validateEnv_1 = __importDefault(require("src/util/validateEnv"));
+const app_1 = __importDefault(require("./app"));
+const validateEnv_1 = __importDefault(require("./util/validateEnv"));
 const PORT = validateEnv_1.default.PORT;
 const MONGODB_URI = validateEnv_1.default.MONGODB_URI;
 mongoose_1.default

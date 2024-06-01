@@ -15,8 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateEventDetails = exports.createEventDetails = exports.getEventDetails = exports.getAllEventDetails = void 0;
 const express_validator_1 = require("express-validator");
 const http_errors_1 = __importDefault(require("http-errors"));
-const eventDetails_1 = __importDefault(require("src/models/eventDetails"));
-const validationErrorParser_1 = __importDefault(require("src/util/validationErrorParser"));
+const eventDetails_1 = __importDefault(require("../models/eventDetails"));
+const validationErrorParser_1 = __importDefault(require("../util/validationErrorParser"));
 const getAllEventDetails = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const events = yield eventDetails_1.default.find({});

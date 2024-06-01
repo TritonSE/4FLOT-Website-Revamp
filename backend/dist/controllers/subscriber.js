@@ -18,8 +18,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteSubscriber = exports.getAllSubscribers = exports.createSubscriber = void 0;
 const express_validator_1 = require("express-validator");
-const subscriber_1 = __importDefault(require("src/models/subscriber"));
-const validationErrorParser_1 = __importDefault(require("src/util/validationErrorParser"));
+const subscriber_1 = __importDefault(require("../models/subscriber"));
+const validationErrorParser_1 = __importDefault(require("../util/validationErrorParser"));
 const http_errors_1 = __importDefault(require("http-errors"));
 const createSubscriber = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const errors = (0, express_validator_1.validationResult)(req);

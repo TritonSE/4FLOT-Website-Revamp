@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAllTestimonials = exports.createTestimonial = void 0;
-const testimonial_1 = __importDefault(require("src/models/testimonial"));
+const testimonial_1 = __importDefault(require("../models/testimonial"));
 const createTestimonial = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { title, description, image, type } = req.body;
     try {
