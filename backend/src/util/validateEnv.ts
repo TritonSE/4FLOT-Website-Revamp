@@ -15,4 +15,6 @@ export default cleanEnv(process.env, {
   EMAIL_NOTIFICATIONS_RECIPIENT: email(), // Recipient of VSR notification emails
   BACKEND_FIREBASE_SETTINGS: json(), // Firebase settings for backend, stored as a JSON string
   SERVICE_ACCOUNT_KEY: json(), // Private service account key for backend, stored as a JSON string
+  PAYPAL_CLIENT_ID: str(), // Client ID credential for PayPal account
+  PAYPAL_CLIENT_SECRET: str(), // Client secret credential for PayPal account
 });
