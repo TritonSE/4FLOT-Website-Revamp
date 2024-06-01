@@ -19,7 +19,7 @@ export default cleanEnv(
   },
   {
     NEXT_PUBLIC_BACKEND_URL: str(), // URL of our backend
-    NEXT_PUBLIC_FIREBASE_SETTINGS: json(), // Firebase settings for frontend, stored as a JSON string
+    NEXT_PUBLIC_FIREBASE_SETTINGS: str(), // Firebase settings for frontend
     NEXT_PUBLIC_PAYPAL_CLIENT_SECRET: str(),
     NEXT_PUBLIC_PAYPAL_CLIENT_ID: str(),
   },
