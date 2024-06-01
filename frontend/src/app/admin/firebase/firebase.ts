@@ -12,7 +12,7 @@ export type FirebaseServices = { auth: Auth; storage: FirebaseStorage };
  */
 export const initFirebase = (): FirebaseServices => {
   if (!env.NEXT_PUBLIC_FIREBASE_SETTINGS) {
-    throw new Error("Cannot get firebase settings");
+    throw new Error("Cannot get firebase settings. " + process.env.NEXT_PUBLIC_FIREBASE_SETTINGS);
   }
 
   const firebaseConfig = env.NEXT_PUBLIC_FIREBASE_SETTINGS as FirebaseOptions;
