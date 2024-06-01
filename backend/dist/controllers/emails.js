@@ -13,7 +13,7 @@ exports.createEmail = void 0;
 /*
  * Controller for the email route, /api/email.
  */
-const emails_1 = require("../../../backend/src/services/emails");
+const emails_1 = require("../services/emails");
 const createEmail = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let EMAIL_SUBJECT = "";
     let EMAIL_BODY = "";
