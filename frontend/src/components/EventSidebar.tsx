@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -17,8 +17,8 @@ import { WarningModule } from "@/components/WarningModule";
 type eventSidebarProps = {
   eventDetails: null | EventDetails;
   setSidebarOpen: (open: boolean) => void;
-  updateEvent: (eventData: EventDetails) => boolean;
-  createEvent: (eventData: CreateEventDetailsRequest) => boolean;
+  updateEvent: (eventData: EventDetails) => void;
+  createEvent: (eventData: CreateEventDetailsRequest) => void;
 };
 
 type formErrors = {
@@ -27,6 +27,8 @@ type formErrors = {
   description_short?: boolean;
   guidelines?: boolean;
   date?: boolean;
+  startTime?: boolean;
+  endTime?: boolean;
   location?: boolean;
 };
 
@@ -42,22 +44,9 @@ const EventSidebar = ({
     eventDetails ? eventDetails.description_short : "",
   );
   const [date, setDate] = useState(eventDetails ? new Date(eventDetails.date) : new Date());
-  const [startTime, setStartTime] = useState(
-    eventDetails
-      ? new Date(eventDetails.date).toLocaleTimeString("en-US", {
-          hour: "2-digit",
-          minute: "2-digit",
-        })
-      : "",
-  );
-  const [endTime, setEndTime] = useState(
-    eventDetails
-      ? new Date(new Date(eventDetails.date).getTime() + 2 * 60 * 60 * 1000).toLocaleTimeString(
-          "en-US",
-          { hour: "2-digit", minute: "2-digit" },
-        )
-      : "",
-  );
+  const [startTime, setStartTime] = useState(eventDetails ? eventDetails.startTime : "");
+  const [endTime, setEndTime] = useState(eventDetails ? eventDetails.endTime : "");
+
   const [location, setLocation] = useState(eventDetails ? eventDetails.location : "");
   const [guidelines, setGuidelines] = useState(eventDetails ? eventDetails.guidelines : "");
   const [isEditing, setIsEditing] = useState<boolean>(!eventDetails);
@@ -66,44 +55,30 @@ const EventSidebar = ({
   const [warningOpen, setWarningOpen] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
-  useEffect(() => {
-    if (date && startTime && endTime) {
-      const [startHour, startMinute] = startTime.split(":");
-      const [endHour, endMinute] = endTime.split(":");
-      const updatedStartDate = new Date(date);
-      const updatedEndDate = new Date(date);
+  // useEffect(() => {
+  //   if (date && startTime && endTime) {
+  //     const [startHour, startMinute] = startTime.split(":");
+  //     const [endHour, endMinute] = endTime.split(":");
+  //     const updatedStartDate = new Date(date);
+  //     const updatedEndDate = new Date(date);
 
-      updatedStartDate.setHours(parseInt(startHour), parseInt(startMinute));
-      updatedEndDate.setHours(parseInt(endHour), parseInt(endMinute));
+  //     updatedStartDate.setHours(parseInt(startHour), parseInt(startMinute));
+  //     updatedEndDate.setHours(parseInt(endHour), parseInt(endMinute));
 
-      setDate(updatedStartDate);
-      setEndTime(
-        updatedEndDate.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }),
-      );
-    }
-  }, [startTime, endTime]);
+  //     setDate(updatedStartDate);
+  //     setEndTime(
+  //       updatedEndDate.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }),
+  //     );
+  //   }
+  // }, [startTime, endTime]);
 
   const confirmCancel = () => {
     setName(eventDetails ? eventDetails.name : "");
     setDescription(eventDetails ? eventDetails.description : "");
     setDescription_short(eventDetails ? eventDetails.description_short : "");
     setDate(eventDetails ? new Date(eventDetails.date) : new Date());
-    setStartTime(
-      eventDetails
-        ? new Date(eventDetails.date).toLocaleTimeString("en-US", {
-            hour: "2-digit",
-            minute: "2-digit",
-          })
-        : "",
-    );
-    setEndTime(
-      eventDetails
-        ? new Date(new Date(eventDetails.date).getTime() + 2 * 60 * 60 * 1000).toLocaleTimeString(
-            "en-US",
-            { hour: "2-digit", minute: "2-digit" },
-          )
-        : "",
-    );
+    setStartTime(eventDetails ? eventDetails.startTime : "");
+    setEndTime(eventDetails ? eventDetails.endTime : "");
     setLocation(eventDetails ? eventDetails.location : "");
     setGuidelines(eventDetails ? eventDetails.guidelines : "");
     setIsEditing(false);
@@ -114,11 +89,14 @@ const EventSidebar = ({
   };
 
   const handleCancel = () => {
+    const defaultDate = new Date();
     if (
       name !== (eventDetails ? eventDetails.name : "") ||
       description !== (eventDetails ? eventDetails.description : "") ||
       description_short !== (eventDetails ? eventDetails.description_short : "") ||
-      date !== (eventDetails ? new Date(eventDetails.date) : new Date()) ||
+      date !== (eventDetails ? new Date(eventDetails.date) : defaultDate) ||
+      startTime !== (eventDetails ? eventDetails.startTime : "") ||
+      endTime !== (eventDetails ? eventDetails.endTime : "") ||
       location !== (eventDetails ? eventDetails.location : "") ||
       guidelines !== (eventDetails ? eventDetails.guidelines : "")
     ) {
@@ -129,11 +107,14 @@ const EventSidebar = ({
   };
 
   const handleCloseSidebar = () => {
+    const defaultDate = new Date();
     if (
       name !== (eventDetails ? eventDetails.name : "") ||
       description !== (eventDetails ? eventDetails.description : "") ||
       description_short !== (eventDetails ? eventDetails.description_short : "") ||
-      date !== (eventDetails ? new Date(eventDetails.date) : new Date()) ||
+      date !== (eventDetails ? new Date(eventDetails.date) : defaultDate) ||
+      startTime !== (eventDetails ? eventDetails.startTime : "") ||
+      endTime !== (eventDetails ? eventDetails.endTime : "") ||
       location !== (eventDetails ? eventDetails.location : "") ||
       guidelines !== (eventDetails ? eventDetails.guidelines : "")
     ) {
@@ -146,12 +127,15 @@ const EventSidebar = ({
 
   const handleSave = () => {
     setWarningOpen(false);
+    console.log("handleSave");
 
     if (
       name === "" ||
       description === "" ||
       description_short === "" ||
       !date ||
+      startTime === "" ||
+      endTime === "" ||
       location === "" ||
       guidelines === ""
     ) {
@@ -160,37 +144,49 @@ const EventSidebar = ({
         description: description === "",
         description_short: description_short === "",
         date: !date,
+        startTime: startTime === "",
+        endTime: endTime === "",
         location: location === "",
         guidelines: guidelines === "",
       });
     } else {
       setIsEditing(false);
       if (eventDetails) {
+        console.log("eventDetails exist");
         updateEvent({
           _id: eventDetails._id,
           name,
           description,
           guidelines,
           date: date.toISOString(),
+          startTime,
+          endTime,
           location,
           imageURI: eventDetails.imageURI,
           description_short,
         });
+        console.log("after updating event");
       } else {
         createEvent({
           name,
           description,
           guidelines,
           date: date.toISOString(),
+          startTime,
+          endTime,
           location,
-          imageURI: "https://tse.ucsd.edu/assets/images/icons__tse-bulb__128.png",
+          imageURI:
+            "https://images.unsplash.com/photo-1559027615-cd4628902d4a?q=80&w=2674&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
           description_short,
         });
+        console.log("after creating event");
       }
+
       setIsEditing(false);
       setErrors({});
       setShowAlert(true);
       window.location.reload();
+      console.log("last line in save");
     }
   };
 
@@ -260,7 +256,7 @@ const EventSidebar = ({
           <h2>Event Description (long)</h2>
           <pre className={styles.textAreaContent}>{description}</pre>
           <h2>Date & Time</h2>
-          <p>{date.toLocaleString()}</p>
+          <p>{`${date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}, ${startTime} - ${endTime}`}</p>
           <h2>Location</h2>
           <p>{location}</p>
           <h2>Guidelines</h2>
@@ -345,8 +341,8 @@ const EventSidebar = ({
               <div className={styles.textField}>
                 <DatePicker
                   selected={date}
-                  onChange={(date: Date) => {
-                    setDate(date);
+                  onChange={(dateObj: Date) => {
+                    setDate(dateObj);
                   }}
                   dateFormat="MMMM d, yyyy"
                   customInput={
@@ -375,7 +371,6 @@ const EventSidebar = ({
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                       setStartTime(event.target.value);
                     }}
-                    error={errors.date}
                   />
                 </div>
                 <p
@@ -398,7 +393,6 @@ const EventSidebar = ({
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                       setEndTime(event.target.value);
                     }}
-                    error={errors.date}
                   />
                 </div>
               </div>
@@ -494,7 +488,7 @@ const EventSidebar = ({
           <h2>Event Description (long)</h2>
           <pre className={styles.textAreaContent}>{description}</pre>
           <h2>Date & Time</h2>
-          <p>{date.toLocaleString()}</p>
+          <p>{`${date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}, ${startTime} - ${endTime}`}</p>
           <h2>Location</h2>
           <p>{location}</p>
           <h2>Guidelines</h2>

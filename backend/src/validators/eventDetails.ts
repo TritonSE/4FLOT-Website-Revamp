@@ -60,7 +60,6 @@ const makeDescriptionShortValidator = () =>
     .isString()
     .withMessage("description_short must be a string");
 
-
 export const createEventDetails = [
   makeNameValidator(),
   makeDescriptionValidator(),

@@ -69,23 +69,14 @@ export default function EventCreator() {
       cellClassName: `${styles.cellEntry} ${styles.cellBorderStyle}`,
       disableColumnMenu: true,
       renderHeader: () => <div>Date/Time</div>,
-      valueGetter: (params: { value?: string }) => {
-        if (String(params)) {
-          const itemDate = new Date(String(params));
-          const formattedDate = itemDate.toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          });
-          const formattedTime = itemDate.toLocaleTimeString("en-US", {
-            hour: "2-digit",
-            minute: "2-digit",
-          });
-          const formattedDateTime = `${formattedDate}, ${formattedTime}-00:00`;
-          console.log("formattedDateTime:", formattedDateTime);
-          return formattedDateTime;
-        }
-        return null;
+      renderCell: (params) => {
+        const { date, startTime, endTime } = params.row;
+        const formattedDate = new Date(date).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+        return `${formattedDate}. ${startTime} - ${endTime}`;
       },
     },
 
@@ -121,8 +112,6 @@ export default function EventCreator() {
           const now = new Date();
           const utcDateCurrent = now;
 
-          const currentYear = new Date().getFullYear();
-
           const filteredCurrent = result.data.filter((item) => {
             const dateObj = new Date(item.date);
 
@@ -132,7 +121,6 @@ export default function EventCreator() {
 
             if (utcDateitem >= utcDateCurrent.getTime()) {
               return true;
-              // to implement
             }
             return false;
           });
@@ -152,7 +140,6 @@ export default function EventCreator() {
 
             if (utcDateitem < utcDateCurrent.getTime()) {
               return true;
-              // to implement
             }
             return false;
           });
@@ -235,19 +222,23 @@ export default function EventCreator() {
     setSidebarOpen(open);
   };
   const handleUpdateEvent = (eventData: EventDetails) => {
+    console.log("page.tsx handleUpdateEvent");
     updateEventDetails(eventData)
       .then((result) => {
         if (!result.success) {
+          console.log("result was not a success");
           alert(result.error);
           console.error("ERROR:", result.error);
         }
       })
       .catch((error) => {
+        console.log("catching error after updateEventDetails");
         alert(error);
       });
   };
 
   const handleCreateEvent = (eventData: CreateEventDetailsRequest) => {
+    console.log("page.tsx eventData ", eventData);
     createEventDetails(eventData)
       .then((result) => {
         if (!result.success) {

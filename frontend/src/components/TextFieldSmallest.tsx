@@ -18,24 +18,29 @@ export type TextFieldSmallProps = {
 /**
  * See `src/components/Button.tsx` for an explanation of `React.forwardRef`.
  */
-export const TextFieldSmallest = React.forwardRef<HTMLInputElement, TextFieldSmallProps>(function TextFieldSmallest(
-  { label, error = false, className, placeholder,...props },
-  ref,
-) {
-  let wrapperClass = styles.wrapper;
-  if (className) {
-    wrapperClass += ` ${className}`;
-  }
-  let inputClass = styles.input;
-  if (error) {
-    inputClass += ` ${styles.error}`;
-  }
-  return (
-    <div className={wrapperClass}>
-      <label className={styles.label}>
-        <p>{label}</p>
-        <input ref={ref} type="text" className={inputClass} {...props} placeholder= {placeholder}/>
-      </label>
-    </div>
-  );
-});
+export const TextFieldSmallest = React.forwardRef<HTMLInputElement, TextFieldSmallProps>(
+  function TextFieldSmallest({ label, error = false, className, placeholder, ...props }, ref) {
+    let wrapperClass = styles.wrapper;
+    if (className) {
+      wrapperClass += ` ${className}`;
+    }
+    let inputClass = styles.input;
+    if (error) {
+      inputClass += ` ${styles.error}`;
+    }
+    return (
+      <div className={wrapperClass}>
+        <label className={styles.label}>
+          <p>{label}</p>
+          <input
+            ref={ref}
+            type="text"
+            className={inputClass}
+            {...props}
+            placeholder={placeholder}
+          />
+        </label>
+      </div>
+    );
+  },
+);

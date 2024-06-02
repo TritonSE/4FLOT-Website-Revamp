@@ -8,6 +8,8 @@ export type EventDetails = {
   description: string;
   guidelines: string;
   date: string;
+  startTime: string;
+  endTime: string;
   location: string;
   imageURI: string;
   description_short: string;
@@ -38,6 +40,8 @@ export type CreateEventDetailsRequest = {
   description: string;
   guidelines: string;
   date: string;
+  startTime: string;
+  endTime: string;
   location: string;
   imageURI: string;
   description_short: string;
@@ -47,6 +51,7 @@ export async function createEventDetails(
   eventDetails: CreateEventDetailsRequest,
 ): Promise<APIResult<EventDetails>> {
   try {
+    console.log("eventDetails", eventDetails);
     const response = await post("/api/eventDetails", eventDetails);
     const json = (await response.json()) as EventDetails;
     return { success: true, data: json };
@@ -62,6 +67,8 @@ export type UpdateEventDetailsRequest = {
   description: string;
   guidelines: string;
   date: string;
+  startTime: string;
+  endTime: string;
   location: string;
   imageURI: string;
   description_short: string;
@@ -76,8 +83,10 @@ export async function updateEventDetails(
       "Content-Type": "application/json",
     });
     const json = (await response.json()) as EventDetails;
+    console.log("updateEventDetails json: ", json);
     return { success: true, data: json };
   } catch (error) {
+    console.log("updateEventDetails error: ", error);
     return handleAPIError(error);
   }
 }
@@ -88,9 +97,6 @@ export async function deleteEventDetails(id: string): Promise<APIResult<EventDet
     const json = (await response.json()) as EventDetails;
     return { success: true, data: json };
   } catch (error) {
-    console.log("haha");
     return handleAPIError(error);
   }
 }
-
-

@@ -35,7 +35,17 @@ export const getEventDetails: RequestHandler = async (req, res, next) => {
 
 export const createEventDetails: RequestHandler = async (req, res, next) => {
   const errors = validationResult(req);
-  const { name, description, guidelines, date, location, imageURI,description_short } = req.body;
+  const {
+    name,
+    description,
+    guidelines,
+    date,
+    startTime,
+    endTime,
+    location,
+    imageURI,
+    description_short,
+  } = req.body;
 
   try {
     validationErrorParser(errors);
@@ -45,6 +55,8 @@ export const createEventDetails: RequestHandler = async (req, res, next) => {
       description,
       guidelines,
       date,
+      startTime,
+      endTime,
       location,
       imageURI,
       description_short,
@@ -61,7 +73,6 @@ export const updateEventDetails: RequestHandler = async (req, res, next) => {
   const { id } = req.params;
 
   if (id !== req.body._id) {
-    // If the _id in the URL does not match the _id in the body, bad request
     res.status(400);
   }
 
@@ -76,6 +87,7 @@ export const updateEventDetails: RequestHandler = async (req, res, next) => {
     const updatedEventDetails = await EventDetails.findById(id);
     if (updatedEventDetails === null) {
       // No event found, something went wrong
+      console.log("updatedEventDetails is null");
       res.status(404);
     }
     res.status(200).json(updatedEventDetails);
@@ -84,25 +96,17 @@ export const updateEventDetails: RequestHandler = async (req, res, next) => {
   }
 };
 export const deleteEventDetails: RequestHandler = async (req, res, next) => {
-
-  console.log("haha2");
   const { id } = req.params;
 
   try {
     const eventDetails = await EventDetails.findByIdAndDelete(id);
-    console.log(eventDetails);
 
     if (!eventDetails) {
-
       throw createHttpError(404, "event not found");
-
     }
 
     res.status(200).json(eventDetails);
   } catch (error) {
-
     next(error);
-
   }
 };
-
