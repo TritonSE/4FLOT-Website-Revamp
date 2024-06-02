@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateEventDetails = exports.createEventDetails = exports.getEventDetails = exports.getAllEventDetails = void 0;
+exports.deleteEventDetails = exports.updateEventDetails = exports.createEventDetails = exports.getEventDetails = exports.getAllEventDetails = void 0;
 const express_validator_1 = require("express-validator");
 const http_errors_1 = __importDefault(require("http-errors"));
 const eventDetails_1 = __importDefault(require("../models/eventDetails"));
@@ -46,7 +46,7 @@ const getEventDetails = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
 exports.getEventDetails = getEventDetails;
 const createEventDetails = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const errors = (0, express_validator_1.validationResult)(req);
-    const { name, description, guidelines, date, location, imageURI } = req.body;
+    const { name, description, guidelines, date, startTime, endTime, location, imageURI, description_short, } = req.body;
     try {
         (0, validationErrorParser_1.default)(errors);
         const eventDetails = yield eventDetails_1.default.create({
@@ -54,8 +54,11 @@ const createEventDetails = (req, res, next) => __awaiter(void 0, void 0, void 0,
             description,
             guidelines,
             date,
+            startTime,
+            endTime,
             location,
             imageURI,
+            description_short,
         });
         res.status(201).json(eventDetails);
     }
@@ -68,7 +71,6 @@ const updateEventDetails = (req, res, next) => __awaiter(void 0, void 0, void 0,
     const errors = (0, express_validator_1.validationResult)(req);
     const { id } = req.params;
     if (id !== req.body._id) {
-        // If the _id in the URL does not match the _id in the body, bad request
         res.status(400);
     }
     try {
@@ -81,6 +83,7 @@ const updateEventDetails = (req, res, next) => __awaiter(void 0, void 0, void 0,
         const updatedEventDetails = yield eventDetails_1.default.findById(id);
         if (updatedEventDetails === null) {
             // No event found, something went wrong
+            console.log("updatedEventDetails is null");
             res.status(404);
         }
         res.status(200).json(updatedEventDetails);
@@ -90,3 +93,17 @@ const updateEventDetails = (req, res, next) => __awaiter(void 0, void 0, void 0,
     }
 });
 exports.updateEventDetails = updateEventDetails;
+const deleteEventDetails = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    try {
+        const eventDetails = yield eventDetails_1.default.findByIdAndDelete(id);
+        if (!eventDetails) {
+            throw (0, http_errors_1.default)(404, "event not found");
+        }
+        res.status(200).json(eventDetails);
+    }
+    catch (error) {
+        next(error);
+    }
+});
+exports.deleteEventDetails = deleteEventDetails;
