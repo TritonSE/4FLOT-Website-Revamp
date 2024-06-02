@@ -1,9 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
+import "../globals.css";
 import { getPageText } from "../../api/pageeditor";
-
-import "./globals.css";
 import BackgroundHeader from "../../components/BackgroundHeader";
 
 import styles from "./page.module.css";

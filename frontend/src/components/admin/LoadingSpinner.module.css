@@ -1,0 +1,17 @@
+.loader {
+  border: 10px solid transparent;
+  border-top: 10px solid #694c97;
+  border-radius: 50%;
+  width: 128px;
+  height: 128px;
+  animation: loaderSpin 2s linear infinite;
+}
+
+@keyframes loaderSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

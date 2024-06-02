@@ -1,7 +1,7 @@
 /*
  * Controller for the email route, /api/email.
  */
-import { sendContactEmail } from "../../../backend/src/services/emails";
+import { sendContactEmail } from "src/services/emails";
 
 import { RequestHandler } from "express";
 
