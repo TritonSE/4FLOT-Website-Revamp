@@ -8,15 +8,24 @@ type PageToggleProps = {
   links?: string[];
   onTogglePage?: (index: number) => void;
   currPage?: number;
+  refreshPage?: boolean;
 };
 
-const PageToggle = ({ pages, links, onTogglePage, currPage }: PageToggleProps) => {
+const PageToggle = ({ pages, links, onTogglePage, currPage, refreshPage }: PageToggleProps) => {
   if (pages && links) {
     return (
       <div className={styles.container}>
         {pages.map((page, index) => {
           const link = links[index];
-          return (
+          return refreshPage ? (
+            <a
+              key={index}
+              href={link}
+              className={currPage === index ? styles.menuActive : styles.menu}
+            >
+              {page}
+            </a>
+          ) : (
             <Link
               key={index}
               href={link}

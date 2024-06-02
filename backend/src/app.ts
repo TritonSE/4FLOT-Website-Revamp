@@ -14,6 +14,7 @@ import volunteerDetailsRoutes from "./routes/volunteerDetails";
 import testimonialRoutes from "src/routes/testimonial";
 import newsletterRoutes from "src/routes/newsletter"; // Import newsletter routes
 import emailRoutes from "src/routes/emails";
+import pageeditorRoutes from "src/routes/pageeditor";
 import paypalRoutes from "src/routes/paypal";
 
 const app = express();
@@ -41,6 +42,7 @@ app.use("/api/volunteerDetails", volunteerDetailsRoutes);
 app.use("/api/testimonial", testimonialRoutes);
 app.use("/api/newsletter", newsletterRoutes);
 app.use("/api/emails", emailRoutes);
+app.use("/api/pageeditor", pageeditorRoutes);
 app.use("/api/orders", paypalRoutes); // Donation Order routes
 
 /**

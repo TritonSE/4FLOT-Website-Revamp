@@ -2,6 +2,8 @@
 
 import React from "react";
 
+import LoginSection from "@/components/admin/LoginSection";
+
 export default function Login() {
-  return <div>Login</div>;
+  return <LoginSection />;
 }
