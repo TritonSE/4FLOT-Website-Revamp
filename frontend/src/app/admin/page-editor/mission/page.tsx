@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { getPageText, updatePage } from "../../../../api/pageeditor";
 import styles from "../about/page.module.css";
 
+import { updateRecord } from "@/api/records";
 import AlertBanner from "@/components/AlertBanner";
 import Button from "@/components/Button";
 import CancelButton from "@/components/CancelButton";
@@ -122,6 +123,11 @@ export default function MissionEditor() {
         .catch((error) => {
           alert(error);
         });
+      updateRecord("about")
+        .then()
+        .catch((error) => {
+          alert(error);
+        });
       setIsEdited(false);
     }
     setWarningOpen(false);
@@ -190,7 +196,7 @@ export default function MissionEditor() {
         </div>
       </div>
       <PageToggle
-        pages={["About Us", "Our Mission", "Our Team", "Contact Us"]}
+        pages={["About Us", "Our Mission", "Our Team"]}
         links={["./about", "./mission", "./team", "./contact"]}
         currPage={1}
         refreshPage={true}

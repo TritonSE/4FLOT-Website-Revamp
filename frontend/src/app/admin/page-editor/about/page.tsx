@@ -5,6 +5,7 @@ import { getPageText, updatePage } from "../../../../api/pageeditor";
 
 import styles from "./page.module.css";
 
+import { updateRecord } from "@/api/records";
 import AlertBanner from "@/components/AlertBanner";
 import Button from "@/components/Button";
 import CancelButton from "@/components/CancelButton";
@@ -104,6 +105,11 @@ export default function AboutEditor() {
         .catch((error) => {
           alert(error);
         });
+      updateRecord("about")
+        .then()
+        .catch((error) => {
+          alert(error);
+        });
       setIsEdited(false);
     }
     setWarningOpen(false);
@@ -169,7 +175,7 @@ export default function AboutEditor() {
         </div>
       </div>
       <PageToggle
-        pages={["About Us", "Our Mission", "Our Team", "Contact Us"]}
+        pages={["About Us", "Our Mission", "Our Team"]}
         links={["./about", "./mission", "./team", "./contact"]}
         currPage={0}
         refreshPage={true}

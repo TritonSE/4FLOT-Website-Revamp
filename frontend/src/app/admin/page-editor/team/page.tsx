@@ -11,6 +11,7 @@ import {
 import { getPageText, updatePage } from "../../../../api/pageeditor";
 import styles from "../testimonials/page.module.css";
 
+import { updateRecord } from "@/api/records";
 import AlertBanner from "@/components/AlertBanner";
 import Button from "@/components/Button";
 import CancelButton from "@/components/CancelButton";
@@ -51,16 +52,16 @@ export default function TeamEditor() {
       });
 
     getAllMembers()
-      .then((response2) => {
-        if (response2.success) {
-          setMembers(response2.data);
+      .then((response3) => {
+        if (response3.success) {
+          setMembers(response3.data);
           const newArray: string[][] = [];
-          for (const elem of response2.data) {
+          for (const elem of response3.data) {
             newArray.push([elem.name, elem.role]);
           }
           setMembersArray(newArray);
         } else {
-          alert(response2.error);
+          alert(response3.error);
         }
       })
       .catch((error) => {
@@ -70,6 +71,7 @@ export default function TeamEditor() {
 
   /* Handle Fields upon edit */
   const handleEdit = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    console.log("handleEdit");
     setIsEdited(true);
     if (event.target.id === "Page Header: Subtitle") {
       setPhSubtitle(event.target.value);
@@ -88,6 +90,7 @@ export default function TeamEditor() {
       });
       setMembersArray(updateArray);
       editedMembers.add(memberIndex);
+      console.log("editedMembers: ", editedMembers);
     } else if (event.target.id.includes("Staff Position")) {
       const memberIndex = Number(event.target.id.slice(event.target.id.indexOf(":") + 2));
       //Update textarea by changing testimonialArray element
@@ -135,15 +138,30 @@ export default function TeamEditor() {
         for (const index of Array.from(editedMembers)) {
           if (index >= members.length) {
             //Check title & description aren't empty
-            if (membersArray[index][0] !== "" || membersArray[index][1] !== "") {
+            if (membersArray[index][0] !== "" && membersArray[index][1] !== "") {
               createMember({
                 name: membersArray[index][0],
                 role: membersArray[index][1],
-                // profilePictureURL: "/impact1.png"
               })
                 .then((response2) => {
                   if (response2.success) {
                     setShowAlert(true);
+                    getAllMembers()
+                      .then((response3) => {
+                        if (response3.success) {
+                          setMembers(response3.data);
+                          const newArray: string[][] = [];
+                          for (const elem of response3.data) {
+                            newArray.push([elem.name, elem.role]);
+                          }
+                          setMembersArray(newArray);
+                        } else {
+                          alert(response3.error);
+                        }
+                      })
+                      .catch((error) => {
+                        alert(error);
+                      });
                   } else {
                     // If adding and missing title/desc
                     alert(response2.error);
@@ -158,7 +176,7 @@ export default function TeamEditor() {
             members[index].name = membersArray[index][0];
             members[index].role = membersArray[index][1];
             //If deleting member
-            if (members[index].name === "" && members[index].role === "") {
+            if (members[index].name === "" || members[index].role === "") {
               deleteMember(members[index])
                 .then((response) => {
                   if (response.success) {
@@ -170,6 +188,7 @@ export default function TeamEditor() {
                 .catch((error) => {
                   alert(error);
                 });
+              members.splice(index, 1);
             } else {
               //If updating member
               updateMember(members[index])
@@ -186,10 +205,15 @@ export default function TeamEditor() {
             }
           }
         }
-        setMembersArray(membersArray.filter((elem) => elem[0] !== "" || elem[1] !== ""));
+        setMembersArray(membersArray.filter((elem) => elem[0] !== "" && elem[1] !== ""));
         setEditedMembers(new Set());
       }
 
+      updateRecord("about")
+        .then()
+        .catch((error) => {
+          alert(error);
+        });
       setIsEdited(false);
     }
     setWarningOpen(false);
@@ -233,7 +257,10 @@ export default function TeamEditor() {
   const handleAdd = () => {
     console.log("Add Volunteer");
     setMembersArray([...membersArray, ["", ""]]);
-    editedMembers.add(members.length);
+    editedMembers.add(membersArray.length);
+    console.log("editedMembers: ", editedMembers);
+    console.log("membersArray: ", membersArray);
+    console.log("members: ", members);
     setIsEdited(true);
   };
 
@@ -265,7 +292,7 @@ export default function TeamEditor() {
         </div>
       </div>
       <PageToggle
-        pages={["About Us", "Our Mission", "Our Team", "Contact Us"]}
+        pages={["About Us", "Our Mission", "Our Team"]}
         links={["./about", "./mission", "./team", "./contact"]}
         currPage={2}
         refreshPage={true}

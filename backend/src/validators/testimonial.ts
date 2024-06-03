@@ -52,7 +52,7 @@ const makeImageValidator = () =>
 export const createTestimonial = [
   makeTitleValidator(),
   makeImageValidator(),
-  makeDescriptionValidator,
+  makeDescriptionValidator(),
 ];
 
 export const updateTestimonial = [makeIDValidator(), makeImageValidator()];

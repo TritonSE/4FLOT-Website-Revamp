@@ -14,9 +14,11 @@ export const createTestimonial: RequestHandler = async (req, res, next) => {
       image: image,
       type: type,
     });
+    console.log("testimonial: ", testimonial);
 
     res.status(201).json(testimonial);
   } catch (error) {
+    console.log("erroring here");
     next(error);
   }
 };

@@ -20,6 +20,7 @@ const newsletter_1 = __importDefault(require("./routes/newsletter")); // Import 
 const emails_1 = __importDefault(require("./routes/emails"));
 const pageeditor_1 = __importDefault(require("./routes/pageeditor"));
 const paypal_1 = __importDefault(require("./routes/paypal"));
+const records_1 = __importDefault(require("./routes/records"));
 const app = (0, express_1.default)();
 // initializes Express to accept JSON in the request/response body
 app.use(express_1.default.json());
@@ -42,6 +43,7 @@ app.use("/api/newsletter", newsletter_1.default);
 app.use("/api/emails", emails_1.default);
 app.use("/api/pageeditor", pageeditor_1.default);
 app.use("/api/orders", paypal_1.default); // Donation Order routes
+app.use("/api/records", records_1.default);
 /**
  * Error handler; all errors thrown by server are handled here.
  * Explicit typings required here because TypeScript cannot infer the argument types.

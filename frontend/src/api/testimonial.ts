@@ -40,6 +40,7 @@ export async function createTestimonial(
   testimonial: CreateTestimonialRequest,
 ): Promise<APIResult<Testimonial>> {
   try {
+    console.log("frontend createTestimonial");
     const response = await post(`/api/testimonial/post`, testimonial);
     const data = (await response.json()) as Testimonial;
     return { success: true, data };

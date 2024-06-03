@@ -12,6 +12,7 @@ import {
 
 import styles from "./page.module.css";
 
+import { updateRecord } from "@/api/records";
 import AlertBanner from "@/components/AlertBanner";
 import Button from "@/components/Button";
 import CancelButton from "@/components/CancelButton";
@@ -148,7 +149,7 @@ export default function TestimonialsEditor() {
           //If creating new testimonial
           if (index >= testimonialData.length) {
             //Check title & description aren't empty
-            if (testimonialArray[index][0] !== "" || testimonialArray[index][1] !== "") {
+            if (testimonialArray[index][0] !== "" && testimonialArray[index][1] !== "") {
               createTestimonial({
                 title: testimonialArray[index][0],
                 description: testimonialArray[index][1],
@@ -162,6 +163,23 @@ export default function TestimonialsEditor() {
                       response.data, // add one new Testimonial to the array
                     ]);
                     setShowAlert(true);
+
+                    getAllQuotes()
+                      .then((response2) => {
+                        if (response2.success) {
+                          setTestimonialData(response2.data);
+                          const newArray: string[][] = [];
+                          for (const elem of response2.data) {
+                            newArray.push([elem.title, elem.description]); // and one new item at the end
+                          }
+                          setTestimonialArray(newArray);
+                        } else {
+                          alert(response2.error);
+                        }
+                      })
+                      .catch((error) => {
+                        alert(error);
+                      });
                   } else {
                     // If adding and missing title/desc
                     alert(response.error);
@@ -181,7 +199,7 @@ export default function TestimonialsEditor() {
             testimonialData[index].description = testimonialArray[index][1];
 
             //If deleting testimonial
-            if (testimonialData[index].title === "" && testimonialData[index].description === "") {
+            if (testimonialData[index].title === "" || testimonialData[index].description === "") {
               deleteTestimonial(testimonialData[index]._id)
                 .then((response) => {
                   if (response.success) {
@@ -193,6 +211,7 @@ export default function TestimonialsEditor() {
                 .catch((error) => {
                   alert(error);
                 });
+              testimonialData.splice(index, 1);
             } else {
               //If updating testimonial
               updateTestimonial(testimonialData[index])
@@ -209,9 +228,15 @@ export default function TestimonialsEditor() {
             }
           }
         }
-        setTestimonialArray(testimonialArray.filter((elem) => elem[0] !== "" || elem[1] !== ""));
+        setTestimonialArray(testimonialArray.filter((elem) => elem[0] !== "" && elem[1] !== ""));
         setEdited(new Set());
       }
+
+      updateRecord("impact")
+        .then()
+        .catch((error) => {
+          alert(error);
+        });
       setIsEdited(false);
     }
     setWarningOpen(false);
@@ -315,12 +340,17 @@ export default function TestimonialsEditor() {
         <button className={styles.addButton} onClick={handleAdd}>
           Add Testimonial
         </button>
-        <Collapsable
-          title="Section 2"
+        {/* <Collapsable
+          title="Section 3"
           subsection={["Section Title", "Subtitle"]}
           textbox={[s2Title, s2Subtitle]}
+          listTitles={["Testimonial Header", "Testimonial Description"]}
+          listText={testimonialArray}
           onChange={handleEdit}
         />
+        <button className={styles.addButton} onClick={handleAdd}>
+          Add Testimonial
+        </button> */}
 
         <div className={styles.buttonContainer}>
           <CancelButton

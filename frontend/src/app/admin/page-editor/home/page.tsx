@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { getPageText, updatePage } from "../../../../api/pageeditor";
 import styles from "../about/page.module.css";
 
+import { updateRecord } from "@/api/records";
 import AlertBanner from "@/components/AlertBanner";
 import Button from "@/components/Button";
 import CancelButton from "@/components/CancelButton";
@@ -93,6 +94,11 @@ export default function HomeEditor() {
         });
       setIsEdited(false);
     }
+    updateRecord("home")
+      .then()
+      .catch((error) => {
+        alert(error);
+      });
     setWarningOpen(false);
   };
 
