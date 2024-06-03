@@ -5,11 +5,13 @@ import { getPageText, updatePage } from "../../../../api/pageeditor";
 
 import styles from "./page.module.css";
 
+import { updateRecord } from "@/api/records";
 import AlertBanner from "@/components/AlertBanner";
 import Button from "@/components/Button";
 import CancelButton from "@/components/CancelButton";
 import Collapsable from "@/components/Collapsable";
 import PageToggle from "@/components/PageToggle";
+import { WarningModule } from "@/components/WarningModule";
 
 export default function AboutEditor() {
   const [isEdited, setIsEdited] = useState(false);
@@ -22,6 +24,7 @@ export default function AboutEditor() {
   const [s3Text, setS3Text] = useState<string>("");
 
   const [showAlert, setShowAlert] = useState(false);
+  const [warningOpen, setWarningOpen] = useState(false);
 
   /* Get page data from MongoDB */
   let pageText;
@@ -94,7 +97,7 @@ export default function AboutEditor() {
       })
         .then((response) => {
           if (response.success) {
-            alert("Success!");
+            setShowAlert(true);
           } else {
             alert(response.error);
           }
@@ -102,34 +105,46 @@ export default function AboutEditor() {
         .catch((error) => {
           alert(error);
         });
+      updateRecord("about")
+        .then()
+        .catch((error) => {
+          alert(error);
+        });
       setIsEdited(false);
     }
+    setWarningOpen(false);
   };
 
   const handleCancel = () => {
-    // Implement cancel logic
+    // Show cancel warning
     if (isEdited) {
-      console.log("Cancel changes");
-      getPageText("About Us")
-        .then((response) => {
-          if (response.success) {
-            pageText = response.data;
-            setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
-            setS1Subtitle(pageText.pageSections[1].sectionTitle ?? "");
-            setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
-            setS2Subtitle(pageText.pageSections[2].sectionTitle ?? "");
-            setS2Text(pageText.pageSections[2].sectionSubtitle ?? "");
-            setS3Subtitle(pageText.pageSections[3].sectionTitle ?? "");
-            setS3Text(pageText.pageSections[3].sectionSubtitle ?? "");
-          } else {
-            alert(response.error);
-          }
-        })
-        .catch((error) => {
-          alert(error);
-        });
-      setIsEdited(false);
+      setWarningOpen(true);
     }
+  };
+
+  const confirmCancel = () => {
+    // Implement cancel logic
+    setWarningOpen(false);
+    console.log("Cancel changes");
+    getPageText("About Us")
+      .then((response) => {
+        if (response.success) {
+          pageText = response.data;
+          setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
+          setS1Subtitle(pageText.pageSections[1].sectionTitle ?? "");
+          setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
+          setS2Subtitle(pageText.pageSections[2].sectionTitle ?? "");
+          setS2Text(pageText.pageSections[2].sectionSubtitle ?? "");
+          setS3Subtitle(pageText.pageSections[3].sectionTitle ?? "");
+          setS3Text(pageText.pageSections[3].sectionSubtitle ?? "");
+        } else {
+          alert(response.error);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+    setIsEdited(false);
   };
 
   const handleCloseAlert = () => {
@@ -141,8 +156,26 @@ export default function AboutEditor() {
       <div className={styles.alert}>
         {showAlert && <AlertBanner text={"Event Details Saved!"} onClose={handleCloseAlert} />}
       </div>
+      <div>
+        {warningOpen && <div className={styles.grayOut}></div>}
+        <div className={styles.warningPopup}>
+          {warningOpen && (
+            <WarningModule
+              titleText="You have unsaved changes!"
+              subtitleText="Do you want to save the changes you made to this event?"
+              cancelText="Discard changes"
+              actionText="Save changes"
+              cancel={confirmCancel}
+              action={handleSave}
+              onClose={() => {
+                setWarningOpen(false);
+              }}
+            />
+          )}
+        </div>
+      </div>
       <PageToggle
-        pages={["About Us", "Our Mission", "Our Team", "Contact Us"]}
+        pages={["About Us", "Our Mission", "Our Team"]}
         links={["./about", "./mission", "./team", "./contact"]}
         currPage={0}
         refreshPage={true}

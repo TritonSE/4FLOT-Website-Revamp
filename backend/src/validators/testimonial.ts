@@ -5,7 +5,7 @@ const makeIDValidator = () =>
     .exists()
     .withMessage("_id is required")
     .bail()
-    .isMongoId()
+    .isString()
     .withMessage("_id must be a MongoDB object ID");
 
 const makeTitleValidator = () =>
@@ -51,13 +51,10 @@ const makeImageValidator = () =>
 
 export const createTestimonial = [
   makeTitleValidator(),
-  makeDescriptionValidator(),
   makeImageValidator(),
+  makeDescriptionValidator(),
 ];
 
-export const updateTestimonial = [
-  makeIDValidator(),
-  makeTitleValidator(),
-  makeDescriptionValidator(),
-  makeImageValidator(),
-];
+export const updateTestimonial = [makeIDValidator(), makeImageValidator()];
+
+export const deleteTestimonial = [makeIDValidator()];

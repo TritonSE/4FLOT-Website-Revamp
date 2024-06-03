@@ -12,9 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllMembers = exports.getMember = exports.createMember = void 0;
+exports.deleteMember = exports.updateMember = exports.getAllMembers = exports.getMember = exports.createMember = void 0;
 const member_1 = __importDefault(require("../models/member"));
 const mongoose_1 = require("mongoose");
+const validationErrorParser_1 = __importDefault(require("../util/validationErrorParser"));
+const express_validator_1 = require("express-validator");
+const http_errors_1 = __importDefault(require("http-errors"));
 const createMember = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, role, profilePictureURL } = req.body;
     try {
@@ -51,3 +54,43 @@ const getAllMembers = (req, res, next) => __awaiter(void 0, void 0, void 0, func
     }
 });
 exports.getAllMembers = getAllMembers;
+const updateMember = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const errors = (0, express_validator_1.validationResult)(req);
+    const { id } = req.params;
+    // if (id !== req.body._id) {
+    //   // If the _id in the URL does not match the _id in the body, bad request
+    //   res.status(400);
+    // }
+    try {
+        (0, validationErrorParser_1.default)(errors);
+        const member = yield member_1.default.findByIdAndUpdate(id, req.body);
+        if (member === null) {
+            // No event found
+            res.status(404);
+        }
+        const updatedMember = yield member_1.default.findById(id);
+        if (updatedMember === null) {
+            // No event found, something went wrong
+            res.status(404);
+        }
+        res.status(200).json(updatedMember);
+    }
+    catch (error) {
+        next(error);
+    }
+});
+exports.updateMember = updateMember;
+const deleteMember = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    try {
+        const member = yield member_1.default.findByIdAndDelete(id);
+        if (!member) {
+            throw (0, http_errors_1.default)(404, "Member not found.");
+        }
+        res.status(200).json(member);
+    }
+    catch (error) {
+        next(error);
+    }
+});
+exports.deleteMember = deleteMember;

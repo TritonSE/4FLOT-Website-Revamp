@@ -1,12 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateTestimonial = exports.createTestimonial = void 0;
+exports.deleteTestimonial = exports.updateTestimonial = exports.createTestimonial = void 0;
 const express_validator_1 = require("express-validator");
 const makeIDValidator = () => (0, express_validator_1.body)("_id")
     .exists()
     .withMessage("_id is required")
     .bail()
-    .isMongoId()
+    .isString()
     .withMessage("_id must be a MongoDB object ID");
 const makeTitleValidator = () => (0, express_validator_1.body)("title")
     // title must exist, if not this message will be displayed
@@ -46,12 +46,8 @@ const makeImageValidator = () => (0, express_validator_1.body)("image")
     .withMessage("image cannot be empty");
 exports.createTestimonial = [
     makeTitleValidator(),
-    makeDescriptionValidator(),
     makeImageValidator(),
-];
-exports.updateTestimonial = [
-    makeIDValidator(),
-    makeTitleValidator(),
     makeDescriptionValidator(),
-    makeImageValidator(),
 ];
+exports.updateTestimonial = [makeIDValidator(), makeImageValidator()];
+exports.deleteTestimonial = [makeIDValidator()];

@@ -1,15 +1,16 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
-import {
-  Member,
-  createMember,
-  deleteMember,
-  getAllMembers,
-  updateMember,
-} from "../../../../api/member";
 import { getPageText, updatePage } from "../../../../api/pageeditor";
-import styles from "../testimonials/page.module.css";
+import {
+  Testimonial,
+  createTestimonial,
+  deleteTestimonial,
+  getAllQuotes,
+  updateTestimonial,
+} from "../../../../api/testimonial";
+
+import styles from "./page.module.css";
 
 import { updateRecord } from "@/api/records";
 import AlertBanner from "@/components/AlertBanner";
@@ -19,49 +20,51 @@ import Collapsable from "@/components/Collapsable";
 import PageToggle from "@/components/PageToggle";
 import { WarningModule } from "@/components/WarningModule";
 
-// import PageEditorCard from "@/components/PageEditorCard";
-
-export default function TeamEditor() {
-  const [members, setMembers] = useState<Member[]>([]);
-  const [membersArray, setMembersArray] = useState<string[][]>([]);
-  const [editedMembers, setEditedMembers] = useState<Set<number>>(new Set()); //Indices of edited testimonials
-
+export default function TestimonialsEditor() {
   const [isEdited, setIsEdited] = useState(false);
   const [phSubtitle, setPhSubtitle] = useState<string>("");
   const [s1Subtitle, setS1Subtitle] = useState<string>("");
   const [s1Text, setS1Text] = useState<string>("");
+  const [s2Title, setS2Title] = useState<string>("");
+  const [s2Subtitle, setS2Subtitle] = useState<string>("");
+
+  const [testimonialData, setTestimonialData] = useState<Testimonial[]>([]); //Holds all testimonials as Testimonials
+  const [testimonialArray, setTestimonialArray] = useState<string[][]>([]); //Holds all testimonials as strings
+  const [editedTestimonials, setEdited] = useState<Set<number>>(new Set()); //Indices of edited testimonials
 
   const [showAlert, setShowAlert] = useState(false);
   const [warningOpen, setWarningOpen] = useState(false);
+
   /* Get page data from MongoDB */
   let pageText;
   useEffect(() => {
-    getPageText("Our Team")
+    getAllQuotes()
+      .then((response2) => {
+        if (response2.success) {
+          setTestimonialData(response2.data);
+          const newArray: string[][] = [];
+          for (const elem of response2.data) {
+            newArray.push([elem.title, elem.description]); // and one new item at the end
+          }
+          setTestimonialArray(newArray);
+        } else {
+          alert(response2.error);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+    getPageText("Testimonials")
       .then((response) => {
         if (response.success) {
           pageText = response.data;
           setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
           setS1Subtitle(pageText.pageSections[1].sectionTitle ?? "");
           setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
+          setS2Title(pageText.pageSections[2].sectionTitle ?? "");
+          setS2Subtitle(pageText.pageSections[2].sectionSubtitle ?? "");
         } else {
           alert(response.error);
-        }
-      })
-      .catch((error) => {
-        alert(error);
-      });
-
-    getAllMembers()
-      .then((response3) => {
-        if (response3.success) {
-          setMembers(response3.data);
-          const newArray: string[][] = [];
-          for (const elem of response3.data) {
-            newArray.push([elem.name, elem.role]);
-          }
-          setMembersArray(newArray);
-        } else {
-          alert(response3.error);
         }
       })
       .catch((error) => {
@@ -71,48 +74,51 @@ export default function TeamEditor() {
 
   /* Handle Fields upon edit */
   const handleEdit = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    console.log("handleEdit");
     setIsEdited(true);
     if (event.target.id === "Page Header: Subtitle") {
       setPhSubtitle(event.target.value);
     } else if (event.target.id === "Section 1: Section Title") {
       setS1Subtitle(event.target.value);
-    } else if (event.target.id === "Section 1: Body Text") {
+    } else if (event.target.id === "Section 1: Subtitle") {
       setS1Text(event.target.value);
-    } else if (event.target.id.includes("Staff Name")) {
-      const memberIndex = Number(event.target.id.slice(event.target.id.indexOf(":") + 2));
-      const updateArray = membersArray.map((elem, index) => {
-        if (index === memberIndex) {
+    } else if (event.target.id === "Section 2: Section Title") {
+      setS2Title(event.target.value);
+    } else if (event.target.id === "Section 2: Subtitle") {
+      setS2Subtitle(event.target.value);
+    } else if (event.target.id.startsWith("Testimonial Header")) {
+      const testimonialIndex = Number(event.target.id.slice(event.target.id.indexOf(":") + 2));
+      //Update textarea by changing testimonialArray element
+      const updateArray = testimonialArray.map((elem, index) => {
+        if (index === testimonialIndex) {
           return [event.target.value, elem[1]];
         } else {
           return elem;
         }
       });
-      setMembersArray(updateArray);
-      editedMembers.add(memberIndex);
-      console.log("editedMembers: ", editedMembers);
-    } else if (event.target.id.includes("Staff Position")) {
-      const memberIndex = Number(event.target.id.slice(event.target.id.indexOf(":") + 2));
+      setTestimonialArray(updateArray);
+      editedTestimonials.add(testimonialIndex); //Add index to list of edited indices
+    } else if (event.target.id.startsWith("Testimonial Description")) {
+      const testimonialIndex = Number(event.target.id.slice(event.target.id.indexOf(":") + 2));
       //Update textarea by changing testimonialArray element
-      const updateArray = membersArray.map((elem, index) => {
-        if (index === memberIndex) {
+      const updateArray = testimonialArray.map((elem, index) => {
+        if (index === testimonialIndex) {
           return [elem[0], event.target.value];
         } else {
           return elem;
         }
       });
-      setMembersArray(updateArray);
-      editedMembers.add(memberIndex); //Add index to list of edited indices
+      setTestimonialArray(updateArray);
+      editedTestimonials.add(testimonialIndex); //Add index to list of edited indices
     }
   };
 
   const handleSave = () => {
     // Implement save logic
     if (isEdited) {
-      console.log("save in team");
+      console.log("Save Testimonials Page");
       updatePage({
         //Pass edited text to MongoDB
-        page: "Our Team",
+        page: "Testimonials",
         pageSections: [
           {
             subtitle: phSubtitle,
@@ -120,6 +126,10 @@ export default function TeamEditor() {
           {
             sectionTitle: s1Subtitle,
             sectionSubtitle: s1Text,
+          },
+          {
+            sectionTitle: s2Title,
+            sectionSubtitle: s2Subtitle,
           },
         ],
       })
@@ -133,30 +143,38 @@ export default function TeamEditor() {
         .catch((error) => {
           alert(error);
         });
-
-      if (editedMembers.size > 0) {
-        for (const index of Array.from(editedMembers)) {
-          if (index >= members.length) {
+      if (editedTestimonials.size > 0) {
+        //Pass edited testimonials to MongoDB
+        for (const index of Array.from(editedTestimonials)) {
+          //If creating new testimonial
+          if (index >= testimonialData.length) {
             //Check title & description aren't empty
-            if (membersArray[index][0] !== "" && membersArray[index][1] !== "") {
-              createMember({
-                name: membersArray[index][0],
-                role: membersArray[index][1],
+            if (testimonialArray[index][0] !== "" && testimonialArray[index][1] !== "") {
+              createTestimonial({
+                title: testimonialArray[index][0],
+                description: testimonialArray[index][1],
+                image: "/impact1.png",
+                type: "quote",
               })
-                .then((response2) => {
-                  if (response2.success) {
+                .then((response) => {
+                  if (response.success) {
+                    setTestimonialData([
+                      ...testimonialData,
+                      response.data, // add one new Testimonial to the array
+                    ]);
                     setShowAlert(true);
-                    getAllMembers()
-                      .then((response3) => {
-                        if (response3.success) {
-                          setMembers(response3.data);
+
+                    getAllQuotes()
+                      .then((response2) => {
+                        if (response2.success) {
+                          setTestimonialData(response2.data);
                           const newArray: string[][] = [];
-                          for (const elem of response3.data) {
-                            newArray.push([elem.name, elem.role]);
+                          for (const elem of response2.data) {
+                            newArray.push([elem.title, elem.description]); // and one new item at the end
                           }
-                          setMembersArray(newArray);
+                          setTestimonialArray(newArray);
                         } else {
-                          alert(response3.error);
+                          alert(response2.error);
                         }
                       })
                       .catch((error) => {
@@ -164,8 +182,10 @@ export default function TeamEditor() {
                       });
                   } else {
                     // If adding and missing title/desc
-                    alert(response2.error);
-                    setMembersArray(membersArray.filter((elem, elemIndex) => elemIndex !== index));
+                    alert(response.error);
+                    setTestimonialArray(
+                      testimonialArray.filter((elem, elemIndex) => elemIndex !== index),
+                    );
                   }
                 })
                 .catch((error) => {
@@ -173,11 +193,14 @@ export default function TeamEditor() {
                 });
             }
           } else {
-            members[index].name = membersArray[index][0];
-            members[index].role = membersArray[index][1];
-            //If deleting member
-            if (members[index].name === "" || members[index].role === "") {
-              deleteMember(members[index])
+            //If editing testimonial
+            //Update testimonial with edited values stored in testimonialArray
+            testimonialData[index].title = testimonialArray[index][0];
+            testimonialData[index].description = testimonialArray[index][1];
+
+            //If deleting testimonial
+            if (testimonialData[index].title === "" || testimonialData[index].description === "") {
+              deleteTestimonial(testimonialData[index]._id)
                 .then((response) => {
                   if (response.success) {
                     setShowAlert(true);
@@ -188,10 +211,10 @@ export default function TeamEditor() {
                 .catch((error) => {
                   alert(error);
                 });
-              members.splice(index, 1);
+              testimonialData.splice(index, 1);
             } else {
-              //If updating member
-              updateMember(members[index])
+              //If updating testimonial
+              updateTestimonial(testimonialData[index])
                 .then((response) => {
                   if (response.success) {
                     setShowAlert(true);
@@ -205,11 +228,11 @@ export default function TeamEditor() {
             }
           }
         }
-        setMembersArray(membersArray.filter((elem) => elem[0] !== "" && elem[1] !== ""));
-        setEditedMembers(new Set());
+        setTestimonialArray(testimonialArray.filter((elem) => elem[0] !== "" && elem[1] !== ""));
+        setEdited(new Set());
       }
 
-      updateRecord("about")
+      updateRecord("impact")
         .then()
         .catch((error) => {
           alert(error);
@@ -230,13 +253,15 @@ export default function TeamEditor() {
     // Implement cancel logic
     setWarningOpen(false);
     console.log("Cancel changes");
-    getPageText("Our Team")
+    getPageText("Testimonials")
       .then((response) => {
         if (response.success) {
           pageText = response.data;
           setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
           setS1Subtitle(pageText.pageSections[1].sectionTitle ?? "");
           setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
+          setS2Title(pageText.pageSections[2].sectionTitle ?? "");
+          setS2Subtitle(pageText.pageSections[2].sectionSubtitle ?? "");
         } else {
           alert(response.error);
         }
@@ -244,23 +269,23 @@ export default function TeamEditor() {
       .catch((error) => {
         alert(error);
       });
-    if (editedMembers.size > 0) {
+    if (editedTestimonials.size > 0) {
       const updateArray: string[][] = [];
-      for (const elem of members) {
-        updateArray.push([elem.name, elem.role]);
+      for (const elem of testimonialData) {
+        updateArray.push([elem.title, elem.description]);
       }
-      setMembersArray(updateArray);
+      setTestimonialArray(updateArray);
     }
     setIsEdited(false);
   };
 
   const handleAdd = () => {
-    console.log("Add Volunteer");
-    setMembersArray([...membersArray, ["", ""]]);
-    editedMembers.add(membersArray.length);
-    console.log("editedMembers: ", editedMembers);
-    console.log("membersArray: ", membersArray);
-    console.log("members: ", members);
+    console.log("Add Testimonial");
+    setTestimonialArray([
+      ...testimonialArray,
+      ["", ""], // add one new item at the end
+    ]);
+    editedTestimonials.add(testimonialArray.length); //Add index to list of edited indices
     setIsEdited(true);
   };
 
@@ -292,9 +317,9 @@ export default function TeamEditor() {
         </div>
       </div>
       <PageToggle
-        pages={["About Us", "Our Mission", "Our Team"]}
-        links={["./about", "./mission", "./team", "./contact"]}
-        currPage={2}
+        pages={["Our Impact", "Testimonials", "Newsletter"]}
+        links={["./impact", "./testimonials", "./newsletter"]}
+        currPage={1}
         refreshPage={true}
       />
       <div className={styles.sectionContainer}>
@@ -306,21 +331,26 @@ export default function TeamEditor() {
         />
         <Collapsable
           title="Section 1"
-          subsection={["Section Title", "Body Text"]}
+          subsection={["Section Title", "Subtitle"]}
           textbox={[s1Subtitle, s1Text]}
+          listTitles={["Testimonial Header", "Testimonial Description"]}
+          listText={testimonialArray}
           onChange={handleEdit}
         />
-        <Collapsable
-          title="Section 2"
-          listTitles={["Staff Name", "Staff Position"]}
-          listText={membersArray}
-          onChange={handleEdit}
-          isAdjacent={true}
-        />
-
         <button className={styles.addButton} onClick={handleAdd}>
-          Add Staff
+          Add Testimonial
         </button>
+        {/* <Collapsable
+          title="Section 3"
+          subsection={["Section Title", "Subtitle"]}
+          textbox={[s2Title, s2Subtitle]}
+          listTitles={["Testimonial Header", "Testimonial Description"]}
+          listText={testimonialArray}
+          onChange={handleEdit}
+        />
+        <button className={styles.addButton} onClick={handleAdd}>
+          Add Testimonial
+        </button> */}
 
         <div className={styles.buttonContainer}>
           <CancelButton

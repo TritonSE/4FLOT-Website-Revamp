@@ -27,12 +27,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const TestimonialController = __importStar(require("../controllers/testimonial"));
-const TestimonialValidator = __importStar(require("../validators/testimonial"));
+const RecordsController = __importStar(require("../controllers/records"));
+const RecordsValidator = __importStar(require("../validators/records"));
 const router = express_1.default.Router();
-router.get("/get", TestimonialController.getAllTestimonials);
-router.get("/get/quote", TestimonialController.getAllQuotes);
-router.post("/post", TestimonialController.createTestimonial);
-router.put("/:id", TestimonialValidator.updateTestimonial, TestimonialController.updateTestimonial);
-router.delete("/:id", TestimonialValidator.deleteTestimonial, TestimonialController.deleteTestimonial);
+router.put("/:card", RecordsValidator.updateRecord, RecordsController.updateRecord);
+router.get("/:card", RecordsController.getRecord);
 exports.default = router;

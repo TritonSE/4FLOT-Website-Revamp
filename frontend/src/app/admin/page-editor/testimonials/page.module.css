@@ -43,3 +43,28 @@
   z-index: 3;
   width: 100%;
 }
+
+.fixedPosition {
+  /* position: fixed; */
+  /* top: 0;
+  bottom: 0;
+  right: 0; */
+}
+
+.addButton {
+  position: relative;
+  left: 30%;
+
+  background: #f3edf9;
+  border: 1px dashed var(--color-primary-purple);
+  border-radius: 4px;
+  width: 42%;
+
+  font: var(--font-body-reg);
+  color: var(--color-primary-purple);
+  padding: 9px;
+}
+
+.addButton:hover {
+  border: 1px solid var(--color-primary-purple);
+}

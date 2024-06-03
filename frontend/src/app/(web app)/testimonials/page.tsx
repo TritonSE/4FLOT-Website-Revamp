@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 
+import { getPageText } from "../../../api/pageeditor";
 import { Testimonial, getAllTestimonials } from "../../../api/testimonial";
 import TestimonialCard from "../../../components/TestimonialCard";
 
@@ -14,6 +15,12 @@ export default function Impact() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [events, setEvents] = useState<Testimonial[]>([]);
   const [images, setImages] = useState<BackgroundImage[]>([]);
+
+  const [phSubtitle, setPhSubtitle] = useState<string>("");
+  const [s1Subtitle, setS1Subtitle] = useState<string>("");
+  const [s1Text, setS1Text] = useState<string>("");
+  const [s2Title, setS2Title] = useState<string>("");
+  const [s2Subtitle, setS2Subtitle] = useState<string>("");
 
   useEffect(() => {
     getBackgroundImages(BackgroundImagePages.HOME)
@@ -44,6 +51,26 @@ export default function Impact() {
       });
   }, []);
 
+  let pageText;
+  useEffect(() => {
+    getPageText("Testimonials")
+      .then((response) => {
+        if (response.success) {
+          pageText = response.data;
+          setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
+          setS1Subtitle(pageText.pageSections[1].sectionTitle ?? "");
+          setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
+          setS2Title(pageText.pageSections[2].sectionTitle ?? "");
+          setS2Subtitle(pageText.pageSections[2].sectionSubtitle ?? "");
+        } else {
+          alert(response.error);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }, []);
+
   return (
     <main
       style={{
@@ -55,17 +82,12 @@ export default function Impact() {
         backgroundImageURIs={images.map((image) => image.imageURI)}
         header="OUR IMPACT"
         title="Testimonials"
-        description="4FLOT is committed in preventing and ending homelessness, hunger and disparity in underprivileged communities. "
+        description={phSubtitle}
       />
       <div className={styles.page}>
         <div className={styles.textContainer}>
-          <div className={styles.subhead}>Read Our Stories</div>
-          <div className={styles.description}>
-            A nonprofit is as strong as the community that holds it up. Together, we can do more
-            than we can do alone. Let&apos;s bring our abilities and passions together to make real
-            change. Your donations will help feed and clothes our underprivileged and underserved
-            communities.
-          </div>
+          <div className={styles.subhead}>{s1Subtitle}</div>
+          <div className={styles.description}>{s1Text}</div>
         </div>
         <div className={styles.quotes}>
           {testimonials.map((testimonial) => (
@@ -80,13 +102,8 @@ export default function Impact() {
           ))}
         </div>
         <div className={styles.textContainer}>
-          <div className={styles.subhead}>Where We&apos;ve Been</div>
-          <div className={styles.description}>
-            A nonprofit is as strong as the community that holds it up. Together, we can do more
-            than we can do alone. Let&apos;s bring our abilities and passions together to make real
-            change. Your donations will help feed and clothes our underprivileged and underserved
-            communities.
-          </div>
+          <div className={styles.subhead}>{s2Title}</div>
+          <div className={styles.description}>{s2Subtitle}</div>
         </div>
 
         <div className={styles.events}>

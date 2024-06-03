@@ -6,12 +6,24 @@ import styles from "./Collapsable.module.css";
 
 type CollapsableProps = {
   title: string;
-  subsection: string[];
-  textbox: string[];
+  subsection?: string[];
+  textbox?: string[];
   onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  // The following are only for numbered lists (Our Team, Testimonials)
+  listTitles?: string[];
+  listText?: string[][];
+  isAdjacent?: boolean; // Whether to position textboxes on one line
 };
 
-const Collapsable = ({ title, subsection, textbox, onChange }: CollapsableProps) => {
+const Collapsable = ({
+  title,
+  subsection,
+  textbox,
+  onChange,
+  listTitles,
+  listText,
+  isAdjacent,
+}: CollapsableProps) => {
   const [open, setOpen] = useState<boolean>(true);
 
   const toggleSection = () => {
@@ -43,20 +55,51 @@ const Collapsable = ({ title, subsection, textbox, onChange }: CollapsableProps)
       </button>
       {open && (
         <div className={styles.content}>
-          {subsection.map((subtitle, index) => {
-            const text = textbox[index];
-            return (
-              <div key={subtitle}>
-                <p className={styles.subtitle}>{subtitle}</p>
-                <textarea
-                  className={styles.basicInput}
-                  onInput={handleChange}
-                  id={title + ": " + subtitle}
-                  value={text}
-                ></textarea>
-              </div>
-            );
-          })}
+          {typeof subsection !== "undefined" && typeof textbox !== "undefined" && (
+            <div>
+              {subsection.map((subtitle, index) => {
+                const text = textbox[index];
+                return (
+                  <div key={subtitle}>
+                    <p className={styles.subtitle}>{subtitle}</p>
+                    <textarea
+                      className={styles.basicInput}
+                      onInput={handleChange}
+                      id={title + ": " + subtitle}
+                      value={text}
+                    ></textarea>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+          {typeof listTitles !== "undefined" && typeof listText !== "undefined" && (
+            // For the numbered list, if it exists
+            <ol className={isAdjacent ? styles.list : styles.nothing}>
+              {listText.map((textArray, index) => {
+                let subtitle = "";
+                return listTitles.map((listTitle, innerIndex) => {
+                  if (innerIndex === 0) {
+                    subtitle = index + 1 + ". \t" + listTitle;
+                  } else {
+                    subtitle = "\t\t" + listTitle;
+                  }
+                  return (
+                    <li key={subtitle} className={isAdjacent ? styles.listItem : styles.nothing}>
+                      <p className={styles.subtitle}>{subtitle}</p>
+                      <textarea
+                        className={styles.tabInput}
+                        onInput={handleChange}
+                        id={listTitle + ": " + index}
+                        value={textArray[innerIndex]}
+                      ></textarea>
+                    </li>
+                  );
+                });
+              })}
+            </ol>
+          )}
         </div>
       )}
     </div>

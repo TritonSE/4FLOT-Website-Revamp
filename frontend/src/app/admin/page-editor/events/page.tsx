@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from "react";
 
 import { getPageText, updatePage } from "../../../../api/pageeditor";
+import styles from "../about/page.module.css";
 
-import styles from "./page.module.css";
-
+import { updateRecord } from "@/api/records";
 import AlertBanner from "@/components/AlertBanner";
 import Button from "@/components/Button";
 import CancelButton from "@/components/CancelButton";
@@ -80,6 +80,11 @@ export default function EventsEditor() {
         .catch((error) => {
           alert(error);
         });
+      updateRecord("involved")
+        .then()
+        .catch((error) => {
+          alert(error);
+        });
       setIsEdited(false);
     }
     setWarningOpen(false);
@@ -141,8 +146,8 @@ export default function EventsEditor() {
         </div>
       </div>
       <PageToggle
-        pages={["Get Involved", "Upcoming Events"]}
-        links={["./involved", "./events"]}
+        pages={["Get Involved", "Upcoming Events", "Past Events"]}
+        links={["./involved", "./events", "./pastevents"]}
         currPage={1}
         refreshPage={true}
       />

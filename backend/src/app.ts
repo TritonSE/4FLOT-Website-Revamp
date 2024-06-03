@@ -16,6 +16,7 @@ import newsletterRoutes from "src/routes/newsletter"; // Import newsletter route
 import emailRoutes from "src/routes/emails";
 import pageeditorRoutes from "src/routes/pageeditor";
 import paypalRoutes from "src/routes/paypal";
+import recordRoutes from "src/routes/records";
 
 const app = express();
 
@@ -44,6 +45,7 @@ app.use("/api/newsletter", newsletterRoutes);
 app.use("/api/emails", emailRoutes);
 app.use("/api/pageeditor", pageeditorRoutes);
 app.use("/api/orders", paypalRoutes); // Donation Order routes
+app.use("/api/records", recordRoutes);
 
 /**
  * Error handler; all errors thrown by server are handled here.

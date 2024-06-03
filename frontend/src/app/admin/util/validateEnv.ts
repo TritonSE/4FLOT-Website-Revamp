@@ -4,7 +4,7 @@
  */
 
 import { cleanEnv } from "envalid";
-import { str, json } from "envalid/dist/validators";
+import { json, str } from "envalid/dist/validators";
 
 /**
  * NextJS only allows the frontend to access environment variables if they start with
