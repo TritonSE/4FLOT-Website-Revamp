@@ -51,12 +51,11 @@ export async function createEventDetails(
   eventDetails: CreateEventDetailsRequest,
 ): Promise<APIResult<EventDetails>> {
   try {
-    console.log("eventDetails", eventDetails);
     const response = await post("/api/eventDetails", eventDetails);
     const json = (await response.json()) as EventDetails;
     return { success: true, data: json };
   } catch (error) {
-    console.log(error);
+    console.log("error: ", error);
     return handleAPIError(error);
   }
 }
@@ -83,7 +82,6 @@ export async function updateEventDetails(
       "Content-Type": "application/json",
     });
     const json = (await response.json()) as EventDetails;
-    console.log("updateEventDetails json: ", json);
     return { success: true, data: json };
   } catch (error) {
     console.log("updateEventDetails error: ", error);

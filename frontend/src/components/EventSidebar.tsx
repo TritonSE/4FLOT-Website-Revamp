@@ -17,8 +17,8 @@ import { WarningModule } from "@/components/WarningModule";
 type eventSidebarProps = {
   eventDetails: null | EventDetails;
   setSidebarOpen: (open: boolean) => void;
-  updateEvent: (eventData: EventDetails) => void;
-  createEvent: (eventData: CreateEventDetailsRequest) => void;
+  updateEvent: (eventData: EventDetails) => Promise<void>;
+  createEvent: (eventData: CreateEventDetailsRequest) => Promise<void>;
 };
 
 type formErrors = {
@@ -125,7 +125,7 @@ const EventSidebar = ({
     }
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     setWarningOpen(false);
     console.log("handleSave");
 
@@ -153,7 +153,7 @@ const EventSidebar = ({
       setIsEditing(false);
       if (eventDetails) {
         console.log("eventDetails exist");
-        updateEvent({
+        await updateEvent({
           _id: eventDetails._id,
           name,
           description,
@@ -167,7 +167,7 @@ const EventSidebar = ({
         });
         console.log("after updating event");
       } else {
-        createEvent({
+        await createEvent({
           name,
           description,
           guidelines,

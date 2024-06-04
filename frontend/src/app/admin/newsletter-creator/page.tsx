@@ -170,33 +170,21 @@ export default function NewsletterCreator() {
   const handleSetSidebarOpen = (open: boolean) => {
     setSidebarOpen(open);
   };
-  const handleUpdateNewsletter = (newsletterData: Newsletter) => {
-    updateNewsletter(newsletterData)
-      .then((result) => {
-        if (result.success) {
-          // TODO: add success message, update table
-        } else {
-          console.error("ERROR:", result.error);
-        }
-      })
-      .catch((error) => {
-        alert(error);
-      });
+  const handleUpdateNewsletter = async (newsletterData: Newsletter) => {
+    const result = await updateNewsletter(newsletterData);
+    if (!result.success) {
+      console.log("result was not a success");
+      alert(result.error);
+      console.error("ERROR:", result.error);
+    }
   };
 
-  const handleCreateNewsletter = (newsletterData: CreateNewsletterRequest) => {
-    console.log(newsletterData);
-    createNewsletter(newsletterData)
-      .then((result) => {
-        if (result.success) {
-          //TODO: add success message, update table
-        } else {
-          console.error("ERROR:", result.error);
-        }
-      })
-      .catch((error) => {
-        alert(error);
-      });
+  const handleCreateNewsletter = async (newsletterData: CreateNewsletterRequest) => {
+    const result = await createNewsletter(newsletterData);
+    if (!result.success) {
+      console.error("ERROR:", result.error);
+      alert(result.error);
+    }
   };
 
   const handlePreviousPage = () => {

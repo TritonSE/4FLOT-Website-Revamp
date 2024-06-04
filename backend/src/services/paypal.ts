@@ -1,6 +1,8 @@
 const PAYPAL_CLIENT_ID = process.env.PAYPAL_CLIENT_ID;
 const PAYPAL_CLIENT_SECRET = process.env.PAYPAL_CLIENT_SECRET;
 
+console.log("CLIENT ID: ", PAYPAL_CLIENT_ID, " SECRET: ", PAYPAL_CLIENT_SECRET);
+
 const base = "https://api-m.sandbox.paypal.com";
 
 /**
@@ -24,6 +26,7 @@ const generateAccessToken = async () => {
       throw new Error("MISSING_PAYPAL_API_CREDENTIALS");
     }
     const auth = Buffer.from(PAYPAL_CLIENT_ID + ":" + PAYPAL_CLIENT_SECRET).toString("base64");
+    console.log("auth: ", auth);
     const response = await fetch(`${base}/v1/oauth2/token`, {
       method: "POST",
       body: "grant_type=client_credentials",
@@ -33,6 +36,7 @@ const generateAccessToken = async () => {
     });
 
     const data = await response.json();
+    console.log("ACCESS TOKEN RESPONSE: ", data);
     return data.access_token;
   } catch (error) {
     console.error("Failed to generate PayPal Access Token: ", error);
@@ -54,6 +58,7 @@ async function handleResponse(response: Response) {
 
 export async function createOrder(cart: Cart) {
   const accessToken = await generateAccessToken();
+  console.log("creating order with ", accessToken);
   const url = `${base}/v2/checkout/orders`;
   console.log("shopping cart info", cart);
 

@@ -117,8 +117,6 @@ export default function EventCreator() {
 
             const utcDateitem = dateObj.getTime();
 
-            console.log(utcDateitem);
-
             if (utcDateitem >= utcDateCurrent.getTime()) {
               return true;
             }
@@ -135,8 +133,6 @@ export default function EventCreator() {
           const filteredPast = result.data.filter((item) => {
             const dateObj = new Date(item.date);
             const utcDateitem = dateObj.getTime();
-
-            console.log(utcDateitem);
 
             if (utcDateitem < utcDateCurrent.getTime()) {
               return true;
@@ -221,34 +217,21 @@ export default function EventCreator() {
     }
     setSidebarOpen(open);
   };
-  const handleUpdateEvent = (eventData: EventDetails) => {
-    console.log("page.tsx handleUpdateEvent");
-    updateEventDetails(eventData)
-      .then((result) => {
-        if (!result.success) {
-          console.log("result was not a success");
-          alert(result.error);
-          console.error("ERROR:", result.error);
-        }
-      })
-      .catch((error) => {
-        console.log("catching error after updateEventDetails");
-        alert(error);
-      });
+  const handleUpdateEvent = async (eventData: EventDetails) => {
+    const result = await updateEventDetails(eventData);
+    if (!result.success) {
+      console.log("result was not a success");
+      alert(result.error);
+      console.error("ERROR:", result.error);
+    }
   };
 
-  const handleCreateEvent = (eventData: CreateEventDetailsRequest) => {
-    console.log("page.tsx eventData ", eventData);
-    createEventDetails(eventData)
-      .then((result) => {
-        if (!result.success) {
-          alert(result.error);
-          console.error("ERROR:", result.error);
-        }
-      })
-      .catch((error) => {
-        alert(error);
-      });
+  const handleCreateEvent = async (eventData: CreateEventDetailsRequest) => {
+    const result = await createEventDetails(eventData);
+    if (!result.success) {
+      console.error("ERROR:", result.error);
+      alert(result.error);
+    }
   };
 
   const handlePreviousPage = () => {

@@ -34,6 +34,7 @@ export const getEventDetails: RequestHandler = async (req, res, next) => {
 };
 
 export const createEventDetails: RequestHandler = async (req, res, next) => {
+  console.log("backend createEventDetails. req.body: ", req.body);
   const errors = validationResult(req);
   const {
     name,
@@ -62,6 +63,7 @@ export const createEventDetails: RequestHandler = async (req, res, next) => {
       description_short,
     });
 
+    // console.log("added eventDetails: ", eventDetails);
     res.status(201).json(eventDetails);
   } catch (error) {
     next(error);
