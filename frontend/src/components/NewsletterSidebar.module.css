@@ -43,6 +43,7 @@
 .sidebarContents {
   padding: 60px;
   padding-left: 35px;
+  width: 38vw;
 }
 
 .sidebarContents h1 {
@@ -82,7 +83,7 @@
 
 .sidebar button {
   display: flex;
-  padding: 4px 16px;
+  padding: 0 16px;
   justify-content: center;
   align-items: center;
   gap: 6px;
@@ -130,8 +131,9 @@
   direction: row;
   gap: 24px;
   justify-content: flex-end;
-  margin-right: 60px;
-  margin-bottom: 77px;
+  width: 33vw;
+  /* margin-right: 60px; */
+  /* margin-bottom: 77px; */
 }
 
 .deleteButtonWrapper {
@@ -159,11 +161,11 @@
 }
 
 .textField {
-  width: 454px;
+  width: 33vw;
 }
 
 .textArea {
-  width: 454px;
+  width: 33vw;
   height: 288px;
   padding: 12px;
   border: 1px solid #d8d8d8;

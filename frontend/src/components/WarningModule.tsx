@@ -73,7 +73,9 @@ export const WarningModule = ({
           </div>
         </div>
       </Modal>
-      <button onClick={handleOpen}>{children}</button>
+      <button className="w-full" onClick={handleOpen}>
+        {children}
+      </button>
     </div>
   );
 };
