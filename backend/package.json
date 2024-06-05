@@ -4,6 +4,7 @@
   "description": "",
   "main": "dist/server.js",
   "scripts": {
+    "build": "tsc && tsc-alias",
     "start": "nodemon src/server.ts",
     "format": "npm run check-git-hooks && prettier --write .",
     "lint-fix": "npm run check-git-hooks && (eslint --fix --cache --report-unused-disable-directives . || true) && prettier --write .",
@@ -23,7 +24,8 @@
     "http-errors": "^2.0.0",
     "module-alias": "^2.2.3",
     "mongodb": "^6.3.0",
-    "mongoose": "^8.0.3"
+    "mongoose": "^8.0.3",
+    "tsc-alias": "^1.8.10"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

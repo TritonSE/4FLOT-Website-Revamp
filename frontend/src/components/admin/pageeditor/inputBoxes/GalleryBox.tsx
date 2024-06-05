@@ -4,7 +4,7 @@ import { HiMiniMinusCircle } from "react-icons/hi2";
 
 import { Field, GalleryData, updatePageData } from "../../../../api/pageeditor";
 import { deleteFile } from "../../../../app/admin/util/pageeditUtil";
-import DeleteModal from "../../storage/DeleteModal";
+import { WarningModule } from "../../../../components/WarningModule";
 import GalleryDropzone from "../../storage/GalleryDropzone";
 import { usePage, usePageDispatch } from "../PageProvider";
 
@@ -34,12 +34,18 @@ const GalleryImage = ({ imageUrl, handleDelete }: GalleryImageProps) => {
         </div>
       </div>
       <div className="relative translate-x-[163px] -translate-y-[194px]">
-        <DeleteModal handleDelete={handleDelete} disabled={false}>
+        <WarningModule
+          titleText="Are you sure you want to delete this photo?"
+          subtitleText="This action is permanent and cannot be undone."
+          cancelText="No, Cancel"
+          actionText="Delete Photo"
+          action={handleDelete}
+        >
           <HiMiniMinusCircle
             color="#B93B3B"
             className="w-8 h-8 hover:w-9 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:h-9 transition-all duration-300"
           />
-        </DeleteModal>
+        </WarningModule>
       </div>
     </>
   );
@@ -50,8 +56,8 @@ export const GalleryBox = ({ field }: GalleryBoxProps) => {
   const dispatch = usePageDispatch();
   const data = field.data as GalleryData;
   const imageCount = data.images.length;
-  const hasMax = imageCount > 0;
   const maxImages = data.maxImages;
+  const hasMax = maxImages > 0;
 
   function handleUpdateOrder(newOrder: string[]) {
     dispatch({
@@ -79,13 +85,12 @@ export const GalleryBox = ({ field }: GalleryBoxProps) => {
     // remove image from local state
     dispatch({
       type: "edit_field",
-      setIsEdited: false,
       field: newField,
     });
     // remove image from mongodb
     updatePageData(page.name, {
       ...page,
-      isEdited: false,
+      // replace newField into page
       fields: page.fields.map((f: Field) => (newField.name === f.name ? newField : f)),
     })
       .then(() => {
@@ -100,7 +105,7 @@ export const GalleryBox = ({ field }: GalleryBoxProps) => {
       <Reorder.Group axis="x" values={data.images} onReorder={handleUpdateOrder}>
         <div className="flex flex-wrap gap-5 lg:gap-12 border-2 lg:justify-start md:justify-evenly border-gray-300/80 rounded-xl p-4">
           {data.images.map((imageUrl) => (
-            <Reorder.Item key={imageUrl.split("&token=")[1]} value={imageUrl}>
+            <Reorder.Item key={imageUrl.split("&token=")[1]} value={imageUrl} drag>
               <div className="w-44 h-44 cursor-grab active:cursor-grabbing active:scale-110 transition-all duration-200">
                 <GalleryImage
                   imageUrl={imageUrl}

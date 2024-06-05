@@ -11,6 +11,7 @@ type BackgroundHeaderProps = {
   description: string;
   interval?: number;
   button?: React.ReactNode;
+  pushUpButtons?: boolean;
 };
 
 const BackgroundHeader = ({
@@ -20,6 +21,7 @@ const BackgroundHeader = ({
   description,
   interval = 5000,
   button = null,
+  pushUpButtons = false,
 }: BackgroundHeaderProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -36,7 +38,6 @@ const BackgroundHeader = ({
     };
   }, [backgroundImageURIs.length, interval]);
 
-  console.log(backgroundImageURIs[activeIndex]);
   return (
     <div className="w-full h-[650px] relative">
       {backgroundImageURIs.map((uri, index) => (
@@ -48,7 +49,7 @@ const BackgroundHeader = ({
       ))}
       <div className={styles.overlay}></div>
       <div
-        className="flex justify-center items-center space-x-2 absolute bottom-20 left-1/2 transform -translate-x-1/2"
+        className={`flex justify-center items-center space-x-2 absolute ${pushUpButtons ? "bottom-44" : "bottom-20"} left-1/2 transform -translate-x-1/2`}
         style={{ gap: "10px" }}
       >
         <button

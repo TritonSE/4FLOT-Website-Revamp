@@ -11,8 +11,8 @@ export default function InvolvedEditorPage() {
   return (
     <main className={styles.page}>
       <PageToggle
-        pages={["Get Involved", "Upcoming Events"]}
-        links={["./involved", "./events"]}
+        pages={["Get Involved", "Upcoming Events", "Past Events"]}
+        links={["./involved", "./events", "./pastevents"]}
         currPage={0}
         refreshPage={true}
       />

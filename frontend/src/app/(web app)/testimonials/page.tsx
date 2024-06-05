@@ -1,33 +1,36 @@
+// "use client";
+
+// import React, { useEffect, useState } from "react";
+
+// import { getPageText } from "../../../api/pageeditor";
+// import { Testimonial, getAllTestimonials } from "../../../api/testimonial";
+
+// import styles from "./page.module.css";
+
+// import { BackgroundImage, BackgroundImagePages, getBackgroundImages } from "@/api/images";
+// import BackgroundHeader from "@/components/BackgroundHeader";
+
 "use client";
 
 import React, { useEffect, useState } from "react";
 
+import { getPageData } from "../../../api/pageeditor";
 import { Testimonial, getAllTestimonials } from "../../../api/testimonial";
+import { generatePageMap } from "../../../app/admin/util/pageeditUtil";
+import BackgroundHeader from "../../../components/BackgroundHeader";
 import TestimonialCard from "../../../components/TestimonialCard";
+import LoadingSpinner from "../../../components/admin/LoadingSpinner";
 
 import styles from "./page.module.css";
-
-import { BackgroundImage, BackgroundImagePages, getBackgroundImages } from "@/api/images";
-import BackgroundHeader from "@/components/BackgroundHeader";
 
 export default function Impact() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [events, setEvents] = useState<Testimonial[]>([]);
-  const [images, setImages] = useState<BackgroundImage[]>([]);
+  const [pageMap, setPageMap] = useState<Map<string, string | string[]>>();
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    getBackgroundImages(BackgroundImagePages.HOME)
-      .then((result) => {
-        if (result.success) {
-          setImages(result.data);
-        }
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  }, []);
-
-  useEffect(() => {
+  const loadTestimonials = () => {
+    console.log("getting from loadTestimonials");
     getAllTestimonials()
       .then((result) => {
         if (result.success) {
@@ -42,7 +45,29 @@ export default function Impact() {
       .catch((error) => {
         alert(error);
       });
+  };
+
+  const loadPage = () => {
+    getPageData("testimonials")
+      .then((response) => {
+        if (response.success) setPageMap(generatePageMap(response.data));
+        else throw new Error(response.error);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    loadTestimonials();
+    loadPage();
+    setLoading(false);
   }, []);
+
+  if (loading || !pageMap) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <main
@@ -52,20 +77,15 @@ export default function Impact() {
       }}
     >
       <BackgroundHeader
-        backgroundImageURIs={images.map((image) => image.imageURI)}
+        backgroundImageURIs={pageMap.get("Header Image Carousel") as string[]}
         header="OUR IMPACT"
         title="Testimonials"
-        description="4FLOT is committed in preventing and ending homelessness, hunger and disparity in underprivileged communities. "
+        description={pageMap.get("Subtitle") as string}
       />
       <div className={styles.page}>
         <div className={styles.textContainer}>
-          <div className={styles.subhead}>Read Our Stories</div>
-          <div className={styles.description}>
-            A nonprofit is as strong as the community that holds it up. Together, we can do more
-            than we can do alone. Let&apos;s bring our abilities and passions together to make real
-            change. Your donations will help feed and clothes our underprivileged and underserved
-            communities.
-          </div>
+          <div className={styles.subhead}>{pageMap.get("Stories Section Title") as string}</div>
+          <div className={styles.description}>{pageMap.get("Stories Body Text") as string}</div>
         </div>
         <div className={styles.quotes}>
           {testimonials.map((testimonial) => (
@@ -80,13 +100,8 @@ export default function Impact() {
           ))}
         </div>
         <div className={styles.textContainer}>
-          <div className={styles.subhead}>Where We&apos;ve Been</div>
-          <div className={styles.description}>
-            A nonprofit is as strong as the community that holds it up. Together, we can do more
-            than we can do alone. Let&apos;s bring our abilities and passions together to make real
-            change. Your donations will help feed and clothes our underprivileged and underserved
-            communities.
-          </div>
+          <div className={styles.subhead}>{pageMap.get("Events Section Title") as string}</div>
+          <div className={styles.description}>{pageMap.get("Events Body Text") as string}</div>
         </div>
 
         <div className={styles.events}>

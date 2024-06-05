@@ -12,7 +12,7 @@ export default function AboutEditorPage() {
   return (
     <main className={styles.page}>
       <PageToggle
-        pages={["About Us", "Our Mission", "Our Team", "Contact Us"]}
+        pages={["About Us", "Our Mission", "Our Team"]}
         links={["./about", "./mission", "./team", "./contact"]}
         currPage={0}
         refreshPage={true}

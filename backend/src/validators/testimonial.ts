@@ -5,7 +5,7 @@ const makeIDValidator = () =>
     .exists()
     .withMessage("_id is required")
     .bail()
-    .isMongoId()
+    .isString()
     .withMessage("_id must be a MongoDB object ID");
 
 const makeTitleValidator = () =>
@@ -36,28 +36,14 @@ const makeDescriptionValidator = () =>
     .withMessage("description cannot be empty");
 
 const makeImageValidator = () =>
-  body("image")
-    // title must exist, if not this message will be displayed
-    .exists()
-    .withMessage("image is required")
-    // bail prevents the remainder of the validation chain for this field from being executed if
-    // there was an error
-    .bail()
-    .isString()
-    .withMessage("image must be a string")
-    .bail()
-    .notEmpty()
-    .withMessage("image cannot be empty");
+  body("image").optional().isString().withMessage("image must be a string");
 
 export const createTestimonial = [
   makeTitleValidator(),
-  makeDescriptionValidator(),
   makeImageValidator(),
+  makeDescriptionValidator(),
 ];
 
-export const updateTestimonial = [
-  makeIDValidator(),
-  makeTitleValidator(),
-  makeDescriptionValidator(),
-  makeImageValidator(),
-];
+export const updateTestimonial = [makeIDValidator(), makeImageValidator()];
+
+export const deleteTestimonial = [makeIDValidator()];

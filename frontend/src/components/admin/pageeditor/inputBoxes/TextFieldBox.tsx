@@ -36,7 +36,11 @@ export const TextFieldBox = ({ field }: TextFieldProps) => {
   return (
     <div>
       <p className={styles.subtitle}>{field.name}</p>
-      <TextareaAutosize className={styles.basicInput} onInput={handleFieldChange} value={text} />
+      <TextareaAutosize
+        className={`${styles.basicInput} resize-none`}
+        onInput={handleFieldChange}
+        value={text}
+      />
     </div>
   );
 };

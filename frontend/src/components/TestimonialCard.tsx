@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React from "react";
 
 import styles from "./TestimonialCard.module.css";
@@ -6,7 +5,7 @@ import styles from "./TestimonialCard.module.css";
 import type { Testimonial } from "../api/testimonial";
 
 type CardProps = {
-  testimonial: Testimonial | null | undefined;
+  testimonial: Testimonial;
   cardWidth: number;
   cardHeight: number;
   imgWidth: number;
@@ -20,18 +19,30 @@ const TestimonialCard = ({
   imgWidth,
   imgHeight,
 }: CardProps) => {
+  const hasImage = testimonial.image !== "";
+  const title = testimonial.type === "quote" ? `"${testimonial.title}"` : testimonial.title;
   if (testimonial) {
     return (
-      <main
+      <div
         className={styles.testimonialCardContainer}
         style={{ width: `${cardWidth}px`, height: `${cardHeight}px` }}
       >
-        <Image src={testimonial.image} alt="image" width={imgWidth} height={imgHeight} />
+        <div
+          style={{
+            width: imgWidth,
+            height: imgHeight,
+            borderRadius: "10px 10px 0 0",
+            backgroundImage: `url(${hasImage ? testimonial.image : "/Checker.png"})`,
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+          }}
+        />
         <div className={styles.textContainer}>
-          <div className={styles.title}>&#8220;{testimonial.title}&#8221;</div>
+          <div className={styles.title}>{title}</div>
           <div className={styles.description}>{testimonial.description}</div>
         </div>
-      </main>
+      </div>
     );
   }
   return null;

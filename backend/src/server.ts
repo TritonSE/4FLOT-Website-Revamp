@@ -19,3 +19,5 @@ mongoose
     });
   })
   .catch(console.error);
+
+module.exports = app;

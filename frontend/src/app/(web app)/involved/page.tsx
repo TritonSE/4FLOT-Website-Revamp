@@ -39,17 +39,26 @@ export default function Involved() {
           header=""
           title="Get Involved"
           description={pageMap.get("Subtitle") as string}
+          pushUpButtons={true}
         />
       </div>
-      <div className={styles.cardsBackground}></div>
       <div className={styles.whiteCardsContainer}>
         <div className={styles.cards}>
+          <div className="z-10 -mt-40 bg-white w-min h-auto rounded-xl">
+            <WhiteCard
+              imageUrl="/cal.svg"
+              buttonUrl="/upcoming-events"
+              buttonText="Learn More"
+              title="Upcoming Events"
+              description={pageMap.get("Upcoming Events Subtitle") as string}
+            />
+          </div>
           <WhiteCard
-            imageUrl="/cal.svg"
-            buttonUrl="/upcoming-events"
+            imageUrl="/pastEvents.svg"
+            buttonUrl="/past-events"
             buttonText="Learn More"
-            title="Upcoming Events"
-            description={pageMap.get("Events Subtitle") as string}
+            title="Past Events"
+            description={pageMap.get("Past Events Subtitle") as string}
           />
           <WhiteCard
             imageUrl="/group.svg"

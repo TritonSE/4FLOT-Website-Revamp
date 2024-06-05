@@ -23,25 +23,23 @@ const WhiteCard: React.FC<WhiteCardProps> = ({
     <div className={styles.whiteCardContainer}>
       <div className={styles.contentContainer}>
         <div className={styles.dataContainer}>
-          <div className={styles.cardImageContainer}>
-            <div className={styles.imageContainer}>
-              <Image
-                src={imageUrl}
-                alt="Card image"
-                width={88} // Set the width to a fixed value
-                height={88} // Set the height to a fixed value
-                // layout="fill"
-                objectFit="cover"
-                className="card-image"
-                priority
-              />
-            </div>
+          <div className={styles.imageContainer}>
+            <Image
+              src={imageUrl}
+              alt="Card image"
+              width={88} // Set the width to a fixed value
+              height={88} // Set the height to a fixed value
+              className="card-image"
+              style={{ objectFit: "contain" }}
+              priority
+            />
           </div>
           <h2 className={styles.cardTitle}>{title}</h2>
           <p className={styles.cardDescription}>{description}</p>
         </div>
-
-        <Button text={buttonText} link={buttonUrl} />
+        <div className="m-1">
+          <Button text={buttonText} link={buttonUrl} />
+        </div>
       </div>
     </div>
   );

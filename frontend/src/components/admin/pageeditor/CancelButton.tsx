@@ -19,9 +19,9 @@ const CancelButton = ({ text, onClick }: ButtonProps) => {
           : { fontWeight: "650" }
       }
     >
-      <button className={styles.buttonBody} onClick={onClick}>
+      <div className={styles.buttonBody} onClick={onClick}>
         {text}
-      </button>
+      </div>
     </div>
   );
 };

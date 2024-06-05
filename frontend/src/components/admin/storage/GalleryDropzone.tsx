@@ -5,7 +5,7 @@ import React from "react";
 import Dropzone from "react-dropzone";
 import { useUploadFile } from "react-firebase-hooks/storage";
 
-import { Field, GalleryData } from "../../../api/pageeditor";
+import { Field, GalleryData, updatePageData } from "../../../api/pageeditor";
 import { createUniqueFilename } from "../../../app/admin/util/pageeditUtil";
 import { usePage, usePageDispatch } from "../pageeditor/PageProvider";
 
@@ -64,17 +64,25 @@ export default function GalleryDropzone({ field }: GalleryDropProps) {
   const disabled = capped || uploading;
 
   function handleAddImages(urls: string[]) {
+    // create shape for new field
+    const newField = {
+      ...field,
+      data: {
+        ...data,
+        images: [...data.images, ...urls],
+      },
+    };
+    // add image to local state
     dispatch({
       type: "edit_field",
-      setIsEdited: true,
-      field: {
-        ...field,
-        data: {
-          ...field.data,
-          images: [...data.images, ...urls],
-        },
-      },
+      field: newField,
     });
+    // add image to mongodb
+    updatePageData(page.name, {
+      ...page,
+      // replace newField into page
+      fields: page.fields.map((f: Field) => (newField.name === f.name ? newField : f)),
+    }).catch(console.error);
   }
 
   async function upload(file: File) {

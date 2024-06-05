@@ -4,9 +4,9 @@ import { useUploadFile } from "react-firebase-hooks/storage";
 
 import { Field, ImageData, updatePageData } from "../../../api/pageeditor";
 import { createUniqueFilename, deleteFile } from "../../../app/admin/util/pageeditUtil";
+import { WarningModule } from "../../../components/WarningModule";
 import { usePage, usePageDispatch } from "../pageeditor/PageProvider";
 
-import DeleteModal from "./DeleteModal";
 import { DeleteIcon, PhotoIcon, UploadIcon } from "./imageIcons";
 
 type ImageDropProps = {
@@ -28,18 +28,25 @@ export default function ImageDropzone({ field }: ImageDropProps) {
 
   function handleSetImage(url: string) {
     if (!hasImage) {
+      // create shape of new field
+      const newField = {
+        ...field,
+        data: {
+          ...data,
+          image: url,
+          hasImage: true,
+        },
+      };
+      // set image on local state
       dispatch({
         type: "edit_field",
-        setIsEdited: true,
-        field: {
-          ...field,
-          data: {
-            ...field.data,
-            image: url,
-            hasImage: true,
-          },
-        },
+        field: newField,
       });
+      // set image on mongodb
+      updatePageData(page.name, {
+        ...page,
+        fields: page.fields.map((f: Field) => (newField.name === f.name ? newField : f)),
+      }).catch(console.error);
     }
   }
 
@@ -57,13 +64,11 @@ export default function ImageDropzone({ field }: ImageDropProps) {
     // remove image string from local state
     dispatch({
       type: "edit_field",
-      setIsEdited: false,
       field: newField,
     });
     // remove image string from mongodb
     updatePageData(page.name, {
       ...page,
-      isEdited: false,
       fields: page.fields.map((f: Field) => (newField.name === f.name ? newField : f)),
     })
       .then(() => {
@@ -101,9 +106,15 @@ export default function ImageDropzone({ field }: ImageDropProps) {
         <p className="ml-4 mr-auto text-[#484848] text-sm font-normal font-['Open Sans'] select-none">
           {ref(storage, data.image).name}
         </p>
-        <DeleteModal handleDelete={handleUnsetImage} disabled={uploading}>
+        <WarningModule
+          titleText="Are you sure you want to delete this photo?"
+          subtitleText="This action is permanent and cannot be undone."
+          cancelText="No, Cancel"
+          actionText="Delete Photo"
+          action={handleUnsetImage}
+        >
           <DeleteIcon />
-        </DeleteModal>
+        </WarningModule>
       </div>
     );
   } else {

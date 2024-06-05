@@ -38,6 +38,12 @@ const NavigationBar = () => {
             setActivePageEditor("Get Involved");
           } else if (url.endsWith("events")) {
             setActivePageEditor("Upcoming Events");
+          } else if (url.endsWith("impact")) {
+            setActivePageEditor("Our Impact");
+          } else if (url.endsWith("testimonials")) {
+            setActivePageEditor("Testimonials");
+          } else if (url.endsWith("newsletter")) {
+            setActivePageEditor("Newsletter");
           }
           return "Page Editor";
         } else if (url === "/admin/newsletter-creator") {
@@ -62,7 +68,7 @@ const NavigationBar = () => {
     setActivePageEditor("");
   };
   return (
-    <main>
+    <div>
       <div className={styles.headerBar}>
         <div className={styles.title}>
           <p>{activeMenu}</p>
@@ -163,7 +169,7 @@ const NavigationBar = () => {
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 };
 
