@@ -9,6 +9,7 @@ import styles from "./NewsletterSidebar.module.css";
 import { TextField } from "./TextField";
 import { WarningModule } from "./WarningModule";
 import SimpleImageDropzone from "./admin/storage/SimpleImageDropzone";
+
 import { deleteFile } from "@/app/admin/util/pageeditUtil";
 
 type newsletterSidebarProps = {
@@ -52,21 +53,6 @@ const NewsletterSidebar = ({
     setIsDeleting(false);
     setErrors({});
     setSidebarOpen(false);
-  };
-
-  const handleCloseSidebar = () => {
-    if (
-      title !== (newsletter ? newsletter.title : "") ||
-      description !== (newsletter ? newsletter.description : "") ||
-      date !== (newsletter ? newsletter.date : "") ||
-      image !== (newsletter ? newsletter.image : "") ||
-      content !== (newsletter ? newsletter.content : [])
-    ) {
-      // not
-    } else {
-      confirmCancel();
-      setSidebarOpen(false);
-    }
   };
 
   const handleSave = () => {
