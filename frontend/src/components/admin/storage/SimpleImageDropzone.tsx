@@ -4,25 +4,30 @@ import { useUploadFile } from "react-firebase-hooks/storage";
 
 import { createUniqueFilename, deleteFile } from "../../../app/admin/util/pageeditUtil";
 import { WarningModule } from "../../WarningModule";
-import { usePage } from "../pageeditor/PageProvider";
 
 import { DeleteIcon, PhotoIcon, UploadIcon } from "./imageIcons";
 
 type ImageDropProps = {
+  folder: string;
   url: string;
   setUrl: (url: string) => void;
   onDelete?: () => void;
+  onUpload?: (url: string) => void;
 };
 
-export default function SimpleImageDropzone({ url, setUrl, onDelete }: ImageDropProps) {
+export default function SimpleImageDropzone({
+  folder,
+  url,
+  setUrl,
+  onDelete,
+  onUpload,
+}: ImageDropProps) {
   const storage = getStorage();
   const [uploadFile, uploading, snapshot, error] = useUploadFile();
   const accept = {
     "image/*": [".jpeg", ".jpg", ".png"],
   };
 
-  const page = usePage();
-  const folder = page.name.toLowerCase().replace(/\s/g, "");
   const hasImage = url !== "";
 
   async function upload(file: File) {
@@ -43,6 +48,7 @@ export default function SimpleImageDropzone({ url, setUrl, onDelete }: ImageDrop
     upload(image)
       .then((u) => {
         setUrl(u);
+        if (onUpload) onUpload(u);
       })
       .catch(console.error);
   }

@@ -8,6 +8,8 @@ import AlertBanner from "./AlertBanner";
 import styles from "./NewsletterSidebar.module.css";
 import { TextField } from "./TextField";
 import { WarningModule } from "./WarningModule";
+import SimpleImageDropzone from "./admin/storage/SimpleImageDropzone";
+import { deleteFile } from "@/app/admin/util/pageeditUtil";
 
 type newsletterSidebarProps = {
   newsletter: null | Newsletter;
@@ -20,6 +22,7 @@ type formErrors = {
   title?: boolean;
   description?: boolean;
   date?: boolean;
+  image?: boolean;
   content?: boolean;
 };
 
@@ -32,6 +35,7 @@ const NewsletterSidebar = ({
   const [title, setTitle] = useState(newsletter ? newsletter.title : "");
   const [description, setDescription] = useState(newsletter ? newsletter.description : "");
   const [date, setDate] = useState(newsletter ? newsletter.date : "");
+  const [image, setImage] = useState(newsletter ? newsletter.image : "");
   const [content, setContent] = useState(newsletter ? newsletter.content : "");
   const [isEditing, setIsEditing] = useState<boolean>(!newsletter);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
@@ -42,6 +46,7 @@ const NewsletterSidebar = ({
     setTitle(newsletter ? newsletter.title : "");
     setDescription(newsletter ? newsletter.description : "");
     setDate(newsletter ? newsletter.date : "");
+    setImage(newsletter ? newsletter.image : "");
     setContent(newsletter ? newsletter.content : "");
     setIsEditing(false);
     setIsDeleting(false);
@@ -54,6 +59,7 @@ const NewsletterSidebar = ({
       title !== (newsletter ? newsletter.title : "") ||
       description !== (newsletter ? newsletter.description : "") ||
       date !== (newsletter ? newsletter.date : "") ||
+      image !== (newsletter ? newsletter.image : "") ||
       content !== (newsletter ? newsletter.content : [])
     ) {
       // not
@@ -64,11 +70,12 @@ const NewsletterSidebar = ({
   };
 
   const handleSave = () => {
-    if (title === "" || description === "" || date === "" || content.length === 0) {
+    if (title === "" || description === "" || date === "" || image === "" || content.length === 0) {
       setErrors({
         title: title === "",
         description: description === "",
         date: date === "",
+        image: image === "",
         content: content.length === 0,
       });
     } else {
@@ -76,18 +83,18 @@ const NewsletterSidebar = ({
       if (newsletter) {
         updateNewsletter({
           _id: newsletter._id,
-          image: newsletter.image,
           title,
           description,
           date,
+          image,
           content,
         });
       } else {
         createNewsletter({
-          image: "/newsletter2.png",
           title,
           description,
           date,
+          image,
           content,
         });
       }
@@ -98,8 +105,34 @@ const NewsletterSidebar = ({
     }
   };
 
+  // handle changing url on newsletter to "" if user deletes image
+  const onImageDelete = () => {
+    setImage("");
+    // immediately update newsletter, can't undo image delete
+    if (newsletter) {
+      updateNewsletter({
+        ...newsletter,
+        image: "",
+      });
+    }
+  };
+
+  // handle updating image on image dropzone upload
+  const onImageUpload = (url: string) => {
+    // can't undo image upload, save immediately
+    if (newsletter) {
+      updateNewsletter({
+        ...newsletter,
+        image: url,
+      });
+    }
+  };
+
   const handleDelete = () => {
     if (newsletter) {
+      // delete image from firebase
+      deleteFile(image).catch(console.error);
+      // delete newsletter
       deleteNewsletter(newsletter._id)
         .then((result) => {
           if (result.success) {
@@ -162,7 +195,14 @@ const NewsletterSidebar = ({
           <h2>Date & Time</h2>
           <p>{date}</p>
           <h2>Newsletter Cover</h2>
-          <p>Placeholder - to be replaced with image</p>
+          <SimpleImageDropzone
+            folder="newsletter-editor"
+            url={image}
+            setUrl={setImage}
+            onDelete={onImageDelete}
+            onUpload={onImageUpload}
+          />
+          {/* <p>Placeholder - to be replaced with image</p> */}
           <h2>Newsletter Content</h2>
           <pre className={styles.content}>{content}</pre>
           {/* Delete button */}
@@ -195,15 +235,21 @@ const NewsletterSidebar = ({
   if (isEditing) {
     return (
       <div className={styles.sidebar}>
-        <div
-          className={styles.closeWindow}
-          onClick={() => {
-            handleCloseSidebar();
+        <WarningModule
+          titleText="You have unsaved changes!"
+          subtitleText="Do you want to save the changes you made to this event?"
+          cancelText="Discard changes"
+          actionText="Save changes"
+          cancel={confirmCancel}
+          action={() => {
+            setSidebarOpen(false);
           }}
         >
-          <Image src="/ic_doublecaretright.svg" alt="test" width={24} height={24} />
-          <p>Close Window</p>
-        </div>
+          <div className={styles.closeWindow}>
+            <Image src="/ic_doublecaretright.svg" alt="test" width={24} height={24} />
+            <p>Close Window</p>
+          </div>
+        </WarningModule>
         <div className={styles.sidebarContents}>
           <div className={styles.header}>
             <h1>Newsletter Details</h1>
@@ -238,7 +284,14 @@ const NewsletterSidebar = ({
                 error={errors.date}
               />
               <h2>Newsletter Cover</h2>
-              <p>Placeholder - to be replaced with image</p>
+              <SimpleImageDropzone
+                folder="newsletter-editor"
+                url={image}
+                setUrl={setImage}
+                onDelete={onImageDelete}
+                onUpload={onImageUpload}
+              />
+              {/* <p>Placeholder - to be replaced with image</p> */}
               <h2>Newsletter Content</h2>
               <textarea
                 id="textarea"
@@ -318,7 +371,14 @@ const NewsletterSidebar = ({
           <h2>Date & Time</h2>
           <p>{date}</p>
           <h2>Newsletter Cover</h2>
-          <p>Placeholder - to be replaced with image</p>
+          <SimpleImageDropzone
+            folder="newsletter-editor"
+            url={image}
+            setUrl={setImage}
+            onDelete={onImageDelete}
+            onUpload={onImageUpload}
+          />
+          {/* <p>Placeholder - to be replaced with image</p> */}
           <h2>Newsletter Content</h2>
           <pre className={styles.content}>{content}</pre>
           {/* Delete button */}

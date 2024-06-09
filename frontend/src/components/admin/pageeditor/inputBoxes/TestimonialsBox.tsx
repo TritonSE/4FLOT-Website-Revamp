@@ -115,7 +115,11 @@ export default function TestimonialsBox({
         </div>
         <div className="w-[469px] mb-2">
           <p className="mb-[2px] text-base font-normal font-['Open Sans']">Image</p>
-          <SimpleImageDropzone url={testimonialState.image} setUrl={handleSetUrl} />
+          <SimpleImageDropzone
+            folder="testimonials"
+            url={testimonialState.image}
+            setUrl={handleSetUrl}
+          />
         </div>
       </div>
     </div>

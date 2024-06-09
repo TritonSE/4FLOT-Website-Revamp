@@ -105,7 +105,11 @@ export default function MemberBox({
         </div>
         <div className="w-[469px] mb-2">
           <p className="mb-[2px] text-base font-normal font-['Open Sans']">Image</p>
-          <SimpleImageDropzone url={memberState.profilePictureURL ?? ""} setUrl={handleSetUrl} />
+          <SimpleImageDropzone
+            folder="team"
+            url={memberState.profilePictureURL ?? ""}
+            setUrl={handleSetUrl}
+          />
         </div>
       </div>
     </div>

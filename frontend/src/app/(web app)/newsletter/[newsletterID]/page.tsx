@@ -70,7 +70,7 @@ export default function NewsletterDisplay({ params }: Props) {
         </div>
 
         <Image
-          src={newsletter?.image ?? "image not found"}
+          src={newsletter?.image ?? "/Checker.png"}
           alt="Description of the image"
           style={{
             border: "1px solid #000",

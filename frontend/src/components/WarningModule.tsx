@@ -73,9 +73,9 @@ export const WarningModule = ({
           </div>
         </div>
       </Modal>
-      <button className="w-full" onClick={handleOpen}>
+      <div className="w-full cursor-pointer" onClick={handleOpen}>
         {children}
-      </button>
+      </div>
     </div>
   );
 };
