@@ -55,23 +55,6 @@ const EventSidebar = ({
   const [warningOpen, setWarningOpen] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
-  // useEffect(() => {
-  //   if (date && startTime && endTime) {
-  //     const [startHour, startMinute] = startTime.split(":");
-  //     const [endHour, endMinute] = endTime.split(":");
-  //     const updatedStartDate = new Date(date);
-  //     const updatedEndDate = new Date(date);
-
-  //     updatedStartDate.setHours(parseInt(startHour), parseInt(startMinute));
-  //     updatedEndDate.setHours(parseInt(endHour), parseInt(endMinute));
-
-  //     setDate(updatedStartDate);
-  //     setEndTime(
-  //       updatedEndDate.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }),
-  //     );
-  //   }
-  // }, [startTime, endTime]);
-
   const confirmCancel = () => {
     setName(eventDetails ? eventDetails.name : "");
     setDescription(eventDetails ? eventDetails.description : "");
@@ -427,7 +410,12 @@ const EventSidebar = ({
             <p>Cancel</p>
           </button>
           {/* Save button */}
-          <button onClick={handleSave} className={styles.saveButton}>
+          <button
+            onClick={() => {
+              void handleSave();
+            }}
+            className={styles.saveButton}
+          >
             <p>Save</p>
           </button>
         </div>
@@ -441,7 +429,9 @@ const EventSidebar = ({
                 cancelText="Discard changes"
                 actionText="Save changes"
                 cancel={confirmCancel}
-                action={handleSave}
+                action={() => {
+                  void handleSave();
+                }}
                 onClose={() => {
                   setWarningOpen(false);
                 }}

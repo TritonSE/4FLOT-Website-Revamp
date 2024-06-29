@@ -219,7 +219,9 @@ const NewsletterSidebar = ({
             cancelText="Discard changes"
             actionText="Save changes"
             cancel={confirmCancel}
-            action={handleSave}
+            action={() => {
+              void handleSave();
+            }}
             onClose={() => {
               setWarningOpen(false);
             }}
@@ -288,7 +290,12 @@ const NewsletterSidebar = ({
             <p>Cancel</p>
           </button>
           {/* Save button */}
-          <button onClick={handleSave} className={styles.saveButton}>
+          <button
+            onClick={() => {
+              setIsEditing(true);
+            }}
+            className={styles.saveButton}
+          >
             <p>Save</p>
           </button>
         </div>
