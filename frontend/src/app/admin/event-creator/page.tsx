@@ -13,75 +13,115 @@ import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
 
 import {
-  CreateNewsletterRequest,
-  Newsletter,
-  createNewsletter,
-  getAllNewsletters,
-  getNewsletter,
-  updateNewsletter,
-} from "@/api/newsletter";
-import NewsletterSidebar from "@/components/NewsletterSidebar";
+  CreateEventDetailsRequest,
+  EventDetails,
+  createEventDetails,
+  getAllEventDetails,
+  getEventDetails,
+  updateEventDetails,
+} from "@/api/eventDetails";
+import EventSidebar from "@/components/EventSidebar";
 import PageToggle from "@/components/PageToggle";
 
-export default function NewsletterCreator() {
+export default function EventCreator() {
   const columns: GridColDef<(typeof rows)[number]>[] = [
     {
-      field: "title",
-      headerName: "Newsletter Title",
-      width: 372.29,
+      field: "name",
+      headerName: "Event Title",
+      width: 223,
       editable: false,
       resizable: false,
       headerClassName: `${styles.headingBackground} ${styles.cellBorderStyle} ${styles.Headings}`,
       cellClassName: `${styles.cellEntry} ${styles.cellBorderStyle}`,
       disableColumnMenu: true,
-      renderHeader: () => <div>Newsletter Title</div>,
+      renderHeader: () => <div>Event Title</div>,
     },
     {
-      field: "description",
-      headerName: "Subtitle",
-      width: 372.29,
+      field: "description_short",
+      headerName: "Description Short",
+      width: 223,
       editable: false,
       resizable: false,
       headerClassName: `${styles.Headings} ${styles.headingBackground} ${styles.cellBorderStyle}`,
       cellClassName: `${styles.cellEntry} ${styles.cellBorderStyle}`,
       disableColumnMenu: true,
-      renderHeader: () => <div>Subtitle</div>,
+      renderHeader: () => <div>Description (short)</div>,
     },
 
     {
-      field: "date",
-      headerName: "Date",
-      width: 372.29,
+      field: "description",
+      headerName: "Description Long",
+      width: 223,
       editable: false,
       resizable: false,
       headerClassName: `${styles.Headings} ${styles.headingBackground} ${styles.cellBorderStyle}`,
       cellClassName: `${styles.cellEntry} ${styles.cellBorderStyle}`,
       disableColumnMenu: true,
-      renderHeader: () => <div>Date</div>,
+      renderHeader: () => <div>Description (long)</div>,
+    },
+    {
+      field: "date",
+      headerName: "DateTime",
+      width: 223,
+      editable: false,
+      resizable: false,
+      headerClassName: `${styles.Headings} ${styles.headingBackground} ${styles.cellBorderStyle}`,
+      cellClassName: `${styles.cellEntry} ${styles.cellBorderStyle}`,
+      disableColumnMenu: true,
+      renderHeader: () => <div>Date/Time</div>,
+      renderCell: (params) => {
+        const { date, startTime, endTime } = params.row;
+        const formattedDate = new Date(date).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+        return `${formattedDate}. ${startTime} - ${endTime}`;
+      },
+    },
+
+    {
+      field: "location",
+      headerName: "Location",
+      width: 225.4,
+      editable: false,
+      resizable: false,
+      headerClassName: `${styles.Headings} ${styles.headingBackground} ${styles.cellBorderStyle}`,
+      cellClassName: `${styles.cellEntry} ${styles.cellBorderStyle}`,
+      disableColumnMenu: true,
+      renderHeader: () => <div>Location</div>,
     },
   ];
 
-  const [rows, setRow] = useState<Newsletter[]>([]);
+  const [rows, setRow] = useState<EventDetails[]>([]);
   const [rowsCurrent, setRowsCurrent] = React.useState(rows);
-  const [currentNewsletters, setCurrentNewsletters] = useState<Newsletter[]>([]);
-  const [archiveNewsletters, setArchiveNewsletters] = useState<Newsletter[]>([]);
+  const [currentEvents, setCurrentEvents] = useState<EventDetails[]>([]);
+  const [pastEvents, setPastEvents] = useState<EventDetails[]>([]);
   const [pageToggle, setPageToggle] = useState(0);
   const [selectedRow, setSelectedRow] = useState<GridRowId | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(Math.ceil(rows.length / 14));
-  const [selectedNewsletter, setSelectedNewsletter] = useState<Newsletter | null>(null);
+  const [selectedEvent, setSelectedEvent] = useState<EventDetails | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [rerenderKey, setRerenderKey] = useState(0);
 
   useEffect(() => {
-    getAllNewsletters()
+    getAllEventDetails()
       .then((result) => {
         if (result.success) {
-          const currentYear = new Date().getFullYear();
+          console.log(result.data);
+          const now = new Date();
+          const utcDateCurrent = now;
 
           const filteredCurrent = result.data.filter((item) => {
-            const itemDate = new Date(item.date);
-            return itemDate.getFullYear() === currentYear;
+            const dateObj = new Date(item.date);
+
+            const utcDateitem = dateObj.getTime();
+
+            if (utcDateitem >= utcDateCurrent.getTime()) {
+              return true;
+            }
+            return false;
           });
 
           const formattedCurrentRows = filteredCurrent.map((item) => ({
@@ -89,19 +129,26 @@ export default function NewsletterCreator() {
             id: item._id.toString(),
           }));
 
-          setCurrentNewsletters(formattedCurrentRows);
+          console.log("current: ", formattedCurrentRows);
+          setCurrentEvents(formattedCurrentRows);
 
-          const filteredArchive = result.data.filter((item) => {
-            const itemDate = new Date(item.date);
-            return itemDate.getFullYear() < currentYear;
+          const filteredPast = result.data.filter((item) => {
+            const dateObj = new Date(item.date);
+            const utcDateitem = dateObj.getTime();
+
+            if (utcDateitem < utcDateCurrent.getTime()) {
+              return true;
+            }
+            return false;
           });
 
-          const formattedArchiveRows = filteredArchive.map((item) => ({
+          const formattedPastRows = filteredPast.map((item) => ({
             ...item,
             id: item._id.toString(),
           }));
 
-          setArchiveNewsletters(formattedArchiveRows);
+          console.log("past: ", formattedPastRows);
+          setPastEvents(formattedPastRows);
 
           setRow(formattedCurrentRows);
           setRowsCurrent(formattedCurrentRows);
@@ -116,10 +163,10 @@ export default function NewsletterCreator() {
 
   useEffect(() => {
     if (selectedRow) {
-      getNewsletter(selectedRow?.toString())
+      getEventDetails(selectedRow?.toString())
         .then((result) => {
           if (result.success) {
-            setSelectedNewsletter(result.data);
+            setSelectedEvent(result.data);
             setRerenderKey((prevKey) => prevKey + 1);
           } else {
             console.error("ERROR:", result.error);
@@ -129,7 +176,7 @@ export default function NewsletterCreator() {
           alert(error);
         });
     } else {
-      setSelectedNewsletter(null);
+      setSelectedEvent(null);
     }
   }, [selectedRow]);
 
@@ -142,17 +189,17 @@ export default function NewsletterCreator() {
   const handleTogglePage = (index: number) => {
     if (index === 0) {
       setCurrentPage(1);
-      setRowsCurrent(currentNewsletters);
-      setTotalPages(Math.ceil(currentNewsletters.length / 14));
+      setRowsCurrent(currentEvents);
+      setTotalPages(Math.ceil(currentEvents.length / 14));
     } else if (index === 1) {
       setCurrentPage(1);
-      setRowsCurrent(archiveNewsletters);
-      setTotalPages(Math.ceil(archiveNewsletters.length / 14));
+      setRowsCurrent(pastEvents);
+      setTotalPages(Math.ceil(pastEvents.length / 14));
     }
     setPageToggle(index);
   };
 
-  const openNewsletter = (createNew: boolean) => {
+  const openEvent = (createNew: boolean) => {
     if (createNew) {
       setSelectedRow(null);
     }
@@ -162,20 +209,24 @@ export default function NewsletterCreator() {
   useEffect(() => {
     // Update total pages when rows change
     setTotalPages(Math.ceil(rows.length / 14));
+    console.log("rows.length: ", rows.length);
   }, [rows]);
 
   const handleCellClick: GridEventListener<"rowClick"> = (params) => {
     if (!sidebarOpen) {
       setSelectedRow(params.id === selectedRow ? null : params.id);
-      openNewsletter(false);
+      openEvent(false);
     }
   };
 
   const handleSetSidebarOpen = (open: boolean) => {
+    if (!open) {
+      setSelectedRow(null);
+    }
     setSidebarOpen(open);
   };
-  const handleUpdateNewsletter = async (newsletterData: Newsletter) => {
-    const result = await updateNewsletter(newsletterData);
+  const handleUpdateEvent = async (eventData: EventDetails) => {
+    const result = await updateEventDetails(eventData);
     if (!result.success) {
       console.log("result was not a success");
       alert(result.error);
@@ -183,8 +234,8 @@ export default function NewsletterCreator() {
     }
   };
 
-  const handleCreateNewsletter = async (newsletterData: CreateNewsletterRequest) => {
-    const result = await createNewsletter(newsletterData);
+  const handleCreateEvent = async (eventData: CreateEventDetailsRequest) => {
+    const result = await createEventDetails(eventData);
     if (!result.success) {
       console.error("ERROR:", result.error);
       alert(result.error);
@@ -221,12 +272,12 @@ export default function NewsletterCreator() {
       <Box sx={{ height: 720, width: 1119, justifyContent: "space-between" }}>
         {sidebarOpen && (
           <div className={`${styles.sidebarContainer} ${sidebarOpen ? styles.open : ""}`}>
-            <NewsletterSidebar
+            <EventSidebar
               key={rerenderKey}
-              newsletter={selectedNewsletter}
+              eventDetails={selectedEvent}
               setSidebarOpen={handleSetSidebarOpen}
-              updateNewsletter={handleUpdateNewsletter}
-              createNewsletter={handleCreateNewsletter}
+              updateEvent={handleUpdateEvent}
+              createEvent={handleCreateEvent}
             />
           </div>
         )}
@@ -250,7 +301,7 @@ export default function NewsletterCreator() {
             }}
           >
             <PageToggle
-              pages={["Current Newsletter", "Archive"]}
+              pages={["Current Events", "Past Events"]}
               onTogglePage={handleTogglePage}
               currPage={pageToggle}
             />
@@ -264,34 +315,36 @@ export default function NewsletterCreator() {
               alignItems: "center",
             }}
           >
-            <button
-              onClick={() => {
-                openNewsletter(true);
-              }}
-              style={{
-                position: "relative",
-                fontFamily: "Open Sans",
-                fontWeight: 700,
-                fontSize: "16px",
-                lineHeight: "24px",
-                letterSpacing: "0.32",
-                width: 196,
-                height: 40,
-                backgroundColor: "#694C97",
-                color: "#FFF",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                borderRadius: "4px",
-              }}
-            >
-              <img
-                src="/ic_add.svg"
-                alt="Add Icon"
-                style={{ width: 24, height: 24, marginRight: 5 }}
-              />
-              Add Newsletter
-            </button>
+            {
+              <button
+                onClick={() => {
+                  openEvent(true);
+                }}
+                style={{
+                  position: "relative",
+                  fontFamily: "Open Sans",
+                  fontWeight: 700,
+                  fontSize: "16px",
+                  lineHeight: "24px",
+                  letterSpacing: "0.32",
+                  width: 196,
+                  height: 40,
+                  backgroundColor: "#694C97",
+                  color: "#FFF",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: "4px",
+                }}
+              >
+                <img
+                  src="/ic_add.svg"
+                  alt="Add Icon"
+                  style={{ width: 24, height: 24, marginRight: 5 }}
+                />
+                Add Event
+              </button>
+            }
           </Box>
         </Box>
 

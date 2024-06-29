@@ -13,8 +13,8 @@ import { WarningModule } from "@/components/WarningModule";
 type newsletterSidebarProps = {
   newsletter: null | Newsletter;
   setSidebarOpen: (open: boolean) => void;
-  updateNewsletter: (newsletterData: Newsletter) => void;
-  createNewsletter: (newsletterData: CreateNewsletterRequest) => void;
+  updateNewsletter: (newsletterData: Newsletter) => Promise<void>;
+  createNewsletter: (newsletterData: CreateNewsletterRequest) => Promise<void>;
 };
 
 type formErrors = {
@@ -79,7 +79,7 @@ const NewsletterSidebar = ({
     }
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     setWarningOpen(false);
     if (title === "" || description === "" || date === "" || content.length === 0) {
       setErrors({
@@ -91,7 +91,7 @@ const NewsletterSidebar = ({
     } else {
       setIsEditing(false);
       if (newsletter) {
-        updateNewsletter({
+        await updateNewsletter({
           _id: newsletter._id,
           image: newsletter.image,
           title,
@@ -100,7 +100,7 @@ const NewsletterSidebar = ({
           content,
         });
       } else {
-        createNewsletter({
+        await createNewsletter({
           image: "/newsletter2.png",
           title,
           description,
@@ -219,7 +219,9 @@ const NewsletterSidebar = ({
             cancelText="Discard changes"
             actionText="Save changes"
             cancel={confirmCancel}
-            action={handleSave}
+            action={() => {
+              void handleSave();
+            }}
             onClose={() => {
               setWarningOpen(false);
             }}
@@ -288,7 +290,12 @@ const NewsletterSidebar = ({
             <p>Cancel</p>
           </button>
           {/* Save button */}
-          <button onClick={handleSave} className={styles.saveButton}>
+          <button
+            onClick={() => {
+              setIsEditing(true);
+            }}
+            className={styles.saveButton}
+          >
             <p>Save</p>
           </button>
         </div>

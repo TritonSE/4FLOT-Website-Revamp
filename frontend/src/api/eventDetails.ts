@@ -1,4 +1,4 @@
-import { get, handleAPIError, post, put } from "./requests";
+import { del, get, handleAPIError, post, put } from "./requests";
 
 import type { APIResult } from "./requests";
 
@@ -8,8 +8,11 @@ export type EventDetails = {
   description: string;
   guidelines: string;
   date: string;
+  startTime: string;
+  endTime: string;
   location: string;
   imageURI: string;
+  description_short: string;
 };
 
 export async function getEventDetails(id: string): Promise<APIResult<EventDetails>> {
@@ -32,13 +35,16 @@ export async function getAllEventDetails(): Promise<APIResult<EventDetails[]>> {
   }
 }
 
-type CreateEventDetailsRequest = {
+export type CreateEventDetailsRequest = {
   name: string;
   description: string;
   guidelines: string;
   date: string;
+  startTime: string;
+  endTime: string;
   location: string;
   imageURI: string;
+  description_short: string;
 };
 
 export async function createEventDetails(
@@ -49,18 +55,22 @@ export async function createEventDetails(
     const json = (await response.json()) as EventDetails;
     return { success: true, data: json };
   } catch (error) {
+    console.log("error: ", error);
     return handleAPIError(error);
   }
 }
 
-type UpdateEventDetailsRequest = {
+export type UpdateEventDetailsRequest = {
   _id: string;
   name: string;
   description: string;
   guidelines: string;
   date: string;
+  startTime: string;
+  endTime: string;
   location: string;
   imageURI: string;
+  description_short: string;
 };
 
 export async function updateEventDetails(
@@ -71,6 +81,17 @@ export async function updateEventDetails(
     const response = await put(`/api/eventDetails/${id}`, eventDetails, {
       "Content-Type": "application/json",
     });
+    const json = (await response.json()) as EventDetails;
+    return { success: true, data: json };
+  } catch (error) {
+    console.log("updateEventDetails error: ", error);
+    return handleAPIError(error);
+  }
+}
+
+export async function deleteEventDetails(id: string): Promise<APIResult<EventDetails>> {
+  try {
+    const response = await del(`/api/eventDetails/${id}`);
     const json = (await response.json()) as EventDetails;
     return { success: true, data: json };
   } catch (error) {
