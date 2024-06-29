@@ -5,8 +5,11 @@ const eventDetailsSchema = new Schema({
   description: { type: String, required: true },
   guidelines: { type: String, required: true },
   date: { type: String, required: true },
+  startTime: { type: String, required: true },
+  endTime: { type: String, required: true },
   location: { type: String, required: true },
   imageURI: { type: String, required: true },
+  description_short: { type: String, required: true },
 });
 
 type EventDetails = InferSchemaType<typeof eventDetailsSchema>;

@@ -15,8 +15,8 @@ import { deleteFile } from "@/app/admin/util/pageeditUtil";
 type newsletterSidebarProps = {
   newsletter: null | Newsletter;
   setSidebarOpen: (open: boolean) => void;
-  updateNewsletter: (newsletterData: Newsletter) => void;
-  createNewsletter: (newsletterData: CreateNewsletterRequest) => void;
+  updateNewsletter: (newsletterData: Newsletter) => Promise<void>;
+  createNewsletter: (newsletterData: CreateNewsletterRequest) => Promise<void>;
 };
 
 type formErrors = {
@@ -55,7 +55,7 @@ const NewsletterSidebar = ({
     setSidebarOpen(false);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (title === "" || description === "" || date === "" || image === "" || content.length === 0) {
       setErrors({
         title: title === "",
@@ -67,7 +67,7 @@ const NewsletterSidebar = ({
     } else {
       setIsEditing(false);
       if (newsletter) {
-        updateNewsletter({
+        await updateNewsletter({
           _id: newsletter._id,
           title,
           description,
@@ -76,7 +76,7 @@ const NewsletterSidebar = ({
           content,
         });
       } else {
-        createNewsletter({
+        await createNewsletter({
           title,
           description,
           date,
@@ -228,7 +228,7 @@ const NewsletterSidebar = ({
           actionText="Save changes"
           cancel={confirmCancel}
           action={() => {
-            setSidebarOpen(false);
+            void handleSave();
           }}
         >
           <div className={styles.closeWindow}>

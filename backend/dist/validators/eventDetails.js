@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getEventDetails = exports.createEventDetails = void 0;
+exports.deleteEventDetails = exports.getEventDetails = exports.createEventDetails = void 0;
 const express_validator_1 = require("express-validator");
 const makeIDValidator = () => (0, express_validator_1.body)("_id")
     .exists()
@@ -47,6 +47,12 @@ const makeImageURIValidator = () => (0, express_validator_1.body)("imageURI")
     .bail()
     .isURL()
     .withMessage("imageURI must be a URL");
+const makeDescriptionShortValidator = () => (0, express_validator_1.body)("description_short")
+    .exists()
+    .withMessage("description_short is required")
+    .bail()
+    .isString()
+    .withMessage("description_short must be a string");
 exports.createEventDetails = [
     makeNameValidator(),
     makeDescriptionValidator(),
@@ -54,5 +60,7 @@ exports.createEventDetails = [
     makeDateValidator(),
     makeLocationValidator(),
     makeImageURIValidator(),
+    makeDescriptionShortValidator(),
 ];
 exports.getEventDetails = [makeIDValidator()];
+exports.deleteEventDetails = [makeIDValidator()];

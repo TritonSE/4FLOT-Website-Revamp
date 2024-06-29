@@ -25,7 +25,6 @@ const createEmail = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
             questionType = "Other message";
         }
         else {
-            console.log("question: " + question);
             questionType = question.split(" ").slice(3).join(" ");
             questionType = questionType[0].toUpperCase() + questionType.slice(1);
         }

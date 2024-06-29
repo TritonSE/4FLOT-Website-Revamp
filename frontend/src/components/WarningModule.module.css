@@ -79,3 +79,15 @@
   gap: 6px;
   border-radius: 4px;
 }
+
+.wrapper button img {
+  padding: 4px;
+}
+
+.wrapper button p {
+  font: var(--text-body);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 150%; /* 30px */
+  letter-spacing: 0.7px;
+}

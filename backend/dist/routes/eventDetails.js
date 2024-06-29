@@ -35,4 +35,5 @@ router.get("/:id", EventDetailsValidator.getEventDetails, EventDetailsController
 router.put("/:id", // getEventDetails validator works to just check ID
 EventDetailsValidator.getEventDetails, EventDetailsController.updateEventDetails);
 router.post("/", EventDetailsValidator.createEventDetails, EventDetailsController.createEventDetails);
+router.delete("/:id", EventDetailsValidator.deleteEventDetails, EventDetailsController.deleteEventDetails);
 exports.default = router;

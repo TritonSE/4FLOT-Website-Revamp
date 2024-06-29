@@ -52,6 +52,13 @@ const makeImageURIValidator = () =>
     .bail()
     .isURL()
     .withMessage("imageURI must be a URL");
+const makeDescriptionShortValidator = () =>
+  body("description_short")
+    .exists()
+    .withMessage("description_short is required")
+    .bail()
+    .isString()
+    .withMessage("description_short must be a string");
 
 export const createEventDetails = [
   makeNameValidator(),
@@ -60,6 +67,8 @@ export const createEventDetails = [
   makeDateValidator(),
   makeLocationValidator(),
   makeImageURIValidator(),
+  makeDescriptionShortValidator(),
 ];
 
 export const getEventDetails = [makeIDValidator()];
+export const deleteEventDetails = [makeIDValidator()];
