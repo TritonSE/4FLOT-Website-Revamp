@@ -109,6 +109,7 @@ export default function EventCreator() {
     getAllEventDetails()
       .then((result) => {
         if (result.success) {
+          console.log(result.data);
           const now = new Date();
           const utcDateCurrent = now;
 
@@ -128,6 +129,7 @@ export default function EventCreator() {
             id: item._id.toString(),
           }));
 
+          console.log("current: ", formattedCurrentRows);
           setCurrentEvents(formattedCurrentRows);
 
           const filteredPast = result.data.filter((item) => {
@@ -145,6 +147,7 @@ export default function EventCreator() {
             id: item._id.toString(),
           }));
 
+          console.log("past: ", formattedPastRows);
           setPastEvents(formattedPastRows);
 
           setRow(formattedCurrentRows);
@@ -185,9 +188,13 @@ export default function EventCreator() {
 
   const handleTogglePage = (index: number) => {
     if (index === 0) {
+      setCurrentPage(1);
       setRowsCurrent(currentEvents);
+      setTotalPages(Math.ceil(currentEvents.length / 14));
     } else if (index === 1) {
+      setCurrentPage(1);
       setRowsCurrent(pastEvents);
+      setTotalPages(Math.ceil(pastEvents.length / 14));
     }
     setPageToggle(index);
   };
@@ -202,6 +209,7 @@ export default function EventCreator() {
   useEffect(() => {
     // Update total pages when rows change
     setTotalPages(Math.ceil(rows.length / 14));
+    console.log("rows.length: ", rows.length);
   }, [rows]);
 
   const handleCellClick: GridEventListener<"rowClick"> = (params) => {
@@ -307,7 +315,7 @@ export default function EventCreator() {
               alignItems: "center",
             }}
           >
-            {pageToggle === 0 && (
+            {
               <button
                 onClick={() => {
                   openEvent(true);
@@ -336,7 +344,7 @@ export default function EventCreator() {
                 />
                 Add Event
               </button>
-            )}
+            }
           </Box>
         </Box>
 

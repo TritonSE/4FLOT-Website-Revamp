@@ -141,9 +141,13 @@ export default function NewsletterCreator() {
 
   const handleTogglePage = (index: number) => {
     if (index === 0) {
+      setCurrentPage(1);
       setRowsCurrent(currentNewsletters);
+      setTotalPages(Math.ceil(currentNewsletters.length / 14));
     } else if (index === 1) {
+      setCurrentPage(1);
       setRowsCurrent(archiveNewsletters);
+      setTotalPages(Math.ceil(archiveNewsletters.length / 14));
     }
     setPageToggle(index);
   };
