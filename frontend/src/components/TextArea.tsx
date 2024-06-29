@@ -2,15 +2,18 @@ import React from "react";
 
 import styles from "./TextField.module.css";
 
-export type TextFieldProps = {
+export type TextAreaProps = {
   label: string;
   error?: boolean;
-} & Omit<React.ComponentProps<"input">, "type">;
+} & Omit<React.ComponentProps<"textarea">, "type">;
 
-export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function TextField(
-  { label, error = false, className, placeholder, ...props },
-  ref,
-) {
+export const TextArea = function ({
+  label,
+  error = false,
+  className,
+  placeholder,
+  ...props
+}: TextAreaProps) {
   let wrapperClass = styles.wrapper;
   if (className) {
     wrapperClass += ` ${className}`;
@@ -23,8 +26,8 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(func
     <div className={wrapperClass}>
       <label className={styles.label}>
         <p>{label}</p>
-        <input ref={ref} type="text" className={inputClass} {...props} placeholder={placeholder} />
+        <textarea className={inputClass} {...props} placeholder={placeholder} />
       </label>
     </div>
   );
-});
+};

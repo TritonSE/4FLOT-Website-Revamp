@@ -11,6 +11,7 @@ import { WarningModule } from "./WarningModule";
 import SimpleImageDropzone from "./admin/storage/SimpleImageDropzone";
 
 import { deleteFile } from "@/app/admin/util/pageeditUtil";
+import { TextArea } from "./TextArea";
 
 type newsletterSidebarProps = {
   newsletter: null | Newsletter;
@@ -223,7 +224,7 @@ const NewsletterSidebar = ({
       <div className={styles.sidebar}>
         <WarningModule
           titleText="You have unsaved changes!"
-          subtitleText="Do you want to save the changes you made to this event?"
+          subtitleText="Do you want to save the changes you made to this newsletter?"
           cancelText="Discard changes"
           actionText="Save changes"
           cancel={confirmCancel}
@@ -277,9 +278,9 @@ const NewsletterSidebar = ({
                 onDelete={onImageDelete}
                 onUpload={onImageUpload}
               />
-              {/* <p>Placeholder - to be replaced with image</p> */}
-              <h2>Newsletter Content</h2>
-              <textarea
+
+              <TextArea
+                label="Newsletter Content"
                 id="textarea"
                 className={`${styles.textArea} ${styles.stretch}`}
                 value={content}
@@ -287,6 +288,7 @@ const NewsletterSidebar = ({
                   console.log("onChange");
                   setContent(event.target.value);
                 }}
+                error={errors.content}
               />
             </div>
           </form>
@@ -296,7 +298,7 @@ const NewsletterSidebar = ({
             {/* Cancel button */}
             <WarningModule
               titleText="You have unsaved changes!"
-              subtitleText="Do you want to save the changes you made to this event?"
+              subtitleText="Do you want to save the changes you made to this newsletter?"
               cancelText="Discard changes"
               actionText="Save changes"
               cancel={confirmCancel}
@@ -309,7 +311,12 @@ const NewsletterSidebar = ({
               </div>
             </WarningModule>
             {/* Save button */}
-            <button onClick={handleSave} className={styles.saveButton}>
+            <button
+              onClick={() => {
+                void handleSave();
+              }}
+              className={styles.saveButton}
+            >
               <p>Save</p>
             </button>
           </div>

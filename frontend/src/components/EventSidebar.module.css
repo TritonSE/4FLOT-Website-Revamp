@@ -167,11 +167,11 @@
 }
 
 .textField {
-  width: 454px;
+  width: 33vw;
 }
 
 .textFieldSmall {
-  width: 240px;
+  width: 33vw;
 }
 
 .textFieldSmallest {
@@ -179,21 +179,11 @@
 }
 
 .textArea {
-  width: 454px;
-  height: 80px;
-  padding: 11px;
-  border: 1px solid #d8d8d8;
-  border-radius: 4px;
-  font-size: 14px;
+  width: 33vw;
 }
 
 .textAreaLong {
-  width: 454px;
-  height: 120px;
-  padding: 10px;
-  border: 1px solid #d8d8d8;
-  border-radius: 4px;
-  font-size: 14px;
+  width: 33vw;
 }
 
 .textAreaContent {

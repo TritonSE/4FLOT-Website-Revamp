@@ -132,8 +132,6 @@
   gap: 24px;
   justify-content: flex-end;
   width: 33vw;
-  /* margin-right: 60px; */
-  /* margin-bottom: 77px; */
 }
 
 .deleteButtonWrapper {
@@ -163,13 +161,8 @@
 .textField {
   width: 33vw;
 }
-
 .textArea {
   width: 33vw;
-  height: 288px;
-  padding: 12px;
-  border: 1px solid #d8d8d8;
-  border-radius: 4px;
 }
 
 .content {
