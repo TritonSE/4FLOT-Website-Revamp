@@ -12,7 +12,7 @@ type WarningModuleProps = {
   cancelText: string;
   actionText: string;
   cancel?: () => void;
-  action: () => void;
+  action: () => unknown;
   children: ReactNode;
 };
 

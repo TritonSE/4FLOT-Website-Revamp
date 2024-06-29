@@ -1,7 +1,8 @@
 import React from "react";
 
-import { CharacterCount } from "@/components/CharacterCount";
 import { TextArea } from "./TextArea";
+
+import { CharacterCount } from "@/components/CharacterCount";
 
 export type TextAreaCharLimitProps = {
   label: string;

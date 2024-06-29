@@ -6,12 +6,12 @@ import { CreateNewsletterRequest, Newsletter, deleteNewsletter } from "../api/ne
 
 import AlertBanner from "./AlertBanner";
 import styles from "./NewsletterSidebar.module.css";
+import { TextArea } from "./TextArea";
 import { TextField } from "./TextField";
 import { WarningModule } from "./WarningModule";
 import SimpleImageDropzone from "./admin/storage/SimpleImageDropzone";
 
 import { deleteFile } from "@/app/admin/util/pageeditUtil";
-import { TextArea } from "./TextArea";
 
 type newsletterSidebarProps = {
   newsletter: null | Newsletter;
@@ -93,11 +93,11 @@ const NewsletterSidebar = ({
   };
 
   // handle changing url on newsletter to "" if user deletes image
-  const onImageDelete = () => {
+  const onImageDelete = async () => {
     setImage("");
     // immediately update newsletter, can't undo image delete
     if (newsletter) {
-      updateNewsletter({
+      await updateNewsletter({
         ...newsletter,
         image: "",
       });
@@ -105,10 +105,10 @@ const NewsletterSidebar = ({
   };
 
   // handle updating image on image dropzone upload
-  const onImageUpload = (url: string) => {
+  const onImageUpload = async (url: string) => {
     // can't undo image upload, save immediately
     if (newsletter) {
-      updateNewsletter({
+      await updateNewsletter({
         ...newsletter,
         image: url,
       });

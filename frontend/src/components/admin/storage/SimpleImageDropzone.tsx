@@ -11,8 +11,8 @@ type ImageDropProps = {
   folder: string;
   url: string;
   setUrl: (url: string) => void;
-  onDelete?: () => void;
-  onUpload?: (url: string) => void;
+  onDelete?: () => unknown;
+  onUpload?: (url: string) => unknown;
 };
 
 export default function SimpleImageDropzone({

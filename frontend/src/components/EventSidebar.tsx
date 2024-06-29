@@ -4,16 +4,16 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-import { CreateEventDetailsRequest, EventDetails, deleteEventDetails } from "../api/eventDetails";
+import { CreateEventDetailsRequest, EventDetails } from "../api/eventDetails";
 
 import styles from "./EventSidebar.module.css";
+import { TextArea } from "./TextArea";
 import { TextAreaCharLimit } from "./TextAreaCharLimit";
 import { TextFieldCharLimit } from "./TextFieldCharLimit";
 
 import AlertBanner from "@/components/AlertBanner";
 import { TextField } from "@/components/TextField";
 import { WarningModule } from "@/components/WarningModule";
-import { TextArea } from "./TextArea";
 
 type eventSidebarProps = {
   eventDetails: null | EventDetails;
@@ -53,7 +53,6 @@ const EventSidebar = ({
   const [isEditing, setIsEditing] = useState<boolean>(!eventDetails);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [errors, setErrors] = useState<formErrors>({});
-  const [warningOpen, setWarningOpen] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
   const confirmCancel = () => {
@@ -68,51 +67,10 @@ const EventSidebar = ({
     setIsEditing(false);
     setIsDeleting(false);
     setErrors({});
-    setWarningOpen(false);
     setSidebarOpen(false);
   };
 
-  const handleCancel = () => {
-    const defaultDate = new Date();
-    if (
-      name !== (eventDetails ? eventDetails.name : "") ||
-      description !== (eventDetails ? eventDetails.description : "") ||
-      description_short !== (eventDetails ? eventDetails.description_short : "") ||
-      date !== (eventDetails ? new Date(eventDetails.date) : defaultDate) ||
-      startTime !== (eventDetails ? eventDetails.startTime : "") ||
-      endTime !== (eventDetails ? eventDetails.endTime : "") ||
-      location !== (eventDetails ? eventDetails.location : "") ||
-      guidelines !== (eventDetails ? eventDetails.guidelines : "")
-    ) {
-      setWarningOpen(true);
-    } else {
-      confirmCancel();
-    }
-  };
-
-  const handleCloseSidebar = () => {
-    const defaultDate = new Date();
-    if (
-      name !== (eventDetails ? eventDetails.name : "") ||
-      description !== (eventDetails ? eventDetails.description : "") ||
-      description_short !== (eventDetails ? eventDetails.description_short : "") ||
-      date !== (eventDetails ? new Date(eventDetails.date) : defaultDate) ||
-      startTime !== (eventDetails ? eventDetails.startTime : "") ||
-      endTime !== (eventDetails ? eventDetails.endTime : "") ||
-      location !== (eventDetails ? eventDetails.location : "") ||
-      guidelines !== (eventDetails ? eventDetails.guidelines : "")
-    ) {
-      setWarningOpen(true);
-    } else {
-      confirmCancel();
-      setSidebarOpen(false);
-    }
-  };
-
   const handleSave = async () => {
-    setWarningOpen(false);
-    console.log("handleSave");
-
     if (
       name === "" ||
       description === "" ||
@@ -176,23 +134,6 @@ const EventSidebar = ({
 
   const handleDelete = () => {
     setIsDeleting(true);
-  };
-
-  const confirmDelete = () => {
-    if (eventDetails) {
-      deleteEventDetails(eventDetails._id)
-        .then((result) => {
-          if (result.success) {
-            window.location.reload();
-          } else {
-            console.error("ERROR:", result.error);
-          }
-        })
-        .catch((error) => {
-          alert(error);
-        });
-      setSidebarOpen(false);
-    }
   };
 
   const alertContent = {
