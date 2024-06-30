@@ -100,7 +100,7 @@ const LoginForm = ({ setForgotPass }: LoginFormProps) => {
                     if (e.key === "Enter") {
                       e.preventDefault();
                       handleSubmit(e).catch((error) => {
-                        console.log(error);
+                        console.error(error);
                       });
                     }
                   }}
@@ -127,7 +127,7 @@ const LoginForm = ({ setForgotPass }: LoginFormProps) => {
                 onClick={(e: React.FormEvent<HTMLButtonElement>) => {
                   e.preventDefault();
                   handleSubmit(e).catch((error) => {
-                    console.log(error);
+                    console.error(error);
                   });
                 }}
               >

@@ -177,7 +177,6 @@ export default function NewsletterCreator() {
   const handleUpdateNewsletter = async (newsletterData: Newsletter) => {
     const result = await updateNewsletter(newsletterData);
     if (!result.success) {
-      console.log("result was not a success");
       alert(result.error);
       console.error("ERROR:", result.error);
     }

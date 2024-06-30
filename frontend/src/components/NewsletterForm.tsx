@@ -82,9 +82,7 @@ const NewsletterForm: React.FC<NewsLetterFormProps> = ({
               quarterlyUpdates,
               specialUpdates,
             }).then(
-              () => {
-                console.log("Email sent!");
-              },
+              () => {},
               (error) => {
                 alert(error);
               },

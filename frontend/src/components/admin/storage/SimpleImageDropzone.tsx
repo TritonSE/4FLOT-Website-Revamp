@@ -37,8 +37,7 @@ export default function SimpleImageDropzone({
     await uploadFile(storageRef, file);
     const _url = await getDownloadURL(storageRef);
 
-    if (error) console.log(error);
-    if (snapshot) console.log(snapshot);
+    if (error) console.error(error);
 
     return _url;
   }

@@ -117,7 +117,6 @@ const EventSidebar = ({
     } else {
       setIsEditing(false);
       if (eventDetails) {
-        console.log("eventDetails exist");
         await updateEvent({
           _id: eventDetails._id,
           name,
@@ -130,7 +129,6 @@ const EventSidebar = ({
           imageURI: image,
           description_short,
         });
-        console.log("after updating event");
       } else {
         await createEvent({
           name,
@@ -143,14 +141,12 @@ const EventSidebar = ({
           imageURI: image,
           description_short,
         });
-        console.log("after creating event");
       }
 
       setIsEditing(false);
       setErrors({});
       setShowAlert(true);
       window.location.reload();
-      console.log("last line in save");
     }
   };
 
@@ -185,7 +181,6 @@ const EventSidebar = ({
       deleteEventDetails(eventDetails._id)
         .then((result) => {
           if (result.success) {
-            console.log("successful deletion");
           } else {
             console.error("ERROR:", result.error);
           }

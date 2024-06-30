@@ -109,7 +109,6 @@ export default function EventCreator() {
     getAllEventDetails()
       .then((result) => {
         if (result.success) {
-          console.log(result.data);
           const now = new Date();
           const utcDateCurrent = now;
 
@@ -129,7 +128,6 @@ export default function EventCreator() {
             id: item._id.toString(),
           }));
 
-          console.log("current: ", formattedCurrentRows);
           setCurrentEvents(formattedCurrentRows);
 
           const filteredPast = result.data.filter((item) => {
@@ -147,7 +145,6 @@ export default function EventCreator() {
             id: item._id.toString(),
           }));
 
-          console.log("past: ", formattedPastRows);
           setPastEvents(formattedPastRows);
 
           setRow(formattedCurrentRows);
@@ -209,7 +206,6 @@ export default function EventCreator() {
   useEffect(() => {
     // Update total pages when rows change
     setTotalPages(Math.ceil(rows.length / 14));
-    console.log("rows.length: ", rows.length);
   }, [rows]);
 
   const handleCellClick: GridEventListener<"rowClick"> = (params) => {
@@ -228,7 +224,6 @@ export default function EventCreator() {
   const handleUpdateEvent = async (eventData: EventDetails) => {
     const result = await updateEventDetails(eventData);
     if (!result.success) {
-      console.log("result was not a success");
       alert(result.error);
       console.error("ERROR:", result.error);
     }

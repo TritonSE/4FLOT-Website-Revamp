@@ -61,7 +61,6 @@ async function handleResponse(response: Response) {
 
 export async function createOrder(cart: Cart) {
   const accessToken = await generateAccessToken();
-  console.log("creating order with ", accessToken);
   const url = `${base}/v2/checkout/orders`;
 
   const payload = {

@@ -83,7 +83,6 @@ const updateEventDetails = (req, res, next) => __awaiter(void 0, void 0, void 0,
         const updatedEventDetails = yield eventDetails_1.default.findById(id);
         if (updatedEventDetails === null) {
             // No event found, something went wrong
-            console.log("updatedEventDetails is null");
             res.status(404);
         }
         res.status(200).json(updatedEventDetails);

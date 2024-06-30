@@ -135,7 +135,6 @@ const NewsletterSidebar = ({
       deleteNewsletter(newsletter._id)
         .then((result) => {
           if (result.success) {
-            console.log("successful deletion");
           } else {
             console.error("ERROR:", result.error);
           }
@@ -179,7 +178,6 @@ const NewsletterSidebar = ({
             <button
               onClick={() => {
                 setIsEditing(true);
-                console.log("isEditing:", isEditing);
               }}
               className={styles.editButton}
             >
@@ -302,7 +300,6 @@ const NewsletterSidebar = ({
                 className={`${styles.textArea} ${styles.stretch}`}
                 value={content}
                 onChange={(event) => {
-                  console.log("onChange");
                   setContent(event.target.value);
                 }}
                 error={errors.content}
@@ -366,7 +363,6 @@ const NewsletterSidebar = ({
             <button
               onClick={() => {
                 setIsEditing(true);
-                console.log("isEditing:", isEditing);
               }}
               className={styles.editButton}
             >

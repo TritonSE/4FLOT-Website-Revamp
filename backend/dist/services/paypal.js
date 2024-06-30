@@ -12,7 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.captureOrder = exports.createOrder = void 0;
 const PAYPAL_CLIENT_ID = process.env.PAYPAL_CLIENT_ID;
 const PAYPAL_CLIENT_SECRET = process.env.PAYPAL_CLIENT_SECRET;
-const base = "https://api-m.sandbox.paypal.com";
+const ORIGIN_URL = process.env.FRONTEND_ORIGIN;
+const base = "https://api-m.paypal.com";
 /**
  * Generate an OAuth 2.0 token to authenticate with PayPal REST APIs
  * @see https://developer.paypal.com/api/rest/authentication/
@@ -23,12 +24,16 @@ const generateAccessToken = () => __awaiter(void 0, void 0, void 0, function* ()
             throw new Error("MISSING_PAYPAL_API_CREDENTIALS");
         }
         const auth = Buffer.from(PAYPAL_CLIENT_ID + ":" + PAYPAL_CLIENT_SECRET).toString("base64");
+        const headersList = {
+            Accept: "*/*",
+            "User-Agent": `4 Future Leaders Of Tomorrow Web App (${ORIGIN_URL})`,
+            "Content-Type": "application/x-www-form-urlencoded",
+            Authorization: `Basic ${auth}`,
+        };
         const response = yield fetch(`${base}/v1/oauth2/token`, {
             method: "POST",
             body: "grant_type=client_credentials",
-            headers: {
-                Authorization: `Basic ${auth}`,
-            },
+            headers: headersList,
         });
         const data = yield response.json();
         return data.access_token;
@@ -56,7 +61,6 @@ function createOrder(cart) {
     return __awaiter(this, void 0, void 0, function* () {
         const accessToken = yield generateAccessToken();
         const url = `${base}/v2/checkout/orders`;
-        console.log("shopping cart info", cart);
         const payload = {
             intent: "CAPTURE",
             purchase_units: [

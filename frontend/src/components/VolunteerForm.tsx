@@ -69,7 +69,6 @@ const VolunteerForm: React.FC<VolunteerFormProps> = ({
       setEmailError("");
     }
 
-    console.log(phoneNumber);
     validatePhoneNumber(phoneNumber);
 
     if (!validatePhoneNumber(phoneNumber)) {
@@ -78,7 +77,6 @@ const VolunteerForm: React.FC<VolunteerFormProps> = ({
     } else {
       setPhoneNumberError("");
     }
-    console.log(allowSubmit);
 
     return allowSubmit;
   };
@@ -102,9 +100,7 @@ const VolunteerForm: React.FC<VolunteerFormProps> = ({
               phoneNumber,
               receiveNews,
             }).then(
-              () => {
-                console.log("Email sent!");
-              },
+              () => {},
               (error) => {
                 alert(error);
               },
