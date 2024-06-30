@@ -3,6 +3,8 @@ import Image from "next/image";
 import React, { useState } from "react";
 
 import styles from "./Collapsable.module.css";
+// import { usePage } from "./admin/pageeditor/PageProvider";
+// import { GalleryBox } from "./admin/pageeditor/inputBoxes/GalleryBox";
 
 type CollapsableProps = {
   title: string;
@@ -25,6 +27,7 @@ const Collapsable = ({
   isAdjacent,
 }: CollapsableProps) => {
   const [open, setOpen] = useState<boolean>(true);
+  // const page = usePage();
 
   const toggleSection = () => {
     setOpen(!open);
@@ -32,11 +35,16 @@ const Collapsable = ({
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     // Auto increase height when typing
-    event.target.style.height = "auto";
-    event.target.style.height = 2 + event.target.scrollHeight + "px";
+    if (event && event.target) {
+      event.target.style.height = "auto";
+      event.target.style.height = 2 + event.target.scrollHeight + "px";
+    }
     // Call onChange function
     onChange(event);
   };
+
+  // const field = page.fields[page.fields.findIndex((f) => f.name === title)];
+  // const hasGalleryBox = field.type === "gallery";
 
   return (
     <div>

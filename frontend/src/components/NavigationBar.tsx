@@ -68,7 +68,7 @@ const NavigationBar = () => {
     setActivePageEditor("");
   };
   return (
-    <main>
+    <div>
       <div className={styles.headerBar}>
         <div className={styles.title}>
           <p>{activeMenu}</p>
@@ -169,7 +169,7 @@ const NavigationBar = () => {
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 };
 

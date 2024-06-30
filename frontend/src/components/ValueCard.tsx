@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 import styles from "./ValueCard.module.css";
@@ -12,7 +13,14 @@ const ValueCard = ({ iconSrc, title, description }: ValueCardProps) => {
   return (
     <div className={styles.customRectangle}>
       <div className={styles.circleWhite}>
-        <img src={iconSrc} alt="Image 1" className={styles.centeredImage} />
+        <Image
+          src={iconSrc}
+          alt="Value Icon"
+          width={90}
+          height={90}
+          className={styles.centeredImage}
+          style={{ objectFit: "fill" }}
+        />
       </div>
       <div className={styles.RectangleTitle}>{title}</div>
       <div className={styles.BodytextInsideRectangle}>{description}</div>

@@ -285,11 +285,7 @@ export default function NewsletterCreator() {
                 borderRadius: "4px",
               }}
             >
-              <img
-                src="/ic_add.svg"
-                alt="Add Icon"
-                style={{ width: 24, height: 24, marginRight: 5 }}
-              />
+              <Image src="/ic_add.svg" alt="Add Icon" width={24} height={24} className="mr-1.5" />
               Add Newsletter
             </button>
           </Box>

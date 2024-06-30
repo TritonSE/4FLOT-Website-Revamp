@@ -5,6 +5,7 @@ import { TextField } from "@/components/TextField";
 
 export type TextFieldCharLimitProps = {
   label: string;
+  className: string;
   placeholder: string;
   value: string;
   maxCount: number;
@@ -14,6 +15,7 @@ export type TextFieldCharLimitProps = {
 
 export const TextFieldCharLimit = ({
   label,
+  className,
   placeholder,
   value,
   maxCount,
@@ -24,6 +26,7 @@ export const TextFieldCharLimit = ({
     <div>
       <TextField
         label={label}
+        className={className}
         placeholder={placeholder}
         value={value}
         onChange={onChange}

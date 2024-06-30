@@ -2,35 +2,22 @@
 
 import React, { useEffect, useState } from "react";
 
-import { getPageText } from "../../../api/pageeditor";
+import { Member, getAllMembers } from "../../../api/member";
+import { getPageData } from "../../../api/pageeditor";
+import { generatePageMap } from "../../../app/admin/util/pageeditUtil";
+import BackgroundHeader from "../../../components/BackgroundHeader";
+import MemberInfo from "../../../components/MemberInfo";
+import LoadingSpinner from "../../../components/admin/LoadingSpinner";
 
 import styles from "./page.module.css";
 
-import { BackgroundImage, BackgroundImagePages, getBackgroundImages } from "@/api/images";
-import { Member, getAllMembers } from "@/api/member";
-import BackgroundHeader from "@/components/BackgroundHeader";
-import MemberInfo from "@/components/MemberInfo";
-
 export default function Team() {
   const [members, setMembers] = useState<Member[]>([]);
-  const [images, setImages] = useState<BackgroundImage[]>([]);
-  const [phSubtitle, setPhSubtitle] = useState<string>("");
-  const [s1Subtitle, setS1Subtitle] = useState<string>("");
-  const [s1Text, setS1Text] = useState<string>("");
+  const [pageMap, setPageMap] = useState<Map<string, string | string[]>>();
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    getBackgroundImages(BackgroundImagePages.TEAM)
-      .then((result) => {
-        if (result.success) {
-          setImages(result.data);
-        }
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  }, []);
-
-  useEffect(() => {
+  const loadMembers = () => {
+    setLoading(true);
     getAllMembers()
       .then((result) => {
         if (result.success) {
@@ -43,37 +30,44 @@ export default function Team() {
       .catch((error) => {
         alert(error);
       });
-  }, []);
+    setLoading(false);
+  };
 
-  let pageText;
-  useEffect(() => {
-    getPageText("Our Team")
+  const loadPage = () => {
+    setLoading(true);
+    getPageData("team")
       .then((response) => {
-        if (response.success) {
-          pageText = response.data;
-          setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
-          setS1Subtitle(pageText.pageSections[1].sectionTitle ?? "");
-          setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
-        } else {
-          alert(response.error);
-        }
+        if (response.success) setPageMap(generatePageMap(response.data));
+        else throw new Error(response.error);
       })
       .catch((error) => {
         alert(error);
       });
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    loadMembers();
+    loadPage();
   }, []);
+
+  if (loading || !pageMap) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <div>
       <BackgroundHeader
-        backgroundImageURIs={images.map((image) => image.imageURI)}
+        backgroundImageURIs={pageMap.get("Header Image Carousel") as string[]}
         header="OUR TEAM"
         title="Meet Our Team"
-        description={phSubtitle}
+        description={pageMap.get("Subtitle") as string}
       />
       <div className={styles.text}>
-        <div className={styles.subtitle}>{s1Subtitle}</div>
+        <div className={styles.subtitle}>{pageMap.get("Section Title") as string}</div>
         {/* <div>Hello.</div> */}
-        <p className={styles.description}>{s1Text}</p>
+        {/* <div>👋</div> */}
+        <p className={styles.description}>{pageMap.get("Body Text") as string}</p>
       </div>
       <div className={styles.membersContainer}>
         {members.map((member) => (

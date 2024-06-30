@@ -4,9 +4,10 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-import { CreateEventDetailsRequest, EventDetails, deleteEventDetails } from "../api/eventDetails";
+import { CreateEventDetailsRequest, EventDetails } from "../api/eventDetails";
 
 import styles from "./EventSidebar.module.css";
+import { TextArea } from "./TextArea";
 import { TextAreaCharLimit } from "./TextAreaCharLimit";
 import { TextFieldCharLimit } from "./TextFieldCharLimit";
 
@@ -52,7 +53,6 @@ const EventSidebar = ({
   const [isEditing, setIsEditing] = useState<boolean>(!eventDetails);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [errors, setErrors] = useState<formErrors>({});
-  const [warningOpen, setWarningOpen] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
   const confirmCancel = () => {
@@ -67,51 +67,10 @@ const EventSidebar = ({
     setIsEditing(false);
     setIsDeleting(false);
     setErrors({});
-    setWarningOpen(false);
     setSidebarOpen(false);
   };
 
-  const handleCancel = () => {
-    const defaultDate = new Date();
-    if (
-      name !== (eventDetails ? eventDetails.name : "") ||
-      description !== (eventDetails ? eventDetails.description : "") ||
-      description_short !== (eventDetails ? eventDetails.description_short : "") ||
-      date !== (eventDetails ? new Date(eventDetails.date) : defaultDate) ||
-      startTime !== (eventDetails ? eventDetails.startTime : "") ||
-      endTime !== (eventDetails ? eventDetails.endTime : "") ||
-      location !== (eventDetails ? eventDetails.location : "") ||
-      guidelines !== (eventDetails ? eventDetails.guidelines : "")
-    ) {
-      setWarningOpen(true);
-    } else {
-      confirmCancel();
-    }
-  };
-
-  const handleCloseSidebar = () => {
-    const defaultDate = new Date();
-    if (
-      name !== (eventDetails ? eventDetails.name : "") ||
-      description !== (eventDetails ? eventDetails.description : "") ||
-      description_short !== (eventDetails ? eventDetails.description_short : "") ||
-      date !== (eventDetails ? new Date(eventDetails.date) : defaultDate) ||
-      startTime !== (eventDetails ? eventDetails.startTime : "") ||
-      endTime !== (eventDetails ? eventDetails.endTime : "") ||
-      location !== (eventDetails ? eventDetails.location : "") ||
-      guidelines !== (eventDetails ? eventDetails.guidelines : "")
-    ) {
-      setWarningOpen(true);
-    } else {
-      confirmCancel();
-      setSidebarOpen(false);
-    }
-  };
-
   const handleSave = async () => {
-    setWarningOpen(false);
-    console.log("handleSave");
-
     if (
       name === "" ||
       description === "" ||
@@ -177,23 +136,6 @@ const EventSidebar = ({
     setIsDeleting(true);
   };
 
-  const confirmDelete = () => {
-    if (eventDetails) {
-      deleteEventDetails(eventDetails._id)
-        .then((result) => {
-          if (result.success) {
-            window.location.reload();
-          } else {
-            console.error("ERROR:", result.error);
-          }
-        })
-        .catch((error) => {
-          alert(error);
-        });
-      setSidebarOpen(false);
-    }
-  };
-
   const alertContent = {
     text: "Event Saved!",
   };
@@ -247,24 +189,26 @@ const EventSidebar = ({
           <h2>Image</h2>
           <p>Placeholder - to be replaced with image</p>
 
-          {/* Delete button */}
-          <div className={styles.deleteButtonWrapper}>
-            <button onClick={handleDelete} className={styles.deleteButton}>
-              <p>Delete</p>
-            </button>
-          </div>
-          <div className={styles.fixedPosition}>
-            <div className={styles.grayOut}></div>
-            <WarningModule
-              titleText="Are you sure you want to delete this event?"
-              subtitleText="This action is permanent and cannot be undone."
-              cancelText="No, cancel"
-              actionText="Delete event"
-              cancel={confirmCancel}
-              action={confirmDelete}
-              onClose={confirmCancel}
-            />
-          </div>
+          <WarningModule
+            titleText="Are you sure you want to delete this event?"
+            subtitleText="This action is permanent and cannot be undone."
+            cancelText="No, cancel"
+            actionText="Delete Event"
+            cancel={confirmCancel}
+            action={handleDelete}
+          >
+            <div className={styles.deleteButtonWrapper}>
+              <button
+                onClick={() => {
+                  setIsDeleting(true);
+                }}
+                className={styles.deleteButton}
+              >
+                <p>Delete</p>
+              </button>
+            </div>
+          </WarningModule>
+          <div className={styles.grayOut}></div>
         </div>
       </div>
     );
@@ -273,15 +217,21 @@ const EventSidebar = ({
   if (isEditing) {
     return (
       <div className={styles.sidebar}>
-        <div
-          className={styles.closeWindow}
-          onClick={() => {
-            handleCloseSidebar();
+        <WarningModule
+          titleText="You have unsaved changes!"
+          subtitleText="Do you want to save the changes you made to this event?"
+          cancelText="Discard changes"
+          actionText="Save changes"
+          cancel={confirmCancel}
+          action={() => {
+            void handleSave();
           }}
         >
-          <Image src="/ic_doublecaretright.svg" alt="test" width={24} height={24} />
-          <p>Close Window</p>
-        </div>
+          <div className={styles.closeWindow}>
+            <Image src="/ic_doublecaretright.svg" alt="test" width={24} height={24} />
+            <p>Close Window</p>
+          </div>
+        </WarningModule>
         <div className={styles.sidebarContents}>
           <div className={styles.header}>
             <h1>Event Details</h1>
@@ -289,7 +239,7 @@ const EventSidebar = ({
           <form>
             <div className={styles.formRow}>
               <TextFieldCharLimit
-                className={styles.textField}
+                className={`${styles.textField} ${styles.stretch}`}
                 label="Event Title"
                 placeholder="Event Title"
                 value={name}
@@ -299,8 +249,8 @@ const EventSidebar = ({
                 error={errors.name}
                 maxCount={35}
               />
-              <h2>Event Description (short)</h2>
               <TextAreaCharLimit
+                label="Event Description (short)"
                 id="description_short"
                 className={`${styles.textArea} ${styles.stretch}`}
                 placeholder="This is a short description of your event that will be displayed on the event page."
@@ -308,10 +258,11 @@ const EventSidebar = ({
                 onChange={(event) => {
                   setDescription_short(event.target.value);
                 }}
+                error={errors.description_short}
                 maxCount={200}
               />
-              <h2>Event Description (long)</h2>
               <TextAreaCharLimit
+                label="Event Description (long)"
                 id="description"
                 className={`${styles.textAreaLong} ${styles.stretch}`}
                 placeholder="This is a long description of your event that will be displayed on the event page."
@@ -319,6 +270,7 @@ const EventSidebar = ({
                 onChange={(event) => {
                   setDescription(event.target.value);
                 }}
+                error={errors.description}
                 maxCount={275}
               />
               <div className={styles.textField}>
@@ -354,6 +306,7 @@ const EventSidebar = ({
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                       setStartTime(event.target.value);
                     }}
+                    error={errors.startTime}
                   />
                 </div>
                 <p
@@ -376,6 +329,7 @@ const EventSidebar = ({
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                       setEndTime(event.target.value);
                     }}
+                    error={errors.endTime}
                   />
                 </div>
               </div>
@@ -389,8 +343,8 @@ const EventSidebar = ({
                 }}
                 error={errors.location}
               />
-              <h2>Guidelines</h2>
-              <textarea
+              <TextArea
+                label="Guidelines"
                 id="guidelines"
                 className={`${styles.textArea} ${styles.stretch}`}
                 placeholder="This is a description of your event guidelines (dress codes, materials, qualifications, etc.)"
@@ -398,47 +352,40 @@ const EventSidebar = ({
                 onChange={(event) => {
                   setGuidelines(event.target.value);
                 }}
+                error={errors.guidelines}
               />
-              <h2>Image</h2>
-              <p>Placeholder - to be replaced with image</p>
             </div>
           </form>
         </div>
-        <div className={styles.bottomButtons}>
-          {/* Cancel button */}
-          <button onClick={handleCancel} className={styles.cancelButton}>
-            <p>Cancel</p>
-          </button>
-          {/* Save button */}
-          <button
-            onClick={() => {
-              void handleSave();
-            }}
-            className={styles.saveButton}
-          >
-            <p>Save</p>
-          </button>
-        </div>
-        {warningOpen && (
-          <div className={styles.fixedPosition}>
-            <div className={styles.grayOut}></div>
-            <div className={styles.warningModule}>
-              <WarningModule
-                titleText="You have unsaved changes!"
-                subtitleText="Do you want to save the changes you made to this event?"
-                cancelText="Discard changes"
-                actionText="Save changes"
-                cancel={confirmCancel}
-                action={() => {
-                  void handleSave();
-                }}
-                onClose={() => {
-                  setWarningOpen(false);
-                }}
-              />
-            </div>
+
+        <div className="w-full">
+          <div className={styles.bottomButtons}>
+            {/* Cancel button */}
+            <WarningModule
+              titleText="You have unsaved changes!"
+              subtitleText="Do you want to save the changes you made to this event?"
+              cancelText="Discard changes"
+              actionText="Save changes"
+              cancel={confirmCancel}
+              action={handleSave}
+            >
+              <div
+                className={`${styles.cancelButton} flex py-[4px] px-[16px] justify-center items-center gap-[6px] rounded-md`}
+              >
+                <p className="text-[20px] font-bold leading-normal tracking-[0.7px]">Cancel</p>
+              </div>
+            </WarningModule>
+            {/* Save button */}
+            <button
+              onClick={() => {
+                void handleSave();
+              }}
+              className={styles.saveButton}
+            >
+              <p>Save</p>
+            </button>
           </div>
-        )}
+        </div>
       </div>
     );
   } else {

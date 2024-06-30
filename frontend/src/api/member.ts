@@ -55,16 +55,8 @@ export async function updateMember(member: updateMemberRequest): Promise<APIResu
   }
 }
 
-type cancelMemberRequest = {
-  _id: string;
-  name: string;
-  role: string;
-  profilePictureURL?: string;
-};
-
-export async function deleteMember(member: cancelMemberRequest): Promise<APIResult<Member>> {
+export async function deleteMember(id: string): Promise<APIResult<Member>> {
   try {
-    const id = member._id;
     const response = await del(`/api/member/${id}`);
     const json = (await response.json()) as Member;
     return { success: true, data: json };

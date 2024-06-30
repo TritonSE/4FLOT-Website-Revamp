@@ -6,7 +6,6 @@ import validationErrorParser from "src/util/validationErrorParser";
 
 export const createTestimonial: RequestHandler = async (req, res, next) => {
   const { title, description, image, type } = req.body;
-
   try {
     const testimonial = await TestimonialModel.create({
       title: title,
@@ -14,11 +13,9 @@ export const createTestimonial: RequestHandler = async (req, res, next) => {
       image: image,
       type: type,
     });
-    console.log("testimonial: ", testimonial);
 
     res.status(201).json(testimonial);
   } catch (error) {
-    console.log("erroring here");
     next(error);
   }
 };

@@ -1,0 +1,41 @@
+{
+  "name": "contact",
+  "isEdited": false,
+  "fields": [
+    {
+      "name": "Section Title",
+      "type": "text",
+      "data": {
+        "text": "There are many ways to join us and support our mission. Contact us to find out more about volunteering opportunities, fundraising, and more !"
+      }
+    },
+    {
+      "name": "Body Text",
+      "type": "text",
+      "data": {
+        "text": "There are many ways to join us and support our mission. Contact us to find out more about volunteering opportunities, fundraising, and more !"
+      }
+    },
+    {
+      "name": "Phone Number",
+      "type": "text",
+      "data": {
+        "text": "909-757-1313"
+      }
+    },
+    {
+      "name": "Locations",
+      "type": "text",
+      "data": {
+        "text": "San Bernadino County\nRiverside County\nLos Angeles County"
+      }
+    },
+    {
+      "name": "Email",
+      "type": "text",
+      "data": {
+        "text": "admin@4flot.com"
+      }
+    }
+  ]
+}

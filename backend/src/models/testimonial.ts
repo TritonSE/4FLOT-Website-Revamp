@@ -3,10 +3,10 @@ import { InferSchemaType, Schema, model } from "mongoose";
 const testimonialSchema = new Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
-  image: { type: String, required: true },
+  image: { type: String, required: false },
   type: { type: String, required: true },
 });
 
-type testimonial = InferSchemaType<typeof testimonialSchema>;
+type Testimonial = InferSchemaType<typeof testimonialSchema>;
 
-export default model<testimonial>("testimonial", testimonialSchema);
+export default model<Testimonial>("Testimonial", testimonialSchema);

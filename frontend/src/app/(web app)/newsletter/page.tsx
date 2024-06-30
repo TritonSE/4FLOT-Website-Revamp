@@ -1,43 +1,41 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 
-import { getPageText } from "../../../api/pageeditor";
+import { Newsletter, getAllNewsletters } from "../../../api/newsletter";
+import { getPageData } from "../../../api/pageeditor";
+import BackgroundHeader from "../../../components/BackgroundHeader";
+import Button from "../../../components/Button";
 import NewsletterArchive from "../../../components/NewsletterArchive";
 import NewsletterCard from "../../../components/NewsletterCard";
 import NewsletterPopup from "../../../components/NewsletterPopup";
+import LoadingSpinner from "../../../components/admin/LoadingSpinner";
+import { generatePageMap } from "../../admin/util/pageeditUtil";
 
 import styles from "./page.module.css";
 
-import { BackgroundImage, BackgroundImagePages, getBackgroundImages } from "@/api/images";
-import { Newsletter, getAllNewsletters } from "@/api/newsletter";
-import BackgroundHeader from "@/components/BackgroundHeader";
-import Button from "@/components/Button";
-
 export default function NewsletterPage() {
   const [popupOpen, setPopup] = useState(false);
-  const [images, setImages] = useState<BackgroundImage[]>([]);
   const [curNewsletters, setCurNewsletters] = useState<Newsletter[]>([]);
   const [archiveNewsletters, setArchiveNewsletters] = useState<Record<string, Newsletter[]>>({});
   const [sortedArchives, setSortedArchives] = useState<string[]>([]);
 
-  //admin variables
-  const [phSubtitle, setPhSubtitle] = useState<string>("");
-  const [s1Subtitle, setS1Subtitle] = useState<string>("");
-  const [s1Text, setS1Text] = useState<string>("");
+  // admin variables
+  const [pageMap, setPageMap] = useState<Map<string, string | string[]>>();
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    getBackgroundImages(BackgroundImagePages.TEAM)
-      .then((result) => {
-        if (result.success) {
-          setImages(result.data);
-        }
+  function loadPageMap() {
+    getPageData("newsletter")
+      .then((response) => {
+        if (response.success) setPageMap(generatePageMap(response.data));
+        else throw new Error(response.error);
       })
       .catch((error) => {
         alert(error);
       });
-  }, []);
+  }
 
-  useEffect(() => {
+  function loadNewspapers() {
     getAllNewsletters()
       .then((response) => {
         if (response.success) {
@@ -75,42 +73,35 @@ export default function NewsletterPage() {
       .catch((error) => {
         alert(error);
       });
+  }
+
+  useEffect(() => {
+    setLoading(true);
+    loadNewspapers();
+    loadPageMap();
+    setLoading(false);
   }, []);
 
   const handleSubscribeClick = () => {
     setPopup(true);
   };
 
-  let pageText;
-  useEffect(() => {
-    getPageText("Newsletter")
-      .then((response) => {
-        if (response.success) {
-          pageText = response.data;
-          setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
-          setS1Subtitle(pageText.pageSections[1].sectionTitle ?? "");
-          setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
-        } else {
-          alert(response.error);
-        }
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  }, []);
+  if (loading || !pageMap) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <main>
       <BackgroundHeader
-        backgroundImageURIs={images.map((image) => image.imageURI)}
+        backgroundImageURIs={pageMap.get("Header Image Carousel") as string[]}
         header="OUR IMPACT"
         title="Newsletter"
-        description={phSubtitle}
+        description={pageMap.get("Subtitle") as string}
       />
       <div className={styles.text}>
-        <div className={styles.subtitle}>{s1Subtitle}</div>
+        <div className={styles.subtitle}>{pageMap.get("Section Title") as string}</div>
         <div className={styles.containerCardsAndText}>
-          <div className={styles.description}>{s1Text}</div>
+          <div className={styles.description}>{pageMap.get("Section Subtitle") as string}</div>
           <Button text="Subscribe for Updates" onClick={handleSubscribeClick} />
         </div>
         <div className={styles.popup}>
