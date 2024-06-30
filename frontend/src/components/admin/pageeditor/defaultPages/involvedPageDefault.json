@@ -1,0 +1,42 @@
+{
+  "name": "involved",
+  "isEdited": false,
+  "fields": [
+    {
+      "name": "Subtitle",
+      "type": "text",
+      "data": {
+        "text": "Find out how you can help 4FLOT in our mission to prevent and ending homelessness, hunger and disparity in underprivileged communities."
+      }
+    },
+    {
+      "name": "Header Image Carousel",
+      "type": "gallery",
+      "data": {
+        "images": [],
+        "maxImages": 4
+      }
+    },
+    {
+      "name": "Upcoming Events Subtitle",
+      "type": "text",
+      "data": {
+        "text": "Check out our weekly and special upcoming events! Become a volunteer today and connect with others while giving back to the community around you."
+      }
+    },
+    {
+      "name": "Past Events Subtitle",
+      "type": "text",
+      "data": {
+        "text": "Check out our past volunteer work, from toy drives to providing meals to those in need."
+      }
+    },
+    {
+      "name": "Donations Subtitle",
+      "type": "text",
+      "data": {
+        "text": "Your support and contributions will enable us to meet our goals and improve conditions. Your generous donation will fund our mission."
+      }
+    }
+  ]
+}

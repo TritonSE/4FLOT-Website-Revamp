@@ -25,62 +25,6 @@ import RowCopyBtn from "@/components/RowCopyBtn";
 import RowDeleteBtn from "@/components/RowDeleteBtn";
 
 export default function MailingList() {
-  const columns: GridColDef<(typeof rows)[number]>[] = [
-    {
-      field: "lastName",
-      headerName: "Last name",
-      width: 280,
-      editable: false,
-      resizable: false,
-      headerClassName: `${styles.headingBackground} ${styles.cellBorderStyle} ${styles.Headings}`,
-      cellClassName: `${styles.cellEntry} ${styles.cellBorderStyle}`,
-      disableColumnMenu: true,
-      renderHeader: () => <div>Last Name</div>,
-    },
-    {
-      field: "firstName",
-      headerName: "First Name",
-      width: 280,
-      editable: false,
-      resizable: false,
-      headerClassName: `${styles.Headings} ${styles.headingBackground} ${styles.cellBorderStyle}`,
-      cellClassName: `${styles.cellEntry} ${styles.cellBorderStyle}`,
-      disableColumnMenu: true,
-      renderHeader: () => <div>First Name</div>,
-    },
-
-    {
-      field: "memberSince",
-      headerName: "Member Since",
-      width: 280,
-      editable: false,
-      resizable: false,
-      headerClassName: `${styles.Headings} ${styles.headingBackground} ${styles.cellBorderStyle}`,
-      cellClassName: `${styles.cellEntry} ${styles.cellBorderStyle}`,
-      disableColumnMenu: true,
-      renderHeader: () => <div>Member Since</div>,
-    },
-
-    {
-      field: "email",
-      headerName: "Email",
-      width: 280,
-      sortable: false,
-      editable: false,
-      resizable: false,
-      flex: 1,
-      headerClassName: `${styles.Headings} ${styles.headingBackground}`,
-      cellClassName: styles.cellEntry,
-      disableColumnMenu: true,
-      renderHeader: () => (
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <div style={{ marginRight: "180px" }}>Email</div>
-          <EmailCopyBtn onClick={handleCopyEmails} onHover={handleEmailHover} />
-        </div>
-      ),
-    },
-  ];
-
   const [rows, setRow] = useState<Subscriber[]>([]);
   const [rowsCurrent, setRowsCurrent] = React.useState(rows);
   const [alertType, setAlertType] = useState("");
@@ -286,6 +230,62 @@ export default function MailingList() {
     }
   };
 
+  const columns: GridColDef<(typeof rows)[number]>[] = [
+    {
+      field: "lastName",
+      headerName: "Last name",
+      width: 280,
+      editable: false,
+      resizable: false,
+      headerClassName: `${styles.headingBackground} ${styles.cellBorderStyle} ${styles.Headings}`,
+      cellClassName: `${styles.cellEntry} ${styles.cellBorderStyle}`,
+      disableColumnMenu: true,
+      renderHeader: () => <div>Last Name</div>,
+    },
+    {
+      field: "firstName",
+      headerName: "First Name",
+      width: 280,
+      editable: false,
+      resizable: false,
+      headerClassName: `${styles.Headings} ${styles.headingBackground} ${styles.cellBorderStyle}`,
+      cellClassName: `${styles.cellEntry} ${styles.cellBorderStyle}`,
+      disableColumnMenu: true,
+      renderHeader: () => <div>First Name</div>,
+    },
+
+    {
+      field: "memberSince",
+      headerName: "Member Since",
+      width: 280,
+      editable: false,
+      resizable: false,
+      headerClassName: `${styles.Headings} ${styles.headingBackground} ${styles.cellBorderStyle}`,
+      cellClassName: `${styles.cellEntry} ${styles.cellBorderStyle}`,
+      disableColumnMenu: true,
+      renderHeader: () => <div>Member Since</div>,
+    },
+
+    {
+      field: "email",
+      headerName: "Email",
+      width: 280,
+      sortable: false,
+      editable: false,
+      resizable: false,
+      flex: 1,
+      headerClassName: `${styles.Headings} ${styles.headingBackground}`,
+      cellClassName: styles.cellEntry,
+      disableColumnMenu: true,
+      renderHeader: () => (
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <div style={{ marginRight: "180px" }}>Email</div>
+          <EmailCopyBtn onClick={handleCopyEmails} onHover={handleEmailHover} />
+        </div>
+      ),
+    },
+  ];
+
   return (
     <div className={styles.page}>
       <Box sx={{ height: 720, width: 1119 }}>
@@ -350,9 +350,11 @@ export default function MailingList() {
                   lineHeight: "24px",
                 }} // Make room for the image
               />
-              <img
+              <Image
                 src="/ic_search.png"
                 alt="search icon"
+                width={20}
+                height={20}
                 style={{
                   position: "absolute",
                   left: "8px",

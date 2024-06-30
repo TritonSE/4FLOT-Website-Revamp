@@ -1,40 +1,36 @@
+// "use client";
+
+// import React, { useEffect, useState } from "react";
+
+// import { getPageText } from "../../../api/pageeditor";
+// import { Testimonial, getAllTestimonials } from "../../../api/testimonial";
+
+// import styles from "./page.module.css";
+
+// import { BackgroundImage, BackgroundImagePages, getBackgroundImages } from "@/api/images";
+// import BackgroundHeader from "@/components/BackgroundHeader";
+
 "use client";
 
 import React, { useEffect, useState } from "react";
 
-import { getPageText } from "../../../api/pageeditor";
+import { getPageData } from "../../../api/pageeditor";
 import { Testimonial, getAllTestimonials } from "../../../api/testimonial";
+import { generatePageMap } from "../../../app/admin/util/pageeditUtil";
+import BackgroundHeader from "../../../components/BackgroundHeader";
 import TestimonialCard from "../../../components/TestimonialCard";
+import LoadingSpinner from "../../../components/admin/LoadingSpinner";
 
 import styles from "./page.module.css";
-
-import { BackgroundImage, BackgroundImagePages, getBackgroundImages } from "@/api/images";
-import BackgroundHeader from "@/components/BackgroundHeader";
 
 export default function Impact() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [events, setEvents] = useState<Testimonial[]>([]);
-  const [images, setImages] = useState<BackgroundImage[]>([]);
+  const [pageMap, setPageMap] = useState<Map<string, string | string[]>>();
+  const [loading, setLoading] = useState(false);
 
-  const [phSubtitle, setPhSubtitle] = useState<string>("");
-  const [s1Subtitle, setS1Subtitle] = useState<string>("");
-  const [s1Text, setS1Text] = useState<string>("");
-  const [s2Title, setS2Title] = useState<string>("");
-  const [s2Subtitle, setS2Subtitle] = useState<string>("");
-
-  useEffect(() => {
-    getBackgroundImages(BackgroundImagePages.HOME)
-      .then((result) => {
-        if (result.success) {
-          setImages(result.data);
-        }
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  }, []);
-
-  useEffect(() => {
+  const loadTestimonials = () => {
+    console.log("getting from loadTestimonials");
     getAllTestimonials()
       .then((result) => {
         if (result.success) {
@@ -49,27 +45,29 @@ export default function Impact() {
       .catch((error) => {
         alert(error);
       });
-  }, []);
+  };
 
-  let pageText;
-  useEffect(() => {
-    getPageText("Testimonials")
+  const loadPage = () => {
+    getPageData("testimonials")
       .then((response) => {
-        if (response.success) {
-          pageText = response.data;
-          setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
-          setS1Subtitle(pageText.pageSections[1].sectionTitle ?? "");
-          setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
-          setS2Title(pageText.pageSections[2].sectionTitle ?? "");
-          setS2Subtitle(pageText.pageSections[2].sectionSubtitle ?? "");
-        } else {
-          alert(response.error);
-        }
+        if (response.success) setPageMap(generatePageMap(response.data));
+        else throw new Error(response.error);
       })
       .catch((error) => {
         alert(error);
       });
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    loadTestimonials();
+    loadPage();
+    setLoading(false);
   }, []);
+
+  if (loading || !pageMap) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <main
@@ -79,15 +77,15 @@ export default function Impact() {
       }}
     >
       <BackgroundHeader
-        backgroundImageURIs={images.map((image) => image.imageURI)}
+        backgroundImageURIs={pageMap.get("Header Image Carousel") as string[]}
         header="OUR IMPACT"
         title="Testimonials"
-        description={phSubtitle}
+        description={pageMap.get("Subtitle") as string}
       />
       <div className={styles.page}>
         <div className={styles.textContainer}>
-          <div className={styles.subhead}>{s1Subtitle}</div>
-          <div className={styles.description}>{s1Text}</div>
+          <div className={styles.subhead}>{pageMap.get("Stories Section Title") as string}</div>
+          <div className={styles.description}>{pageMap.get("Stories Body Text") as string}</div>
         </div>
         <div className={styles.quotes}>
           {testimonials.map((testimonial) => (
@@ -102,8 +100,8 @@ export default function Impact() {
           ))}
         </div>
         <div className={styles.textContainer}>
-          <div className={styles.subhead}>{s2Title}</div>
-          <div className={styles.description}>{s2Subtitle}</div>
+          <div className={styles.subhead}>{pageMap.get("Events Section Title") as string}</div>
+          <div className={styles.description}>{pageMap.get("Events Body Text") as string}</div>
         </div>
 
         <div className={styles.events}>

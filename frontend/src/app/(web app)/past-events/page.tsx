@@ -1,62 +1,51 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 
-import { getPageText } from "../../../api/pageeditor";
+import { getPageData } from "../../../api/pageeditor";
+import { generatePageMap } from "../../../app/admin/util/pageeditUtil";
+import BackgroundHeader from "../../../components/BackgroundHeader";
 import EventsList from "../../../components/EventsList";
+import LoadingSpinner from "../../../components/admin/LoadingSpinner";
 
 import styles from "./page.module.css";
 
-import { BackgroundImage, BackgroundImagePages, getBackgroundImages } from "@/api/images";
-import BackgroundHeader from "@/components/BackgroundHeader";
-
-export default function PastEvents() {
-  const [images, setImages] = useState<BackgroundImage[]>([]);
-  const [phSubtitle, setPhSubtitle] = useState<string>("");
-  const [s1Subtitle, setS1Subtitle] = useState<string>("");
-  const [s1Text, setS1Text] = useState<string>("");
+export default function UpcomingEvents() {
+  const [pageMap, setPageMap] = useState<Map<string, string | string[]>>();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    getBackgroundImages(BackgroundImagePages.TEAM)
-      .then((result) => {
-        if (result.success) {
-          setImages(result.data);
-        }
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  }, []);
-
-  let pageText;
-  useEffect(() => {
-    getPageText("Past Events")
+    setLoading(true);
+    getPageData("past-events")
       .then((response) => {
-        if (response.success) {
-          pageText = response.data;
-          setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
-          setS1Subtitle(pageText.pageSections[1].sectionTitle ?? "");
-          setS1Text(pageText.pageSections[1].sectionSubtitle ?? "");
-        } else {
-          alert(response.error);
-        }
+        if (response.success) setPageMap(generatePageMap(response.data));
+        else throw new Error(response.error);
       })
       .catch((error) => {
         alert(error);
       });
+    setLoading(false);
   }, []);
+
+  if (loading || !pageMap) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className="items-center justify-center">
       <BackgroundHeader
-        backgroundImageURIs={images.map((image) => image.imageURI)}
+        backgroundImageURIs={pageMap.get("Header Image Carousel") as string[]}
         header="GET INVOLVED"
         title="Past Events"
-        description={phSubtitle}
+        description={pageMap.get("Subtitle") as string}
       />
+
       <div className={styles.body}>
         <div className={styles.bodyTitle}>
-          <h1 style={{ font: "var(--font-title-l)" }}>{s1Subtitle}</h1>
-          <p style={{ font: "var(--font-body-reg)" }}>{s1Text}</p>
+          <h1 style={{ font: "var(--font-title-l)" }}>{pageMap.get("Section Title") as string}</h1>
+          <p style={{ font: "var(--font-body-reg)" }}>
+            {pageMap.get("Section Subtitle") as string}
+          </p>
         </div>
         <EventsList page="past-events" />
       </div>

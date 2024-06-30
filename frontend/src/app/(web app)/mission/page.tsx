@@ -1,96 +1,66 @@
 "use client";
 
-import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
-import { getPageText } from "../../../api/pageeditor";
+import { getPageData } from "../../../api/pageeditor";
+import BackgroundHeader from "../../../components/BackgroundHeader";
 import Button from "../../../components/Button";
 import ValueCard from "../../../components/ValueCard";
+import LoadingSpinner from "../../../components/admin/LoadingSpinner";
+import { generatePageMap } from "../../admin/util/pageeditUtil";
 
 import styles from "./page.module.css";
 
-import { BackgroundImage, BackgroundImagePages, getBackgroundImages } from "@/api/images";
-import BackgroundHeader from "@/components/BackgroundHeader";
-
 export default function Mission() {
-  const [images, setImages] = useState<BackgroundImage[]>([]);
-
-  const [valueSubtitle, setvalueSubtitle] = useState<string>("");
-  const [phSubtitle, setPhSubtitle] = useState<string>("");
-  const [Value1, setValue1] = useState<string>("");
-  const [Value1_Description, setValue1_Description] = useState<string>("");
-  const [Value2, setValue2] = useState<string>("");
-  const [Value2_Description, setValue2_Description] = useState<string>("");
-  const [Value3, setValue3] = useState<string>("");
-  const [Value3_Description, setValue3_Description] = useState<string>("");
-  const [s1Text, setS1Text] = useState<string>("");
-  const [s1Subtitle, setS1Subtitle] = useState<string>("");
+  const [pageMap, setPageMap] = useState<Map<string, string | string[]>>();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    getBackgroundImages(BackgroundImagePages.TEAM)
-      .then((result) => {
-        if (result.success) {
-          setImages(result.data);
-        }
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  }, []);
-
-  let pageText;
-  useEffect(() => {
-    getPageText("Our Mission")
+    setLoading(true);
+    getPageData("mission")
       .then((response) => {
-        if (response.success) {
-          pageText = response.data;
-          setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
-          setvalueSubtitle(pageText.pageSections[1].subtitle ?? "");
-          setValue1(pageText.pageSections[2].sectionTitle ?? "");
-          setValue1_Description(pageText.pageSections[2].sectionSubtitle ?? "");
-          setValue2(pageText.pageSections[3].sectionTitle ?? "");
-          setValue2_Description(pageText.pageSections[3].sectionSubtitle ?? "");
-          setValue3(pageText.pageSections[4].sectionTitle ?? "");
-          setValue3_Description(pageText.pageSections[4].sectionSubtitle ?? "");
-          setS1Subtitle(pageText.pageSections[5].sectionTitle ?? "");
-          setS1Text(pageText.pageSections[5].sectionSubtitle ?? "");
-        } else {
-          alert(response.error);
-        }
+        if (response.success) setPageMap(generatePageMap(response.data));
+        else throw new Error(response.error);
       })
       .catch((error) => {
         alert(error);
       });
+    setLoading(false);
   }, []);
+
+  if (loading || !pageMap) {
+    return <LoadingSpinner />;
+  }
+  console.log((pageMap.get("Image Gallery") as string[])[0]);
 
   return (
     <main>
       <BackgroundHeader
-        backgroundImageURIs={images.map((image) => image.imageURI)}
+        backgroundImageURIs={pageMap.get("Header Image Carousel") as string[]}
         header="OUR MISSION"
         title="Why We Do It"
-        description={phSubtitle}
+        description={pageMap.get("Subtitle") as string}
       />
 
       <div className={styles.page}>
         {/* We pay it forward*/}
         <div className={styles.text}>
-          <div className={styles.titlelarge}>{valueSubtitle}</div>
+          <div className={styles.titlelarge}>{pageMap.get("Values Section Title") as string}</div>
           <div className={styles.rectangleContainer}>
             <ValueCard
-              title={Value1}
+              title={pageMap.get("Value #1") as string}
               iconSrc="/threepeople.svg"
-              description={Value1_Description}
+              description={pageMap.get("Value #1 Description") as string}
             ></ValueCard>
             <ValueCard
-              title={Value2}
+              title={pageMap.get("Value #2") as string}
               iconSrc="/handheart.svg"
-              description={Value2_Description}
+              description={pageMap.get("Value #2 Description") as string}
             ></ValueCard>
             <ValueCard
-              title={Value3}
+              title={pageMap.get("Value #3") as string}
               iconSrc="/puzzle.svg"
-              description={Value3_Description}
+              description={pageMap.get("Value #3 Description") as string}
             ></ValueCard>
           </div>
         </div>
@@ -98,41 +68,40 @@ export default function Mission() {
         {/* OUR STORY*/}
         <div className={styles.storyContainer}>
           <div className={styles.storyText}>
-            <div className={styles.titlelarge}>{s1Subtitle}</div>
-            <p className={styles.description}>{s1Text}</p>
+            <div className={styles.titlelarge}>{pageMap.get("Story Section Title") as string}</div>
+            <p className={styles.description}>{pageMap.get("Body Text") as string}</p>
             <Button text="Meet Our Team" link="/team"></Button>
           </div>
           <div className={styles.imageContainer}>
             <div className={styles.imageContainerTopRow}>
-              <div className={styles.topLeft}>
-                <Image
-                  className={styles.image}
-                  src={"/mission_top_left.png"}
-                  alt="Story image 1"
-                  width="234"
-                  height="195"
-                />
-              </div>
-
-              <div className={styles.topRight}>
-                <Image
-                  className={styles.image}
-                  src={"/mission_top_right.png"}
-                  alt="Story image 2"
-                  width="266"
-                  height="285"
-                />
-              </div>
-            </div>
-            <div className={styles.bottom}>
-              <Image
-                className={styles.image}
-                src={"/mission_bottom.png"}
-                alt="Story image 3"
-                width="532"
-                height="298"
+              <div
+                style={{
+                  backgroundImage: `url(${(pageMap.get("Image Gallery") as string[])[0]})`,
+                  backgroundPosition: "center",
+                  backgroundSize: "cover",
+                  backgroundRepeat: "no-repeat",
+                }}
+                className="w-[234px] h-[165px] rounded-xl"
+              />
+              <div
+                style={{
+                  backgroundImage: `url(${(pageMap.get("Image Gallery") as string[])[1]})`,
+                  backgroundPosition: "center",
+                  backgroundSize: "cover",
+                  backgroundRepeat: "no-repeat",
+                }}
+                className="w-[266px] h-[250px] rounded-xl"
               />
             </div>
+            <div
+              style={{
+                backgroundImage: `url(${(pageMap.get("Image Gallery") as string[])[2]})`,
+                backgroundPosition: "center",
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat",
+              }}
+              className="w-[532px] h-[298px] rounded-xl"
+            />
           </div>
         </div>
       </div>

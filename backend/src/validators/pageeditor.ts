@@ -1,47 +1,28 @@
 import { body } from "express-validator";
 
-const makeIDValidator = () =>
-  body("_id")
+const makeNameValidator = () =>
+  body("name")
     .exists()
-    .withMessage("_id is required")
+    .withMessage("name is required")
     .bail()
     .isString()
-    .withMessage("_id must be a number");
-const makePageValidator = () =>
-  body("page")
-    .exists()
-    .withMessage("image is required")
-    .bail()
-    .isString()
-    .withMessage("image must be a string");
-const makeSubtitleValidator = () =>
-  body("ph_subtitle")
-    .exists()
-    .withMessage("subtitle is required")
-    .bail()
-    .isString()
-    .withMessage("subtitle must be a string");
-const makeTitleValidator = () =>
-  body("s1_title")
-    .exists()
-    .withMessage("date is required")
-    .bail()
-    .isString()
-    .withMessage("date must be a string");
-const makeTextValidator = () =>
-  body("s1_text")
-    .exists()
-    .withMessage("content is required")
-    .bail()
-    .isString()
-    .withMessage("content must be a string");
+    .withMessage("name must be a string");
 
-export const getPageEditor = [makePageValidator()];
+const makeEditedValidator = () =>
+  body("isEdited")
+    .exists()
+    .withMessage("isEdited is required")
+    .bail()
+    .isBoolean()
+    .withMessage("isEdited must be a boolean");
 
-export const createPageEditor = [
-  makeIDValidator(),
-  makePageValidator(),
-  makeSubtitleValidator(),
-  makeTitleValidator(),
-  makeTextValidator(),
-];
+const makeFieldsValidator = () =>
+  body("fields")
+    .exists()
+    .withMessage("fields is required")
+    .bail()
+    .isArray()
+    .withMessage("fields must be an array");
+
+export const getPageEditor = [makeNameValidator(), makeEditedValidator(), makeFieldsValidator()];
+export const updatePageEditor = [makeNameValidator(), makeEditedValidator(), makeFieldsValidator()];

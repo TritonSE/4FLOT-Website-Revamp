@@ -1,0 +1,9 @@
+.wrapper {
+  color: #484848;
+  font-family: --var(--font-body);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 15px */
+  letter-spacing: 0.2px;
+}

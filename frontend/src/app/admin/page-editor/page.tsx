@@ -2,10 +2,10 @@
 // Admin Page Editor landing page
 import { useEffect, useState } from "react";
 
-import styles from "./page.module.css";
+import { getRecord } from "../../../api/records";
+import PageEditorCard from "../../../components/PageEditorCard";
 
-import { getRecord } from "@/api/records";
-import PageEditorCard from "@/components/PageEditorCard";
+import styles from "./page.module.css";
 
 export default function PageEditorDashboard() {
   const [lastUpdated, setLastUpdated] = useState<Record<string, string>>({});

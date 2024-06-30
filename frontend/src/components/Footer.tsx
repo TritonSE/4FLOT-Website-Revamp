@@ -177,7 +177,7 @@ const Footer = () => {
             width={262}
             height={92.95}
             className={styles.logoImage}
-            src="footerLogo.svg"
+            src="/footerLogo.svg"
             alt="4 Future Leaders of Tomorrow Logo"
           />
           <a href={links.facebookLink}>

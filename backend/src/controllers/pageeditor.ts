@@ -5,16 +5,16 @@ import PageEditor from "src/models/pageeditor";
 import validationErrorParser from "src/util/validationErrorParser";
 
 export const getPage: RequestHandler = async (req, res, next) => {
-  const { page } = req.params;
+  const { name } = req.params;
 
   try {
-    const pageText = await PageEditor.findOne({ page: page });
+    const page = await PageEditor.findOne({ name: name });
 
-    if (!pageText) {
+    if (!page) {
       throw createHttpError(404, "Page not found.");
     }
 
-    res.status(200).json(pageText);
+    res.status(200).json(page);
   } catch (error) {
     next(error);
   }
@@ -22,22 +22,20 @@ export const getPage: RequestHandler = async (req, res, next) => {
 
 export const updatePageEditor: RequestHandler = async (req, res, next) => {
   const errors = validationResult(req);
-  const { page } = req.params;
-
-  if (page !== req.body.page) {
+  const { name } = req.params;
+  if (name !== req.body.name) {
     // If the page in the URL does not match the page in the body, bad request
     res.status(400);
   }
 
   try {
     validationErrorParser(errors);
-
-    const pageText = await PageEditor.findOneAndUpdate({ page }, req.body);
-    if (pageText === null) {
+    const page = await PageEditor.findOneAndUpdate({ name: name }, { $set: req.body });
+    if (page === null) {
       // No page found
       res.status(404);
     }
-    const updatedPage = await PageEditor.findOne({ page });
+    const updatedPage = await PageEditor.findOne({ name: name });
     if (updatedPage === null) {
       // No page found after updating, something went wrong
       res.status(404);

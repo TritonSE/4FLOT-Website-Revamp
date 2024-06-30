@@ -1,8 +1,15 @@
 import { InferSchemaType, Schema, model } from "mongoose";
 
 const pageEditorSchema = new Schema({
-  page: { type: String, required: true },
-  pageSections: [{ type: Schema.Types.Mixed, required: true }],
+  name: { type: String, required: true },
+  isEdited: { type: Boolean, required: true },
+  fields: [
+    {
+      name: { type: String, required: true },
+      type: { type: String, required: true },
+      data: { type: Schema.Types.Mixed, required: true },
+    },
+  ],
 });
 
 type PageEditor = InferSchemaType<typeof pageEditorSchema>;

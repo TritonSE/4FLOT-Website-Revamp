@@ -49,7 +49,6 @@ export const createNewsletter: RequestHandler = async (req, res, next) => {
       content,
     });
 
-    console.log("newsletter: ", newsletter);
     res.status(201).json(newsletter);
   } catch (error) {
     console.error("Error creating newsletter:", error);

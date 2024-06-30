@@ -1,60 +1,44 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 
-import { getPageText } from "../../../api/pageeditor";
+import { getPageData } from "../../../api/pageeditor";
+import { generatePageMap } from "../../../app/admin/util/pageeditUtil";
+import BackgroundHeader from "../../../components/BackgroundHeader";
+import WhiteCard from "../../../components/WhiteCard";
+import LoadingSpinner from "../../../components/admin/LoadingSpinner";
 
 import styles from "./page.module.css";
 
-import { BackgroundImage, BackgroundImagePages, getBackgroundImages } from "@/api/images";
-import BackgroundHeader from "@/components/BackgroundHeader";
-import WhiteCard from "@/components/WhiteCard";
-
 export default function Impact() {
-  const [images, setImages] = useState<BackgroundImage[]>([]);
-
-  //admin variables
-  const [phSubtitle, setPhSubtitle] = useState<string>("");
-  const [s1Subtitle, setS1Subtitle] = useState<string>("");
-  const [s2Subtitle, setS2Subtitle] = useState<string>("");
+  const [pageMap, setPageMap] = useState<Map<string, string | string[]>>();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    getBackgroundImages(BackgroundImagePages.TEAM)
-      .then((result) => {
-        if (result.success) {
-          setImages(result.data);
-        }
-      })
-      .catch((error) => {
-        alert(error);
-      });
-  }, []);
-
-  let pageText;
-  useEffect(() => {
-    getPageText("Our Impact")
+    setLoading(true);
+    getPageData("impact")
       .then((response) => {
-        if (response.success) {
-          pageText = response.data;
-          setPhSubtitle(pageText.pageSections[0].subtitle ?? "");
-          setS1Subtitle(pageText.pageSections[1].sectionTitle ?? "");
-          setS2Subtitle(pageText.pageSections[2].sectionTitle ?? "");
-        } else {
-          alert(response.error);
-        }
+        if (response.success) setPageMap(generatePageMap(response.data));
+        else throw new Error(response.error);
       })
       .catch((error) => {
         alert(error);
       });
+    setLoading(false);
   }, []);
+
+  if (loading || !pageMap) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <main className={styles.page}>
       <div className={styles.backgroundImageContainer}>
         <BackgroundHeader
-          backgroundImageURIs={images.map((image) => image.imageURI)}
+          backgroundImageURIs={pageMap.get("Header Image Carousel") as string[]}
           header=""
           title="Our Impact"
-          description={phSubtitle}
+          description={pageMap.get("Subtitle") as string}
         />
       </div>
       <div className={styles.cardsBackground}></div>
@@ -65,14 +49,14 @@ export default function Impact() {
             buttonUrl="/testimonials"
             buttonText="Learn More"
             title="Testimonals"
-            description={s1Subtitle}
+            description={pageMap.get("Testimonials Subtitle") as string}
           />
           <WhiteCard
             imageUrl="/newsletter.svg"
             buttonUrl="/newsletter"
             buttonText="Learn More"
             title="Newsletter"
-            description={s2Subtitle}
+            description={pageMap.get("Newsletter Subtitle") as string}
           />
         </div>
       </div>

@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto+Slab:wght@100..900&display=swap");
+
+.collapsible {
+  background-color: #f3edf9;
+  cursor: pointer;
+
+  width: 100%;
+  height: 38px;
+  padding: 7px 12px;
+  border: none;
+  text-align: left;
+  outline: none;
+  font: var(--font-body-reg);
+
+  display: flex;
+  direction: row;
+  align-items: center;
+  gap: 8px; /* Between Arrow, Bar title */
+}
+
+.content {
+  font: var(--font-body);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  padding: 16px 32px 0px;
+  background-color: #ffffff;
+  color: #484848;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.title {
+  font: var(--font-body);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.subtitle {
+  font: var(--font-body);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  margin-bottom: 2px;
+}
+
+.basicInput {
+  font-size: 14px;
+  width: 100%;
+  border: 1px solid #d8d8d8;
+  border-radius: 4px;
+  padding: 6px 12px;
+}
+
+.imageInput {
+  font-size: 14px;
+  width: auto;
+  height: auto;
+  border: 1px solid #d8d8d8;
+  border-radius: 4px;
+  padding: 6px 12px;
+}

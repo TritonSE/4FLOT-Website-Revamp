@@ -40,7 +40,6 @@ const generateAccessToken = async () => {
     });
 
     const data = await response.json();
-
     return data.access_token;
   } catch (error) {
     console.error("Failed to generate PayPal Access Token: ", error);
@@ -62,6 +61,7 @@ async function handleResponse(response: Response) {
 
 export async function createOrder(cart: Cart) {
   const accessToken = await generateAccessToken();
+  console.log("creating order with ", accessToken);
   const url = `${base}/v2/checkout/orders`;
 
   const payload = {

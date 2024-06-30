@@ -141,9 +141,13 @@ export default function NewsletterCreator() {
 
   const handleTogglePage = (index: number) => {
     if (index === 0) {
+      setCurrentPage(1);
       setRowsCurrent(currentNewsletters);
+      setTotalPages(Math.ceil(currentNewsletters.length / 14));
     } else if (index === 1) {
+      setCurrentPage(1);
       setRowsCurrent(archiveNewsletters);
+      setTotalPages(Math.ceil(archiveNewsletters.length / 14));
     }
     setPageToggle(index);
   };
@@ -170,33 +174,21 @@ export default function NewsletterCreator() {
   const handleSetSidebarOpen = (open: boolean) => {
     setSidebarOpen(open);
   };
-  const handleUpdateNewsletter = (newsletterData: Newsletter) => {
-    updateNewsletter(newsletterData)
-      .then((result) => {
-        if (result.success) {
-          // TODO: add success message, update table
-        } else {
-          console.error("ERROR:", result.error);
-        }
-      })
-      .catch((error) => {
-        alert(error);
-      });
+  const handleUpdateNewsletter = async (newsletterData: Newsletter) => {
+    const result = await updateNewsletter(newsletterData);
+    if (!result.success) {
+      console.log("result was not a success");
+      alert(result.error);
+      console.error("ERROR:", result.error);
+    }
   };
 
-  const handleCreateNewsletter = (newsletterData: CreateNewsletterRequest) => {
-    console.log(newsletterData);
-    createNewsletter(newsletterData)
-      .then((result) => {
-        if (result.success) {
-          //TODO: add success message, update table
-        } else {
-          console.error("ERROR:", result.error);
-        }
-      })
-      .catch((error) => {
-        alert(error);
-      });
+  const handleCreateNewsletter = async (newsletterData: CreateNewsletterRequest) => {
+    const result = await createNewsletter(newsletterData);
+    if (!result.success) {
+      console.error("ERROR:", result.error);
+      alert(result.error);
+    }
   };
 
   const handlePreviousPage = () => {
@@ -293,11 +285,7 @@ export default function NewsletterCreator() {
                 borderRadius: "4px",
               }}
             >
-              <img
-                src="/ic_add.svg"
-                alt="Add Icon"
-                style={{ width: 24, height: 24, marginRight: 5 }}
-              />
+              <Image src="/ic_add.svg" alt="Add Icon" width={24} height={24} className="mr-1.5" />
               Add Newsletter
             </button>
           </Box>

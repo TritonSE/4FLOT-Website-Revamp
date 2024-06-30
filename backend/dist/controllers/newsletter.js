@@ -56,7 +56,6 @@ const createNewsletter = (req, res, next) => __awaiter(void 0, void 0, void 0, f
             date,
             content,
         });
-        console.log("newsletter: ", newsletter);
         res.status(201).json(newsletter);
     }
     catch (error) {

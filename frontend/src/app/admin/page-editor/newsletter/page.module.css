@@ -1,0 +1,19 @@
+.page {
+  padding: 90px 80px 170px 300px;
+}
+
+.sectionContainer {
+  background-color: white;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 32px;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 24px;
+}
