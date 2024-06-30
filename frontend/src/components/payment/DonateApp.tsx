@@ -11,7 +11,7 @@ import PhysicalDonationForm from "./PhysicalDonationForm";
 import SuccessCard from "./SuccessCard";
 
 type DonateAppProps = {
-  className: string;
+  className?: string;
 };
 
 export default function DonateApp({ className }: DonateAppProps) {

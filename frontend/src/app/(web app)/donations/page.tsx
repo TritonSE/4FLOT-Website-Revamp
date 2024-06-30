@@ -1,23 +1,18 @@
-"use client";
-
-import Image from "next/image";
-
-import DonateApp from "@/components/payment/DonateApp";
+import DonateApp from "../../../components/payment/DonateApp";
 
 export default function App() {
   return (
-    <>
-      <div className="relative">
-        <Image
-          src="https://i.imgur.com/YTP7cfp.png"
-          alt="Background"
-          width={1920}
-          height={1080}
-          priority
-        />
-        <div className="absolute top-0 left-0 w-full h-full bg-black opacity-40"></div>
-      </div>
-      <DonateApp className="absolute left-1/3 top-48 transform -translate-x-1/2" />
-    </>
+    <div
+      className="w-full h-[100vh] flex justify-center items-center"
+      style={{
+        backgroundImage:
+          "url(https://firebasestorage.googleapis.com/v0/b/flot-dev.appspot.com/o/static-uploads%2Fimage.png?alt=media&token=44407612-8c8e-492a-988a-2c211d2926bb)",
+        backgroundPosition: "center",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      <DonateApp />
+    </div>
   );
 }
