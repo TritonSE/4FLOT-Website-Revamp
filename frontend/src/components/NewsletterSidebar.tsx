@@ -1,19 +1,22 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import { CreateNewsletterRequest, Newsletter, deleteNewsletter } from "../api/newsletter";
 
 import AlertBanner from "./AlertBanner";
 import styles from "./NewsletterSidebar.module.css";
 import { TextArea } from "./TextArea";
+import { TextAreaCharLimit } from "./TextAreaCharLimit";
 import { TextField } from "./TextField";
+import { TextFieldCharLimit } from "./TextFieldCharLimit";
 import { WarningModule } from "./WarningModule";
 import SimpleImageDropzone from "./admin/storage/SimpleImageDropzone";
 
 import { deleteFile } from "@/app/admin/util/pageeditUtil";
-import { TextFieldCharLimit } from "./TextFieldCharLimit";
-import { TextAreaCharLimit } from "./TextAreaCharLimit";
+import { updateRecord } from "@/api/records";
 
 const NEWSLETTER_TITLE_CHAR_LIMIT = 35;
 const NEWSLETTER_DESCRIPTION_CHAR_LIMIT = 200;
@@ -41,7 +44,7 @@ const NewsletterSidebar = ({
 }: newsletterSidebarProps) => {
   const [title, setTitle] = useState(newsletter ? newsletter.title : "");
   const [description, setDescription] = useState(newsletter ? newsletter.description : "");
-  const [date, setDate] = useState(newsletter ? newsletter.date : "");
+  const [date, setDate] = useState(newsletter ? new Date(newsletter.date) : new Date());
   const [image, setImage] = useState(newsletter ? newsletter.image : "");
   const [content, setContent] = useState(newsletter ? newsletter.content : "");
   const [isEditing, setIsEditing] = useState<boolean>(!newsletter);
@@ -52,7 +55,7 @@ const NewsletterSidebar = ({
   const confirmCancel = () => {
     setTitle(newsletter ? newsletter.title : "");
     setDescription(newsletter ? newsletter.description : "");
-    setDate(newsletter ? newsletter.date : "");
+    setDate(newsletter ? new Date(newsletter.date) : new Date());
     setImage(newsletter ? newsletter.image : "");
     setContent(newsletter ? newsletter.content : "");
     setIsEditing(false);
@@ -84,7 +87,7 @@ const NewsletterSidebar = ({
           _id: newsletter._id,
           title,
           description,
-          date,
+          date: date.toISOString(),
           image,
           content,
         });
@@ -92,11 +95,13 @@ const NewsletterSidebar = ({
         await createNewsletter({
           title,
           description,
-          date,
+          date: date.toISOString(),
           image,
           content,
         });
       }
+
+      updateRecord("newsletter-creator").catch(console.error);
       setIsEditing(false);
       setErrors({});
       setShowAlert(true);
@@ -113,6 +118,7 @@ const NewsletterSidebar = ({
         ...newsletter,
         image: "",
       });
+      updateRecord("newsletter-creator").catch(console.error);
     }
   };
 
@@ -124,6 +130,7 @@ const NewsletterSidebar = ({
         ...newsletter,
         image: url,
       });
+      updateRecord("newsletter-creator").catch(console.error);
     }
   };
 
@@ -135,6 +142,7 @@ const NewsletterSidebar = ({
       deleteNewsletter(newsletter._id)
         .then((result) => {
           if (result.success) {
+            updateRecord("newsletter-creator").catch(console.error);
           } else {
             console.error("ERROR:", result.error);
           }
@@ -190,7 +198,9 @@ const NewsletterSidebar = ({
           <h2>Newsletter Description</h2>
           <p>{description}</p>
           <h2>Date & Time</h2>
-          <p>{date}</p>
+          <p>
+            {date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+          </p>
           <h2>Newsletter Cover</h2>
           <SimpleImageDropzone
             folder="newsletter-editor"
@@ -276,15 +286,32 @@ const NewsletterSidebar = ({
                 error={errors.description}
                 maxCount={NEWSLETTER_DESCRIPTION_CHAR_LIMIT}
               />
-              <TextField
-                className={`${styles.textField} ${styles.stretch}`}
-                label="Date & Time"
-                value={date}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  setDate(event.target.value);
-                }}
-                error={errors.date}
-              />
+              <div className={styles.textField}>
+                <DatePicker
+                  selected={date}
+                  onChange={(dateObj: Date) => {
+                    setDate(dateObj);
+                  }}
+                  dateFormat="MMMM d, yyyy"
+                  customInput={
+                    <TextField
+                      className={`${styles.textFieldSmall} ${styles.stretch}`}
+                      label="Date & Time"
+                      value={
+                        date
+                          ? date.toLocaleDateString("en-US", {
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                            })
+                          : ""
+                      }
+                      placeholder="Select date and time"
+                    />
+                  }
+                />
+                {errors.date && <p className={styles.error}>Date is required</p>}
+              </div>
               <h2>Newsletter Cover</h2>
               <SimpleImageDropzone
                 folder="newsletter-editor"
@@ -375,7 +402,9 @@ const NewsletterSidebar = ({
           <h2>Newsletter Description</h2>
           <p>{description}</p>
           <h2>Date & Time</h2>
-          <p>{date}</p>
+          <p>
+            {date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+          </p>
           <h2>Newsletter Cover</h2>
           <SimpleImageDropzone
             folder="newsletter-editor"

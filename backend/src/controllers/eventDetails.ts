@@ -47,6 +47,8 @@ export const createEventDetails: RequestHandler = async (req, res, next) => {
     description_short,
   } = req.body;
 
+  console.log("events date: ", date);
+
   try {
     validationErrorParser(errors);
 

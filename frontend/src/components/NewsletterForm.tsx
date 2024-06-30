@@ -5,6 +5,7 @@ import { sendEmail } from "../api/email";
 import { createSubscriber } from "../api/subscriber";
 
 import styles from "./NewsletterForm.module.css";
+import { updateRecord } from "@/api/records";
 
 type NewsLetterFormProps = {
   setSuccess: (success: boolean) => void;
@@ -87,6 +88,8 @@ const NewsletterForm: React.FC<NewsLetterFormProps> = ({
                 alert(error);
               },
             );
+
+            updateRecord("mailing-list").catch(console.error);
             setSuccess(true);
           } else {
             setSuccess(false);

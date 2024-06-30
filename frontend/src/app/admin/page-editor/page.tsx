@@ -11,9 +11,7 @@ export default function PageEditorDashboard() {
   const [lastUpdated, setLastUpdated] = useState<Record<string, string>>({});
 
   useEffect(() => {
-    // Function to fetch last updated date for each card
-
-    const cards = ["home", "about", "involved", "impact"]; // Assuming these are the card names
+    const cards = ["home", "about", "involved", "impact"];
     for (const card of cards) {
       try {
         getRecord(card)
@@ -21,7 +19,7 @@ export default function PageEditorDashboard() {
             if (record.success) {
               setLastUpdated((prevLastUpdated) => ({
                 ...prevLastUpdated,
-                [card]: record.data.date, // Assuming the date is stored in the 'date' field
+                [card]: record.data.date,
               }));
             } else {
               alert(record.error);

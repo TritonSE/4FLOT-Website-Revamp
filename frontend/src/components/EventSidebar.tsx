@@ -10,12 +10,13 @@ import styles from "./EventSidebar.module.css";
 import { TextArea } from "./TextArea";
 import { TextAreaCharLimit } from "./TextAreaCharLimit";
 import { TextFieldCharLimit } from "./TextFieldCharLimit";
+import SimpleImageDropzone from "./admin/storage/SimpleImageDropzone";
 
+import { deleteFile } from "@/app/admin/util/pageeditUtil";
 import AlertBanner from "@/components/AlertBanner";
 import { TextField } from "@/components/TextField";
 import { WarningModule } from "@/components/WarningModule";
-import SimpleImageDropzone from "./admin/storage/SimpleImageDropzone";
-import { deleteFile } from "@/app/admin/util/pageeditUtil";
+import { updateRecord } from "@/api/records";
 
 const EVENT_TITLE_CHAR_LIMIT = 35;
 const EVENT_DESCRIPTION_SHORT_CHAR_LIMIT = 200;
@@ -143,6 +144,7 @@ const EventSidebar = ({
         });
       }
 
+      updateRecord("event-creator").catch(console.error);
       setIsEditing(false);
       setErrors({});
       setShowAlert(true);
@@ -159,6 +161,7 @@ const EventSidebar = ({
         ...eventDetails,
         imageURI: "",
       });
+      updateRecord("event-creator").catch(console.error);
     }
   };
 
@@ -170,6 +173,7 @@ const EventSidebar = ({
         ...eventDetails,
         imageURI: url,
       });
+      updateRecord("event-creator").catch(console.error);
     }
   };
 
@@ -181,6 +185,7 @@ const EventSidebar = ({
       deleteEventDetails(eventDetails._id)
         .then((result) => {
           if (result.success) {
+            updateRecord("event-creator").catch(console.error);
           } else {
             console.error("ERROR:", result.error);
           }
