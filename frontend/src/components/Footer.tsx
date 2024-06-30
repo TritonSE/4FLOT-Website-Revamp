@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import { createSubscriber } from "../api/subscriber";
 
 import styles from "./Footer.module.css";
+
 import { updateRecord } from "@/api/records";
 
 const Footer = () => {

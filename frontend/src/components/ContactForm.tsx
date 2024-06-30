@@ -99,8 +99,7 @@ const ContactForm: React.FC = () => {
       subject,
       message,
       question: questionType,
-    }).then((error) => {
-      // If the .then() request fails, show the error message
+    }).catch((error) => {
       alert(error);
     });
   };

@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+
 import styles from "./page.module.css";
 
-import DashboardCard from "@/components/DashboardCard";
 import { getRecord } from "@/api/records";
+import DashboardCard from "@/components/DashboardCard";
 
 export default function Dashboard() {
   const [lastUpdated, setLastUpdated] = useState<Record<string, string>>({});

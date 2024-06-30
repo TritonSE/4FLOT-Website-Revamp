@@ -15,7 +15,7 @@ type ImageDropProps = {
 
 export default function ImageDropzone({ field }: ImageDropProps) {
   const storage = getStorage();
-  const [uploadFile, uploading, snapshot, error] = useUploadFile();
+  const [uploadFile, uploading, error] = useUploadFile();
   const accept = {
     "image/*": [".jpeg", ".jpg", ".png"],
   };

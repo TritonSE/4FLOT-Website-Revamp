@@ -12,11 +12,11 @@ import { TextAreaCharLimit } from "./TextAreaCharLimit";
 import { TextFieldCharLimit } from "./TextFieldCharLimit";
 import SimpleImageDropzone from "./admin/storage/SimpleImageDropzone";
 
+import { updateRecord } from "@/api/records";
 import { deleteFile } from "@/app/admin/util/pageeditUtil";
 import AlertBanner from "@/components/AlertBanner";
 import { TextField } from "@/components/TextField";
 import { WarningModule } from "@/components/WarningModule";
-import { updateRecord } from "@/api/records";
 
 const EVENT_TITLE_CHAR_LIMIT = 35;
 const EVENT_DESCRIPTION_SHORT_CHAR_LIMIT = 200;

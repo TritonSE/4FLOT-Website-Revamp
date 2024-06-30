@@ -15,8 +15,8 @@ import { TextFieldCharLimit } from "./TextFieldCharLimit";
 import { WarningModule } from "./WarningModule";
 import SimpleImageDropzone from "./admin/storage/SimpleImageDropzone";
 
-import { deleteFile } from "@/app/admin/util/pageeditUtil";
 import { updateRecord } from "@/api/records";
+import { deleteFile } from "@/app/admin/util/pageeditUtil";
 
 const NEWSLETTER_TITLE_CHAR_LIMIT = 35;
 const NEWSLETTER_DESCRIPTION_CHAR_LIMIT = 200;

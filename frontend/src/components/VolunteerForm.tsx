@@ -99,12 +99,9 @@ const VolunteerForm: React.FC<VolunteerFormProps> = ({
               email,
               phoneNumber,
               receiveNews,
-            }).then(
-              () => {},
-              (error) => {
-                alert(error);
-              },
-            );
+            }).catch((error) => {
+              alert(error);
+            });
           } else {
             alert(response.error);
           }
