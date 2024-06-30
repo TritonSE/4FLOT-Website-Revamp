@@ -18,13 +18,13 @@ const http_errors_1 = __importDefault(require("http-errors"));
 const pageeditor_1 = __importDefault(require("../models/pageeditor"));
 const validationErrorParser_1 = __importDefault(require("../util/validationErrorParser"));
 const getPage = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { page } = req.params;
+    const { name } = req.params;
     try {
-        const pageText = yield pageeditor_1.default.findOne({ page: page });
-        if (!pageText) {
+        const page = yield pageeditor_1.default.findOne({ name: name });
+        if (!page) {
             throw (0, http_errors_1.default)(404, "Page not found.");
         }
-        res.status(200).json(pageText);
+        res.status(200).json(page);
     }
     catch (error) {
         next(error);
@@ -33,19 +33,19 @@ const getPage = (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
 exports.getPage = getPage;
 const updatePageEditor = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const errors = (0, express_validator_1.validationResult)(req);
-    const { page } = req.params;
-    if (page !== req.body.page) {
+    const { name } = req.params;
+    if (name !== req.body.name) {
         // If the page in the URL does not match the page in the body, bad request
         res.status(400);
     }
     try {
         (0, validationErrorParser_1.default)(errors);
-        const pageText = yield pageeditor_1.default.findOneAndUpdate({ page }, req.body);
-        if (pageText === null) {
+        const page = yield pageeditor_1.default.findOneAndUpdate({ name: name }, { $set: req.body });
+        if (page === null) {
             // No page found
             res.status(404);
         }
-        const updatedPage = yield pageeditor_1.default.findOne({ page });
+        const updatedPage = yield pageeditor_1.default.findOne({ name: name });
         if (updatedPage === null) {
             // No page found after updating, something went wrong
             res.status(404);

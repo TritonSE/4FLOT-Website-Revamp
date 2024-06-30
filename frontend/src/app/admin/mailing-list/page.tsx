@@ -39,8 +39,6 @@ export default function MailingList() {
     getAllSubscribers()
       .then((result) => {
         if (result.success) {
-          console.log("Data:", result.data);
-
           const formattedRows = result.data.map((item) => ({
             ...item,
             id: item._id.toString(),
@@ -158,7 +156,6 @@ export default function MailingList() {
       if (selectedRowData) {
         setDeletedRow(selectedRowData);
 
-        console.log("selectedRowData:", selectedRowData._id);
         deleteSubscriber(selectedRowData._id)
           .then((response) => {
             if (response.success) {

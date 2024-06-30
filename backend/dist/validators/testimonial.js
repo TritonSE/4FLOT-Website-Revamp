@@ -32,18 +32,7 @@ const makeDescriptionValidator = () => (0, express_validator_1.body)("descriptio
     .bail()
     .notEmpty()
     .withMessage("description cannot be empty");
-const makeImageValidator = () => (0, express_validator_1.body)("image")
-    // title must exist, if not this message will be displayed
-    .exists()
-    .withMessage("image is required")
-    // bail prevents the remainder of the validation chain for this field from being executed if
-    // there was an error
-    .bail()
-    .isString()
-    .withMessage("image must be a string")
-    .bail()
-    .notEmpty()
-    .withMessage("image cannot be empty");
+const makeImageValidator = () => (0, express_validator_1.body)("image").optional().isString().withMessage("image must be a string");
 exports.createTestimonial = [
     makeTitleValidator(),
     makeImageValidator(),

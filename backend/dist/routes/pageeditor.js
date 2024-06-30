@@ -30,8 +30,6 @@ const express_1 = __importDefault(require("express"));
 const PageEditorController = __importStar(require("../controllers/pageeditor"));
 const PageEditorValidator = __importStar(require("../validators/pageeditor"));
 const router = express_1.default.Router();
-router.get("/:page", PageEditorValidator.getPageEditor, PageEditorController.getPage);
-router.put("/:page", // getPageEditor validator works to just check page
-//   PageEditorValidator.getPageEditor,
-PageEditorController.updatePageEditor);
+router.get("/:name", PageEditorValidator.getPageEditor, PageEditorController.getPage);
+router.put("/:name", PageEditorValidator.updatePageEditor, PageEditorController.updatePageEditor);
 exports.default = router;

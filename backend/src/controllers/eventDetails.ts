@@ -34,7 +34,6 @@ export const getEventDetails: RequestHandler = async (req, res, next) => {
 };
 
 export const createEventDetails: RequestHandler = async (req, res, next) => {
-  console.log("backend createEventDetails. req.body: ", req.body);
   const errors = validationResult(req);
   const {
     name,
@@ -47,6 +46,8 @@ export const createEventDetails: RequestHandler = async (req, res, next) => {
     imageURI,
     description_short,
   } = req.body;
+
+  console.log("events date: ", date);
 
   try {
     validationErrorParser(errors);
@@ -63,7 +64,6 @@ export const createEventDetails: RequestHandler = async (req, res, next) => {
       description_short,
     });
 
-    // console.log("added eventDetails: ", eventDetails);
     res.status(201).json(eventDetails);
   } catch (error) {
     next(error);
@@ -89,7 +89,6 @@ export const updateEventDetails: RequestHandler = async (req, res, next) => {
     const updatedEventDetails = await EventDetails.findById(id);
     if (updatedEventDetails === null) {
       // No event found, something went wrong
-      console.log("updatedEventDetails is null");
       res.status(404);
     }
     res.status(200).json(updatedEventDetails);

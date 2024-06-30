@@ -1,15 +1,15 @@
 import DonateApp from "../../../components/payment/DonateApp";
 
-export default function App() {
+export default function Donations() {
   return (
     <div
-      className="w-full h-[100vh] flex justify-center items-center"
+      className="w-full h-[220vh] flex justify-center items-start"
       style={{
-        backgroundImage:
-          "url(https://firebasestorage.googleapis.com/v0/b/flot-dev.appspot.com/o/static-uploads%2Fimage.png?alt=media&token=44407612-8c8e-492a-988a-2c211d2926bb)",
+        backgroundImage: "url(/donations/donationsbackground.png)",
         backgroundPosition: "center",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
+        paddingTop: "80px",
       }}
     >
       <DonateApp />

@@ -108,7 +108,6 @@ export async function post(
   headers: Record<string, string> = {},
 ): Promise<Response> {
   const response = await fetchRequest("POST", API_BASE_URL + url, body, headers);
-  console.log("fetch response: ", response);
   await assertOk(response);
   return response;
 }

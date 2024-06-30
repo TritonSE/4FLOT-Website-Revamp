@@ -19,7 +19,6 @@ const PrivatePage: FC<{ children: ReactNode }> = ({ children }) => {
 
   // firebase threw AuthError, non-critical
   if (error) {
-    console.log(error);
     redirect("/admin");
     return <LoadingSpinner />;
   }

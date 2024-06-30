@@ -1,42 +1,24 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createPageEditor = exports.getPageEditor = void 0;
+exports.updatePageEditor = exports.getPageEditor = void 0;
 const express_validator_1 = require("express-validator");
-const makeIDValidator = () => (0, express_validator_1.body)("_id")
+const makeNameValidator = () => (0, express_validator_1.body)("name")
     .exists()
-    .withMessage("_id is required")
+    .withMessage("name is required")
     .bail()
     .isString()
-    .withMessage("_id must be a number");
-const makePageValidator = () => (0, express_validator_1.body)("page")
+    .withMessage("name must be a string");
+const makeEditedValidator = () => (0, express_validator_1.body)("isEdited")
     .exists()
-    .withMessage("image is required")
+    .withMessage("isEdited is required")
     .bail()
-    .isString()
-    .withMessage("image must be a string");
-const makeSubtitleValidator = () => (0, express_validator_1.body)("ph_subtitle")
+    .isBoolean()
+    .withMessage("isEdited must be a boolean");
+const makeFieldsValidator = () => (0, express_validator_1.body)("fields")
     .exists()
-    .withMessage("subtitle is required")
+    .withMessage("fields is required")
     .bail()
-    .isString()
-    .withMessage("subtitle must be a string");
-const makeTitleValidator = () => (0, express_validator_1.body)("s1_title")
-    .exists()
-    .withMessage("date is required")
-    .bail()
-    .isString()
-    .withMessage("date must be a string");
-const makeTextValidator = () => (0, express_validator_1.body)("s1_text")
-    .exists()
-    .withMessage("content is required")
-    .bail()
-    .isString()
-    .withMessage("content must be a string");
-exports.getPageEditor = [makePageValidator()];
-exports.createPageEditor = [
-    makeIDValidator(),
-    makePageValidator(),
-    makeSubtitleValidator(),
-    makeTitleValidator(),
-    makeTextValidator(),
-];
+    .isArray()
+    .withMessage("fields must be an array");
+exports.getPageEditor = [makeNameValidator(), makeEditedValidator(), makeFieldsValidator()];
+exports.updatePageEditor = [makeNameValidator(), makeEditedValidator(), makeFieldsValidator()];

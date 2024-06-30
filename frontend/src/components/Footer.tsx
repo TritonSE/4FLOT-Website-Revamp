@@ -8,6 +8,8 @@ import { createSubscriber } from "../api/subscriber";
 
 import styles from "./Footer.module.css";
 
+import { updateRecord } from "@/api/records";
+
 const Footer = () => {
   const [email, setEmail] = useState<string>("");
   const [submitted, setSubmitted] = useState<boolean>(false);
@@ -48,6 +50,7 @@ const Footer = () => {
     createSubscriber({ email }).then(
       (result) => {
         if (result.success) {
+          updateRecord("mailing-list").catch(console.error);
           setSubmitted(true); // show the success message
           setPlaceholder("Thanks for subscribing!");
           setEmail(""); // clear the email input

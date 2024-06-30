@@ -31,6 +31,7 @@ exports.getRecord = getRecord;
 const updateRecord = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { card } = req.params;
     try {
+        console.log("req.body: ", req.body);
         const record = yield records_1.default.findOneAndUpdate({ card: card }, req.body);
         if (record === null) {
             res.status(404);
@@ -38,6 +39,12 @@ const updateRecord = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
         const updatedRecord = yield records_1.default.findOne({ card });
         if (updatedRecord === null) {
             res.status(404);
+        }
+        if (card === "home" || card === "about" || card === "involved" || card === "impact") {
+            const pageRecord = yield records_1.default.findOneAndUpdate({ card: "page-editor" }, { date: req.body.date });
+            if (pageRecord === null) {
+                res.status(404);
+            }
         }
         res.status(200).json(updatedRecord);
     }

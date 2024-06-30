@@ -23,7 +23,7 @@ export default function SimpleImageDropzone({
   onUpload,
 }: ImageDropProps) {
   const storage = getStorage();
-  const [uploadFile, uploading, snapshot, error] = useUploadFile();
+  const [uploadFile, uploading, error] = useUploadFile();
   const accept = {
     "image/*": [".jpeg", ".jpg", ".png"],
   };
@@ -37,8 +37,7 @@ export default function SimpleImageDropzone({
     await uploadFile(storageRef, file);
     const _url = await getDownloadURL(storageRef);
 
-    if (error) console.log(error);
-    if (snapshot) console.log(snapshot);
+    if (error) console.error(error);
 
     return _url;
   }

@@ -4,16 +4,23 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-import { CreateEventDetailsRequest, EventDetails } from "../api/eventDetails";
+import { CreateEventDetailsRequest, EventDetails, deleteEventDetails } from "../api/eventDetails";
 
 import styles from "./EventSidebar.module.css";
 import { TextArea } from "./TextArea";
 import { TextAreaCharLimit } from "./TextAreaCharLimit";
 import { TextFieldCharLimit } from "./TextFieldCharLimit";
+import SimpleImageDropzone from "./admin/storage/SimpleImageDropzone";
 
+import { updateRecord } from "@/api/records";
+import { deleteFile } from "@/app/admin/util/pageeditUtil";
 import AlertBanner from "@/components/AlertBanner";
 import { TextField } from "@/components/TextField";
 import { WarningModule } from "@/components/WarningModule";
+
+const EVENT_TITLE_CHAR_LIMIT = 35;
+const EVENT_DESCRIPTION_SHORT_CHAR_LIMIT = 200;
+const EVENT_DESCRIPTION_LONG_CHAR_LIMIT = 275;
 
 type eventSidebarProps = {
   eventDetails: null | EventDetails;
@@ -31,6 +38,7 @@ type formErrors = {
   startTime?: boolean;
   endTime?: boolean;
   location?: boolean;
+  image?: boolean;
 };
 
 const EventSidebar = ({
@@ -50,6 +58,7 @@ const EventSidebar = ({
 
   const [location, setLocation] = useState(eventDetails ? eventDetails.location : "");
   const [guidelines, setGuidelines] = useState(eventDetails ? eventDetails.guidelines : "");
+  const [image, setImage] = useState(eventDetails ? eventDetails.imageURI : "");
   const [isEditing, setIsEditing] = useState<boolean>(!eventDetails);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [errors, setErrors] = useState<formErrors>({});
@@ -64,6 +73,7 @@ const EventSidebar = ({
     setEndTime(eventDetails ? eventDetails.endTime : "");
     setLocation(eventDetails ? eventDetails.location : "");
     setGuidelines(eventDetails ? eventDetails.guidelines : "");
+    setImage(eventDetails ? eventDetails.imageURI : "");
     setIsEditing(false);
     setIsDeleting(false);
     setErrors({});
@@ -71,30 +81,43 @@ const EventSidebar = ({
   };
 
   const handleSave = async () => {
+    const nameError = name === "" || name.length > EVENT_TITLE_CHAR_LIMIT;
+    const descriptionError =
+      description === "" || description.length > EVENT_DESCRIPTION_LONG_CHAR_LIMIT;
+    const descriptionShortError =
+      description_short === "" || description_short.length > EVENT_DESCRIPTION_SHORT_CHAR_LIMIT;
+    const dateError = !date;
+    const startTimeError = startTime === "";
+    const endTimeError = endTime === "";
+    const locationError = location === "";
+    const guidelinesError = guidelines === "";
+    const imageError = image === "";
+
     if (
-      name === "" ||
-      description === "" ||
-      description_short === "" ||
-      !date ||
-      startTime === "" ||
-      endTime === "" ||
-      location === "" ||
-      guidelines === ""
+      nameError ||
+      descriptionError ||
+      descriptionShortError ||
+      dateError ||
+      startTimeError ||
+      endTimeError ||
+      locationError ||
+      guidelinesError ||
+      imageError
     ) {
       setErrors({
-        name: name === "",
-        description: description === "",
-        description_short: description_short === "",
-        date: !date,
-        startTime: startTime === "",
-        endTime: endTime === "",
-        location: location === "",
-        guidelines: guidelines === "",
+        name: nameError,
+        description: descriptionError,
+        description_short: descriptionShortError,
+        date: dateError,
+        startTime: startTimeError,
+        endTime: endTimeError,
+        location: locationError,
+        guidelines: guidelinesError,
+        image: imageError,
       });
     } else {
       setIsEditing(false);
       if (eventDetails) {
-        console.log("eventDetails exist");
         await updateEvent({
           _id: eventDetails._id,
           name,
@@ -104,10 +127,9 @@ const EventSidebar = ({
           startTime,
           endTime,
           location,
-          imageURI: eventDetails.imageURI,
+          imageURI: image,
           description_short,
         });
-        console.log("after updating event");
       } else {
         await createEvent({
           name,
@@ -117,23 +139,63 @@ const EventSidebar = ({
           startTime,
           endTime,
           location,
-          imageURI:
-            "https://images.unsplash.com/photo-1559027615-cd4628902d4a?q=80&w=2674&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          imageURI: image,
           description_short,
         });
-        console.log("after creating event");
       }
 
+      updateRecord("event-creator").catch(console.error);
       setIsEditing(false);
       setErrors({});
       setShowAlert(true);
       window.location.reload();
-      console.log("last line in save");
+    }
+  };
+
+  // handle changing image url on event to "" if user deletes image
+  const onImageDelete = async () => {
+    setImage("");
+    // immediately update event, can't undo image delete
+    if (eventDetails) {
+      await updateEvent({
+        ...eventDetails,
+        imageURI: "",
+      });
+      updateRecord("event-creator").catch(console.error);
+    }
+  };
+
+  // handle updating image on image dropzone upload
+  const onImageUpload = async (url: string) => {
+    // can't undo image upload, save immediately
+    if (eventDetails) {
+      await updateEvent({
+        ...eventDetails,
+        imageURI: url,
+      });
+      updateRecord("event-creator").catch(console.error);
     }
   };
 
   const handleDelete = () => {
-    setIsDeleting(true);
+    if (eventDetails) {
+      // delete image from firebase
+      deleteFile(image).catch(console.error);
+      // delete newsletter
+      deleteEventDetails(eventDetails._id)
+        .then((result) => {
+          if (result.success) {
+            updateRecord("event-creator").catch(console.error);
+          } else {
+            console.error("ERROR:", result.error);
+          }
+        })
+        .catch((error) => {
+          alert(error);
+        });
+      setSidebarOpen(false);
+      window.location.reload();
+    }
   };
 
   const alertContent = {
@@ -187,7 +249,13 @@ const EventSidebar = ({
           <h2>Guidelines</h2>
           <pre className={styles.textAreaContent}>{guidelines}</pre>
           <h2>Image</h2>
-          <p>Placeholder - to be replaced with image</p>
+          <SimpleImageDropzone
+            folder="event-editor"
+            url={image}
+            setUrl={setImage}
+            onDelete={onImageDelete}
+            onUpload={onImageUpload}
+          />
 
           <WarningModule
             titleText="Are you sure you want to delete this event?"
@@ -247,7 +315,7 @@ const EventSidebar = ({
                   setName(event.target.value);
                 }}
                 error={errors.name}
-                maxCount={35}
+                maxCount={EVENT_TITLE_CHAR_LIMIT}
               />
               <TextAreaCharLimit
                 label="Event Description (short)"
@@ -259,7 +327,7 @@ const EventSidebar = ({
                   setDescription_short(event.target.value);
                 }}
                 error={errors.description_short}
-                maxCount={200}
+                maxCount={EVENT_DESCRIPTION_SHORT_CHAR_LIMIT}
               />
               <TextAreaCharLimit
                 label="Event Description (long)"
@@ -271,7 +339,7 @@ const EventSidebar = ({
                   setDescription(event.target.value);
                 }}
                 error={errors.description}
-                maxCount={275}
+                maxCount={EVENT_DESCRIPTION_LONG_CHAR_LIMIT}
               />
               <div className={styles.textField}>
                 <DatePicker
@@ -354,6 +422,14 @@ const EventSidebar = ({
                 }}
                 error={errors.guidelines}
               />
+              <h2>Image</h2>
+              <SimpleImageDropzone
+                folder="event-editor"
+                url={image}
+                setUrl={setImage}
+                onDelete={onImageDelete}
+                onUpload={onImageUpload}
+              />
             </div>
           </form>
         </div>
@@ -431,14 +507,35 @@ const EventSidebar = ({
           <h2>Guidelines</h2>
           <pre className={styles.textAreaContent}>{guidelines}</pre>
           <h2>Image</h2>
-          <p>Placeholder - to be replaced with image</p>
+          <SimpleImageDropzone
+            folder="event-editor"
+            url={image}
+            setUrl={setImage}
+            onDelete={onImageDelete}
+            onUpload={onImageUpload}
+          />
 
           {/* Delete button */}
-          <div className={styles.deleteButtonWrapper}>
-            <button onClick={handleDelete} className={styles.deleteButton}>
-              <p>Delete</p>
-            </button>
-          </div>
+
+          <WarningModule
+            titleText="Are you sure you want to delete this event?"
+            subtitleText="This action is permanent and cannot be undone."
+            cancelText="No, cancel"
+            actionText="Delete Event"
+            cancel={confirmCancel}
+            action={handleDelete}
+          >
+            <div className={styles.deleteButtonWrapper}>
+              <button
+                onClick={() => {
+                  setIsDeleting(true);
+                }}
+                className={styles.deleteButton}
+              >
+                <p>Delete</p>
+              </button>
+            </div>
+          </WarningModule>
         </div>
       </div>
     );

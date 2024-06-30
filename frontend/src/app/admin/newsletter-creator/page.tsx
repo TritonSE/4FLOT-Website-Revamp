@@ -58,6 +58,15 @@ export default function NewsletterCreator() {
       cellClassName: `${styles.cellEntry} ${styles.cellBorderStyle}`,
       disableColumnMenu: true,
       renderHeader: () => <div>Date</div>,
+      renderCell: (params) => {
+        const { date } = params.row;
+        const formattedDate = new Date(date).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+        return formattedDate;
+      },
     },
   ];
 
@@ -177,7 +186,6 @@ export default function NewsletterCreator() {
   const handleUpdateNewsletter = async (newsletterData: Newsletter) => {
     const result = await updateNewsletter(newsletterData);
     if (!result.success) {
-      console.log("result was not a success");
       alert(result.error);
       console.error("ERROR:", result.error);
     }

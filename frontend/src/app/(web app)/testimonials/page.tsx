@@ -30,7 +30,6 @@ export default function Impact() {
   const [loading, setLoading] = useState(false);
 
   const loadTestimonials = () => {
-    console.log("getting from loadTestimonials");
     getAllTestimonials()
       .then((result) => {
         if (result.success) {

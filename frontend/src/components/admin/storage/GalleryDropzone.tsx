@@ -49,7 +49,7 @@ function IconAndText({ capped, uploading, disabled }: IconTextProps) {
 
 export default function GalleryDropzone({ field }: GalleryDropProps) {
   const storage = getStorage();
-  const [uploadFile, uploading, snapshot, error] = useUploadFile();
+  const [uploadFile, uploading, error] = useUploadFile();
   const accept = {
     "image/*": [".jpeg", ".jpg", ".png"],
   };
@@ -92,8 +92,7 @@ export default function GalleryDropzone({ field }: GalleryDropProps) {
     await uploadFile(storageRef, file);
     const url = await getDownloadURL(storageRef);
 
-    if (error) console.log(error);
-    if (snapshot) console.log(snapshot);
+    if (error) console.error(error);
 
     return url;
   }

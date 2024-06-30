@@ -21,7 +21,6 @@ export default function Team() {
     getAllMembers()
       .then((result) => {
         if (result.success) {
-          console.log(result.data);
           setMembers(result.data);
         } else {
           alert(result.error);

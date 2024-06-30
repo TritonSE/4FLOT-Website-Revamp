@@ -99,15 +99,9 @@ const ContactForm: React.FC = () => {
       subject,
       message,
       question: questionType,
-    }).then(
-      () => {
-        console.log("Email sent!");
-      },
-      (error) => {
-        // If the .then() request fails, show the error message
-        alert(error);
-      },
-    );
+    }).catch((error) => {
+      alert(error);
+    });
   };
 
   return (

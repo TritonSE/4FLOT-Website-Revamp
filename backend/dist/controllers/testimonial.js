@@ -26,11 +26,9 @@ const createTestimonial = (req, res, next) => __awaiter(void 0, void 0, void 0, 
             image: image,
             type: type,
         });
-        console.log("testimonial: ", testimonial);
         res.status(201).json(testimonial);
     }
     catch (error) {
-        console.log("erroring here");
         next(error);
     }
 });
