@@ -15,6 +15,10 @@ import AlertBanner from "@/components/AlertBanner";
 import { TextField } from "@/components/TextField";
 import { WarningModule } from "@/components/WarningModule";
 
+const EVENT_TITLE_CHAR_LIMIT = 35;
+const EVENT_DESCRIPTION_SHORT_CHAR_LIMIT = 200;
+const EVENT_DESCRIPTION_LONG_CHAR_LIMIT = 275;
+
 type eventSidebarProps = {
   eventDetails: null | EventDetails;
   setSidebarOpen: (open: boolean) => void;
@@ -71,25 +75,36 @@ const EventSidebar = ({
   };
 
   const handleSave = async () => {
+    const nameError = name === "" || name.length > EVENT_TITLE_CHAR_LIMIT;
+    const descriptionError =
+      description === "" || description.length > EVENT_DESCRIPTION_LONG_CHAR_LIMIT;
+    const descriptionShortError =
+      description_short === "" || description_short.length > EVENT_DESCRIPTION_SHORT_CHAR_LIMIT;
+    const dateError = !date;
+    const startTimeError = startTime === "";
+    const endTimeError = endTime === "";
+    const locationError = location === "";
+    const guidelinesError = guidelines === "";
+
     if (
-      name === "" ||
-      description === "" ||
-      description_short === "" ||
-      !date ||
-      startTime === "" ||
-      endTime === "" ||
-      location === "" ||
-      guidelines === ""
+      nameError ||
+      descriptionError ||
+      descriptionShortError ||
+      dateError ||
+      startTimeError ||
+      endTimeError ||
+      locationError ||
+      guidelinesError
     ) {
       setErrors({
-        name: name === "",
-        description: description === "",
-        description_short: description_short === "",
-        date: !date,
-        startTime: startTime === "",
-        endTime: endTime === "",
-        location: location === "",
-        guidelines: guidelines === "",
+        name: nameError,
+        description: descriptionError,
+        description_short: descriptionShortError,
+        date: dateError,
+        startTime: startTimeError,
+        endTime: endTimeError,
+        location: locationError,
+        guidelines: guidelinesError,
       });
     } else {
       setIsEditing(false);
@@ -247,7 +262,7 @@ const EventSidebar = ({
                   setName(event.target.value);
                 }}
                 error={errors.name}
-                maxCount={35}
+                maxCount={EVENT_TITLE_CHAR_LIMIT}
               />
               <TextAreaCharLimit
                 label="Event Description (short)"
@@ -259,7 +274,7 @@ const EventSidebar = ({
                   setDescription_short(event.target.value);
                 }}
                 error={errors.description_short}
-                maxCount={200}
+                maxCount={EVENT_DESCRIPTION_SHORT_CHAR_LIMIT}
               />
               <TextAreaCharLimit
                 label="Event Description (long)"
@@ -271,7 +286,7 @@ const EventSidebar = ({
                   setDescription(event.target.value);
                 }}
                 error={errors.description}
-                maxCount={275}
+                maxCount={EVENT_DESCRIPTION_LONG_CHAR_LIMIT}
               />
               <div className={styles.textField}>
                 <DatePicker

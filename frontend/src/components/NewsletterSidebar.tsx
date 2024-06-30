@@ -15,6 +15,9 @@ import { deleteFile } from "@/app/admin/util/pageeditUtil";
 import { TextFieldCharLimit } from "./TextFieldCharLimit";
 import { TextAreaCharLimit } from "./TextAreaCharLimit";
 
+const NEWSLETTER_TITLE_CHAR_LIMIT = 35;
+const NEWSLETTER_DESCRIPTION_CHAR_LIMIT = 200;
+
 type newsletterSidebarProps = {
   newsletter: null | Newsletter;
   setSidebarOpen: (open: boolean) => void;
@@ -59,13 +62,20 @@ const NewsletterSidebar = ({
   };
 
   const handleSave = async () => {
-    if (title === "" || description === "" || date === "" || image === "" || content.length === 0) {
+    const titleError = title === "" || title.length > NEWSLETTER_TITLE_CHAR_LIMIT;
+    const descriptionError =
+      description === "" || description.length > NEWSLETTER_DESCRIPTION_CHAR_LIMIT;
+    const dateError = !date;
+    const imageError = image === "";
+    const contentError = content === "";
+
+    if (titleError || descriptionError || dateError || imageError || contentError) {
       setErrors({
-        title: title === "",
-        description: description === "",
-        date: date === "",
-        image: image === "",
-        content: content.length === 0,
+        title: titleError,
+        description: descriptionError,
+        date: dateError,
+        image: imageError,
+        content: contentError,
       });
     } else {
       setIsEditing(false);
@@ -254,7 +264,7 @@ const NewsletterSidebar = ({
                   setTitle(event.target.value);
                 }}
                 error={errors.title}
-                maxCount={35}
+                maxCount={NEWSLETTER_TITLE_CHAR_LIMIT}
               />
               <TextAreaCharLimit
                 className={`${styles.textField} ${styles.stretch}`}
@@ -266,7 +276,7 @@ const NewsletterSidebar = ({
                   setDescription(event.target.value);
                 }}
                 error={errors.description}
-                maxCount={200}
+                maxCount={NEWSLETTER_DESCRIPTION_CHAR_LIMIT}
               />
               <TextField
                 className={`${styles.textField} ${styles.stretch}`}
