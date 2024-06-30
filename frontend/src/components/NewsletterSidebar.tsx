@@ -12,6 +12,8 @@ import { WarningModule } from "./WarningModule";
 import SimpleImageDropzone from "./admin/storage/SimpleImageDropzone";
 
 import { deleteFile } from "@/app/admin/util/pageeditUtil";
+import { TextFieldCharLimit } from "./TextFieldCharLimit";
+import { TextAreaCharLimit } from "./TextAreaCharLimit";
 
 type newsletterSidebarProps = {
   newsletter: null | Newsletter;
@@ -243,23 +245,28 @@ const NewsletterSidebar = ({
           </div>
           <form>
             <div className={styles.formRow}>
-              <TextField
+              <TextFieldCharLimit
                 className={styles.textField}
                 label="Newsletter Title"
+                placeholder="Newsletter Title"
                 value={title}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                   setTitle(event.target.value);
                 }}
                 error={errors.title}
+                maxCount={35}
               />
-              <TextField
+              <TextAreaCharLimit
                 className={`${styles.textField} ${styles.stretch}`}
                 label="Newsletter Description"
+                placeholder="This is a short description of your newsletter that will be displayed on the newsletter page."
+                id="description"
                 value={description}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                onChange={(event) => {
                   setDescription(event.target.value);
                 }}
                 error={errors.description}
+                maxCount={200}
               />
               <TextField
                 className={`${styles.textField} ${styles.stretch}`}
