@@ -47,6 +47,7 @@ exports.getEventDetails = getEventDetails;
 const createEventDetails = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const errors = (0, express_validator_1.validationResult)(req);
     const { name, description, guidelines, date, startTime, endTime, location, imageURI, description_short, } = req.body;
+    console.log("events date: ", date);
     try {
         (0, validationErrorParser_1.default)(errors);
         const eventDetails = yield eventDetails_1.default.create({
