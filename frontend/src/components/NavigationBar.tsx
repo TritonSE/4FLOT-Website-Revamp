@@ -156,17 +156,6 @@ const NavigationBar = () => {
               Mailing List
             </Link>
           </div>
-          <div className={activeMenu === "Settings" ? styles.menuActive : styles.menuDiv}>
-            <Image width={18} height={18} src="/settingsIcon.svg" alt="Settings Icon" />
-            <Link
-              href="/admin/settings"
-              onClick={() => {
-                handleOnClick("Settings");
-              }}
-            >
-              Settings
-            </Link>
-          </div>
         </div>
       </div>
     </div>

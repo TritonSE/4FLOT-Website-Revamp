@@ -1,19 +1,17 @@
 .page {
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  margin-left: 234px;
-  margin-top: 50px;
+  padding-left: 90px;
+  padding-top: 50px;
 }
 
 .gridContainer {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-gap: 50px;
   max-width: 100%;
   margin-top: 50px;
-  margin-left: 140px;
+  margin-left: 200px;
   margin-bottom: 50px;
-  gap: 50px;
 }
