@@ -24,7 +24,6 @@ const Footer = () => {
     instagramLink: "https://www.instagram.com/4_futureleadersoftomorrow/",
     youtubeLink: "https://youtube.com/@4flot?si=pPYwcHA8qQjheU_a",
     twitterLink: "https://x.com/4flot?s=11&t=dZuyjiYpwbB9rVwU4VTibw",
-    tiktokLink: "/",
     aboutUs: "/about",
     getInvolved: "/involved",
     ourImpact: "/impact",
@@ -217,15 +216,6 @@ const Footer = () => {
               className={styles.twitterLogo}
               src="/twitterIcon.svg"
               alt="Link to Twitter"
-            />
-          </a>
-          <a href={links.tiktokLink}>
-            <Image
-              width={48}
-              height={48}
-              className={styles.tiktokLogo}
-              src="/tiktokIcon.svg"
-              alt="Link to Tiktok"
             />
           </a>
         </div>
