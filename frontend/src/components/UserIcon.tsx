@@ -42,7 +42,7 @@ export default function UserIcon() {
           alt="Profile Picture"
         />
 
-        <h1 className="ml-4 cursor-default">John Doe</h1>
+        <h1 className="ml-4 cursor-default">4FLOT Admin</h1>
         <IconButton
           onClick={handleClick}
           size="small"

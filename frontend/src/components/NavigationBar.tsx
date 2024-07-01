@@ -50,8 +50,6 @@ const NavigationBar = () => {
           return "Newsletter Creator";
         } else if (url === "/admin/mailing-list") {
           return "Mailing List";
-        } else if (url === "/admin/settings") {
-          return "Settings";
         } else {
           return url;
         }
@@ -154,17 +152,6 @@ const NavigationBar = () => {
               }}
             >
               Mailing List
-            </Link>
-          </div>
-          <div className={activeMenu === "Settings" ? styles.menuActive : styles.menuDiv}>
-            <Image width={18} height={18} src="/settingsIcon.svg" alt="Settings Icon" />
-            <Link
-              href="/admin/settings"
-              onClick={() => {
-                handleOnClick("Settings");
-              }}
-            >
-              Settings
             </Link>
           </div>
         </div>
