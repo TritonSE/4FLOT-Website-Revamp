@@ -50,8 +50,6 @@ const NavigationBar = () => {
           return "Newsletter Creator";
         } else if (url === "/admin/mailing-list") {
           return "Mailing List";
-        } else if (url === "/admin/settings") {
-          return "Settings";
         } else {
           return url;
         }
